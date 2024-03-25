@@ -1,5 +1,7 @@
 import React from 'react';
 import Downpie from './downpie';
+import Item from './item';
+import Loginterms from './loginterms';
 
 export default ()=>{
         let data = [
@@ -59,7 +61,7 @@ export default ()=>{
         }
     ];
     return <div>
-        <Downpie
+        {/* <Downpie
             emptyRadius={50}
             data={data}
             width={900}
@@ -68,6 +70,8 @@ export default ()=>{
             nameKey="name"
             downKey="down"
             step={[50, 50, 20]}
-        />
+        /> */}
+        {/* <Item></Item> */}
+        <Loginterms/>
     </div>
 }
