@@ -8,7 +8,7 @@ hydrateRoot(
     document.querySelector("#root"),
     <React.StrictMode>
         <ChakraProvider>
-            <App/>
+            <App />
         </ChakraProvider>
     </React.StrictMode>
 )
