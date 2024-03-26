@@ -1,7 +1,11 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
 import LoL from '../pages/LoL'
+import Baseball from '../pages/Baseball'
 import TopicRequest from '../pages/TopicRequest';
+import Store from '../pages/Store';
+import Route, { Routes } from 'react-router-dom';
+
 export default () => {
     //     let data = [
     //     {
@@ -71,11 +75,12 @@ export default () => {
     //         step={[50, 50, 20]}
     //     />
     // </div>
-    return <Box bg={"gray.50"}>
-        {/* <Header />
-        <Main />
-        <Footer /> */}
-        {/* <LoL /> */}
-        <TopicRequest />
-    </Box>
-}  
+
+    return <Routes>
+        <Box bg={"gray.50"}>
+            <Route>
+                <Baseball />
+            </Route>
+        </Box >
+    </Routes>
+}
