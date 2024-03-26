@@ -16,7 +16,7 @@ export default () => {
   return (
     <Box borderBottom="3px solid #0B0B0D">
       <Grid maxWidth="1280px" margin="auto" templateColumns='1fr 3fr 2fr'>
-        <Box w="150px" h={20} marginLeft="20px"><Image w="100%" h="100%" src='/static/img/logoo.png' /></Box>
+        <Box w="150px" h={20} marginLeft="20px"><Image w="100%" h="100%" src='/static/img/logo.png' /></Box>
 
         <Stack direction="row" spacing={10} align="center" >
           <Button
