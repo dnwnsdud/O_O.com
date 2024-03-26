@@ -2,6 +2,8 @@ import { Box } from '@chakra-ui/react';
 import React from 'react';
 import LoL from '../pages/LoL'
 import TopicRequest from '../pages/TopicRequest';
+import Signup from '../pages/Signup';
+import Login from '../pages/Login';
 export default () => {
     //     let data = [
     //     {
@@ -76,6 +78,9 @@ export default () => {
         <Main />
         <Footer /> */}
         {/* <LoL /> */}
-        <TopicRequest />
+        {/* <TopicRequest /> */}
+        {/* <Signup /> */}
+        <Login />
+        
     </Box>
 }  
