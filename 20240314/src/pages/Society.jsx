@@ -1,17 +1,10 @@
-import React from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import Today from "./Today";
 import {
   Box,
-  Button,
-  ButtonGroup,
-  Flex,
-  Grid,
-  HStack,
-  VStack,
+  Grid
 } from "@chakra-ui/react";
-import Ciboard from "./board/Ciboard";
+import React from "react";
+import Today from "../component/board/Today";
+import Ciboard from "../component/board/Ciboard";
 
 export default () => {
   return (

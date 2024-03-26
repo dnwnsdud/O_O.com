@@ -1,5 +1,5 @@
+import { Box, Button, Center, Divider, Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Select, Stack, Text, Textarea } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { Button, Box, Center, Divider, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Select, Text, Textarea, Stack, Flex } from '@chakra-ui/react';
 
 export default () => {
     const [input, setInput] = useState('')
