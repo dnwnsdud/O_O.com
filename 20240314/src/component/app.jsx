@@ -1,3 +1,9 @@
+import React from 'react';
+import Downpie from './downpie';
+import Main from '../views/Main';
+import TopicRequest from '../views/TopicRequest'
+import WriteNotice from '../views/WriteNotice';
+import { Stack } from "@chakra-ui/react";
 import { Box } from '@chakra-ui/react';
 import React from 'react';
 import LoL from '../pages/LoL'
