@@ -1,9 +1,16 @@
-import React from 'react';
-import Downpie from './downpie';
+import React from "react";
+import Downpie from "./downpie";
+import Header from "./Header";
+import Footer from "./Footer";
+import Baseball from "./Baseball";
+
 
 export default () => {
-
-    return <div>
-
-    </div>
-}
+    return (
+        <>
+            <Header />
+            <Baseball />
+            <Footer />
+        </>
+    );
+};
