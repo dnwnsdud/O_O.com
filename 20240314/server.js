@@ -46,7 +46,7 @@ app.use(session({
     store: new connectRedis({
         client: redisClient,
         prefix: "ssid:",
-        ttl: 36000000,
+        ttl: 3600000,
         scanCount: 100
     })
 }));

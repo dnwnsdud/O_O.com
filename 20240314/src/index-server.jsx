@@ -1,6 +1,6 @@
+import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { ChakraProvider } from '@chakra-ui/react';
 import App from './component/App';
 
 export function render() {

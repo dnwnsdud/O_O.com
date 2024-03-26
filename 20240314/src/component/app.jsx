@@ -1,18 +1,7 @@
-import React from 'react';
-import Downpie from './downpie';
-import Main from '../views/Main';
-import TopicRequest from '../views/TopicRequest'
-import WriteNotice from '../views/WriteNotice';
-import { Stack } from "@chakra-ui/react";
 import { Box } from '@chakra-ui/react';
-import UserTerms from '../views/UserTerms';
-import Header from "./Header";
-import Footer from "./Footer";
-// import Baseball from "./Baseball";
-// import LoL from "./LoL";
-// import Soccer from './Soccer';
-// import Society from './Society';
-import Result from './Result';
+import React from 'react';
+import LoL from '../pages/LoL'
+import TopicRequest from '../pages/TopicRequest';
 export default () => {
     //     let data = [
     //     {
@@ -83,16 +72,10 @@ export default () => {
     //     />
     // </div>
     return <Box bg={"gray.50"}>
-        <Header />
+        {/* <Header />
         <Main />
-        {/* <TopicRequest /> */}
-        {/* <WriteNotice /> */}
-        {/* <UserTerms/> */}
-        {/* <Baseball /> */}
+        <Footer /> */}
         {/* <LoL /> */}
-        {/* <Soccer /> */}
-        {/* <Society /> */}
-        {/* <Result /> */}
-        <Footer />
+        <TopicRequest />
     </Box>
-}
+}  
