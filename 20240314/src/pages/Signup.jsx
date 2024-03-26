@@ -1,4 +1,4 @@
-import { Box, Button, Center, FormControl, FormErrorMessage, FormHelperText, FormLabel, Grid, HStack, Input, Link, Stack } from "@chakra-ui/react";
+import { Box, Button, Center, FormControl, FormErrorMessage, FormHelperText, FormLabel, Grid, HStack, Input, InputGroup, InputRightElement, Link, Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 export default ()=>{
@@ -7,6 +7,10 @@ export default ()=>{
     const [input3, setInput3] = useState('')
     const [input4, setInput4] = useState('')
     const [input5, setInput5] = useState('')
+    const [show, setShow] = React.useState(false)
+    const handleClick = () => setShow(!show)
+    const [show2, setShow2] = React.useState(false)
+    const handleClick2 = () => setShow2(!show2)
 
     const handleInputChange = (e) => setInput(e.target.value)
     const handleInputChange2 = (e) => setInput2(e.target.value)
@@ -36,7 +40,18 @@ export default ()=>{
             </FormControl>
             <FormControl isInvalid={isError2}>
                 <FormLabel>패스워드</FormLabel>
-                <Input type='password' value={input2} onChange={handleInputChange2} />
+                <InputGroup size='md'>
+                    <Input
+                        pr='4.5rem'
+                        type={show ? 'text' : 'password'}
+                        value={input2} onChange={handleInputChange2}
+                    />
+                    <InputRightElement width='4.5rem'>
+                        <Button h='1.75rem' size='sm' onClick={handleClick}>
+                        {show ? 'Hide' : 'Show'}
+                        </Button>
+                    </InputRightElement>
+                </InputGroup>
                     {!isError2 ? (
                         <FormHelperText>
                         사용가능한 패스워드 입니다.
@@ -47,7 +62,18 @@ export default ()=>{
             </FormControl>
             <FormControl isInvalid={isError3}>
                 <FormLabel>패스워드 확인</FormLabel>
-                <Input type='password' value={input3} onChange={handleInputChange3} />
+                <InputGroup size='md'>
+                    <Input
+                        pr='4.5rem'
+                        type={show2 ? 'text' : 'password'}
+                        value={input3} onChange={handleInputChange3}
+                    />
+                    <InputRightElement width='4.5rem'>
+                        <Button h='1.75rem' size='sm' onClick={handleClick2}>
+                        {show2 ? 'Hide' : 'Show'}
+                        </Button>
+                    </InputRightElement>
+                </InputGroup>
                     {!isError3 ? (
                         input2 === input3 ? (
                         <FormHelperText>
