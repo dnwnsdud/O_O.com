@@ -1,6 +1,10 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
 import LoL from '../pages/LoL'
+import Footer from './Footer';
+import Header from './Header';
+import Store from '../pages/Store';
+import Main from './Main';
 import TopicRequest from '../pages/TopicRequest';
 export default () => {
     //     let data = [
@@ -72,10 +76,11 @@ export default () => {
     //     />
     // </div>
     return <Box bg={"gray.50"}>
-        {/* <Header />
-        <Main />
-        <Footer /> */}
+        <Header />
+        {/* <Main /> */}
+        <Store/>
+        <Footer />
         {/* <LoL /> */}
-        <TopicRequest />
+        {/* <TopicRequest /> */}
     </Box>
 }  

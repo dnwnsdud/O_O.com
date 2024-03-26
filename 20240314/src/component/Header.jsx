@@ -14,13 +14,14 @@ import {
 export default () => {
 
   return (
-    <Box borderBottom="3px solid #0B0B0D">
-      <Grid maxWidth="1280px" margin="auto" templateColumns='1fr 3fr 2fr'>
+    <Box borderBottom="3px solid #0B0B0D" bg="white" mb='2.5rem'>
+    {/* <Grid maxWidth="1280px" margin="auto" templateColumns='1fr 3fr 2fr'>   */}
+      <Grid maxWidth="55%" margin="auto" templateColumns='1fr 3fr 2fr'> 
         <Box w="150px" h={20} marginLeft="20px"><Image w="100%" h="100%" src='/static/img/logo.png' /></Box>
 
-        <Stack direction="row" spacing={10} align="center" >
+        <Stack direction="row" spacing={5} align="center">
           <Button
-            w="70px"
+            w="50px"
             h="10"
             display="flex"
             justifyContent="center"
@@ -29,7 +30,7 @@ export default () => {
             야구
           </Button>
           <Button
-            w="70px"
+            w="50px"
             h="10"
             display="flex"
             justifyContent="center"
@@ -38,7 +39,7 @@ export default () => {
             LOL
           </Button>
           <Button
-            w="70px"
+            w="50px"
             h="10"
             display="flex"
             justifyContent="center"
@@ -47,7 +48,7 @@ export default () => {
             축구
           </Button>
           <Button
-            w="70px"
+            w="50px"
             h="10"
             display="flex"
             justifyContent="center"
@@ -56,7 +57,7 @@ export default () => {
             사회
           </Button>
           <Button
-            w="70px"
+            w="50px"
             h="10"
             display="flex"
             justifyContent="center"
@@ -66,7 +67,7 @@ export default () => {
           </Button>
         </Stack>
 
-        <Stack direction="row" spacing={5} align="center" justify="flex-end" paddingRight={20}>
+        <Stack direction="row" spacing={3} align="center" justify="flex-end" paddingRight={20}>
           <Button size="xs">
             공지사항
           </Button>

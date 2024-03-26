@@ -1,36 +1,38 @@
 import React from 'react';
-import { Box, Button, ButtonGroup, Flex, Grid, HStack, VStack } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Flex, Grid, HStack, VStack, Text, Link } from '@chakra-ui/react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 export default () => {
-  return <Box borderTop="3px solid #0B0B0D">
-    <Grid templateColumns='1fr 1fr 1fr' gap={4} padding='30px 50px' margin="auto" width="1280px" >
-      <Box>
-        <Box>대표자: 우준영</Box>
-        <Box>연락처: 010-1234-1234</Box>
+  return <Box borderTop="3px solid #0B0B0D"  height={'10rem'} bg='#0B0B0D'alignContent={'center'} color='#aaa' >
+    {/* <Grid templateColumns='1fr 0.5fr 1fr' gap={4} padding='30px 50px' margin="auto" width="1280px" > */}
+    <VStack height={'80%'} >      
+        <Box  fontSize='sm' textAlign={'center'} >
+        <Text>대표자 우준영</Text>
+        <Text>고객센터 010-1234-1234</Text>
       </Box>
-      <Grid templateColumns='1fr 1fr' justifyContent='center' alignItems='center'>
-        <Box >이용약관</Box>
-        <Box>개인정보처리방침</Box>
+      <Grid templateColumns='1fr 1fr' justifyContent='center' alignItems='center' textAlign={'center'} width={'14rem'} >
+        <Link width={'5rem'} fontSize='sm'>이용약관</Link>
+        <Link width={'9rem'} fontSize='sm'>개인정보처리방침</Link>
       </Grid>
-      <ButtonGroup variant='ghost' spacing='3' justifyContent='center' alignItems='center'>
-        <Button colorScheme='facebook' >
+      <ButtonGroup variant='ghost' spacing='3' justifyContent='end' alignItems='center'>
+        <Button colorScheme='facebook'>
           <HStack>
-            <FaFacebook size='40px' />
+            <FaFacebook size='25px' />
           </HStack>
         </Button>
         <Button colorScheme='twitter'>
           <HStack >
-            <FaTwitter size='40px' />
+            <FaTwitter size='25px' />
           </HStack>
         </Button>
         <Button colorScheme='pink'>
           <HStack>
-            <FaInstagram size='40px' />
+            <FaInstagram size='25px' />
           </HStack>
         </Button>
       </ButtonGroup>
+      </VStack>
 
-    </Grid>
+    {/* </Grid> */}
   </Box>
 }
