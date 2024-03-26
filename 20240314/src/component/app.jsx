@@ -1,5 +1,5 @@
 import React from 'react';
-import Downpie from './Downpie';
+import Downpie from './downpie';
 import Main from '../views/Main';
 import TopicRequest from '../views/TopicRequest'
 import WriteNotice from '../views/WriteNotice';
@@ -84,7 +84,7 @@ export default () => {
     // </div>
     return <Box bg={"gray.50"}>
         <Header />
-        {/* <Main /> */}
+        <Main />
         {/* <TopicRequest /> */}
         {/* <WriteNotice /> */}
         {/* <UserTerms/> */}
@@ -92,7 +92,7 @@ export default () => {
         {/* <LoL /> */}
         {/* <Soccer /> */}
         {/* <Society /> */}
-        <Result />
+        {/* <Result /> */}
         <Footer />
     </Box>
 }
