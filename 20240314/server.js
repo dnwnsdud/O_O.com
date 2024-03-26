@@ -21,54 +21,54 @@ app.set('view engine', 'ejs');
 app.set('views', 'src/views');
 
 const schemas = {};
-// const redisClient = redis.createClient({url:process.env.REDIS_URI});
-// mongoose.connect(process.env.MONGO_URI, {
-//     autoIndex:true,
-//     maxPoolSize:200,
-//     minPoolSize:50
-// });
-// redisClient.connect();
-// let models = fs.readdirSync("./src/models", {encoding:"utf-8"});
-// for(let key of models) schemas[key] = mongoose.model(key, (await import(`./src/models/${key}`)).default);
-// app.use(process.env.API_BASE, express.json());
-// app.use(process.env.API_BASE, express.raw());
-// app.use(process.env.API_BASE, express.text());
-// app.use(process.env.API_BASE, express.urlencoded({extended:true}));
-// app.use(session({
-//     secret:process.env.COOKIE_SECRET,
-//     resave:true,
-//     saveUninitialized:true,
-//     rolling:true,
-//     cookie:{
-//         maxAge:parseInt(process.env.MAX_AGE),
-//         secure:false
-//     },
-//     store: new connectRedis({
-//         prefix:"ssid:",
-//         ttl:parseInt(process.env.MAX_AGE),
-//         scanCount:100,
-//         client:redisClient
-//     })
-// }));
-// app.use(cors({
-//     origin:`https://${process.env.DOMAIN}`,
-//     methods:['get','post','put','delete'],
-//     allowedHeaders:['Content-Type'],
-//     exposedHeaders:['Content-Type'],
-//     maxAge:parseInt(process.env.MAX_AGE)
-// }));
-// app.use('/static', express.static('static', {
-//     dotfiles:'ignore',
-//     extensions:[],
-//     fallthrough:true,
-//     immutable:false,
-//     maxAge:parseInt(process.env.MAX_AGE),
-//     index:false,
-//     redirect:false
-// }));
-// app.use((req,res,next)=>{ req.mongo = schemas; next(); });
-// app.use(passport.initialize());
-// app.use(passport.session());
+const redisClient = redis.createClient({url:process.env.REDIS_URI});
+mongoose.connect(process.env.MONGO_URI, {
+    autoIndex:true,
+    maxPoolSize:200,
+    minPoolSize:50
+});
+redisClient.connect();
+let models = fs.readdirSync("./src/models", {encoding:"utf-8"});
+for(let key of models) schemas[key] = mongoose.model(key, (await import(`./src/models/${key}`)).default);
+app.use(process.env.API_BASE, express.json());
+app.use(process.env.API_BASE, express.raw());
+app.use(process.env.API_BASE, express.text());
+app.use(process.env.API_BASE, express.urlencoded({extended:true}));
+app.use(session({
+    secret:process.env.COOKIE_SECRET,
+    resave:true,
+    saveUninitialized:true,
+    rolling:true,
+    cookie:{
+        maxAge:parseInt(process.env.MAX_AGE),
+        secure:false
+    },
+    store: new connectRedis({
+        prefix:"ssid:",
+        ttl:parseInt(process.env.MAX_AGE),
+        scanCount:100,
+        client:redisClient
+    })
+}));
+app.use(cors({
+    origin:`https://${process.env.DOMAIN}`,
+    methods:['get','post','put','delete'],
+    allowedHeaders:['Content-Type'],
+    exposedHeaders:['Content-Type'],
+    maxAge:parseInt(process.env.MAX_AGE)
+}));
+app.use('/static', express.static('static', {
+    dotfiles:'ignore',
+    extensions:[],
+    fallthrough:true,
+    immutable:false,
+    maxAge:parseInt(process.env.MAX_AGE),
+    index:false,
+    redirect:false
+}));
+app.use((req,res,next)=>{ req.mongo = schemas; next(); });
+app.use(passport.initialize());
+app.use(passport.session());
 
 // passport.use('local', new localS({
 //     usernameField:"id",
@@ -122,23 +122,23 @@ const schemas = {};
 //     done(null, data);
 // });
 
-// app.post(process.env.LOCAL_CALLBACK, passport.authenticate('local',{
-//     successRedirect:process.env.HOME,
-//     failureRedirect:process.env.LOGIN
-// }));
-// app.get(process.env.NAVER_CALLBACK, passport.authenticate('naver',{
-//     successRedirect:process.env.HOME,
-//     failureRedirect:process.env.LOGIN
-// }));
-// app.get(process.env.KAKAO_CALLBACK, passport.authenticate('kakao',{
-//     successRedirect:process.env.HOME,
-//     failureRedirect:process.env.LOGIN
-// }));
-// app.get(process.env.GOOGLE_CALLBACK, passport.authenticate('google',{
-//     successRedirect:process.env.HOME,
-//     failureRedirect:process.env.LOGIN,
-//     scope:['profile','email']
-// }));
+app.post(process.env.LOCAL_CALLBACK, passport.authenticate('local',{
+    successRedirect:process.env.HOME,
+    failureRedirect:process.env.LOGIN
+}));
+app.get(process.env.NAVER_CALLBACK, passport.authenticate('naver',{
+    successRedirect:process.env.HOME,
+    failureRedirect:process.env.LOGIN
+}));
+app.get(process.env.KAKAO_CALLBACK, passport.authenticate('kakao',{
+    successRedirect:process.env.HOME,
+    failureRedirect:process.env.LOGIN
+}));
+app.get(process.env.GOOGLE_CALLBACK, passport.authenticate('google',{
+    successRedirect:process.env.HOME,
+    failureRedirect:process.env.LOGIN,
+    scope:['profile','email']
+}));
 
 const imagesUploader = multer({
     storage:multer.diskStorage({
