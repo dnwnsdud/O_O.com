@@ -5,6 +5,7 @@ import TopicRequest from '../views/TopicRequest'
 import WriteNotice from '../views/WriteNotice';
 import { Stack } from "@chakra-ui/react";
 import { Box } from '@chakra-ui/react';
+import UserTerms from '../views/UserTerms';
 export default () => {
     //     let data = [
     //     {
@@ -78,5 +79,6 @@ export default () => {
         {/* <Main /> */}
         {/* <TopicRequest /> */}
         {/* <WriteNotice /> */}
+        {/* <UserTerms/> */}
     </Box>
 }
