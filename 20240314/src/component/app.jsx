@@ -5,6 +5,14 @@ import TopicRequest from '../views/TopicRequest'
 import WriteNotice from '../views/WriteNotice';
 import { Stack } from "@chakra-ui/react";
 import { Box } from '@chakra-ui/react';
+import UserTerms from '../views/UserTerms';
+import Header from "./Header";
+import Footer from "./Footer";
+// import Baseball from "./Baseball";
+// import LoL from "./LoL";
+// import Soccer from './Soccer';
+// import Society from './Society';
+import Result from './Result';
 export default () => {
     //     let data = [
     //     {
@@ -75,8 +83,16 @@ export default () => {
     //     />
     // </div>
     return <Box bg={"gray.50"}>
+        <Header />
         {/* <Main /> */}
         {/* <TopicRequest /> */}
         {/* <WriteNotice /> */}
+        {/* <UserTerms/> */}
+        {/* <Baseball /> */}
+        {/* <LoL /> */}
+        {/* <Soccer /> */}
+        {/* <Society /> */}
+        <Result />
+        <Footer />
     </Box>
 }
