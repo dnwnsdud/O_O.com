@@ -6,6 +6,7 @@ import Header from './Header';
 import Store from '../pages/Store';
 import Main from './Main';
 import TopicRequest from '../pages/TopicRequest';
+import Payment from '../pages/Payment';
 export default () => {
     //     let data = [
     //     {
@@ -78,7 +79,8 @@ export default () => {
     return <Box bg={"gray.50"}>
         <Header />
         {/* <Main /> */}
-        <Store/>
+        {/* <Store/> */}
+        <Payment/>
         <Footer />
         {/* <LoL /> */}
         {/* <TopicRequest /> */}

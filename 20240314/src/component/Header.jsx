@@ -7,7 +7,6 @@ import {
   Stack,
   Button,
   ButtonGroup,
-  Cneter,
   Image
 } from "@chakra-ui/react";
 
