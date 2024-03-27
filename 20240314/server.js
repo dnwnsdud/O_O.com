@@ -28,6 +28,7 @@ mongoose.connect(process.env.MONGO_URI, {
     minPoolSize: 50
 });
 redisClient.connect();
+
 let models = fs.readdirSync("./src/models", { encoding: "utf-8" });
 for (let key of models) schemas[key] = mongoose.model(key, (await import(`./src/models/${key}`)).default);
 app.use(process.env.API_BASE, express.json());
@@ -50,6 +51,7 @@ app.use(session({
         scanCount: 100
     })
 }));
+
 app.use(cors({
     origin: `https://${process.env.DOMAIN}`,
     methods: ['get', 'post', 'put', 'delete'],
@@ -66,6 +68,7 @@ app.use('/static', express.static('static', {
     index: false,
     redirect: false
 }));
+
 app.use((req, res, next) => { req.mongo = schemas; next(); });
 app.use(passport.initialize());
 app.use(passport.session());
@@ -113,6 +116,7 @@ passport.use('google', new googleS({
         done(null, undefined /** 유저 정보 */);
     } catch (e) { done(e); }
 }));
+
 passport.serializeUser((req, data, done) => {
     // 처음 로그인시
     done(null, data);
@@ -208,7 +212,9 @@ const vite = process.env.TYPE != 'dev' ?
         base: process.env.APP_BASE
     });
 
-if (process.env.TYPE == 'dev') app.use(process.env.APP_BASE, vite.middlewares);
+if (process.env.TYPE == 'dev') {
+    app.use(process.env.APP_BASE, vite.middlewares);
+}
 else {
     app.use(process.env.APP_BASE, compression());
     app.use(process.env.APP_BASE, sirv('./dist/client', { extensions: [] }));
@@ -216,20 +222,23 @@ else {
 
 app.use(process.env.APP_BASE, async (req, res, next) => {
     try {
-        const url = req.originalUrl.replace(process.env.APP_BASE, "");
+        const url = req.originalUrl;
         let template = process.env.TYPE == 'dev' ?
             await vite.transformIndexHtml(url, fs.readFileSync('./index.html', { encoding: "utf-8" })) :
             templateBuild;
+
         let render = process.env.TYPE == 'dev' ?
             (await vite.ssrLoadModule('./src/index-server.jsx')).render :
             renderBuild;
+
         res.status(200).set({ 'Content-Type': 'text/html' }).send(
             template.replace(
                 process.env.CONTAINER_HOLDER,
                 (await render(url, ssrManifest)).html
             )
         );
-    } catch (e) { next(new Error("react")); }
+
+    } catch (e) { next(new Error(e)); }
 });
 
 let postLogics = fs.readdirSync("./src/logic/post", { encoding: "utf-8" });

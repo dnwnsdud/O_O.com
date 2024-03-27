@@ -4,6 +4,6 @@ import React from "react";
 
 export default () => {
     return <Box>
-        hi
+        상점이에요
     </Box>
 }
