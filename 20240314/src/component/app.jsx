@@ -10,7 +10,7 @@ import st from '../pages/Store'
 import TopicRequest from '../pages/TopicRequest';
 import Store from '../pages/Store';
 import { Routes, Route } from 'react-router-dom';
-import Main from '../component/Main';
+import Main from './Main';
 import Layout from '../pages/Layout';
 
 export default () => {
