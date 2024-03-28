@@ -21,7 +21,7 @@ app.set("view engine", "ejs");
 app.set("views", "src/views");
 
 const schemas = {};
-// const redisClient = redis.createClient({ url: process.env.REDIS_URI });
+const redisClient = redis.createClient({ url: process.env.REDIS_URI });
 mongoose.connect(process.env.MONGO_URI, {
   autoIndex: true,
   maxPoolSize: 200,

@@ -1,23 +1,14 @@
 import React from 'react';
-import Downpie from './downpie';
-import Main from '../views/Main';
-import TopicRequest from '../views/TopicRequest'
-import WriteNotice from '../views/WriteNotice';
-import { Stack } from "@chakra-ui/react";
-import { Box } from '@chakra-ui/react';
-import React from 'react';
-import LoL from '../pages/LoL'
-import Soccer from '../pages/Soccer'
-import Society from '../pages/Society'
-import Baseball from '../pages/Baseball'
-import Result from '../pages/Result'
-import Notice from '../pages/Notice'
-import st from '../pages/Store'
-import TopicRequest from '../pages/TopicRequest';
-import Store from '../pages/Store';
-import { Routes, Route } from 'react-router-dom';
-import Main from './Main';
+import { Route, Routes } from 'react-router-dom';
+import Baseball from '../pages/Baseball';
 import Layout from '../pages/Layout';
+import LoL from '../pages/LoL';
+import Notice from '../pages/Notice';
+import Result from '../pages/Result';
+import Soccer from '../pages/Soccer';
+import Society from '../pages/Society';
+import Store from '../pages/Store';
+import Main from '../pages/Main';
 
 export default () => {
     return <Routes>

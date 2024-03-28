@@ -47,5 +47,5 @@ export default () => {
             <Link width="100%" border="1px solid #0B0B0D" borderRadius="10px" textAlign="center" fontWeight="bold" padding="10px 0 " href='#'>로그인 이동</Link>
         </Stack>
     </Center>
-  );
+  
 };
