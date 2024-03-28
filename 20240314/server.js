@@ -27,7 +27,8 @@ mongoose.connect(process.env.MONGO_URI, {
   maxPoolSize: 200,
   minPoolSize: 50,
 });
-// redisClient.connect();
+redisClient.connect();
+
 let models = fs.readdirSync("./src/models", { encoding: "utf-8" });
 for (let key of models)
   schemas[key] = mongoose.model(
@@ -48,16 +49,15 @@ app.use(
       maxAge: parseInt(process.env.MAX_AGE),
       secure: false,
     },
-    // store: new connectRedis({
-    //     client: redisClient,
-    //     prefix: "ssid:",
-    //     ttl: 3600000,
-    //     scanCount: 100
-    // })
-  })
-);
-app.use(
-  cors({
+    store: new connectRedis({
+        client: redisClient,
+        prefix: "ssid:",
+        ttl: 3600000,
+        scanCount: 100
+    })
+}));
+
+app.use(cors({
     origin: `https://${process.env.DOMAIN}`,
     methods: ["get", "post", "put", "delete"],
     allowedHeaders: ["Content-Type"],
@@ -74,13 +74,10 @@ app.use(
     immutable: false,
     maxAge: parseInt(process.env.MAX_AGE),
     index: false,
-    redirect: false,
-  })
-);
-app.use((req, res, next) => {
-  req.mongo = schemas;
-  next();
-});
+    redirect: false
+}));
+
+app.use((req, res, next) => { req.mongo = schemas; next(); });
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -153,12 +150,9 @@ passport.use(
       try {
         // 로그인 관련 기능
         done(null, undefined /** 유저 정보 */);
-      } catch (e) {
-        done(e);
-      }
-    }
-  )
-);
+    } catch (e) { done(e); }
+}));
+
 passport.serializeUser((req, data, done) => {
   // 처음 로그인시
   done(null, data);
@@ -326,38 +320,33 @@ const vite =
         base: process.env.APP_BASE,
       });
 
-if (process.env.TYPE == "dev") app.use(process.env.APP_BASE, vite.middlewares);
+if (process.env.TYPE == 'dev') {
+    app.use(process.env.APP_BASE, vite.middlewares);
+}
 else {
   app.use(process.env.APP_BASE, compression());
   app.use(process.env.APP_BASE, sirv("./dist/client", { extensions: [] }));
 }
 
 app.use(process.env.APP_BASE, async (req, res, next) => {
-  try {
-    const url = req.originalUrl.replace(process.env.APP_BASE, "");
-    let template =
-      process.env.TYPE == "dev"
-        ? await vite.transformIndexHtml(
-            url,
-            fs.readFileSync("./index.html", { encoding: "utf-8" })
-          )
-        : templateBuild;
-    let render =
-      process.env.TYPE == "dev"
-        ? (await vite.ssrLoadModule("./src/index-server.jsx")).render
-        : renderBuild;
-    res
-      .status(200)
-      .set({ "Content-Type": "text/html" })
-      .send(
-        template.replace(
-          process.env.CONTAINER_HOLDER,
-          (await render(url, ssrManifest)).html
-        )
-      );
-  } catch (e) {
-    next(new Error("react"));
-  }
+    try {
+        const url = req.originalUrl;
+        let template = process.env.TYPE == 'dev' ?
+            await vite.transformIndexHtml(url, fs.readFileSync('./index.html', { encoding: "utf-8" })) :
+            templateBuild;
+
+        let render = process.env.TYPE == 'dev' ?
+            (await vite.ssrLoadModule('./src/index-server.jsx')).render :
+            renderBuild;
+
+        res.status(200).set({ 'Content-Type': 'text/html' }).send(
+            template.replace(
+                process.env.CONTAINER_HOLDER,
+                (await render(url, ssrManifest)).html
+            )
+        );
+
+    } catch (e) { next(new Error(e)); }
 });
 
 let postLogics = fs.readdirSync("./src/logic/post", { encoding: "utf-8" });

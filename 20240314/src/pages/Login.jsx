@@ -1,9 +1,9 @@
 import { AbsoluteCenter, Box, Button, Center, Divider, FormControl, FormLabel, Grid, HStack, Input, Link, Stack, Image, Flex } from "@chakra-ui/react";
 import React from "react";
 
-export default ()=>{
-    return <Center>
-        <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #0B0B0D" borderRadius="10px" width="500px">
+export default () => {
+    return <Center  >
+        <Stack margin="100px 0" padding="50px 50px 60px" borderRadius="10px" width="500px">
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">로그인</Box>
             <FormControl>
                 <FormLabel>아이디</FormLabel>
@@ -31,7 +31,6 @@ export default ()=>{
                 </Flex>
             </Box>
             <Grid templateColumns="1fr 1fr" gap="5px">
-                <Button border="1px solid #0B0B0D" borderRadius="10px">취소</Button>
                 <Button border="1px solid #0B0B0D" borderRadius="10px">로그인</Button>
             </Grid>
             <Link width="100%" border="1px solid #0B0B0D" borderRadius="10px" textAlign="center" fontWeight="bold" padding="10px 0 " href='#'>회원가입</Link>
