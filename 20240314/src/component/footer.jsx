@@ -3,10 +3,9 @@ import { Box, Button, ButtonGroup, Flex, Grid, HStack, VStack, Text, Link } from
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 
 export default () => {
-  return <Box borderTop="3px solid #0B0B0D"  height={'10rem'} bg='#0B0B0D'alignContent={'center'} color='#aaa' >
-    {/* <Grid templateColumns='1fr 0.5fr 1fr' gap={4} padding='30px 50px' margin="auto" width="1280px" > */}
-    <VStack height={'80%'} >      
-        <Box  fontSize='sm' textAlign={'center'} >
+  return <Box borderTop="3px solid #0B0B0D" height={'10rem'} bg='#0B0B0D' alignContent={'center'} color='#aaa' >
+    <VStack height={'80%'} >
+      <Box fontSize='sm' textAlign={'center'} >
         <Text>대표자 우준영</Text>
         <Text>고객센터 010-1234-1234</Text>
       </Box>
@@ -31,8 +30,6 @@ export default () => {
           </HStack>
         </Button>
       </ButtonGroup>
-      </VStack>
-
-    {/* </Grid> */}
+    </VStack>
   </Box>
 }
