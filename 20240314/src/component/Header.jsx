@@ -1,29 +1,33 @@
-import React from "react";
 import {
-  Flex,
-  Spacer,
-  Grid,
   Box,
-  Stack,
   Button,
-  ButtonGroup,
-  Center,
-  Image,
-  ModalOverlay,
-  Modal,
+  Flex,
+  Grid,
+  Stack,
   useDisclosure
 } from "@chakra-ui/react";
-import UserModal from "./UserModal";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Logo from "./Logo";
+import UserModal from "./UserModal";
 
 export default () => {
+
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [fill, fillChange] = useState("#0B0B0D");
+  const [cl, clChange] = useState(true);
   let nav = useNavigate()
   return (
     <Box borderBottom="3px solid #0B0B0D">
       <Grid maxWidth="55%" margin="auto" templateColumns='1fr 3fr 2fr'>
-        <Box w="150px" h={20} marginLeft="20px" cursor={"pointer"} onClick={() => { nav("/") }}>
-          <Image w="100%" h="100%" src='/static/img/logo.png' /></Box>
+        <Flex w="150px" h={20} cursor={"pointer"}
+          justifyContent={"center"}
+          onClick={() => { nav("/") }}
+          onMouseEnter={() => { fillChange(""); clChange(!cl) }}
+          onMouseLeave={() => { fillChange("#0B0B0D"); clChange(!cl) }}
+        >
+          <Logo width="100%" height="100%" fill={fill} cl={cl} />
+        </Flex>
         <Stack direction="row" spacing={5} align="center">
           <Button
             w="50px"
