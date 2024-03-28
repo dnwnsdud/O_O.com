@@ -21,13 +21,12 @@ export default () => {
   let nav = useNavigate()
   return (
     <Box borderBottom="3px solid #0B0B0D">
-      <Grid maxWidth="1280px" margin="auto" templateColumns='1fr 3fr 2fr'>
-        <Box w="150px" h={20} marginLeft="20px" cursor={"pointer"} onClick={() => {
-          nav("/")
-        }}><Image w="100%" h="100%" src='/static/img/logo.png' /></Box>
-        <Stack direction="row" spacing={10} align="center" >
+      <Grid maxWidth="55%" margin="auto" templateColumns='1fr 3fr 2fr'>
+        <Box w="150px" h={20} marginLeft="20px" cursor={"pointer"} onClick={() => { nav("/") }}>
+          <Image w="100%" h="100%" src='/static/img/logo.png' /></Box>
+        <Stack direction="row" spacing={5} align="center">
           <Button
-            w="70px"
+            w="50px"
             h="10"
             display="flex"
             justifyContent="center"
@@ -39,7 +38,7 @@ export default () => {
             야구
           </Button>
           <Button
-            w="70px"
+            w="50px"
             h="10"
             display="flex"
             justifyContent="center"
@@ -51,7 +50,7 @@ export default () => {
             LOL
           </Button>
           <Button
-            w="70px"
+            w="50px"
             h="10"
             display="flex"
             justifyContent="center"
@@ -63,7 +62,7 @@ export default () => {
             축구
           </Button>
           <Button
-            w="70px"
+            w="50px"
             h="10"
             display="flex"
             justifyContent="center"
@@ -75,7 +74,7 @@ export default () => {
             사회
           </Button>
           <Button
-            w="70px"
+            w="50px"
             h="10"
             display="flex"
             justifyContent="center"
