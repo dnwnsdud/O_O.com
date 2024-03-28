@@ -12,6 +12,7 @@ import Store from '../pages/Store';
 import { Routes, Route } from 'react-router-dom';
 import Main from './Main';
 import Layout from '../pages/Layout';
+import Signupform from '../pages/Signupform';
 
 export default () => {
     return <Routes>
@@ -25,6 +26,7 @@ export default () => {
             <Route path="/n" element={<Notice />} />
             <Route path="/st" element={<Store />} />
         </Route>
+            <Route path="/signupform" element={<Signupform />} />
     </Routes>
 
 
