@@ -8,7 +8,7 @@ import Result from '../pages/Result';
 import Soccer from '../pages/Soccer';
 import Society from '../pages/Society';
 import Store from '../pages/Store';
-import Main from '../pages/Main';
+import Main from './Main';
 import Signupform from '../pages/Signupform';
 
 export default () => {
