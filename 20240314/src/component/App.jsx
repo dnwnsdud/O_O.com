@@ -10,6 +10,7 @@ import Society from '../pages/Society';
 import Store from '../pages/Store';
 import Main from './Main';
 import Signupform from '../pages/Signupform';
+import SubmitProduct from '../pages/SubmitProduct';
 
 export default () => {
     return <Routes>
@@ -21,7 +22,7 @@ export default () => {
             <Route path="/c" element={<Society />} />
             <Route path="/r" element={<Result />} />
             <Route path="/n" element={<Notice />} />
-            <Route path="/st" element={<Store />} />
+            <Route path="/st" element={<SubmitProduct />} />
         </Route>
         <Route path="/signupform" element={<Signupform />} />
     </Routes>
