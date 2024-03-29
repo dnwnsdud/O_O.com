@@ -1,12 +1,22 @@
 import mongoose from 'mongoose';
 export default mongoose.Schema({
-    "id":{
+    "name":{
+        "type":String,
+        "required":true,
+        "maxlength": 150,
+    },
+    "email":{
         "type":String,
         "required":true,
         "unique":true
     },
-    "pw":{
+    "nickname":{
         "type":String,
-        "required":true
+        "required":true,
+        "unique":true
+    },
+    "role":{
+        "type":String,
+        "default":"user",
     }
 });

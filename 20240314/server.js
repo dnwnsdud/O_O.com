@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO_URI, {
   maxPoolSize: 200,
   minPoolSize: 50,
 });
-redisClient.connect();
+// redisClient.connect();
 
 let models = fs.readdirSync("./src/models", { encoding: "utf-8" });
 for (let key of models)
@@ -49,12 +49,12 @@ app.use(
       maxAge: parseInt(process.env.MAX_AGE),
       secure: false,
     },
-    store: new connectRedis({
-        client: redisClient,
-        prefix: "ssid:",
-        ttl: 3600000,
-        scanCount: 100
-    })
+    // store: new connectRedis({
+    //     client: redisClient,
+    //     prefix: "ssid:",
+    //     ttl: 360000,
+    //     scanCount: 100
+    // })
 }));
 
 app.use(cors({
