@@ -17,6 +17,6 @@ export default mongoose.Schema({
     },
     "role":{
         "type":String,
-        "default":"user",
+        "default":"user"
     }
 });

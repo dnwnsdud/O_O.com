@@ -49,7 +49,7 @@ export default () => {
             <Flex>
                 <Input type='email' value={input} onChange={handleInputChange} />
                 <Box>
-                    <Button border="1px solid #0B0B0D" borderRadius="10px" onClick={handleVerification}>
+                    <Button w="100px" border="1px solid #0B0B0D" borderRadius="10px" onClick={handleVerification}>
                         {isEmailSent ? (
                             <Text>
                                 재전송

@@ -1,7 +1,12 @@
-(await import("dotenv")).default.config({path:'./.env'});
-export default async (req,res,next)=>{
-    try{
-        // 회원 가입 관련 코드
-        res.redirect(process.env.LOGIN);
-    } catch (e){ res.redirect(process.env.SIGNUP); }
+import { default as dotenv } from "dotenv";
+dotenv.config({path:'./.env'});
+export default async (req, res, next) => {
+  try {
+    const user = new req.mongo.user(req.body);
+    console.log(req.body);
+    const userInfo = await user.save();
+    res.status(200).json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
 };

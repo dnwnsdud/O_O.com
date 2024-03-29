@@ -31,7 +31,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 let models = fs.readdirSync("./src/models", { encoding: "utf-8" });
 for (let key of models)
-  schemas[key] = mongoose.model(
+  schemas[key.replace('.js','')] = mongoose.model(
     key,
     (await import(`./src/models/${key}`)).default
   );
