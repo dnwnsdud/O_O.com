@@ -17,14 +17,14 @@ export default () => {
                     orderName: '상품이름', // 상품이름을 적절한 값으로 변경
                     customerName: '주문자 이름', // 주문자 이름을 적절한 값으로 변경
                 })
-                .then(function (paymentInfo) {
-                    // 결제 성공 시 처리
-                    console.log('결제 성공:', paymentInfo);
-                })
-                .catch(function (error) {
-                    // 결제 실패 시 처리
-                    console.error('결제 실패:', error);
-                });
+                    .then(function (paymentInfo) {
+                        // 결제 성공 시 처리
+                        console.log('결제 성공:', paymentInfo);
+                    })
+                    .catch(function (error) {
+                        // 결제 실패 시 처리
+                        console.error('결제 실패:', error);
+                    });
             });
         };
 
