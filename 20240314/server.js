@@ -32,7 +32,7 @@ mongoose.connect(process.env.MONGO_URI, {
 let models = fs.readdirSync("./src/models", { encoding: "utf-8" });
 for (let key of models)
   schemas[key.replace('.js','')] = mongoose.model(
-    key,
+    key.replace('.js',''),
     (await import(`./src/models/${key}`)).default
   );
 app.use(process.env.API_BASE, express.json());
