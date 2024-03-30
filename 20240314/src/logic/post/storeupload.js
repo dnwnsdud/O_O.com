@@ -2,8 +2,9 @@
 
 export default async (req, res, next) => {
     try {
-        const store = new req.mongo.store(req.store);
-        console.log(req.store);
+        console.log("ㅇㅇㅇㅇㅇ")
+        const store = new req.mongo.store(req.body);
+        console.log(req.body);
         const storeitem = await store.save();
         res.status(200).json({ success: true });
     } catch (err) {
