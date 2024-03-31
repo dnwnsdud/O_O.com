@@ -7,38 +7,38 @@ export default () => {
     let nav = useNavigate();
 
 
-    const [title, setTitle] = useState("");
-    const [price, setPrice] = useState("");
-    const [images, setImages] = useState("");
-    // const [store, setStore] = useState({
-    //     title: '',
-    //     price: 0,
-    //     images: '',
-    // });
+    // const [title, setTitle] = useState("");
+    // const [price, setPrice] = useState("");
+    // const [images, setImages] = useState("");
+    const [store, setStore] = useState({
+        title: '',
+        price: 0,
+        images: '',
+    });
 
     const [itemNameError, setItemNameError] = useState(false);
     const [itemPriceError, setItemPriceError] = useState(false);
     const [itemImageError, setItemImageError] = useState(false);
 
-    // const handleValueChange = (e) => {
-    //     setStore({
-    //         ...store,
-    //         [e.target.name]: e.target.value
-    //     });
-    // }
+    const handleValueChange = (e) => {
+        setStore({
+            ...store,
+            [e.target.name]: e.target.value
+        });
+    }
 
 
-    const handleTitleChange = (e) => {
-        setTitle(e.target.value);
-    };
+    // const handleTitleChange = (e) => {
+    //     setTitle(e.target.value);
+    // };
 
-    const handlePriceChange = (e) => {
-        setPrice(e.target.value);
-    };
+    // const handlePriceChange = (e) => {
+    //     setPrice(e.target.value);
+    // };
 
-    const handleImagesChange = (e) => {
-        setImages(e.target.value);
-    };
+    // const handleImagesChange = (e) => {
+    //     setImages(e.target.value);
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -46,11 +46,11 @@ export default () => {
         console.log("들어옴2");
         // const { title, price, images } = store;
 
-        let store = {
-            title: title,
-            price: price,
-            images: images,
-        }
+        // let store = {
+        //     title: title,
+        //     price: price,
+        //     images: images,
+        // }
 
         fetch('/api/storeupload', {
             method: 'POST',
@@ -80,7 +80,7 @@ export default () => {
         <>
             <FormControl isInvalid={itemNameError}>
                 <FormLabel>아이템 이름</FormLabel>
-                <Input type='text' onChange={handleTitleChange} />
+                <Input type='text' name='title' onChange={handleValueChange} />
                 {!itemNameError ? (
                     <FormHelperText>아이템 이름입니다.</FormHelperText>
                 ) : (
@@ -91,7 +91,7 @@ export default () => {
             </FormControl>
             <FormControl isInvalid={itemPriceError}>
                 <FormLabel>아이템 가격</FormLabel>
-                <Input type="text" onChange={handlePriceChange} />
+                <Input type="text" name='price' onChange={handleValueChange} />
                 {itemPriceError && (
                     <FormErrorMessage>
                         아이템 가격을 입력해주세요.
@@ -100,7 +100,7 @@ export default () => {
             </FormControl>
             <FormControl isInvalid={itemImageError}>
                 <FormLabel>아이템 이미지 업로드</FormLabel>
-                <Input type='text' onChange={handleImagesChange} />
+                <Input type='text'  name='images' onChange={handleValueChange} />
                 {!itemImageError ? (
                     <FormHelperText>이미지가 올라갑니다.</FormHelperText>
                 ) : (

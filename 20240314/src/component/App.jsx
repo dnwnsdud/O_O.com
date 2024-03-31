@@ -22,7 +22,9 @@ export default () => {
             <Route path="/c" element={<Society />} />
             <Route path="/r" element={<Result />} />
             <Route path="/n" element={<Notice />} />
-            <Route path="/st" element={<SubmitProduct />} />
+            <Route path="/st" element={<Store />} />
+            
+            <Route path="/stsubmit" element={<SubmitProduct />} />
         </Route>
         <Route path="/signupform" element={<Signupform />} />
     </Routes>

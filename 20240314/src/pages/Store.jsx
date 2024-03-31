@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, Badge, Text, HStack, Button, border } from '@chakra-ui/react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
@@ -6,8 +6,29 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { useNavigate } from "react-router-dom";
 
 export default () => {
+  
+  let nav = useNavigate();
+
+  const [stores, setStores] = useState([])
+
+  useEffect(()=> {
+    console.log("ddd");
+    fetch('/app/storeshow', {
+      method:"GET",
+      headers: {
+          "Content-Type":"application/json; charset=utf-8",
+      },
+    }).then(res=>
+      res.json())
+    .then(res=>{
+      console.log(res);
+      setStores(res);
+    });
+  }, []);
+
   const maxBoxes=15;
 
   const boxesPerRow = 5;
@@ -33,9 +54,19 @@ export default () => {
     <Box border={'1px solid black'} h='8rem'>
       광고
     </Box>
+    <Button
+    onClick={() => {
+      nav("/stsubmit")
+    }}
+    >아이템입력</Button>
     <Box my='2rem'>
       <Button px='2' color={'black'}>슬라이더</Button>
       <Button px='2' color={'black'}>리스트</Button>
+    </Box>
+    <Box height='10rem' width='100%' border={'1px solid black'}>
+      {stores.map((store)=>(
+        <StoreItem key={store.id} store={store}/>
+      ))} 
     </Box>
     <Swiper style={swiperStyle}
       modules={[Navigation, Pagination, Scrollbar, A11y]}
