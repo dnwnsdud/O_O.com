@@ -25,7 +25,7 @@ export default () => {
             <Route path="/st" element={<Store />} />
             <Route path="/mypage" element={<Mypage />} />
         </Route>
-        <Route path="/signupform" element={<Signupform />} />
+        <Route path="/signupform/:email?" element={<Signupform />} />
     </Routes>
 
 
