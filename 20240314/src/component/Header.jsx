@@ -13,15 +13,19 @@ import UserModal from "./UserModal";
 
 export default () => {
   
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const {isOpen, onOpen, onClose } = useDisclosure()
   const [fill, fillChange] = useState("#0B0B0D");
   const [cl, clChange] = useState(true);
-  const [logincheck, setLogincheck]=useState([]);
+  const [logincheck, setLogincheck]=useState(['logout']);
   let nav = useNavigate()
 
-  const logout = (event)=>{
-    event.preventDefault();
-    fetch('/api/logout')
+  const logout = ()=>{
+    fetch('/api/logout', {
+      method: 'POST', 
+      headers: {
+          'Content-Type': 'application/json' 
+      }
+  })
     .then(response => {
       if(response){
         console.log(response);
@@ -32,9 +36,9 @@ export default () => {
     }
     })
     .then(data=>{
-      if(data.success){
+      if(data){
+        setLogincheck(data);
         console.log("로그아웃되었습니다.");
-        nav('/')
       }
       else{
         console.log('로그아웃에 실패했습니다.');
@@ -147,7 +151,7 @@ export default () => {
             상점
           </Button>
           {
-            !logincheck ? "" : logincheck.role="user" ? <Button size="xs"
+            logincheck === 'logout' ? "":logincheck.role="user" ? <Button size="xs"
             onClick={() => {
               nav("/mypage")
             }}
@@ -163,9 +167,9 @@ export default () => {
           }
           
           {
-            !logincheck ? <Button size="xs" onClick={onOpen}>
+            logincheck === 'logout' ?  <Button size="xs" onClick={onOpen}>
             로그인
-          </Button> : <Button type="submit" size="xs" onClick={logout}>
+          </Button> :<Button type="submit" size="xs" onClick={logout}>
             로그아웃
           </Button>
           }
