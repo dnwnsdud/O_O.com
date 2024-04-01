@@ -14,7 +14,9 @@ import { Strategy as naverS } from "passport-naver-v2";
 import sirv from "sirv";
 import compression from "compression";
 import fs from "fs";
-
+import { createServer } from "http";
+import { Server } from "socket.io";
+import { log } from "console";
 dotenv.config({ path: "./.env", encoding: "UTF-8" });
 const app = express({ xPoweredBy: false });
 app.set("view engine", "ejs");
@@ -31,7 +33,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 let models = fs.readdirSync("./src/models", { encoding: "utf-8" });
 for (let key of models)
-  schemas[key.replace('.js','')] = mongoose.model(
+  schemas[key.replace('.js', '')] = mongoose.model(
     key,
     (await import(`./src/models/${key}`)).default
   );
@@ -55,15 +57,15 @@ app.use(
     //     ttl: 360000,
     //     scanCount: 100
     // })
-}));
+  }));
 
 app.use(cors({
-    origin: `https://${process.env.DOMAIN}`,
-    methods: ["get", "post", "put", "delete"],
-    allowedHeaders: ["Content-Type"],
-    exposedHeaders: ["Content-Type"],
-    maxAge: parseInt(process.env.MAX_AGE),
-  })
+  origin: `https://${process.env.DOMAIN}`,
+  methods: ["get", "post", "put", "delete"],
+  allowedHeaders: ["Content-Type"],
+  exposedHeaders: ["Content-Type"],
+  maxAge: parseInt(process.env.MAX_AGE),
+})
 );
 app.use(
   "/static",
@@ -75,7 +77,7 @@ app.use(
     maxAge: parseInt(process.env.MAX_AGE),
     index: false,
     redirect: false
-}));
+  }));
 
 app.use((req, res, next) => { req.mongo = schemas; next(); });
 app.use(passport.initialize());
@@ -150,8 +152,8 @@ passport.use(
       try {
         // 로그인 관련 기능
         done(null, undefined /** 유저 정보 */);
-    } catch (e) { done(e); }
-}));
+      } catch (e) { done(e); }
+    }));
 
 passport.serializeUser((req, data, done) => {
   // 처음 로그인시
@@ -198,21 +200,18 @@ const imagesUploader = multer({
       let now = new Date();
       if (
         !fs.existsSync(
-          `static/images/${now.getFullYear()}/${
-            now.getMonth() + 1
+          `static/images/${now.getFullYear()}/${now.getMonth() + 1
           }/${now.getDate()}`
         )
       )
         fs.mkdirSync(
-          `static/images/${now.getFullYear()}/${
-            now.getMonth() + 1
+          `static/images/${now.getFullYear()}/${now.getMonth() + 1
           }/${now.getDate()}`,
           { recursive: true }
         );
       done(
         null,
-        `static/images/${now.getFullYear()}/${
-          now.getMonth() + 1
+        `static/images/${now.getFullYear()}/${now.getMonth() + 1
         }/${now.getDate()}`
       );
     },
@@ -220,11 +219,10 @@ const imagesUploader = multer({
       done(
         null,
         btoa(
-          `${file.originalname}${
-            process.env.COOKIE_SECRET
+          `${file.originalname}${process.env.COOKIE_SECRET
           }${new Date().toJSON()}`
         ).slice(0, 50) +
-          file.originalname.slice(file.originalname.lastIndexOf("."))
+        file.originalname.slice(file.originalname.lastIndexOf("."))
       );
     },
   }),
@@ -235,21 +233,18 @@ const videosUploader = multer({
       let now = new Date();
       if (
         !fs.existsSync(
-          `static/videos/${now.getFullYear()}/${
-            now.getMonth() + 1
+          `static/videos/${now.getFullYear()}/${now.getMonth() + 1
           }/${now.getDate()}`
         )
       )
         fs.mkdirSync(
-          `static/videos/${now.getFullYear()}/${
-            now.getMonth() + 1
+          `static/videos/${now.getFullYear()}/${now.getMonth() + 1
           }/${now.getDate()}`,
           { recursive: true }
         );
       done(
         null,
-        `static/videos/${now.getFullYear()}/${
-          now.getMonth() + 1
+        `static/videos/${now.getFullYear()}/${now.getMonth() + 1
         }/${now.getDate()}`
       );
     },
@@ -257,11 +252,10 @@ const videosUploader = multer({
       done(
         null,
         btoa(
-          `${file.originalname}${
-            process.env.COOKIE_SECRET
+          `${file.originalname}${process.env.COOKIE_SECRET
           }${new Date().toJSON()}`
         ).slice(0, 50) +
-          file.originalname.slice(file.originalname.lastIndexOf("."))
+        file.originalname.slice(file.originalname.lastIndexOf("."))
       );
     },
   }),
@@ -297,8 +291,8 @@ const ssrManifest =
   process.env.TYPE == "dev"
     ? undefined
     : fs.readFileSync("./dist/client/.vite/ssr-manifest.json", {
-        encoding: "utf-8",
-      });
+      encoding: "utf-8",
+    });
 const renderBuild =
   process.env.TYPE == "dev"
     ? undefined
@@ -307,21 +301,21 @@ const vite =
   process.env.TYPE != "dev"
     ? undefined
     : await (
-        await import("vite")
-      ).createServer({
-        server: {
-          middlewareMode: true,
-          watch: {
-            usePolling: true,
-            interval: 100,
-          },
+      await import("vite")
+    ).createServer({
+      server: {
+        middlewareMode: true,
+        watch: {
+          usePolling: true,
+          interval: 100,
         },
-        appType: "custom",
-        base: process.env.APP_BASE,
-      });
+      },
+      appType: "custom",
+      base: process.env.APP_BASE,
+    });
 
 if (process.env.TYPE == 'dev') {
-    app.use(process.env.APP_BASE, vite.middlewares);
+  app.use(process.env.APP_BASE, vite.middlewares);
 }
 else {
   app.use(process.env.APP_BASE, compression());
@@ -329,24 +323,24 @@ else {
 }
 
 app.use(process.env.APP_BASE, async (req, res, next) => {
-    try {
-        const url = req.originalUrl;
-        let template = process.env.TYPE == 'dev' ?
-            await vite.transformIndexHtml(url, fs.readFileSync('./index.html', { encoding: "utf-8" })) :
-            templateBuild;
+  try {
+    const url = req.originalUrl;
+    let template = process.env.TYPE == 'dev' ?
+      await vite.transformIndexHtml(url, fs.readFileSync('./index.html', { encoding: "utf-8" })) :
+      templateBuild;
 
-        let render = process.env.TYPE == 'dev' ?
-            (await vite.ssrLoadModule('./src/index-server.jsx')).render :
-            renderBuild;
+    let render = process.env.TYPE == 'dev' ?
+      (await vite.ssrLoadModule('./src/index-server.jsx')).render :
+      renderBuild;
 
-        res.status(200).set({ 'Content-Type': 'text/html' }).send(
-            template.replace(
-                process.env.CONTAINER_HOLDER,
-                (await render(url, ssrManifest)).html
-            )
-        );
+    res.status(200).set({ 'Content-Type': 'text/html' }).send(
+      template.replace(
+        process.env.CONTAINER_HOLDER,
+        (await render(url, ssrManifest)).html
+      )
+    );
 
-    } catch (e) { next(new Error(e)); }
+  } catch (e) { next(new Error(e)); }
 });
 
 let postLogics = fs.readdirSync("./src/logic/post", { encoding: "utf-8" });
@@ -376,6 +370,33 @@ app.use((err, req, res, next) => {
   } else {
     res.render("error404");
   }
+});
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: `*`,
+    methods: ["get", "post"],
+  },
+});
+const Chatting = {};
+httpServer.listen(process.env.CHAT, () => {
+  console.log(`Port ${process.env.CHAT} server open!`);
+});
+io.on("connection", (socket) => {
+  console.log('a user connected', socket.id);
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+  socket.on('error', (err) => {
+    console.error(err);
+  });
+  socket.on('soccer', (v) => {
+    console.log(v);
+    if (v.startsWith('chat:')) {
+      io.emit('soccer', v.slice(5));
+    }
+  })
 });
 
 app.listen(process.env.PORT, () => {
