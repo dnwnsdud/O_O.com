@@ -36,10 +36,36 @@ export default () => {
     //     setPrice(e.target.value);
     // };
 
-    // const handleImagesChange = (e) => {
-    //     setImages(e.target.value);
-    // };
-
+    const handleImagesChange = (e) => {   
+        const file = e.target.files[0]; // 첫 번째 파일만 가져옴 (단일 파일 업로드)
+        if (file) {
+            // 파일이 존재하면 FormData 객체를 생성하여 파일을 추가
+            const formData = new FormData();
+            formData.append('images', file);
+    
+            // FormData 객체를 서버로 전송
+            fetch('/api/upload/images', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 이미지 업로드 성공 또는 실패에 따라 처리
+                if (data.success) {
+                    console.log('이미지 업로드 성공');
+                    // 서버로부터 받은 이미지 경로를 저장하거나 활용
+                    // const imagePath = data.imagePath;
+                    // imagePath를 활용하여 원하는 작업 수행
+                } else {
+                    console.error('이미지 업로드 실패:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('이미지 업로드 오류:', error);
+            });
+        }
+    };
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -64,7 +90,7 @@ export default () => {
             console.log(data);
             if(data.success){
                 console.log("성공해떠")
-                nav("/");
+                nav("/st");
 
             } else {
                 console.log("실패해떠")
@@ -100,7 +126,7 @@ export default () => {
             </FormControl>
             <FormControl isInvalid={itemImageError}>
                 <FormLabel>아이템 이미지 업로드</FormLabel>
-                <Input type='text'  name='images' onChange={handleValueChange} />
+                <Input type='file'  name='images' onChange={handleImagesChange} />
                 {!itemImageError ? (
                     <FormHelperText>이미지가 올라갑니다.</FormHelperText>
                 ) : (

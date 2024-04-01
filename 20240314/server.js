@@ -14,6 +14,7 @@ import { Strategy as naverS } from "passport-naver-v2";
 import sirv from "sirv";
 import compression from "compression";
 import fs from "fs";
+import { log } from "console";
 
 dotenv.config({ path: "./.env", encoding: "UTF-8" });
 const app = express({ xPoweredBy: false });
@@ -32,7 +33,7 @@ mongoose.connect(process.env.MONGO_URI, {
 let models = fs.readdirSync("./src/models", { encoding: "utf-8" });
 for (let key of models)
   schemas[key.replace(".js", "")] = mongoose.model(
-    key,
+    key.replace(".js", ""),
     (await import(`./src/models/${key}`)).default
   );
 app.use(process.env.API_BASE, express.json());
@@ -265,8 +266,25 @@ app.post(
     req.body = JSON.parse(JSON.stringify(req.body));
     next();
   },
-  (req, res, next) => {
-    // 파일 업로드 관련 기능
+  async (req, res, next) => {
+    try {
+      console.log('ddd');
+      // 이미지 업로드 후에 req.file에 이미지 정보가 담겨 있음
+      console.log('업로드된 이미지:', req.body);
+
+      // 상품 정보를 데이터베이스에 저장하는 코드
+      // const store = new req.mongo.store(req.body);
+      // const storeItem = await store.save();
+      const store = req.mongo.store();
+      store.body = req.body.inner
+      store.meuiapath = req.files.map(file => file.path)
+      await store.save();
+
+      res.status(200).json({ success: true, message: '이미지 및 상품 정보 업로드 완료' });
+    } catch (error) {
+      console.error('이미지 및 상품 정보 처리 중 오류 발생:', error);
+      res.status(500).json({ success: false, error: '이미지 및 상품 정보 처리 중 오류 발생' });
+    }
   }
 );
 app.post(
