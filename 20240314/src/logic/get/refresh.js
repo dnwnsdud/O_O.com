@@ -1,5 +1,5 @@
-(await import("dotenv")).default.config({path:'./.env'});
-export default (req,res,next)=>{
+(await import("dotenv")).default.config({ path: './.env' });
+export default (req, res, next) => {
     res.send(`
     <!DOCTYPE html>
     <html>
