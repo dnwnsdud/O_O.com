@@ -1,4 +1,4 @@
-(await import("dotenv")).default.config({path:'./.env'});
+(await import("dotenv")).default.config({ path: './.env' });
 
 export default async (req, res, next) => {
 
@@ -10,7 +10,6 @@ export default async (req, res, next) => {
       _id: req.body
     });
     res.json(detailid);
-    // res.send(req.body);
   } catch (err) {
     next(err);
   }

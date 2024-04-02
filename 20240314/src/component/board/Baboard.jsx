@@ -143,7 +143,7 @@ export default () => {
           >
             <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
             <Box>
-              <Link to={`/b/?id=${post._id}`}>{post.title}</Link>
+              <Link to={`/b/id=${post._id}`}>{post.title}</Link>
             </Box>
             <Box>{post.content}</Box>
             <Box>{getDayMinuteCounter(post.createdAt)}</Box>
