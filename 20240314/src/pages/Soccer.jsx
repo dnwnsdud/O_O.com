@@ -3,11 +3,23 @@ import {
   Button,
   Grid
 } from "@chakra-ui/react";
-import React from "react";
-import Today from "../component/board/Today";
+import React, { useState } from "react";
 import Soboard from "../component/board/Soboard";
+import Today from "../component/board/Today";
+import { io } from 'socket.io-client';
+export default function App() {
+  const [chatting, setChatting] = useState({ io: io('http://localhost:9999', { cors: { origin: '*' } }), soccer: { chatList: [] } });
 
-export default () => {
+  chatting.io.on('soccer', (data) => {
+    setChatting(prevState => ({
+      ...prevState,
+      soccer: {
+        ...prevState.soccer,
+        chatList: [data, ...prevState.soccer.chatList].slice(0)
+      }
+    }));
+  });
+
   return (
     <>
       <Box maxW="1280px" margin="auto">
@@ -43,9 +55,16 @@ export default () => {
             <Today />
             <Soboard />
           </Box>
-          <Box border="1px solid red">3</Box>
-        </Grid>
-      </Box>
+          <Box border="1px solid red">
+            {
+              chatting.soccer.chatList.map((chat, index) => <span key={index}>{chat}</span>)
+            }
+          </Box>
+          <input style={{ border: "black 1px solid" }} type="text" onKeyUp={(e) => {
+            chatting.io.emit('soccer', `chat:${e.currentTarget.value}`);
+          }} />
+        </Grid >
+      </Box >
     </>
   );
 };
