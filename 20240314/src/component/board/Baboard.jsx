@@ -9,6 +9,7 @@ import {
   VStack,
   Center,
 } from "@chakra-ui/react";
+import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
@@ -142,7 +143,6 @@ export default () => {
           >
             <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
             <Box>
-              {/* <Link to={`/b/?id=${post._id}`}>{post.title}</Link> */}
               <Link to={`/b/?id=${post._id}`}>{post.title}</Link>
             </Box>
             <Box>{post.content}</Box>
@@ -151,7 +151,7 @@ export default () => {
             <Box>a</Box>
           </Grid>
         ))}
-        <Flex fontWeight="bold" justify="end">
+        <Flex fontWeight="bold" justify="end" marginTop="10px">
           <Button
             sx={{
               backgroundColor: "#6f6dd9 !important",
@@ -170,7 +170,7 @@ export default () => {
             disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
             onClick={handlePrevPage}
           >
-            a
+            <ArrowLeftIcon />
           </Button>
           {pageNumbers.map((number) => (
             <Button
@@ -185,7 +185,7 @@ export default () => {
             </Button>
           ))}
           <Button disabled={currentPage === pageCount} onClick={handleNextPage}>
-            a
+            <ArrowRightIcon />
           </Button>
         </Flex>
 
