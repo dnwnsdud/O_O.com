@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Baseball from '../pages/Baseball';
 import Layout from '../pages/Layout';
@@ -12,10 +12,7 @@ import Main from './Main';
 import Signupform from '../pages/Signupform';
 import Payment from '../pages/Payment';
 
-
-
 export default () => {
-
     return <Routes>
         <Route element={<Layout />}>
             <Route path="/" element={<Main />} />

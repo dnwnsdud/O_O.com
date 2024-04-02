@@ -3,25 +3,11 @@ import {
   Button,
   Grid
 } from "@chakra-ui/react";
-import React, { useCallback, useState } from "react";
+import React from "react";
 import Today from "../component/board/Today";
 import Soboard from "../component/board/Soboard";
-import { io } from "socket.io-client";
 
 export default () => {
-  const [Chatting, ChattingChanger] = useState({});
-  useCallback(() => {
-    ChattingChanger({
-      ...Chatting,
-      io: io('http://localhost:9999', { cors: { origin: '*' } }),
-      soccer: { chatList: [] }
-    });
-    Chatting.io.on('soccer', (data) => {
-      Chatting.soccer.chatList.push(data);
-      Chatting.soccer.chatList = Chatting.soccer.chatList.reverse().slice(50).reverse();
-      ChattingChanger({ ...Chatting });
-    })
-  }, [])();
   return (
     <>
       <Box maxW="1280px" margin="auto">
@@ -57,16 +43,9 @@ export default () => {
             <Today />
             <Soboard />
           </Box>
-          <Box border="1px solid red">
-            {
-              Chatting?.soccer?.chatList?.map(chat => <span>{chat}</span>)
-            }
-          </Box>
-          <input type="text" onChange={(e) => {
-            Chatting?.io.emit('soccer', `chat:${e.currentTarget.value}`);
-          }} />
-        </Grid >
-      </Box >
+          <Box border="1px solid red">3</Box>
+        </Grid>
+      </Box>
     </>
   );
 };
