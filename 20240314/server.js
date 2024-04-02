@@ -80,7 +80,10 @@ app.use(
     redirect: false
   }));
 
-app.use((req, res, next) => { req.mongo = schemas; next(); });
+app.use((req, res, next) => {
+  req.mongo = schemas;
+  next();
+});
 app.use(passport.initialize());
 app.use(passport.session());
 
