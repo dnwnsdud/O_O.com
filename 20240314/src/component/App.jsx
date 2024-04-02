@@ -11,7 +11,7 @@ import Store from "../pages/Store";
 import Main from "./Main";
 import Signupform from "../pages/Signupform";
 import Boardcreate from "../pages/Boardcreate";
-import BoardDetail from "../pages/BoardDetail";
+import Badetail from "../pages/BaDetail";
 
 export default () => {
   return (
@@ -26,7 +26,7 @@ export default () => {
         <Route path="/n" element={<Notice />} />
         <Route path="/st" element={<Store />} />
         <Route path="/create" element={<Boardcreate />} />
-        <Route path="/mo" element={<BoardDetail />} />
+        <Route path="/b/:id?" element={<Badetail />} />
       </Route>
       <Route path="/signupform" element={<Signupform />} />
     </Routes>

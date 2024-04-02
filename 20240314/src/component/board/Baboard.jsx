@@ -15,6 +15,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ko";
+import { Link } from "react-router-dom";
 
 moment.locale("ko");
 
@@ -140,7 +141,10 @@ export default () => {
             padding="10px 0"
           >
             <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
-            <Box>{post.title}</Box>
+            <Box>
+              {/* <Link to={`/b/?id=${post._id}`}>{post.title}</Link> */}
+              <Link to={`/b/?id=${post._id}`}>{post.title}</Link>
+            </Box>
             <Box>{post.content}</Box>
             <Box>{getDayMinuteCounter(post.createdAt)}</Box>
             <Box>a</Box>
