@@ -10,6 +10,9 @@ export default mongoose.Schema(
       type: String,
       required: true,
     },
+    nickname: {
+      type: String,
+    },
   },
   {
     timestamps: true,
