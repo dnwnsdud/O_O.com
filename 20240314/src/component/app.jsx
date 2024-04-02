@@ -11,7 +11,6 @@ import Store from '../pages/Store';
 import Main from './Main';
 import Signupform from '../pages/Signupform';
 import SubmitProduct from '../pages/SubmitProduct';
-import Mypage from '../pages/Mypage';
 
 export default () => {
     return <Routes>
@@ -26,9 +25,8 @@ export default () => {
             <Route path="/st" element={<Store />} />
 
             <Route path="/stsubmit" element={<SubmitProduct />} />
-            <Route path="/mypage" element={<Mypage />} />
         </Route>
-        <Route path="/signupform/:email?" element={<Signupform />} />
+        <Route path="/signupform" element={<Signupform />} />
     </Routes>
 
 
