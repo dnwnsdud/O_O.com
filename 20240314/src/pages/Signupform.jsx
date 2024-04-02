@@ -1,15 +1,20 @@
 import { Box, Button, Center, FormControl, FormLabel, Grid, Input, Stack } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 
 export default () => {
     let nav = useNavigate()
     const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
     const [nickname, setnickname] = useState("");
-    
+
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const paramValue = queryParams.get('email');
+
+
+
 
   const onEmailHandler = (e) => {
     setEmail(e.target.value);
@@ -27,7 +32,7 @@ export default () => {
   
     let body = {
       name: name,
-      email: email,
+      email: paramValue,
       nickname: nickname,
       role:"user",
     };
@@ -51,7 +56,6 @@ export default () => {
         if (data.success) {
           nav("/");
         } else {
-          // alert(`사용자를 저장하는 동안 오류 발생:${JSON.stringify()}`);
           console.log(data.error);
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
@@ -59,7 +63,7 @@ export default () => {
       .catch(error => {
       });
   };
-
+  
     return <Center>
         <Stack margin="100px 0" padding="50px 50px 60px" borderRadius="10px" width="500px">
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="10px">회원가입</Box>
@@ -69,7 +73,7 @@ export default () => {
             </FormControl>
             <FormControl>
                 <FormLabel>이메일</FormLabel>
-                <Input type='email' onChange={onEmailHandler} />
+                <Input type='email' onChange={onEmailHandler} placeholder={paramValue} readOnly={true}/>
             </FormControl>
             <FormControl>
                 <FormLabel>닉네임</FormLabel>

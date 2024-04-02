@@ -6,17 +6,62 @@ import {
   Stack,
   useDisclosure
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import UserModal from "./UserModal";
 
 export default () => {
-
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  
+  const {isOpen, onOpen, onClose } = useDisclosure()
   const [fill, fillChange] = useState("#0B0B0D");
   const [cl, clChange] = useState(true);
+  const [logincheck, setLogincheck]=useState(['logout']);
   let nav = useNavigate()
+
+  const logout = ()=>{
+    fetch('/api/logout', {
+      method: 'POST', 
+      headers: {
+          'Content-Type': 'application/json' 
+      }
+  })
+    .then(response => {
+      if(response){
+        console.log(response);
+        return response.json();
+      }
+      else{
+        throw new Error(e);
+    }
+    })
+    .then(data=>{
+      if(data){
+        setLogincheck(data);
+        console.log("로그아웃되었습니다.");
+      }
+      else{
+        console.log('로그아웃에 실패했습니다.');
+        nav('/');
+      }
+    })
+  }
+
+  useEffect((e)=>{
+    fetch('/api/logincheck')
+    .then(res=>{
+      if(res){
+        console.log("성공하였습니다.");
+        return res.json();
+      }else{
+        throw new Error(e)
+      }
+    })
+    .then(data=>{
+      console.log(data);
+      setLogincheck(data);
+    })
+  },[])
   return (
     <Box borderBottom="3px solid #0B0B0D">
       <Grid maxWidth="55%" margin="auto" templateColumns='1fr 3fr 2fr'>
@@ -105,9 +150,30 @@ export default () => {
           >
             상점
           </Button>
-          <Button size="xs" onClick={onOpen}>
-            로그인
+          {
+            logincheck === 'logout' ? "":logincheck.role="user" ? <Button size="xs"
+            onClick={() => {
+              nav("/mypage")
+            }}
+          >
+            마이페이지
+          </Button>:<Button size="xs"
+            onClick={() => {
+              nav("/mypage")
+            }}
+          >
+            관리자페이지
           </Button>
+          }
+          
+          {
+            logincheck === 'logout' ?  <Button size="xs" onClick={onOpen}>
+            로그인
+          </Button> :<Button type="submit" size="xs" onClick={logout}>
+            로그아웃
+          </Button>
+          }
+          
         </Stack>
       </Grid>
       <UserModal isOpen={isOpen} onClose={onClose} />

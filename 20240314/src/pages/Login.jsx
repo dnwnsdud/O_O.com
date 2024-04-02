@@ -24,7 +24,7 @@ export default () => {
         emailjs
             .send(
                 'service_9a86cta', // 서비스 ID
-                'template_gy8pi7r', // 템플릿 ID
+                'template_o7s0j09', // 템플릿 ID
                 templateParams,
                 'jYpWycEr-Mhf19OyE', // public-key
             )

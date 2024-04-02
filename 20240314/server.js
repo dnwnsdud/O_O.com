@@ -24,18 +24,18 @@ app.set("view engine", "ejs");
 app.set("views", "src/views");
 
 const schemas = {};
-// const redisClient = redis.createClient({ url: process.env.REDIS_URI });
+const redisClient = redis.createClient({ url: process.env.REDIS_URI });
 mongoose.connect(process.env.MONGO_URI, {
   autoIndex: true,
   maxPoolSize: 200,
   minPoolSize: 50,
 });
-// redisClient.connect();
+redisClient.connect();
 
 let models = fs.readdirSync("./src/models", { encoding: "utf-8" });
 for (let key of models)
-  schemas[key.replace(".js", "")] = mongoose.model(
-    key.replace(".js", ""),
+  schemas[key.replace('.js', '')] = mongoose.model(
+    key.replace('.js', ''),
     (await import(`./src/models/${key}`)).default
   );
 app.use(process.env.API_BASE, express.json());
@@ -52,12 +52,12 @@ app.use(
       maxAge: parseInt(process.env.MAX_AGE),
       secure: false,
     },
-    // store: new connectRedis({
-    //     client: redisClient,
-    //     prefix: "ssid:",
-    //     ttl: 360000,
-    //     scanCount: 100
-    // })
+    store: new connectRedis({
+      client: redisClient,
+      prefix: "ssid:",
+      ttl: 360000,
+      scanCount: 100
+    })
   }));
 
 app.use(cors({
