@@ -17,7 +17,7 @@ export default () => {
   const [fill, fillChange] = useState("#0B0B0D");
   const [cl, clChange] = useState(true);
   const [logincheck, setLogincheck]=useState(['logout']);
-  const [isLoggedIn, setIsLoggedIn] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   let nav = useNavigate()
 
   const logout = ()=>{
@@ -177,9 +177,8 @@ export default () => {
             관리자페이지
           </Button>
           }
-          
           {
-            !isLoggedIn ?  <Button size="xs" onClick={onOpen}>
+            logincheck === "logout" ?  <Button size="xs" onClick={onOpen}>
             로그인
           </Button> :<Button type="submit" size="xs" onClick={logout}>
             로그아웃

@@ -27,7 +27,7 @@ export default () => {
             <Route path="/n" element={<Notice />} />
             <Route path="/st" element={<Store />} />
             <Route path="/create" element={<Boardcreate />} />
-            <Route path="/b/:id?" element={<Badetail />} />
+            <Route path="/b/:id" element={<Badetail />} />
             <Route path="/stsubmit" element={<SubmitProduct />} />
             <Route path="/mypage" element={<Mypage />} />
         </Route>

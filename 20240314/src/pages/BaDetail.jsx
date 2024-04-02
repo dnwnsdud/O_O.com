@@ -19,12 +19,15 @@ import { useLocation } from "react-router-dom";
 export default () => {
   const [baDetails, setbaDetails] = useState();
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const paramValue = queryParams.get("id");
-  const abc = 123;
-
+  // console.log(location.pathname.slice(location.pathname.indexOf("=")+1));
+  let id = location.pathname.slice(location.pathname.indexOf("=")+1)
+  console.log(id);
+  // const queryParams = {id:`${location.pathname.slice(location.pathname.indexOf("=")+1)}`}
+  // console.log(queryParams);
+//   const paramValue = queryParams.get("id");
+// console.log( );
   useEffect((e) => {
-    fetch(`/api/boarddetail/?id=${paramValue}`)
+    fetch(`/api/boarddetail`,{method:'post',body:id})
       .then((res) => {
         if (res) {
           console.log("성공하였습니다.");
@@ -36,6 +39,7 @@ export default () => {
       .then((data) => {
         console.log(data);
         setbaDetails(data);
+
       });
   }, []);
 
