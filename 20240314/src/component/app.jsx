@@ -11,6 +11,8 @@ import Store from '../pages/Store';
 import Main from './Main';
 import Signupform from '../pages/Signupform';
 import SubmitProduct from '../pages/SubmitProduct';
+import Boardcreate from "../pages/Boardcreate";
+import Badetail from "../pages/BaDetail";
 import Mypage from '../pages/Mypage';
 
 export default () => {
@@ -24,18 +26,15 @@ export default () => {
             <Route path="/r" element={<Result />} />
             <Route path="/n" element={<Notice />} />
             <Route path="/st" element={<Store />} />
-
+            <Route path="/create" element={<Boardcreate />} />
+            <Route path="/b/:id?" element={<Badetail />} />
             <Route path="/stsubmit" element={<SubmitProduct />} />
             <Route path="/mypage" element={<Mypage />} />
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
     </Routes>
 
-
-}
-
-
-
+};
 
 //     let data = [
 //     {
