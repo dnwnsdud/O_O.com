@@ -3,25 +3,24 @@ import {
   Button,
   Grid
 } from "@chakra-ui/react";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import Today from "../component/board/Today";
 import Soboard from "../component/board/Soboard";
 import { io } from "socket.io-client";
 
-export default () => {
-  const [Chatting, ChattingChanger] = useState({});
-  useCallback(() => {
-    ChattingChanger({
-      ...Chatting,
-      io: io('http://localhost:9999', { cors: { origin: '*' } }),
-      soccer: { chatList: [] }
-    });
-    Chatting.io.on('soccer', (data) => {
-      Chatting.soccer.chatList.push(data);
-      Chatting.soccer.chatList = Chatting.soccer.chatList.reverse().slice(50).reverse();
-      ChattingChanger({ ...Chatting });
-    })
-  }, [])();
+export default function App() {
+  const [chatting, setChatting] = useState({ io: io('http://localhost:9999', { cors: { origin: '*' } }), soccer: { chatList: [] } });
+
+  chatting.io.on('soccer', (data) => {
+    setChatting(prevState => ({
+      ...prevState,
+      soccer: {
+        ...prevState.soccer,
+        chatList: [data, ...prevState.soccer.chatList].slice(0)
+      }
+    }));
+  });
+
   return (
     <>
       <Box maxW="1280px" margin="auto">
@@ -59,14 +58,14 @@ export default () => {
           </Box>
           <Box border="1px solid red">
             {
-              Chatting?.soccer?.chatList?.map(chat => <span>{chat}</span>)
+              chatting.soccer.chatList.map((chat, index) => <span key={index}>{chat}</span>)
             }
           </Box>
-          <input type="text" onChange={(e) => {
-            Chatting?.io.emit('soccer', `chat:${e.currentTarget.value}`);
+          <input style={{ border: "black 1px solid" }} type="text" onKeyUp={(e) => {
+            chatting.io.emit('soccer', `chat:${e.currentTarget.value}`);
           }} />
-        </Grid >
-      </Box >
+        </Grid>
+      </Box>
     </>
   );
 };
