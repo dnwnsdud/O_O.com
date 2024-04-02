@@ -6,13 +6,13 @@ import App from './component/App';
 
 export function render(url) {
     let html = renderToString(
-        <React.StrictMode>
-            <StaticRouter location={url} basename='/app'>
-                <ChakraProvider>
-                    <App />
-                </ChakraProvider>
-            </StaticRouter>
-        </React.StrictMode>
+        // <React.StrictMode>
+        <StaticRouter location={url} basename='/app'>
+            <ChakraProvider>
+                <App />
+            </ChakraProvider>
+        </StaticRouter>
+        // </React.StrictMode>
     );
     return { html };
 }
