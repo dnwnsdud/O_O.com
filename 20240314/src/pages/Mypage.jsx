@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 
 
 export default () => {
@@ -33,16 +34,19 @@ export default () => {
     
 
     return (
-        <div>
-            <h1>User List</h1>
-            <ul>
-                {userData.map(user => (
-                    <li key={user._id}>
-                        {user.name}{user.email} {/* 사용자 데이터의 필드에 맞게 수정 */}
-                    </li>
-                ))}
-            </ul>
-        </div>
+        // <div>
+        //     <h1>User List</h1>
+        //     <ul>
+        //         {userData.map(user => (
+        //             <li key={user._id}>
+        //                 {user.ame}{user.email} {/* 사용자 데이터의 필드에 맞게 수정 */}
+        //             </li>
+        //         ))}
+        //     </ul>
+        // </div>
+        <>
+            <Outlet />
+        </>
     );
 };
 

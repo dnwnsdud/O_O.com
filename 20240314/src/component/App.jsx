@@ -14,6 +14,10 @@ import SubmitProduct from '../pages/SubmitProduct';
 import Boardcreate from "../pages/Boardcreate";
 import Badetail from "../pages/BaDetail";
 import Mypage from '../pages/Mypage';
+import Mygrade from './Mygrade';
+import Myprofile from './Myprofile'
+import Myrequest from './Myrequest'
+import Mywrite from './Mywrite'
 
 export default () => {
     return <Routes>
@@ -30,6 +34,12 @@ export default () => {
             <Route path="/b/:id" element={<Badetail />} />
             <Route path="/stsubmit" element={<SubmitProduct />} />
             <Route path="/mypage" element={<Mypage />} />
+            {/* <Route path="/mypage" element={<Mypage />} >
+                <Route path="/profile" element={<Myprofile />} />
+                <Route path="/request" element={<Myrequest />} />
+                <Route path="/write" element={<Mywrite />} />
+                <Route path="/grade" element={<Mygrade />} />
+            </Route> */}
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
     </Routes>
