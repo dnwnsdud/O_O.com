@@ -5,7 +5,9 @@ export default (req, res) => {
         if (err) {
             return res.status(500).json({ success: false });
         }
-        return res.status(200).json('logout');
+        else{
+            return res.status(200).json('logout');
+        }
     });
 };
 // if(req.logout) req.logout(()=>{});

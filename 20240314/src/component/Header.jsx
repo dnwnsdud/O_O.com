@@ -17,6 +17,7 @@ export default () => {
   const [fill, fillChange] = useState("#0B0B0D");
   const [cl, clChange] = useState(true);
   const [logincheck, setLogincheck]=useState(['logout']);
+  const [isLoggedIn, setIsLoggedIn] = useState();
   let nav = useNavigate()
 
   const logout = ()=>{
@@ -37,7 +38,10 @@ export default () => {
     })
     .then(data=>{
       if(data){
+        localStorage.removeItem('isLoggedIn');
         setLogincheck(data);
+        setIsLoggedIn(false);
+        Isuser(false);
         console.log("로그아웃되었습니다.");
       }
       else{
@@ -46,9 +50,10 @@ export default () => {
       }
     })
   }
-
-  useEffect((e)=>{
-    fetch('/api/logincheck')
+  
+  useEffect ((e)=>{
+    localStorage.removeItem('isLoggedIn');
+     fetch('/api/logincheck')
     .then(res=>{
       if(res){
         console.log("성공하였습니다.");
@@ -58,8 +63,15 @@ export default () => {
       }
     })
     .then(data=>{
-      console.log(data);
+      console.log(data.role);
+      if(data.role== "user"||data.role =="admin"){
+        console.log("로그인하려고요");
+        localStorage.setItem('isLoggedIn',"1");
+      }
       setLogincheck(data);
+      if (localStorage.getItem("isLoggedIn") === "1") {
+        setIsLoggedIn(true);
+      }
     })
   },[])
   return (
@@ -151,7 +163,7 @@ export default () => {
             상점
           </Button>
           {
-            logincheck === 'logout' ? "":logincheck.role="user" ? <Button size="xs"
+            !isLoggedIn ? "": logincheck ==="logout"? "": logincheck.role="user" ? <Button size="xs"
             onClick={() => {
               nav("/mypage")
             }}
@@ -167,7 +179,7 @@ export default () => {
           }
           
           {
-            logincheck === 'logout' ?  <Button size="xs" onClick={onOpen}>
+            !isLoggedIn ?  <Button size="xs" onClick={onOpen}>
             로그인
           </Button> :<Button type="submit" size="xs" onClick={logout}>
             로그아웃
