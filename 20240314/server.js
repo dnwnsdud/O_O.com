@@ -14,7 +14,9 @@ import { Strategy as naverS } from "passport-naver-v2";
 import sirv from "sirv";
 import compression from "compression";
 import fs from "fs";
-import { log } from "console";
+import { createServer } from "http";
+import { Server } from "socket.io";
+
 
 dotenv.config({ path: "./.env", encoding: "UTF-8" });
 const app = express({ xPoweredBy: false });
@@ -392,6 +394,33 @@ app.use((err, req, res, next) => {
   } else {
     res.render("error404");
   }
+});
+
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: {
+    origin: `*`,
+    methods: ["get", "post"],
+  },
+});
+const Chatting = {};
+httpServer.listen(process.env.CHAT, () => {
+  console.log(`Port ${process.env.CHAT} server open!`);
+});
+io.on("connection", (socket) => {
+  console.log('a user connected', socket.id);
+  socket.on("disconnect", () => {
+    console.log("user disconnected");
+  });
+  socket.on('error', (err) => {
+    console.error(err);
+  });
+  socket.on('soccer', (v) => {
+    console.log(v);
+    if (v.startsWith('chat:')) {
+      io.emit('soccer', v.slice(5));
+    }
+  })
 });
 
 app.listen(process.env.PORT, () => {

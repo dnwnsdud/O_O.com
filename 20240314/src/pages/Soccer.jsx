@@ -4,9 +4,9 @@ import {
   Grid
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import Today from "../component/board/Today";
 import Soboard from "../component/board/Soboard";
-
+import Today from "../component/board/Today";
+import { io } from 'socket.io-client';
 export default function App() {
   const [chatting, setChatting] = useState({ io: io('http://localhost:9999', { cors: { origin: '*' } }), soccer: { chatList: [] } });
 
