@@ -49,7 +49,7 @@ export default () => {
   const swiperStyle = {
     position: "relative",
     width: "100%",
-    height: "200px",
+    height: "250px",
   };
 
 
@@ -65,6 +65,7 @@ export default () => {
       }}
       border={'1px solid #ddd'}
     >아이템등록</Button>
+    {/* 관리자만 버튼 뜨게 */}
 
     <Tabs position="relative" variant="unstyled" my={'5rem'}>
       <TabList>
@@ -102,8 +103,14 @@ export default () => {
                         m='auto'
                       />
                     </Box>
-                    <Text textAlign={'center'}>{store.title}</Text>
-                    <Text textAlign={'center'}>{store.price}</Text>
+                    <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}>{store.title}</Text>
+                    <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
+                    <Flex justifyContent={'right'}>
+                      <Button fontSize={10} w='10' h='5' border='1px solid #ddd'>삭제</Button>
+
+                      <Button fontSize={10} w='10' h='5' border='1px solid #ddd'>구매</Button>
+                      {/* 관리자는 삭제버튼 뜨게 일반 유저는 구매 버튼 뜨게 */}
+                    </Flex>
                   </Box>
                 </SwiperSlide>
               )
@@ -136,8 +143,12 @@ export default () => {
                         m='auto'
                       />
                     </Box>
-                    <Text textAlign={'center'}>{store.title}</Text>
-                    <Text textAlign={'center'}>{store.price}</Text>
+                    <Text textAlign={'center'} fontSize={'14'}>{store.title}</Text>
+                    <Text textAlign={'center'} fontSize={'13'}>{store.price}포인트</Text>
+                    <Flex justifyContent={'right'}>
+                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'>구매</Button>
+                      {/* 관리자는 삭제버튼 뜨게 일반 유저는 구매 버튼 뜨게 */}
+                    </Flex>
                   </Box>
                 </SwiperSlide>
               )
