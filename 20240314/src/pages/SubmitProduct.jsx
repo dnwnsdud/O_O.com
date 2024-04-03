@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FormControl, FormLabel, Input, FormHelperText, FormErrorMessage, Button } from '@chakra-ui/react';
+import { FormControl, FormLabel, Input, FormHelperText, FormErrorMessage, Button, Box, Text } from '@chakra-ui/react';
 import { useNavigate } from "react-router-dom";
 
 export default () => {
@@ -87,40 +87,47 @@ export default () => {
             });
     }
 
-    return (
-        <>
-            <FormControl isInvalid={itemNameError}>
-                <FormLabel>아이템 이름</FormLabel>
-                <Input type='text' name='title' onChange={handleValueChange} />
-                {!itemNameError ? (
-                    <FormHelperText>아이템 이름입니다.</FormHelperText>
-                ) : (
-                    <FormErrorMessage>
-                        아이템 이름을 입력해주세요.
-                    </FormErrorMessage>
-                )}
-            </FormControl>
-            <FormControl isInvalid={itemPriceError}>
-                <FormLabel>아이템 가격</FormLabel>
-                <Input type="text" name='price' onChange={handleValueChange} />
-                {itemPriceError && (
-                    <FormErrorMessage>
-                        아이템 가격을 입력해주세요.
-                    </FormErrorMessage>
-                )}
-            </FormControl>
-            <FormControl isInvalid={itemImageError}>
-                <FormLabel>아이템 이미지 업로드</FormLabel>
-                <Input type='file' name='images' onChange={handleImagesChange} />
-                {!itemImageError ? (
-                    <FormHelperText>이미지가 올라갑니다.</FormHelperText>
-                ) : (
-                    <FormErrorMessage>
-                        아이템 사진을 넣어주세요.
-                    </FormErrorMessage>
-                )}
-            </FormControl>
-            <Button onClick={handleSubmit}>등록</Button>
-        </>
-    );
+    return <Box w='20%' m='auto' my='8rem'>
+        <Text
+            textAlign='center'
+            fontSize={25}
+            mb='2rem'
+            fontWeight={'bold'}
+        >상점 아이템 등록</Text>
+        <FormControl isInvalid={itemNameError} >
+            {/* <FormLabel>아이템 이름</FormLabel> */}
+            <Input type='text' name='title' onChange={handleValueChange} placeholder="아이템 이름" />
+            {!itemNameError ? (
+                <FormHelperText color={'darkblue'}>아이템 이름 입니다.</FormHelperText>
+            ) : (
+                <FormErrorMessage>
+                    아이템 이름을 입력해주세요.
+                </FormErrorMessage>
+            )}
+        </FormControl>
+        <FormControl isInvalid={itemPriceError} mt='5' >
+            {/* <FormLabel>아이템 가격</FormLabel> */}
+            <Input type="text" name='price' onChange={handleValueChange} placeholder="아이템 가격" />
+            {!itemPriceError ? (
+                <FormHelperText color={'darkblue'}>아이템 가격 입니다.</FormHelperText>
+            ) : (
+                <FormErrorMessage>
+                    아이템 가격을 입력해주세요.
+                </FormErrorMessage>
+            )}
+        </FormControl>
+        <FormControl isInvalid={itemImageError} mt='5'>
+            <FormLabel>아이템 이미지 업로드</FormLabel>
+            <Input type='file' name='images' onChange={handleImagesChange} />
+            {!itemImageError ? (
+                <FormHelperText color={'darkblue'}>이미지가 올라갑니다.</FormHelperText>
+            ) : (
+                <FormErrorMessage>
+                    아이템 사진을 넣어주세요.
+                </FormErrorMessage>
+            )}
+        </FormControl>
+        <Button onClick={handleSubmit} mt='5' border={'1px solid #ddd'} w='100%'>등록</Button>
+
+    </Box>
 }

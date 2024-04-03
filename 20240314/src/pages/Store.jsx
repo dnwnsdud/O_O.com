@@ -46,30 +46,12 @@ export default () => {
     }
   }, []);
 
-
-
-
-  // const maxBoxes=15;
-
-  // const boxesPerRow = 5;
-  // const rows = Math.ceil(maxBoxes / boxesPerRow);
-
-
   const swiperStyle = {
     position: "relative",
     width: "100%",
     height: "200px",
-    border: "1px solid black",
-    borderBottom: 'none',
   };
 
-  const swiperStyle2 = {
-    position: "relative",
-    width: "100%",
-    height: "200px",
-    border: "1px solid black",
-    borderTop: 'none'
-  };
 
 
 
@@ -81,18 +63,19 @@ export default () => {
       onClick={() => {
         nav("/stsubmit")
       }}
-    >아이템입력</Button>
+      border={'1px solid #ddd'}
+    >아이템등록</Button>
 
-    <Tabs position="relative" variant="unstyled">
+    <Tabs position="relative" variant="unstyled" my={'5rem'}>
       <TabList>
-        <Tab>슬라이더</Tab>
+        <Tab>슬라이드</Tab>
         <Tab>리스트</Tab>
       </TabList>
       <TabIndicator
         mt="-1.5px"
-        height="2px"
-        bg="blue.500"
-        borderRadius="1px"
+        height="3px"
+        bg="black"
+        borderRadius="2px"
       />
       <TabPanels>
         <TabPanel>
@@ -100,57 +83,61 @@ export default () => {
             modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
             onSwiper={setFirstSwiper}
             controller={{ control: secondSwiper }}
-            spaceBetween={10}
-            slidesPerView={4}
+            spaceBetween={40}
+            slidesPerView={5}
             onSlideChange={() => console.log('slide change')}
           >
             {stores.map((store, index) => (
               index % 2 !== 0 && (
                 <SwiperSlide key={index} >
-                  <Box height='10rem' width='100%' border={'1px solid black'}>
-                    <Box height='10rem' width='100%' border={'1px solid pink'}>
-                      {/* <Box>{store.images}</Box> */}
+                  <Box height='10rem' width='100%'>
+                    {/* <Box>{store.images}</Box> */}
+
+                    <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'}>
                       <Image
                         src={store.images}
-                        boxSize='100px'
+                        boxSize='100%'
                         objectFit='cover'
                         alt="아이템 이미지"
+                        m='auto'
                       />
-                      <Box>{store.title}</Box>
-                      <Box>{store.price}</Box>
                     </Box>
+                    <Text textAlign={'center'}>{store.title}</Text>
+                    <Text textAlign={'center'}>{store.price}</Text>
                   </Box>
                 </SwiperSlide>
               )
             ))}
           </Swiper>
 
-          <Swiper style={swiperStyle2}
+          <Swiper style={swiperStyle}
             modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
-            spaceBetween={10}
-            slidesPerView={4}
+            spaceBetween={40}
+            slidesPerView={5}
             navigation
             pagination={{ clickable: true }}
             onSwiper={setSecondSwiper}
             controller={{ control: firstSwiper }}
-            scrollbar={{ draggable: true }}
+            // scrollbar={{ draggable: true }}
             onSlideChange={() => console.log('slide change')}
           >
             {stores.map((store, index) => (
               index % 2 === 0 && (
                 <SwiperSlide key={index} >
-                  <Box height='10rem' width='100%' border={'1px solid black'}>
-                    <Box height='10rem' width='100%' border={'1px solid pink'}>
-                      {/* <Box>{store.images}</Box> */}
+                  <Box height='10rem' width='100%' >
+                    {/* <Box>{store.images}</Box> */}
+
+                    <Box w='100%' h='7rem'>
                       <Image
                         src={store.images}
-                        boxSize='100px'
+                        boxSize='100%'
                         objectFit='cover'
                         alt="아이템 이미지"
+                        m='auto'
                       />
-                      <Box>{store.title}</Box>
-                      <Box>{store.price}</Box>
                     </Box>
+                    <Text textAlign={'center'}>{store.title}</Text>
+                    <Text textAlign={'center'}>{store.price}</Text>
                   </Box>
                 </SwiperSlide>
               )
@@ -158,21 +145,22 @@ export default () => {
           </Swiper>
         </TabPanel>
         <TabPanel>
-          <Grid templateColumns='repeat(5, 1fr)' gap={2}>
+          <Grid templateColumns='repeat(5, 1fr)' gap={19}>
             {stores.map((store, index) => (
               <GridItem
-                height='10rem' width='100%' border={'1px solid black'} key={index}>
-                <Box height='10rem' width='100%' border={'1px solid pink'}>
-                  {/* <Box>{store.images}</Box> */}
+                height='10rem' width='90%' key={index}>
+                {/* <Box>{store.images}</Box> */}
+                <Box w='100%' h='7rem'>
                   <Image
                     src={store.images}
-                    boxSize='100px'
+                    boxSize='100%'
                     objectFit='cover'
                     alt="아이템 이미지"
+                    m='auto'
                   />
-                  <Box>{store.title}</Box>
-                  <Box>{store.price}</Box>
                 </Box>
+                <Text textAlign={'center'}>{store.title}</Text>
+                <Text textAlign={'center'}>{store.price}</Text>
               </GridItem>
             )
             )}
