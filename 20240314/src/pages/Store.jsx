@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Flex, Badge, Text, HStack, Button, border } from '@chakra-ui/react';
-import { Swiper, SwiperSlide,  } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar, A11y, Grid, Controller } from 'swiper/modules';
+import {
+  Box, Flex, Badge, Text, HStack, Button, border,
+  Image, Tabs, TabList, Tab, TabIndicator, TabPanel, TabPanels, Grid, GridItem
+} from '@chakra-ui/react';
+import { Swiper, SwiperSlide, } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, A11y, Controller } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -18,30 +21,30 @@ export default () => {
 
   useEffect(() => {
     try {
-        fetch('/api/showstore',{method:'get'})
+      fetch('/api/showstore', { method: 'get' })
         .then(response => {
-            if (response) {
-                console.log(response);
-                return response.json();
-              } 
-              else{
-                  throw new Error(e);
-              }
+          if (response) {
+            console.log(response);
+            return response.json();
+          }
+          else {
+            throw new Error(e);
+          }
         })
-         .then(data => {
-        console.log("hi")
-    if (data) {
-        setStores(data);
-    } else {
-      alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
-    }
-  })
-  .catch(error => {
-  });
+        .then(data => {
+          console.log("hi")
+          if (data) {
+            setStores(data);
+          } else {
+            alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
+          }
+        })
+        .catch(error => {
+        });
     } catch (error) {
-        console.error('Error fetching data:', error);
+      console.error('Error fetching data:', error);
     }
-}, []);
+  }, []);
 
 
 
@@ -56,18 +59,18 @@ export default () => {
     position: "relative",
     width: "100%",
     height: "200px",
-    border:"1px solid black",
-    borderBottom:'none',
+    border: "1px solid black",
+    borderBottom: 'none',
   };
-  
+
   const swiperStyle2 = {
     position: "relative",
     width: "100%",
     height: "200px",
-    border:"1px solid black",
-    borderTop:'none'
+    border: "1px solid black",
+    borderTop: 'none'
   };
-  
+
 
 
   return <Box width={'45%'} margin={'auto'}>
@@ -75,66 +78,111 @@ export default () => {
       광고
     </Box>
     <Button
-    onClick={() => {
-      nav("/stsubmit")
-    }}
+      onClick={() => {
+        nav("/stsubmit")
+      }}
     >아이템입력</Button>
-    <Box my='2rem'>
-      <Button px='2' color={'black'}>슬라이더</Button>
-      <Button px='2' color={'black'}>리스트</Button>
-    </Box>
-   
+
+    <Tabs position="relative" variant="unstyled">
+      <TabList>
+        <Tab>슬라이더</Tab>
+        <Tab>리스트</Tab>
+      </TabList>
+      <TabIndicator
+        mt="-1.5px"
+        height="2px"
+        bg="blue.500"
+        borderRadius="1px"
+      />
+      <TabPanels>
+        <TabPanel>
+          <Swiper style={swiperStyle}
+            modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
+            onSwiper={setFirstSwiper}
+            controller={{ control: secondSwiper }}
+            spaceBetween={10}
+            slidesPerView={4}
+            onSlideChange={() => console.log('slide change')}
+          >
+            {stores.map((store, index) => (
+              index % 2 !== 0 && (
+                <SwiperSlide key={index} >
+                  <Box height='10rem' width='100%' border={'1px solid black'}>
+                    <Box height='10rem' width='100%' border={'1px solid pink'}>
+                      {/* <Box>{store.images}</Box> */}
+                      <Image
+                        src={store.images}
+                        boxSize='100px'
+                        objectFit='cover'
+                        alt="아이템 이미지"
+                      />
+                      <Box>{store.title}</Box>
+                      <Box>{store.price}</Box>
+                    </Box>
+                  </Box>
+                </SwiperSlide>
+              )
+            ))}
+          </Swiper>
+
+          <Swiper style={swiperStyle2}
+            modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
+            spaceBetween={10}
+            slidesPerView={4}
+            navigation
+            pagination={{ clickable: true }}
+            onSwiper={setSecondSwiper}
+            controller={{ control: firstSwiper }}
+            scrollbar={{ draggable: true }}
+            onSlideChange={() => console.log('slide change')}
+          >
+            {stores.map((store, index) => (
+              index % 2 === 0 && (
+                <SwiperSlide key={index} >
+                  <Box height='10rem' width='100%' border={'1px solid black'}>
+                    <Box height='10rem' width='100%' border={'1px solid pink'}>
+                      {/* <Box>{store.images}</Box> */}
+                      <Image
+                        src={store.images}
+                        boxSize='100px'
+                        objectFit='cover'
+                        alt="아이템 이미지"
+                      />
+                      <Box>{store.title}</Box>
+                      <Box>{store.price}</Box>
+                    </Box>
+                  </Box>
+                </SwiperSlide>
+              )
+            ))}
+          </Swiper>
+        </TabPanel>
+        <TabPanel>
+          <Grid templateColumns='repeat(5, 1fr)' gap={2}>
+            {stores.map((store, index) => (
+              <GridItem
+                height='10rem' width='100%' border={'1px solid black'} key={index}>
+                <Box height='10rem' width='100%' border={'1px solid pink'}>
+                  {/* <Box>{store.images}</Box> */}
+                  <Image
+                    src={store.images}
+                    boxSize='100px'
+                    objectFit='cover'
+                    alt="아이템 이미지"
+                  />
+                  <Box>{store.title}</Box>
+                  <Box>{store.price}</Box>
+                </Box>
+              </GridItem>
+            )
+            )}
+          </Grid>
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
 
 
- <Swiper style={swiperStyle}
-  modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
-  onSwiper={setFirstSwiper}
-  controller={{ control: secondSwiper }}
-  spaceBetween={10}
-  slidesPerView={4}
-  onSlideChange={() => console.log('slide change')}
->
-  {stores.map((store, index) => (
-    index % 2 !== 0 && (
-      <SwiperSlide key={index} >
-        <Box height='10rem' width='100%' border={'1px solid black'}>
-            <Box height='10rem' width='100%' border={'1px solid pink'}>
-              <Box>{store.images}</Box>
-              <Box>{store.title}</Box>
-              <Box>{store.price}</Box>
-            </Box>
-        </Box>
-      </SwiperSlide>
-    )
-  ))}
-</Swiper>
-
-<Swiper style={swiperStyle2}
-  modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
-  spaceBetween={10}
-  slidesPerView={4}
-  navigation
-  pagination={{ clickable: true }}
-  onSwiper={setSecondSwiper}
-  controller={{ control: firstSwiper }}
-  scrollbar={{ draggable: true }}
-  onSlideChange={() => console.log('slide change')}
->
-  {stores.map((store, index) => (
-    index % 2 === 0 && (
-      <SwiperSlide key={index} >
-        <Box height='10rem' width='100%' border={'1px solid black'}>
-            <Box height='10rem' width='100%' border={'1px solid pink'}>
-              <Box>{store.images}</Box>
-              <Box>{store.title}</Box>
-              <Box>{store.price}</Box>
-            </Box>
-        </Box>
-      </SwiperSlide>
-    )
-  ))}
-</Swiper>
 
 
-  </Box>
+  </Box >
 }

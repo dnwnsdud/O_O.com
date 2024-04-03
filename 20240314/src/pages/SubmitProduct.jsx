@@ -23,7 +23,7 @@ export default () => {
     }
 
     const handleImagesChange = (e) => {
-        const file = e.target.files[0]; // 첫 번째 파일만 가져옴 (단일 파일 업로드)
+        const file = e.target.files[0];
         if (file) {
             const formData = new FormData();
             formData.append('images', file);
@@ -38,7 +38,7 @@ export default () => {
                         console.log('이미지 업로드 성공');
                         const imagePath = data.mediapath;
                         console.log(data);
-                        console.log(imagePath);
+                        console.log('이미지경로: ' + imagePath);
                         setStore(prevState => ({
                             ...prevState,
                             images: imagePath
@@ -69,15 +69,13 @@ export default () => {
             headers: {
                 "Content-Type": "application/json; charset=utf-8",
             },
-            // body: JSON.stringify(store),
-            body: { title: "ㅎㅎㅎ", price: 5, images: "seds" }
+            body: JSON.stringify(store),
         })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
                 if (data.success) {
                     console.log("성공해떠")
-                    console.log(images);
                     nav("/st");
                 } else {
                     console.log("실패해떠")

@@ -4,7 +4,7 @@ export default async (req, res, next) => {
     try {
 
         console.log("ㅇㅇㅇㅇㅇ")
-        // console.log(mediapath);
+        // console.log('storeupload' + mediapath);
         const store = new req.mongo.store(req.body);
         console.log(req.body);
         const storeitem = await store.save();

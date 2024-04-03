@@ -11,9 +11,9 @@ export default mongoose.Schema({
     },
     "images": {
         "type": String,
-        // "required": true,
+        "required": true,
     },
-    "mediapath": {
-        "type": String,
-    }
+    // "mediapath": {
+    //     "type": String,
+    // }
 });
