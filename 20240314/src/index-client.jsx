@@ -8,12 +8,12 @@ import './index.css';
 if (typeof window !== 'undefined') {
     hydrateRoot(
         document.querySelector("#root"),
-        <React.StrictMode>
-            <BrowserRouter basename='/app'>
-                <ChakraProvider>
-                    <App />
-                </ChakraProvider>
-            </BrowserRouter>
-        </React.StrictMode>
+
+        <BrowserRouter basename='/app'>
+            <ChakraProvider>
+                <App />
+            </ChakraProvider>
+        </BrowserRouter>
+
     )
 }

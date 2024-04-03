@@ -13,12 +13,14 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [isLoggedIn, setisLoggedIn] = useState("");
+  const [nickname, setNick] = useState("")
   const handleInputChange = (e) => setTitle(e.target.value);
   const handleInputChange2 = (e) => setContent(e.target.value);
 
@@ -27,6 +29,14 @@ export default () => {
 
   const nav = useNavigate();
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const isLoggedIn = localStorage.getItem('isLoggedIn');
+      setNick(isLoggedIn)
+
+    }
+  }, [])
+
   const onSubmitHandler = (e) => {
     //새로고침 방지
     e.preventDefault();
@@ -34,7 +44,7 @@ export default () => {
     let body = {
       title: title,
       content: content,
-      //   nickname: nickname,
+      nickname: nickname || 'nick',
     };
 
     fetch("/api/boardcreate", {
@@ -58,7 +68,7 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   return (
@@ -118,6 +128,9 @@ export default () => {
             ) : (
               <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
             )}
+          </FormControl>
+          <FormControl>
+            <Input value={"nickname"} placeholder={nickname} readOnly hidden />
           </FormControl>
         </Box>
         <Flex justifyContent={"end"} gap={3}>

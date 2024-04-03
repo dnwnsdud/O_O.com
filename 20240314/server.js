@@ -395,7 +395,8 @@ app.use((err, req, res, next) => {
       res.redirect(process.env.APP_BASE);
     }, 100);
   } else {
-    res.render("error404");
+    // res.render("error404");
+    res.send(err.stack)
   }
 });
 
