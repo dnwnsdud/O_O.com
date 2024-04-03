@@ -22,7 +22,7 @@ import Mywrite from './Mywrite'
 export default () => {
     return <Routes>
         <Route element={<Layout />}>
-            <Route path="/" element={<Main />} />
+            <Route path="/" element={<Main  />} />
             <Route path="/b" element={<Baseball />} />
             <Route path="/l" element={<LoL />} />
             <Route path="/s" element={<Soccer />} />
@@ -33,14 +33,14 @@ export default () => {
             <Route path="/create" element={<Boardcreate />} />
             <Route path="/b/:id" element={<Badetail />} />
             <Route path="/stsubmit" element={<SubmitProduct />} />
-            <Route path="/mypage" element={<Mypage />} />
-            {/* <Route path="/mypage" element={<Mypage />} >
-                <Route path="/profile" element={<Myprofile />} />
-                <Route path="/request" element={<Myrequest />} />
-                <Route path="/write" element={<Mywrite />} />
-                <Route path="/grade" element={<Mygrade />} />
-            </Route> */}
+            {/* <Route path="/mypage" element={<Mypage />} /> */}
         </Route>
+            <Route path="/mypage" element={<Mypage  />} >
+                <Route path="" element={<Myprofile />} />
+                <Route path="request" element={<Myrequest />} />
+                <Route path="write" element={<Mywrite />} />
+                <Route path="grade" element={<Mygrade />} />
+            </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
     </Routes>
 

@@ -66,10 +66,10 @@ export default () => {
       console.log(data.role);
       if(data.role== "user"||data.role =="admin"){
         console.log("로그인하려고요");
-        localStorage.setItem('isLoggedIn',"1");
+        localStorage.setItem('isLoggedIn', data.nickname);
       }
       setLogincheck(data);
-      if (localStorage.getItem("isLoggedIn") === "1") {
+      if (localStorage.getItem("isLoggedIn")) {
         setIsLoggedIn(true);
       }
     })

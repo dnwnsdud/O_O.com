@@ -1,37 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
+import Header from '../component/Header';
+import Footer from '../component/Footer';
 
 
 export default () => {
-            const [userData, setUserData] = useState([]);
-        
-            useEffect((e) => {
-                try {
-                    fetch('/api/mypage')
-                    .then(response => {
-                        if (response) {
-                            console.log(response);
-                            return response.json();
-                          } 
-                          else{
-                              throw new Error(e);
-                          }
-                    })
-                     .then(data => {
-                    console.log("hi")
-                if (data) {
-                    setUserData(data);
-                } else {
-                  alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
-                }
-              })
-              .catch(error => {
-              });
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                }
-            }, []);
-    
+            
 
     return (
         // <div>
@@ -44,8 +18,10 @@ export default () => {
         //         ))}
         //     </ul>
         // </div>
-        <>
+        <>  
+            <Header/>
             <Outlet />
+            <Footer/>
         </>
     );
 };
