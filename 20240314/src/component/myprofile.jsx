@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Center, Flex, Grid, HStack, Input, Stack, VStack, Image } from '@chakra-ui/react';
 import {FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
-import { useOutletContext } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 
 export default ()=>{
     const [userData, setUserData] = useState([]);
-        
+    
+    let nav = useNavigate();
     useEffect((e) => {
         try {
             fetch('/api/mypage')
@@ -45,12 +46,14 @@ return <Center>
         </Grid>
         <Grid templateRows="1fr 1fr 1fr 1fr" gap="20px" margin="30px 0" >
             <Box textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%" h={"25px"}>{userData.email}</Box>
-            <Box textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%">응원팀</Box>
+            <Box textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%">{userData.team}</Box>
             <Box textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%">전체승률</Box>
         </Grid>
         <Grid templateRows="1fr 1fr" justifyContent="center" gap="10px">
             <Button width="100px" border="1px solid black" borderRadius="10px">실명인증</Button>
-            <Button width="100px" border="1px solid black" borderRadius="10px">정보수정</Button>
+            <Button width="100px" border="1px solid black" borderRadius="10px" onClick={()=>{
+                nav('/mypage/modify')
+            }}>정보수정</Button>
         </Grid>
     </Stack>
 </Center>

@@ -42,11 +42,9 @@ export default ()=>{
             <Box>조회</Box>
             <Box>추천</Box>
         </Grid>
-        <ul>
+          <List List height="500px" >
       {userData.map((user) => (
-        <li key={user._id}>
-          <OrderedList height="500px">
-            <ListItem>
+            <ListItem key={user._id}>
               <Grid
                 templateColumns="1fr 3fr 1fr 2fr 1fr 1fr"
                 borderBottom="1px solid black"
@@ -60,10 +58,8 @@ export default ()=>{
                 <Box>추천</Box>
               </Grid>
             </ListItem>
-          </OrderedList>
-        </li>
       ))}
-    </ul>
+      </List>
     </Stack>
 </Center>
 }

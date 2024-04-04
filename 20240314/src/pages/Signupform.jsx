@@ -16,9 +16,7 @@ export default () => {
 
 
 
-  const onEmailHandler = (e) => {
-    setEmail(e.target.value);
-  };
+
   const onNamedHandler = (e) => {
     setName(e.target.value);
   };
