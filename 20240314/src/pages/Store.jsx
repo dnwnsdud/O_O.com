@@ -10,6 +10,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { useNavigate } from "react-router-dom";
+import Payment from "./Payment";
 
 export default () => {
 
@@ -36,7 +37,7 @@ export default () => {
           if (data) {
             setStores(data);
           } else {
-            alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
+            alert(`상품을 출력하는 동안 오류 발생:${data.error}`);
           }
         })
         .catch(error => {
@@ -51,6 +52,33 @@ export default () => {
     width: "100%",
     height: "250px",
   };
+
+
+  const deleteSubmit = (e, id) => {
+    e.preventDefault();
+    console.log('삭제');
+    console.log('내 아이디다' + id);
+    alert('삭제하시겠습니까?');
+    fetch('/api/storedelete', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify({ _id: id }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          alert('삭제되었습니다.')
+        } else {
+          alert('오류가 발생했습니다.')
+          console.log('삭제 실패얌')
+        }
+      })
+      .catch(error => {
+        console.error('아이템 삭제 실패 : ', error);
+      })
+  }
 
 
 
@@ -106,9 +134,13 @@ export default () => {
                     <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}>{store.title}</Text>
                     <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
                     <Flex justifyContent={'right'}>
-                      <Button fontSize={10} w='10' h='5' border='1px solid #ddd'>삭제</Button>
+                      <Button fontSize={10} w='10' h='5' border='1px solid #ddd'
 
-                      <Button fontSize={10} w='10' h='5' border='1px solid #ddd'>구매</Button>
+                        onClick={(e) => deleteSubmit(e, store._id)}
+                      >삭제</Button>
+
+
+                      <Payment price={store.price} title={store.title} id={store._id} />
                       {/* 관리자는 삭제버튼 뜨게 일반 유저는 구매 버튼 뜨게 */}
                     </Flex>
                   </Box>
@@ -134,7 +166,7 @@ export default () => {
                   <Box height='10rem' width='100%' >
                     {/* <Box>{store.images}</Box> */}
 
-                    <Box w='100%' h='7rem'>
+                    <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'}>
                       <Image
                         src={store.images}
                         boxSize='100%'
@@ -143,11 +175,13 @@ export default () => {
                         m='auto'
                       />
                     </Box>
-                    <Text textAlign={'center'} fontSize={'14'}>{store.title}</Text>
-                    <Text textAlign={'center'} fontSize={'13'}>{store.price}포인트</Text>
+                    <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}>{store.title}</Text>
+                    <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
                     <Flex justifyContent={'right'}>
-                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'>구매</Button>
+                      {/* <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'>구매</Button> */}
                       {/* 관리자는 삭제버튼 뜨게 일반 유저는 구매 버튼 뜨게 */}
+
+                      <Payment price={store.price} title={store.title} id={store._id} />
                     </Flex>
                   </Box>
                 </SwiperSlide>
@@ -161,7 +195,7 @@ export default () => {
               <GridItem
                 height='10rem' width='90%' key={index}>
                 {/* <Box>{store.images}</Box> */}
-                <Box w='100%' h='7rem'>
+                <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'}>
                   <Image
                     src={store.images}
                     boxSize='100%'
@@ -170,8 +204,14 @@ export default () => {
                     m='auto'
                   />
                 </Box>
-                <Text textAlign={'center'}>{store.title}</Text>
-                <Text textAlign={'center'}>{store.price}</Text>
+                <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}>{store.title}</Text>
+                <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
+                <Flex justifyContent={'right'}>
+                  {/* <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'>구매</Button> */}
+
+                  <Payment price={store.price} title={store.title} id={store._id} />
+                  {/* 관리자는 삭제버튼 뜨게 일반 유저는 구매 버튼 뜨게 */}
+                </Flex>
               </GridItem>
             )
             )}
