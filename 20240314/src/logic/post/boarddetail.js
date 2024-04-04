@@ -1,4 +1,4 @@
-(await import("dotenv")).default.config({ path: './.env' });
+(await import("dotenv")).default.config({ path: "./.env" });
 
 export default async (req, res, next) => {
   if (req.body.like == "like") {
@@ -12,7 +12,7 @@ export default async (req, res, next) => {
         { new: true }
       );
       if (!updatedDocument) {
-        return res.status(404).json({ message: 'Document not found' });
+        return res.status(404).json({ message: "Document not found" });
       }
       console.log(updatedDocument);
       res.json(updatedDocument); // 업데이트된 문서를 응답으로 전송
@@ -29,7 +29,7 @@ export default async (req, res, next) => {
       { new: true }
     );
     if (!updatedDocument) {
-      return res.status(404).json({ message: 'Document not found' });
+      return res.status(404).json({ message: "Document not found" });
     }
     console.log(updatedDocument);
     res.json(updatedDocument); // 업데이트된 문서를 응답으로 전송
