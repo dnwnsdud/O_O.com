@@ -21,6 +21,9 @@ import Mywrite from './Mywrite'
 import Mypage_Admin from './Mypage_Admin';
 import UserModify from './UserModify';
 
+
+
+
 export default () => {
     return <Routes>
         <Route element={<Layout />}>
@@ -44,7 +47,6 @@ export default () => {
             </Route>
             <Route path="/admin" element={<Mypage_Admin />} />
         </Route>
-
         <Route path="/signupform/:email?" element={<Signupform />} />
     </Routes>
 
