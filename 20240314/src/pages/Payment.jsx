@@ -6,24 +6,6 @@ import { loadTossPayments } from '@tosspayments/payment-sdk';
 export default ({ price, title, id }) => {
 
 
-    // useEffect(() => {
-    //     const payTotal = async () => {
-    //         await paytotal({ member_no: no }).then((res) => {
-    //             if (res.data === null) {
-    //                 return 0;
-    //             } else {
-    //                 console.log(res.data);
-    //                 setOrderInfo({ order_amount: res.data.ORDER_AMOUNT });
-
-    //                 /* 구매금액 3만원 이상이면 배송비 0원 */
-    //                 if (res.data.ORDER_AMOUNT < 30000) {
-    //                     setShipFee(3000);
-    //                 } else setShipFee(0);
-    //             }
-    //         });
-    //     };
-    //     payTotal();
-    // }, [no]);
 
     const PaymentButton = () => {
         const clientKey = 'test_ck_DpexMgkW36RYw2vOjOxB3GbR5ozO'; // 환경 변수로부터 가져와야 합니다.

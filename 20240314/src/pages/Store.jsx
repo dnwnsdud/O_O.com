@@ -68,8 +68,10 @@ export default () => {
     })
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         if (data.success) {
           alert('삭제되었습니다.')
+          nav("/");
         } else {
           alert('오류가 발생했습니다.')
           console.log('삭제 실패얌')
@@ -79,7 +81,6 @@ export default () => {
         console.error('아이템 삭제 실패 : ', error);
       })
   }
-
 
 
 
