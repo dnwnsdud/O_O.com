@@ -1,8 +1,14 @@
 import {
   Box,
   Button,
-  Grid
+  Flex,
+  FormControl,
+  Grid,
+  Input,
+  Stack,
+  Text
 } from "@chakra-ui/react";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import React, { useState, useEffect } from "react";
 import Soboard from "../component/board/Soboard";
 import Today from "../component/board/Today";
@@ -12,14 +18,12 @@ export default function App() {
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const socket = io('http://192.168.6.3:9999', { cors: { origin: '*' } });
+  let nick = "nick";
 
   useEffect(() => {
     socket.on('soccer', (data) => {
       setChatList(prevChatList => [data, ...prevChatList].slice(0, 50));
     });
-    // return () => {
-    //   socket.disconnect();
-    // };
   }, []);
 
   const handleInputChange = (e) => {
@@ -68,19 +72,56 @@ export default function App() {
           <Today />
           <Soboard />
         </Box>
-        <Box border="1px solid red" >
-          {
-            chatList.map((chat, index) => <Box key={index}>{chat}</Box>)
-          }
-        </Box>
-        <form onSubmit={handleSubmit}>
-          <input
-            style={{ border: "black 1px solid" }}
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-          />
-        </form>
+
+        <Flex
+          direction={"column"}
+          justifyContent={"space-between"}
+          borderRadius={5}
+          bg={"#0b0b0d"}
+          overflow={"hidden"}
+        >
+          <Flex flexDirection={"column"} justifyContent={"space-between"}>
+            <Box pl={2} color={"white"} fontSize={"xl"}>채팅</Box>
+            <Stack className="chat-list"
+              // maxH={"50vh"}
+              h={"50vh"}
+              color={"white"}
+              direction={"column-reverse"}
+              pl={2}
+              pr={2}
+              overflowY={"scroll"}
+            >
+              {
+                chatList.map((chat, index) =>
+                  <Box _hover={{
+                    bg: "gray.700"
+                  }} borderRadius={5} key={index}><Text>{nick}</Text>{chat}</Box>
+                )
+              }
+            </Stack>
+          </Flex>
+          <Box p={2} bg={"#555"}>
+            <Flex bg={"#999"} borderRadius={20}>
+              <Input
+                pl={2}
+                variant={"unstyled"}
+                outline={"none"}
+                type="text"
+                value={inputValue}
+                onChange={handleInputChange}
+                placeholder="메시지를 입력하세요"
+                _placeholder={{ color: "white" }}
+                _focus={{ _placeholder: "" }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    handleSubmit(e);
+                  }
+                }}
+              />
+              <Button onClick={handleSubmit}><ArrowForwardIcon /></Button>
+            </Flex>
+          </Box>
+        </Flex>
       </Grid >
     </Box >
   );
