@@ -6,25 +6,25 @@ export default () => {
     useEffect((e) => {
         try {
             fetch('/api/admin')
-            .then(response => {
-                if (response) {
-                    return response.json();
-                  } 
-                  else{
-                      throw new Error(e);
-                  }
-            })
-             .then(data => {
-        if (data) {
-            setUserData(data.userdata);
-            setwriteData(data.writedata);
-            console.log(data.userdata);
-        } else {
-          alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
-        }
-      })
-      .catch(error => {
-      });
+                .then(response => {
+                    if (response) {
+                        return response.json();
+                    }
+                    else {
+                        throw new Error(e);
+                    }
+                })
+                .then(data => {
+                    if (data) {
+                        setUserData(data.userdata);
+                        setwriteData(data.writedata);
+                        console.log(data.userdata);
+                    } else {
+                        alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
+                    }
+                })
+                .catch(error => {
+                });
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -47,8 +47,8 @@ export default () => {
                 </Grid>
                 <List height="100px" overflowX='auto'>
                     {
-                        userData.map((user)=>{
-                            return(<ListItem key={user._id}>
+                        userData.map((user) => {
+                            return (<ListItem key={user._id}>
                                 <Grid templateColumns="1fr 1fr 1fr" textAlign="center" alignItems="center" padding="5px 0">
                                     <Box>{user.email}</Box>
                                     <Box>{user.nickname}</Box>
@@ -67,9 +67,9 @@ export default () => {
                     <Box >게시글관리</Box>
                 </Grid>
                 <List height="100px" overflowX='auto'>
-                {
-                        writeData.map((write)=>{
-                            return(<ListItem key={write._id}>
+                    {
+                        writeData.map((write) => {
+                            return (<ListItem key={write._id}>
                                 <Grid templateColumns="1fr 1fr 1fr" textAlign="center" alignItems="center" padding="5px 0">
                                     <Box>{write.nickname}</Box>
                                     <Box>{write.title}</Box>
