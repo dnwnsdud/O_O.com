@@ -2,40 +2,26 @@ import {
   Box,
   Button,
   Center,
-  Divider,
-  Flex,
   FormControl,
-  FormErrorMessage,
-  FormHelperText,
   FormLabel,
+  Grid,
   Input,
   Stack,
-  Text,
-  Textarea,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [isLoggedIn, setisLoggedIn] = useState("");
-  const [nickname, setNick] = useState("")
-  const handleInputChange = (e) => setTitle(e.target.value);
-  const handleInputChange2 = (e) => setContent(e.target.value);
+  let nav = useNavigate();
+  const [title, settitle] = useState("");
+  const [content, setcontent] = useState("");
 
-  const isError = title === "";
-  const isError2 = content === "";
-
-  const nav = useNavigate();
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const isLoggedIn = localStorage.getItem('isLoggedIn');
-      setNick(isLoggedIn)
-
-    }
-  }, [])
+  const onNamedHandler = (e) => {
+    settitle(e.target.value);
+  };
+  const onNicknameHandler = (e) => {
+    setcontent(e.target.value);
+  };
 
   const onSubmitHandler = (e) => {
     //새로고침 방지
@@ -44,10 +30,9 @@ export default () => {
     let body = {
       title: title,
       content: content,
-      nickname: nickname || 'nick',
     };
 
-    fetch("/api/boardcreate", {
+    fetch("/api/boardmodify", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -55,12 +40,13 @@ export default () => {
       body: JSON.stringify(body),
     })
       .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Server responded with status ${response.status}`);
+        if (response) {
+          return response.json();
         }
-        return response.json();
+        throw new Error("Network response was not ok.");
       })
       .then((data) => {
+        console.log(data);
         if (data.success) {
           nav("/b");
         } else {
@@ -68,11 +54,29 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
 
+  useEffect((e) => {
+    fetch(`/api/boarddetail`, { method: "post", body: id })
+      .then((res) => {
+        if (res) {
+          console.log("성공하였습니다.");
+          return res.json();
+        } else {
+          throw new Error(e);
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        setbaDetails(data);
+        setLikeCount(data.like);
+        console.log(data.like);
+      });
+  }, []);
+
   return (
-    <Stack
+       <Stack
       w={"35%"}
       m={"auto"}
       height={"100vh"}

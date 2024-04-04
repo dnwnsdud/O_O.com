@@ -46,14 +46,21 @@ const getDayMinuteCounter = (date) => {
 
 export default () => {
   const nav = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   const goToPage = () => {
-    nav("/create");
+    if (localStorage.getItem("isLoggedIn")) {
+      setIsLoggedIn(true);
+      nav("/create");
+    }
+    else {
+      alert('로그인이 필요합니다!')
+    }
   };
 
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPosts, setTotalPosts] = useState(100);
+  const [totalPosts, setTotalPosts] = useState(1);
   const [postsPerPage] = useState(10);
 
   useEffect(() => {
@@ -61,6 +68,7 @@ export default () => {
       try {
         const response = await fetch("/api/boards");
         const contentType = response.headers.get("Content-type");
+
         if (contentType && contentType.includes("application/json")) {
           let data = await response.json();
           data.sort((a, b) => b._id.localeCompare(a._id));
@@ -143,12 +151,12 @@ export default () => {
           >
             <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
             <Box>
-              <Link to={`/b/?id=${post._id}`}>{post.title}</Link>
+              <Link to={`/b/id=${post._id}`}>{post.title}</Link>
             </Box>
-            <Box>{post.content}</Box>
+            <Box>{post.nickname}</Box>
             <Box>{getDayMinuteCounter(post.createdAt)}</Box>
-            <Box>a</Box>
-            <Box>a</Box>
+            <Box>{post.count}</Box>
+            <Box>{post.like}</Box>
           </Grid>
         ))}
         <Flex fontWeight="bold" justify="end" marginTop="10px">

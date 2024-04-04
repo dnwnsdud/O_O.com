@@ -13,6 +13,14 @@ export default mongoose.Schema(
     nickname: {
       type: String,
     },
+    count: {
+      type: Number,
+      default: 0
+    },
+    like: {
+      type: Number,
+      default: 0
+    }
   },
   {
     timestamps: true,

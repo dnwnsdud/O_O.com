@@ -18,16 +18,12 @@ import { useLocation } from "react-router-dom";
 
 export default () => {
   const [baDetails, setbaDetails] = useState();
+  const [likeCount, setLikeCount] = useState(0);
   const location = useLocation();
-  // console.log(location.pathname.slice(location.pathname.indexOf("=")+1));
-  let id = location.pathname.slice(location.pathname.indexOf("=")+1)
-  console.log(id);
-  // const queryParams = {id:`${location.pathname.slice(location.pathname.indexOf("=")+1)}`}
-  // console.log(queryParams);
-//   const paramValue = queryParams.get("id");
-// console.log( );
+  let id = location.pathname.slice(location.pathname.indexOf("=") + 1)
+
   useEffect((e) => {
-    fetch(`/api/boarddetail`,{method:'post',body:id})
+    fetch(`/api/boarddetail`, { method: 'post', body: id })
       .then((res) => {
         if (res) {
           console.log("성공하였습니다.");
@@ -39,9 +35,31 @@ export default () => {
       .then((data) => {
         console.log(data);
         setbaDetails(data);
-
+        setLikeCount(data.like)
+        console.log(data.like);
       });
+
+
+
   }, []);
+
+
+  const like = (e) => {
+    e.preventDefault();
+    fetch(`/api/boarddetail`, { method: 'post', body: { id: id, like: "like" } })
+      .then((res) => {
+        if (res) {
+          console.log("성공하였습니다.");
+          return res.json();
+        } else {
+          throw new Error(e);
+        }
+      })
+      .then((data) => {
+        console.log(data);
+        // setLikeCount(data);
+      });
+  }
 
   if (!baDetails) {
     return <div>Loading...</div>;
@@ -50,7 +68,8 @@ export default () => {
   return (
     <>
       <Box>{baDetails.title}</Box>
-      <Box>{baDetails.content}</Box>
+      <Box>{likeCount}</Box>
+      <Button onClick={(e) => { like(e); console.log("Hi"); }}>추천~!</Button>
     </>
   );
 };
