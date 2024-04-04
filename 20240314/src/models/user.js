@@ -18,5 +18,9 @@ export default mongoose.Schema({
     "role": {
         "type": String,
         "default": "user"
+    },
+    "team": {
+        "type": String,
+        "default": "응원팀"
     }
 });

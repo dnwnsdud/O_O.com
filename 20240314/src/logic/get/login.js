@@ -11,7 +11,7 @@ export default async(req, res, next)=>{
     }
     else{
         if(emailSearch){
-            req.session.user = {nickname: emailSearch.nickname, role:emailSearch.role}
+            req.session.user = {email:emailSearch.email,role:emailSearch.role}
             console.log("로그인 성공");
             return res.redirect('/');    
 
