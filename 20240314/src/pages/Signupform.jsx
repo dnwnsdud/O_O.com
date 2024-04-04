@@ -71,7 +71,7 @@ export default () => {
             </FormControl>
             <FormControl>
                 <FormLabel>이메일</FormLabel>
-                <Input type='email' onChange={onEmailHandler} placeholder={paramValue} readOnly={true}/>
+                <Input type='email'  placeholder={paramValue} readOnly={true}/>
             </FormControl>
             <FormControl>
                 <FormLabel>닉네임</FormLabel>
