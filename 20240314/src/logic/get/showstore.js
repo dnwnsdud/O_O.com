@@ -1,7 +1,4 @@
 (await import("dotenv")).default.config({ path: './.env' });
-import express from 'express';
-const app = express();
-
 
 export default async (req, res, next) => {
     try {
@@ -13,4 +10,5 @@ export default async (req, res, next) => {
         res.status(500).json({ error: err.message });
     }
 };
+
 
