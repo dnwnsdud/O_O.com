@@ -24,120 +24,120 @@ import UserModify from "./UserModify";
 import Calendar from "./Calendar";
 
 export default () => {
-  const weeks = [
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
-    ]
-  ];
-  return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<Main />} />
-        <Route path="/b" element={<Baseball />} />
-        <Route path="/l" element={<LoL />} />
-        <Route path="/s" element={<Soccer />} />
-        <Route path="/c" element={<Society />} />
-        <Route path="/r" element={<Result />} />
-        <Route path="/n" element={<Notice />} />
-        <Route path="/st" element={<Store />} />
-        <Route path="/create" element={<Boardcreate />} />
-        <Route path="/b/:id" element={<Badetail />} />
-        <Route path="/b/:id/modify" element={<Boardmodify />} />
-        <Route path="/stsubmit" element={<SubmitProduct />} />
-        <Route path="/mypage" element={<Mypage />}>
-          <Route path="" element={<Myprofile />} />
-          <Route path="request" element={<Myrequest />} />
-          <Route path="write" element={<Mywrite />} />
-          <Route path="grade" element={<Mygrade />} />
-          <Route path="modify" element={<UserModify />} />
-        </Route>
-        <Route path="/admin" element={<Mypage_Admin />} />
-      </Route>
-      <Route path="calendar" element={<Calendar weeks={weeks} />} />
-      <Route path="/signupform/:email?" element={<Signupform />} />
-    </Routes>
-  );
+    const weeks = [
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ],
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ],
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ],
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ],
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ],
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ],
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ],
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ],
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ],
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ],
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ],
+        [
+            [1, 2, 3, 4, 5, 6, 7],
+            [8, 9, 10, 11, 12, 13, 14],
+            [15, 16, 17, 18, 19, 20, 21],
+            [22, 23, 24, 25, 26, 27, 28],
+            [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+        ]
+    ];
+    return (
+        <Routes>
+            <Route element={<Layout />}>
+                <Route path="/" element={<Main />} />
+                <Route path="/b" element={<Baseball />} />
+                <Route path="/l" element={<LoL />} />
+                <Route path="/s" element={<Soccer />} />
+                <Route path="/c" element={<Society />} />
+                <Route path="/r" element={<Result />} />
+                <Route path="/n" element={<Notice />} />
+                <Route path="/st" element={<Store />} />
+                <Route path="/create" element={<Boardcreate />} />
+                <Route path="/b/:id" element={<Badetail />} />
+                <Route path="/b/:id/modify" element={<Boardmodify />} />
+                <Route path="/stsubmit" element={<SubmitProduct />} />
+                <Route path="/mypage" element={<Mypage />}>
+                    <Route path="" element={<Myprofile />} />
+                    <Route path="request" element={<Myrequest />} />
+                    <Route path="write" element={<Mywrite />} />
+                    <Route path="grade" element={<Mygrade />} />
+                    <Route path="modify" element={<UserModify />} />
+                </Route>
+                <Route path="/admin" element={<Mypage_Admin />} />
+            </Route>
+            <Route path="calendar" element={<Calendar weeks={weeks} />} />
+            <Route path="/signupform/:email?" element={<Signupform />} />
+        </Routes>
+    );
 };
 
 //     let data = [
