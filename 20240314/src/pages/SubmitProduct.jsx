@@ -76,6 +76,7 @@ export default () => {
                 console.log(data);
                 if (data.success) {
                     console.log("성공해떠")
+                    alert("아이템 등록에 성공하셨습니다.");
                     nav("/st");
                 } else {
                     console.log("실패해떠")
