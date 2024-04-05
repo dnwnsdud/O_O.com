@@ -1,53 +1,56 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import Baseball from '../pages/Baseball';
-import Layout from '../pages/Layout';
-import LoL from '../pages/LoL';
-import Notice from '../pages/Notice';
-import Result from '../pages/Result';
-import Soccer from '../pages/Soccer';
-import Society from '../pages/Society';
-import Store from '../pages/Store';
-import Main from './Main';
-import Signupform from '../pages/Signupform';
-import SubmitProduct from '../pages/SubmitProduct';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import Baseball from "../pages/Baseball";
+import Layout from "../pages/Layout";
+import LoL from "../pages/LoL";
+import Notice from "../pages/Notice";
+import Result from "../pages/Result";
+import Soccer from "../pages/Soccer";
+import Society from "../pages/Society";
+import Store from "../pages/Store";
+import Main from "./Main";
+import Signupform from "../pages/Signupform";
+import SubmitProduct from "../pages/SubmitProduct";
 import Boardcreate from "../pages/Boardcreate";
 import Badetail from "../pages/BaDetail";
-import Mypage from '../pages/Mypage';
-import Mygrade from './Mygrade';
-import Myprofile from './Myprofile'
-import Myrequest from './Myrequest'
-import Mywrite from './Mywrite'
-import Mypage_Admin from './Mypage_Admin';
-import UserModify from './UserModify';
+import Boardmodify from "../pages/Boardmodify";
+import Mypage from "../pages/Mypage";
+import Mygrade from "./Mygrade";
+import Myprofile from "./Myprofile";
+import Myrequest from "./Myrequest";
+import Mywrite from "./Mywrite";
+import Mypage_Admin from "./Mypage_Admin";
+import UserModify from "./UserModify";
 
 export default () => {
-    return <Routes>
-        <Route element={<Layout />}>
-            <Route path="/" element={<Main />} />
-            <Route path="/b" element={<Baseball />} />
-            <Route path="/l" element={<LoL />} />
-            <Route path="/s" element={<Soccer />} />
-            <Route path="/c" element={<Society />} />
-            <Route path="/r" element={<Result />} />
-            <Route path="/n" element={<Notice />} />
-            <Route path="/st" element={<Store />} />
-            <Route path="/create" element={<Boardcreate />} />
-            <Route path="/b/:id" element={<Badetail />} />
-            <Route path="/stsubmit" element={<SubmitProduct />} />
-            <Route path="/mypage" element={<Mypage />} >
-                <Route path="" element={<Myprofile />} />
-                <Route path="request" element={<Myrequest />} />
-                <Route path="write" element={<Mywrite />} />
-                <Route path="grade" element={<Mygrade />} />
-                <Route path="modify" element={<UserModify />} />
-            </Route>
-            <Route path="/admin" element={<Mypage_Admin />} />
+  return (
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<Main />} />
+        <Route path="/b" element={<Baseball />} />
+        <Route path="/l" element={<LoL />} />
+        <Route path="/s" element={<Soccer />} />
+        <Route path="/c" element={<Society />} />
+        <Route path="/r" element={<Result />} />
+        <Route path="/n" element={<Notice />} />
+        <Route path="/st" element={<Store />} />
+        <Route path="/create" element={<Boardcreate />} />
+        <Route path="/b/:id" element={<Badetail />} />
+        <Route path="/b/:id/modify" element={<Boardmodify />} />
+        <Route path="/stsubmit" element={<SubmitProduct />} />
+        <Route path="/mypage" element={<Mypage />}>
+          <Route path="" element={<Myprofile />} />
+          <Route path="request" element={<Myrequest />} />
+          <Route path="write" element={<Mywrite />} />
+          <Route path="grade" element={<Mygrade />} />
+          <Route path="modify" element={<UserModify />} />
         </Route>
+        <Route path="/admin" element={<Mypage_Admin />} />
+      </Route>
 
-        <Route path="/signupform/:email?" element={<Signupform />} />
+      <Route path="/signupform/:email?" element={<Signupform />} />
     </Routes>
-
+  );
 };
 
 //     let data = [

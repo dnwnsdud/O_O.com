@@ -9,7 +9,7 @@ import {
   VStack,
   Center,
 } from "@chakra-ui/react";
-import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons'
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
@@ -46,21 +46,20 @@ const getDayMinuteCounter = (date) => {
 
 export default () => {
   const nav = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const goToPage = () => {
     if (localStorage.getItem("isLoggedIn")) {
       setIsLoggedIn(true);
       nav("/create");
-    }
-    else {
-      alert('로그인이 필요합니다!')
+    } else {
+      alert("로그인이 필요합니다!");
     }
   };
 
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPosts, setTotalPosts] = useState(1);
+  const [totalPosts, setTotalPosts] = useState(10);
   const [postsPerPage] = useState(10);
 
   useEffect(() => {
@@ -71,8 +70,14 @@ export default () => {
 
         if (contentType && contentType.includes("application/json")) {
           let data = await response.json();
-          data.sort((a, b) => b._id.localeCompare(a._id));
-          setPosts(data);
+          console.log(data);
+          data.posts.sort((a, b) =>
+            moment(b.createdAt).diff(moment(a.createdAt))
+          );
+          setPosts(data.posts);
+          setTotalPosts(data.totalCount);
+          console.log("확인");
+          console.log(data);
         } else {
           throw new Error();
         }

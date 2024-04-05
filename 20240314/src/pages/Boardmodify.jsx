@@ -2,19 +2,32 @@ import {
   Box,
   Button,
   Center,
+  Divider,
+  Flex,
   FormControl,
+  FormErrorMessage,
+  FormHelperText,
   FormLabel,
-  Grid,
   Input,
   Stack,
+  Text,
+  Textarea,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default () => {
-  let nav = useNavigate();
+  const nav = useNavigate();
+  const { id } = useParams();
+
   const [title, settitle] = useState("");
   const [content, setcontent] = useState("");
+
+  const handleInputChange = (e) => settitle(e.target.value);
+  const handleInputChange2 = (e) => setcontent(e.target.value);
+
+  const isError = title === "";
+  const isError2 = content === "";
 
   const onNamedHandler = (e) => {
     settitle(e.target.value);
@@ -32,7 +45,7 @@ export default () => {
       content: content,
     };
 
-    fetch("/api/boardmodify", {
+    fetch(`/api/boardmodify/${id}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -58,7 +71,7 @@ export default () => {
   };
 
   useEffect((e) => {
-    fetch(`/api/boarddetail`, { method: "post", body: id })
+    fetch(`/api/boarddetail/${id}`, { method: "post" })
       .then((res) => {
         if (res) {
           console.log("성공하였습니다.");
@@ -69,14 +82,15 @@ export default () => {
       })
       .then((data) => {
         console.log(data);
-        setbaDetails(data);
-        setLikeCount(data.like);
-        console.log(data.like);
+        settitle(data.title);
+        console.log(data.title);
+        setcontent(data.content);
+        console.log(data.content);
       });
   }, []);
 
   return (
-       <Stack
+    <Stack
       w={"35%"}
       m={"auto"}
       height={"100vh"}
@@ -94,7 +108,7 @@ export default () => {
       >
         <Center>
           <Text fontSize={"4xl"} color={"#0b0b0d"} fontWeight={"bold"}>
-            게시글 작성
+            게시글 수정
           </Text>
         </Center>
         <Box>
@@ -133,9 +147,6 @@ export default () => {
               <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
             )}
           </FormControl>
-          <FormControl>
-            <Input value={"nickname"} placeholder={nickname} readOnly hidden />
-          </FormControl>
         </Box>
         <Flex justifyContent={"end"} gap={3}>
           <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"}>
@@ -146,7 +157,7 @@ export default () => {
             borderColor={"rgba(11,11,13,.6)"}
             onClick={onSubmitHandler}
           >
-            작성
+            수정
           </Button>
         </Flex>
       </Stack>
