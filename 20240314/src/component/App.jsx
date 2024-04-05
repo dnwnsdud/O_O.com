@@ -21,8 +21,95 @@ import Myrequest from "./Myrequest";
 import Mywrite from "./Mywrite";
 import Mypage_Admin from "./Mypage_Admin";
 import UserModify from "./UserModify";
+import Calendar from "./Calendar";
 
 export default () => {
+  const weeks = [
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ],
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ],
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ],
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ],
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ],
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ],
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ],
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ],
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ],
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ],
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ],
+    [
+      [1, 2, 3, 4, 5, 6, 7],
+      [8, 9, 10, 11, 12, 13, 14],
+      [15, 16, 17, 18, 19, 20, 21],
+      [22, 23, 24, 25, 26, 27, 28],
+      [29, 30, null, null, null, null, null] // Assuming the month ends on the 30th
+    ]
+  ];
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -47,7 +134,7 @@ export default () => {
         </Route>
         <Route path="/admin" element={<Mypage_Admin />} />
       </Route>
-
+      <Route path="calendar" element={<Calendar weeks={weeks} />} />
       <Route path="/signupform/:email?" element={<Signupform />} />
     </Routes>
   );
