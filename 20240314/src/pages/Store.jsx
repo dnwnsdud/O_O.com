@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Box, Flex, Badge, Text, HStack, Button, border,
-  Image, Tabs, TabList, Tab, TabIndicator, TabPanel, TabPanels, Grid, GridItem
+  Image, Tabs, TabList, Tab, TabIndicator, TabPanel, TabPanels, Grid, GridItem, SimpleGrid, Card, CardHeader, Heading, CardBody, CardFooter
 } from '@chakra-ui/react';
 import { Swiper, SwiperSlide, } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y, Controller } from 'swiper/modules';
@@ -96,6 +96,59 @@ export default () => {
     >아이템등록</Button>
     {/* 관리자만 버튼 뜨게 */}
 
+    <SimpleGrid spacing={4} templateColumns={'repeat(auto-fill, minmax(30%, 1fr))'} my='2'>
+      <Card h='10rem'>
+        <CardHeader h='3rem'>
+          <Heading size={'md'}>5000 포인트</Heading>
+        </CardHeader>
+        <CardBody pb='0'>
+          <Text>
+            5000원
+          </Text>
+        </CardBody>
+        <CardFooter>
+          <Payment price={5000} title={'5000포인트'} id={5555555555} />
+        </CardFooter>
+      </Card>
+
+      <Card h='10rem'>
+        <CardHeader h='3rem'>
+          <Heading size={'md'}>10000 포인트</Heading>
+        </CardHeader>
+        <CardBody pb='0'>
+          <Text>
+            10000원
+          </Text>
+        </CardBody>
+        <CardFooter>
+          <Payment price={10000} title={'10000포인트'} id={1111111} />
+        </CardFooter>
+      </Card>
+
+      <Card h='10rem'>
+        <CardHeader h='3rem'>
+          <Heading size={'md'}>50000 포인트</Heading>
+        </CardHeader>
+        <CardBody py='0' >
+          <Badge variant='outline' colorScheme="blue">
+            할인
+          </Badge>
+          <Flex>
+            <Text as='del' fontSize={'sm'}>
+              50000원
+            </Text>
+            <Text>
+              48000원
+            </Text>
+          </Flex>
+        </CardBody>
+        <CardFooter>
+          <Payment t price={48000} title={'50000포인트'} id={5555555} />
+        </CardFooter>
+      </Card>
+    </SimpleGrid>
+
+
     <Tabs position="relative" variant="unstyled" my={'5rem'}>
       <TabList>
         <Tab>슬라이드</Tab>
@@ -181,7 +234,10 @@ export default () => {
                     <Flex justifyContent={'right'}>
                       {/* <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'>구매</Button> */}
                       {/* 관리자는 삭제버튼 뜨게 일반 유저는 구매 버튼 뜨게 */}
+                      <Button fontSize={10} w='10' h='5' border='1px solid #ddd'
 
+                        onClick={(e) => deleteSubmit(e, store._id)}
+                      >삭제</Button>
                       <Payment price={store.price} title={store.title} id={store._id} />
                     </Flex>
                   </Box>
