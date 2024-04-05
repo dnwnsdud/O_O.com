@@ -15,12 +15,17 @@ export default mongoose.Schema(
     },
     count: {
       type: Number,
-      default: 0
+      default: 0,
     },
     like: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
   },
   {
     timestamps: true,

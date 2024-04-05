@@ -2,19 +2,32 @@ import {
   Box,
   Button,
   Center,
+  Divider,
+  Flex,
   FormControl,
+  FormErrorMessage,
+  FormHelperText,
   FormLabel,
-  Grid,
   Input,
   Stack,
+  Text,
+  Textarea,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default () => {
-  let nav = useNavigate();
+  const nav = useNavigate();
+  const { id } = useParams();
+
   const [title, settitle] = useState("");
   const [content, setcontent] = useState("");
+
+  const handleInputChange = (e) => settitle(e.target.value);
+  const handleInputChange2 = (e) => setcontent(e.target.value);
+
+  const isError = title === "";
+  const isError2 = content === "";
 
   const onNamedHandler = (e) => {
     settitle(e.target.value);
@@ -28,17 +41,12 @@ export default () => {
     e.preventDefault();
 
     let body = {
+      id: id,
       title: title,
       content: content,
     };
 
-    fetch("/api/boardmodify", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
+    fetch(`/api/boardmodify`, { method: "post", body: JSON.stringify(body) })
       .then((response) => {
         if (response) {
           return response.json();
@@ -46,7 +54,7 @@ export default () => {
         throw new Error("Network response was not ok.");
       })
       .then((data) => {
-        console.log(data);
+        console.log("hihi", data, "hihi");
         if (data.success) {
           nav("/b");
         } else {
@@ -54,7 +62,7 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   useEffect((e) => {
@@ -68,15 +76,13 @@ export default () => {
         }
       })
       .then((data) => {
-        console.log(data);
-        setbaDetails(data);
-        setLikeCount(data.like);
-        console.log(data.like);
+        settitle(data.title);
+        setcontent(data.content);
       });
   }, []);
 
   return (
-       <Stack
+    <Stack
       w={"35%"}
       m={"auto"}
       height={"100vh"}
@@ -94,7 +100,7 @@ export default () => {
       >
         <Center>
           <Text fontSize={"4xl"} color={"#0b0b0d"} fontWeight={"bold"}>
-            게시글 작성
+            게시글 수정
           </Text>
         </Center>
         <Box>
@@ -133,20 +139,17 @@ export default () => {
               <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
             )}
           </FormControl>
-          <FormControl>
-            <Input value={"nickname"} placeholder={nickname} readOnly hidden />
-          </FormControl>
         </Box>
         <Flex justifyContent={"end"} gap={3}>
-          <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"}>
+          <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"} onClick={() => { window.history.back() }}>
             취소
           </Button>
           <Button
             border={"2px solid"}
             borderColor={"rgba(11,11,13,.6)"}
-            onClick={onSubmitHandler}
+            onClick={(e) => { onSubmitHandler(e) }}
           >
-            작성
+            수정
           </Button>
         </Flex>
       </Stack>
