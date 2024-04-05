@@ -41,17 +41,12 @@ export default () => {
     e.preventDefault();
 
     let body = {
+      id: id,
       title: title,
       content: content,
     };
 
-    fetch(`/api/boardmodify/${id}`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
+    fetch(`/api/boardmodify`, { method: "post", body: JSON.stringify(body) })
       .then((response) => {
         if (response) {
           return response.json();
@@ -59,7 +54,7 @@ export default () => {
         throw new Error("Network response was not ok.");
       })
       .then((data) => {
-        console.log(data);
+        console.log("hihi", data, "hihi");
         if (data.success) {
           nav("/b");
         } else {
@@ -67,11 +62,11 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   useEffect((e) => {
-    fetch(`/api/boarddetail/${id}`, { method: "post" })
+    fetch(`/api/boarddetail`, { method: "post", body: id })
       .then((res) => {
         if (res) {
           console.log("성공하였습니다.");
@@ -81,11 +76,8 @@ export default () => {
         }
       })
       .then((data) => {
-        console.log(data);
         settitle(data.title);
-        console.log(data.title);
         setcontent(data.content);
-        console.log(data.content);
       });
   }, []);
 
@@ -149,13 +141,13 @@ export default () => {
           </FormControl>
         </Box>
         <Flex justifyContent={"end"} gap={3}>
-          <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"}>
+          <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"} onClick={() => { window.history.back() }}>
             취소
           </Button>
           <Button
             border={"2px solid"}
             borderColor={"rgba(11,11,13,.6)"}
-            onClick={onSubmitHandler}
+            onClick={(e) => { onSubmitHandler(e) }}
           >
             수정
           </Button>
