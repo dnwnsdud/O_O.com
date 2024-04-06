@@ -79,6 +79,7 @@ export default () => {
       content: content,
     };
 
+    // 수정
     fetch(`/api/boardmodify`, { method: "post", body: JSON.stringify(body) })
       .then((response) => {
         if (response) {
@@ -87,7 +88,6 @@ export default () => {
         throw new Error("Network response was not ok.");
       })
       .then((data) => {
-        console.log("hihi", data, "hihi");
         if (data.success) {
           nav("/b");
         } else {
