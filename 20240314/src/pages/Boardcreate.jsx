@@ -44,7 +44,8 @@ export default () => {
     let body = {
       title: title,
       content: content,
-      nickname: nickname || 'nick',
+      nickname: userData.nickname || "nick",
+      email: userData.email,
     };
 
     fetch("/api/boardcreate", {
