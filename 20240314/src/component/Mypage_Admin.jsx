@@ -58,10 +58,10 @@ export default () => {
             console.log(error);
         }
     }
-    const Adminwritedelete = (userId, userEmail)=>{
+    const Adminwritedelete = (writeId, writeEmail)=>{
         let body={
-            id:userId,
-            email:userEmail
+            id:writeId,
+            email:writeEmail
         }
         try{
             fetch('/api/adminwritedelete',{method:"post", body:JSON.stringify(body)})
@@ -75,7 +75,7 @@ export default () => {
             .then(data=>{
                 console.log(data);
                 if(data){
-                    setUserData(data);
+                    setwriteData(data);
                     console.log('게시글을 삭제하였습니다.');
                 }else{
                     alert('게시글 삭제에 실패하였습니다.')
@@ -131,7 +131,9 @@ export default () => {
                                 <Grid templateColumns="1fr 1fr 1fr" textAlign="center" alignItems="center" padding="5px 0">
                                     <Box>{write.nickname}</Box>
                                     <Box>{write.title}</Box>
-                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto">게시글삭제</Button>
+                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={()=>{
+                                        Adminwritedelete(write._id, write.email)
+                                    }}>게시글삭제</Button>
                                 </Grid>
                             </ListItem>)
                         })
