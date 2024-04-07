@@ -2,7 +2,7 @@
 
 export default async(req,res,next)=>{
   console.log('난 성공이야');
-  const price = req.body.key;
+  const price = req.body;
   console.log(price);
     // try {
     //     const email = req.session.user.email; 

@@ -20,6 +20,7 @@ export default () => {
               }
         })
         .then(data => {
+            key(data);
             console.log(data);
         });
     }, []);
