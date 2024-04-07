@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Center, Flex, Grid, HStack, Input, Stack, VStack, Image } from '@chakra-ui/react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { useNavigate, useOutletContext } from 'react-router-dom';
-import deleteuser from '../logic/post/deleteuser';
 
 export default () => {
     const [userData, setUserData] = useState([]);
