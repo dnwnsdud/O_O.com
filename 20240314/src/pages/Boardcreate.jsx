@@ -20,7 +20,9 @@ export default () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [isLoggedIn, setisLoggedIn] = useState("");
-  const [nickname, setNick] = useState("")
+  const [userData, setUserData] = useState([]);
+
+  const [nickname, setNick] = useState("");
   const handleInputChange = (e) => setTitle(e.target.value);
   const handleInputChange2 = (e) => setContent(e.target.value);
 
@@ -29,13 +31,30 @@ export default () => {
 
   const nav = useNavigate();
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const isLoggedIn = localStorage.getItem('isLoggedIn');
-      setNick(isLoggedIn)
-
+  useEffect((e) => {
+    try {
+      fetch("/api/mypage")
+        .then((response) => {
+          if (response) {
+            console.log(response);
+            return response.json();
+          } else {
+            throw new Error(e);
+          }
+        })
+        .then((data) => {
+          if (data) {
+            console.log("이게 먼저오는거면 나는 어쩌라는건데 진짜 다 죽자");
+            setUserData(data);
+          } else {
+            alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
+          }
+        })
+        .catch((error) => {});
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-  }, [])
+  }, []);
 
   const onSubmitHandler = (e) => {
     //새로고침 방지
@@ -69,7 +88,7 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
 
   return (

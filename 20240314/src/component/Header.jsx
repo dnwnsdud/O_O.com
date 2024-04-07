@@ -76,7 +76,7 @@ export default () => {
       })
   }, [])
   return (
-    <Box borderBottom="3px solid #0B0B0D">
+    <Box borderBottom="3px solid #0B0B0D" pt={1} pb={1}>
       <Grid maxWidth="55%" margin="auto" templateColumns='1fr 3fr 2fr'>
         <Flex w="150px" h={20} cursor={"pointer"}
           justifyContent={"center"}
