@@ -6,7 +6,6 @@ export default async (req, res, next) => {
   const id = obj.id;
   try {
     const post = await req.mongo.board.findById(id);
-    console.log(post);
     if (!post) {
       return res.status(404).json({ message: "게시물을 찾을 수 없습니다." });
     }

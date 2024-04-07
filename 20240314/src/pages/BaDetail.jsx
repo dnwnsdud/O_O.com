@@ -19,6 +19,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 export default () => {
   const [baDetails, setbaDetails] = useState();
   const [likeCount, setLikeCount] = useState(0);
+  const [Check, setCheck] = useState();
 
   const location = useLocation();
   const nav = useNavigate();
@@ -29,6 +30,7 @@ export default () => {
     like: "",
   };
 
+  // 게시글 나오게 하는 곳
   useEffect((e) => {
     fetch(`/api/boarddetail`, {
       method: "post",
@@ -42,11 +44,23 @@ export default () => {
         }
       })
       .then((data) => {
-        setbaDetails(data);
-        setLikeCount(data.like);
+        console.log(Check);
+        console.log(data, "132134545");
+        console.log(data.success, "확인용입니다");
+        // setCheck(data.success);
+        // console.log(Check);
+        if (data.success) {
+          setCheck(false);
+          console.log("ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅇㅁㄴ");
+        } else if (!data.success) {
+          setCheck(true);
+          console.log("ASDasdasdasdasdas");
+        }
+        setbaDetails(data.updatedDocument);
+        setLikeCount(data.updatedDocument.like);
       });
   }, []);
-
+  // 좋아요 부분
   const like = (e) => {
     body.like = "like";
     e.preventDefault();
@@ -56,7 +70,7 @@ export default () => {
     })
       .then((res) => {
         if (res) {
-          console.log("성공하였습니다.");
+          console.log("정동혁");
 
           return res.json();
         } else {
@@ -89,7 +103,7 @@ export default () => {
           alert("삭제되었습니다.");
           nav("/b");
         } else {
-          alert("오류가 발생했습니다.");
+          alert("작성자만 삭제할 수 있습니다");
           console.log("삭제 실패얌");
         }
       })
@@ -101,7 +115,6 @@ export default () => {
   if (!baDetails) {
     return <div>Loading...</div>;
   }
-
   return (
     <>
       <Box>{baDetails.title}</Box>
@@ -114,13 +127,17 @@ export default () => {
       >
         추천~!
       </Button>
-      <Button
-        onClick={() => {
-          nav(`/b/${id}/modify`);
-        }}
-      >
-        수정
-      </Button>
+      {!Check ? (
+        <Button
+          onClick={() => {
+            nav(`/b/${id}/modify`);
+          }}
+        >
+          수정
+        </Button>
+      ) : (
+        ""
+      )}
       <Button onClick={(e) => deleteSubmit(e, baDetails._id, baDetails.email)}>
         삭제
       </Button>

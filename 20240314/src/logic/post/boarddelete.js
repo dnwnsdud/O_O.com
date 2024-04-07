@@ -4,11 +4,16 @@ import { ObjectId } from "mongodb";
 export default async (req, res, next) => {
   try {
     const { id, email } = req.body;
-    console.log("게시글 ID:", id, "요청자 Email:", email);
+    const session = req.session.user.email;
+    const data = await req.mongo.user.findOne({ email: session });
+
+    if (email !== session) {
+      return res.status(401).json({ message: "사용자 인증이 필요합니다." });
+    }
 
     const post = await req.mongo.board.findOne({
       _id: new ObjectId(id),
-      email: email,
+      email: session,
     });
     if (!post) {
       return res
@@ -17,7 +22,6 @@ export default async (req, res, next) => {
     }
 
     const result = await req.mongo.board.deleteOne({ _id: new ObjectId(id) });
-    console.log("삭제");
     res.status(200).json({ success: true, result });
   } catch (err) {
     console.error("게시글을 삭제하는 동안 오류 발생:", err);
