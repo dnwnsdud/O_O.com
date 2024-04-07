@@ -26,6 +26,7 @@ export default ({ price, title, id }) => {
                     successUrl: `${window.location.origin}/success`,
                     failUrl: `${window.location.origin}/fail`,
                 })
+                
                     // .then(function (paymentInfo) {
                     //     // 결제 성공 시 처리
                     //     successUrl: `${window.location.origin}/success`

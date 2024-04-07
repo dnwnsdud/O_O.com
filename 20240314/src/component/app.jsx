@@ -20,6 +20,7 @@ import Myrequest from './Myrequest'
 import Mywrite from './Mywrite'
 import Mypage_Admin from './Mypage_Admin';
 import UserModify from './UserModify';
+import Success from '../pages/Success';
 
 export default () => {
     return <Routes>
@@ -35,6 +36,7 @@ export default () => {
             <Route path="/create" element={<Boardcreate />} />
             <Route path="/b/:id" element={<Badetail />} />
             <Route path="/stsubmit" element={<SubmitProduct />} />
+            <Route path="/success" element={<Success/>}/>
             <Route path="/mypage" element={<Mypage />} >
                 <Route path="" element={<Myprofile />} />
                 <Route path="request" element={<Myrequest />} />
