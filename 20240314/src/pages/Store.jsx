@@ -238,7 +238,8 @@ export default () => {
 
                         onClick={(e) => deleteSubmit(e, store._id)}
                       >삭제</Button>
-                      <Payment price={store.price} title={store.title} id={store._id} />
+                      {/* <Payment price={store.price} title={store.title} id={store._id} /> */}
+                      <Button fontSize={10} w='10' h='5' border='1px solid #ddd'>구매</Button>
                     </Flex>
                   </Box>
                 </SwiperSlide>
