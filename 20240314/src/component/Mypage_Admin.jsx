@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Center, Flex, Grid, HStack, Input, Stack, VStack, Image, List, ListItem } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 export default () => {
     const [userData, setUserData] = useState([]);
     const [writeData, setwriteData] = useState([]);
+    let nav = useNavigate();
     useEffect((e) => {
         try {
             fetch('/api/admin')
@@ -29,6 +31,60 @@ export default () => {
             console.error('Error fetching data:', error);
         }
     }, []);
+    const Adminuserdelete = (userId, userEmail)=>{
+        let body={
+            id:userId,
+            email:userEmail
+        }
+        try{
+            fetch('/api/adminuserdelete',{method:"post", body:JSON.stringify(body)})
+            .then(res =>{
+                if(res){
+                    return res.json();
+                }else{
+                    throw new Error()
+                }
+            })
+            .then(data=>{
+                console.log(data);
+                if(data){
+                    setUserData(data);
+                    console.log('유저를 삭제하였습니다.');
+                }else{
+                    alert('유저정보 삭제에 실패하였습니다.')
+                }
+            }) 
+        }catch(error){
+            console.log(error);
+        }
+    }
+    const Adminwritedelete = (writeId, writeEmail)=>{
+        let body={
+            id:writeId,
+            email:writeEmail
+        }
+        try{
+            fetch('/api/adminwritedelete',{method:"post", body:JSON.stringify(body)})
+            .then(res =>{
+                if(res){
+                    return res.json();
+                }else{
+                    throw new Error()
+                }
+            })
+            .then(data=>{
+                console.log(data);
+                if(data){
+                    setwriteData(data);
+                    console.log('게시글을 삭제하였습니다.');
+                }else{
+                    alert('게시글 삭제에 실패하였습니다.')
+                }
+            }) 
+        }catch(error){
+            console.log(error);
+        }
+    }
     return <Center>
         <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #0B0B0D" borderRadius="10px" width="1280px">
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">관리자페이지</Box>
@@ -52,7 +108,9 @@ export default () => {
                                 <Grid templateColumns="1fr 1fr 1fr" textAlign="center" alignItems="center" padding="5px 0">
                                     <Box>{user.email}</Box>
                                     <Box>{user.nickname}</Box>
-                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto">유저탈퇴</Button>
+                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={()=>{
+                                        Adminuserdelete(user._id, user.email)
+                                    }}>유저탈퇴</Button>
                                 </Grid>
                             </ListItem>)
                         })
@@ -73,7 +131,9 @@ export default () => {
                                 <Grid templateColumns="1fr 1fr 1fr" textAlign="center" alignItems="center" padding="5px 0">
                                     <Box>{write.nickname}</Box>
                                     <Box>{write.title}</Box>
-                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto">게시글삭제</Button>
+                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={()=>{
+                                        Adminwritedelete(write._id, write.email)
+                                    }}>게시글삭제</Button>
                                 </Grid>
                             </ListItem>)
                         })

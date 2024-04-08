@@ -4,6 +4,7 @@ export default async (req, res, next) => {
     try {
         const session = req.session.user.email;
         const data = await req.mongo.user.findOne({ email: session })
+        console.log(data);
         res.status(200).json(data)
     } catch (err) {
         console.log("망했어 실패야");
