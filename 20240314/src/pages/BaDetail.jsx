@@ -12,6 +12,7 @@ import {
   Stack,
   Text,
   Textarea,
+  Image
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -118,6 +119,14 @@ export default () => {
   return (
     <>
       <Box>{baDetails.title}</Box>
+      <Box>{baDetails.content}</Box>
+      <Box border="1px solid black" borderRadius="50%" width="400px" height="auto" margin="auto" ><Image
+        src={`http://localhost:3000/${baDetails.images}`}
+        boxSize='100%'
+        objectFit='cover'
+        alt="아이템 이미지"
+        m='auto'
+      /></Box>
       <Box>{likeCount}</Box>
       <Button
         onClick={(e) => {
