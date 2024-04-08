@@ -39,6 +39,10 @@ export default mongoose.Schema(
     videos: {
       type: String,
       default: "기본경로"
+    },
+    tap: {
+      type: String,
+      required: true,
     }
   },
   {

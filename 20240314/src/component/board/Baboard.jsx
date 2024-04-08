@@ -44,7 +44,7 @@ const getDayMinuteCounter = (date) => {
   return Math.abs(dayDiff) + "일 전";
 };
 
-export default () => {
+export default ({ selectedTeam }) => {
   const nav = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -61,6 +61,7 @@ export default () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPosts, setTotalPosts] = useState(10);
   const [postsPerPage] = useState(10);
+  const [currentTab, setCurrentTab] = useState('야구');
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -147,25 +148,27 @@ export default () => {
           <Box>조회</Box>
           <Box>추천</Box>
         </Grid>
-        {currentPosts.map((post, i) => (
-          <Grid
-            key={post._id}
-            borderBottom="1px dotted #0B0B0D"
-            textAlign="center"
-            templateColumns="1fr 1fr 8fr 2fr 2fr 1fr 1fr"
-            padding="10px 0"
-          >
-            <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
-            <Box>{post.team}</Box>
-            <Box>
-              <Link to={`/b/id=${post._id}`}>{post.title}</Link>
-            </Box>
-            <Box>{post.nickname}</Box>
-            <Box>{getDayMinuteCounter(post.createdAt)}</Box>
-            <Box>{post.count}</Box>
-            <Box>{post.like}</Box>
-          </Grid>
-        ))}
+        {
+          currentPosts.filter(post => selectedTeam === '모든 팀' || post.team === selectedTeam)
+            .map((post, i) => (
+              <Grid
+                key={post._id}
+                borderBottom="1px dotted #0B0B0D"
+                textAlign="center"
+                templateColumns="1fr 1fr 8fr 2fr 2fr 1fr 1fr"
+                padding="10px 0"
+              >
+                <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
+                <Box>{post.team}</Box>
+                <Box>
+                  <Link to={`/b/id=${post._id}`}>{post.title}</Link>
+                </Box>
+                <Box>{post.nickname}</Box>
+                <Box>{getDayMinuteCounter(post.createdAt)}</Box>
+                <Box>{post.count}</Box>
+                <Box>{post.like}</Box>
+              </Grid>
+            ))}
         <Flex fontWeight="bold" justify="end" marginTop="10px">
           <Button
             sx={{
