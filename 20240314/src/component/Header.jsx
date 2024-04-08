@@ -18,7 +18,6 @@ export default () => {
   const [cl, clChange] = useState(true);
   const [logincheck, setLogincheck] = useState(['logout']);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [nick, setNick] = useState("")
   let nav = useNavigate()
 
   const logout = () => {
@@ -40,9 +39,9 @@ export default () => {
       .then(data => {
         if (data) {
           localStorage.removeItem('isLoggedIn');
+          nav('loading')
           setLogincheck(data);
           setIsLoggedIn(false);
-          Isuser(false);
           console.log("로그아웃되었습니다.");
         }
         else {

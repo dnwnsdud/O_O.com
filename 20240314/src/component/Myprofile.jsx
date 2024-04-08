@@ -50,7 +50,7 @@ export default () => {
                 .then(data => {
                     if (data.success === true) {
                         alert('삭제되었습니다.')
-                        nav('/')
+                        nav('/deleteloading')
                     } else {
                         alert(`사용자를 삭제하는 동안 오류 발생:${data.error}`);
                     }
@@ -66,7 +66,7 @@ export default () => {
         <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #0B0B0D" borderRadius="10px" width="500px">
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 정보</Box>
             <Grid templateColumns="1fr 1fr" width="70%" margin="auto">
-                <Box border="1px solid black" borderRadius="50%" width="50px" height="50px" margin="auto" ><Image
+                <Box border="1px solid black" borderRadius="50%" width="50px" height="50px" margin="auto" overflow="hidden" ><Image
                         src={userData.images}
                         boxSize='100%'
                         objectFit='cover'
