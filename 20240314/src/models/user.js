@@ -25,6 +25,10 @@ export default mongoose.Schema({
     },
     "images": {
         "type": String,
-        "default":"기본경로"
+        "default": "기본경로"
     },
+    "point": {
+        "type": Number,
+        "default": 0
+    }
 });
