@@ -22,6 +22,7 @@ export default () => {
   const [content, setContent] = useState("");
   const [team, setTeam] = useState("");
   const [images, setImage] = useState('');
+  const [videos, setVideo] = useState('');
   const [userData, setUserData] = useState([]);
 
 
@@ -67,7 +68,8 @@ export default () => {
     nickname: userData.nickname || "nick",
     email: userData.email,
     team: team,
-    images: images
+    images: images,
+    videos: videos
   };
 
   const onSubmitHandler = (e) => {
@@ -101,7 +103,7 @@ export default () => {
     const file = e.target.files[0];
     if (file) {
       const formData = new FormData();
-      formData.append('images', file);
+      formData.append('videos', file);
 
       fetch('/api/upload/images', {
         method: 'POST',
@@ -115,6 +117,34 @@ export default () => {
             console.log(data);
             console.log('이미지경로: ' + imagePath);
             setImage(imagePath)
+          } else {
+            console.error('이미지 업로드 실패:', data.error);
+          }
+        })
+        .catch(error => {
+          console.error('이미지 업로드 오류:', error);
+        });
+    }
+  };
+
+  const handleVideosChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('images', file);
+
+      fetch('/api/upload/videos', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            console.log('이미지 업로드 성공');
+            const videoPath = data.mediapath;
+            console.log(data);
+            console.log('이미지경로: ' + imagePath);
+            setVideo(videoPath)
           } else {
             console.error('이미지 업로드 실패:', data.error);
           }
@@ -201,13 +231,24 @@ export default () => {
             </Select>
           </FormControl>
           <FormControl isInvalid={itemImageError} mt='5'>
-            <FormLabel>아이템 이미지 업로드</FormLabel>
+            <FormLabel>이미지 업로드</FormLabel>
             <Input type='file' name='images' onChange={handleImagesChange} />
             {!itemImageError ? (
               <FormHelperText color={'darkblue'}>이미지가 올라갑니다.</FormHelperText>
             ) : (
               <FormErrorMessage>
-                아이템 사진을 넣어주세요.
+                이미지를 넣어주세요.
+              </FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl isInvalid={itemImageError} mt='5'>
+            <FormLabel>동영상 업로드</FormLabel>
+            <Input type='file' name='videos' onChange={handleVideosChange} />
+            {!itemImageError ? (
+              <FormHelperText color={'darkblue'}>동영상이 올라갑니다.</FormHelperText>
+            ) : (
+              <FormErrorMessage>
+                동영상를 넣어주세요.
               </FormErrorMessage>
             )}
           </FormControl>
