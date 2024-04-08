@@ -6,6 +6,7 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 export default () => {
     const [userData, setUserData] = useState([]);
 
+
     let nav = useNavigate();
     useEffect((e) => {
         try {
@@ -65,7 +66,13 @@ export default () => {
         <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #0B0B0D" borderRadius="10px" width="500px">
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 정보</Box>
             <Grid templateColumns="1fr 1fr" width="70%" margin="auto">
-                <Box border="1px solid black" borderRadius="50%" width="50px" height="50px" margin="auto" ><Image /></Box>
+                <Box border="1px solid black" borderRadius="50%" width="50px" height="50px" margin="auto" ><Image
+                        src={userData.images}
+                        boxSize='100%'
+                        objectFit='cover'
+                        alt="아이템 이미지"
+                        m='auto'
+                      /></Box>
                 <Box>
                     <Box textAlign="center" border="1px solid black" borderRadius="15px" marginBottom="5px" h={"25px"}>{userData.name}</Box>
                     <Box textAlign="center" border="1px solid black" borderRadius="15px" h={"25px"}>{userData.nickname}</Box>

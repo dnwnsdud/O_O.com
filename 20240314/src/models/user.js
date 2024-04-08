@@ -22,5 +22,9 @@ export default mongoose.Schema({
     "team": {
         "type": String,
         "default": "응원팀"
-    }
+    },
+    "images": {
+        "type": String,
+        "default":"기본경로"
+    },
 });
