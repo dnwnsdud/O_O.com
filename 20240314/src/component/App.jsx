@@ -23,6 +23,7 @@ import Mywrite from "./Mywrite";
 import Mypage_Admin from "./Mypage_Admin";
 import UserModify from "./UserModify";
 import Calendar from "./Calendar";
+import Loading from "../pages/Loading";
 
 
 
@@ -141,6 +142,7 @@ export default () => {
                     <Route path="calendar" element={<Calendar weeks={weeks} />} />
                 </Route>
                 <Route path="/signupform/:email?" element={<Signupform />} />
+                <Route path="/deleteloading" element={<Loading />} />
             </Routes>
         </UserProvider>
     );
