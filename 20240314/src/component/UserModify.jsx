@@ -9,7 +9,7 @@ export default () => {
   const [name, setName] = useState(userData.name);
   const [nickname, setnickname] = useState(userData.nickname);
   const [team, setTeam] = useState(userData.team);
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState(userData.images);
   const [itemImageError, setItemImageError] = useState(false);
 
 
@@ -96,7 +96,7 @@ export default () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body, 333333333333333333),
+      body: JSON.stringify(body),
     }
     )
       .then(response => {

@@ -141,7 +141,6 @@ export default () => {
             </Route>
             <Route path="/signupform/:email?" element={<Signupform />} />
             <Route path="/deleteloading" element={<Loading />} />
-            <Route path="/loading" element={<Loading />} />
         </Routes>
     );
 };

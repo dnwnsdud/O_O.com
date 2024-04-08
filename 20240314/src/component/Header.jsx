@@ -39,13 +39,13 @@ export default () => {
       .then(data => {
         if (data) {
           localStorage.removeItem('isLoggedIn');
-          nav('loading')
           setLogincheck(data);
           setIsLoggedIn(false);
-          console.log("로그아웃되었습니다.");
+          alert("로그아웃되었습니다.");
+          nav('/')
         }
         else {
-          console.log('로그아웃에 실패했습니다.');
+          alert('로그아웃에 실패했습니다.');
           nav('/');
         }
       })
@@ -63,7 +63,6 @@ export default () => {
         }
       })
       .then(data => {
-        console.log(data.role);
         if (data.role == "user" || data.role == "admin") {
           console.log("로그인하려고요");
           localStorage.setItem('isLoggedIn', data.email);
