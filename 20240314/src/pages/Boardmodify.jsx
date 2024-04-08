@@ -35,6 +35,39 @@ export default () => {
   const onNicknameHandler = (e) => {
     setcontent(e.target.value);
   };
+  useEffect((e) => {
+    let body = {
+      id: id,
+      content: content,
+      title: title,
+    };
+    fetch(`/api/boardLoad`, {
+      body: JSON.stringify(body),
+      method: "post",
+    })
+      .then((res) => {
+        if (res) {
+          console.log(body);
+          console.log("성공하였습니다.");
+          return res.json();
+        } else {
+          throw new Error(e);
+        }
+      })
+      .then((data) => {
+        if (data) {
+          console.log(data);
+          settitle(data.title);
+          setcontent(data.content);
+          console.log(data);
+        } else {
+          alert(`사용자 정보를 불러오는 오류:${data.error}`);
+        }
+      })
+      .catch((error) => {
+        console.error("패치 에러", error);
+      });
+  }, []);
 
   const onSubmitHandler = (e) => {
     //새로고침 방지
@@ -46,6 +79,7 @@ export default () => {
       content: content,
     };
 
+    // 수정
     fetch(`/api/boardmodify`, { method: "post", body: JSON.stringify(body) })
       .then((response) => {
         if (response) {
@@ -54,7 +88,6 @@ export default () => {
         throw new Error("Network response was not ok.");
       })
       .then((data) => {
-        console.log("hihi", data, "hihi");
         if (data.success) {
           nav("/b");
         } else {
@@ -62,24 +95,8 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
-
-  useEffect((e) => {
-    fetch(`/api/boarddetail`, { method: "post", body: id })
-      .then((res) => {
-        if (res) {
-          console.log("성공하였습니다.");
-          return res.json();
-        } else {
-          throw new Error(e);
-        }
-      })
-      .then((data) => {
-        settitle(data.title);
-        setcontent(data.content);
-      });
-  }, []);
 
   return (
     <Stack
@@ -141,13 +158,21 @@ export default () => {
           </FormControl>
         </Box>
         <Flex justifyContent={"end"} gap={3}>
-          <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"} onClick={() => { window.history.back() }}>
+          <Button
+            border={"2px solid"}
+            borderColor={"rgba(11,11,13,.6)"}
+            onClick={() => {
+              window.history.back();
+            }}
+          >
             취소
           </Button>
           <Button
             border={"2px solid"}
             borderColor={"rgba(11,11,13,.6)"}
-            onClick={(e) => { onSubmitHandler(e) }}
+            onClick={(e) => {
+              onSubmitHandler(e);
+            }}
           >
             수정
           </Button>

@@ -26,6 +26,12 @@ export default mongoose.Schema(
       required: true,
       unique: true,
     },
+    tap: {
+      type: String,
+    },
+    team: {
+      type: String,
+    }
   },
   {
     timestamps: true,
