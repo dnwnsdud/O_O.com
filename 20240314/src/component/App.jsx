@@ -24,6 +24,9 @@ import UserModify from "./UserModify";
 import Calendar from "./Calendar";
 import Loading from "../pages/Loading";
 
+
+
+
 export default () => {
     const weeks = [
         [
@@ -134,8 +137,8 @@ export default () => {
                     <Route path="modify" element={<UserModify />} />
                 </Route>
                 <Route path="/admin" element={<Mypage_Admin />} />
+                <Route path="calendar" element={<Calendar weeks={weeks} />} />
             </Route>
-            <Route path="calendar" element={<Calendar weeks={weeks} />} />
             <Route path="/signupform/:email?" element={<Signupform />} />
             <Route path="/deleteloading" element={<Loading />} />
             <Route path="/loading" element={<Loading />} />
