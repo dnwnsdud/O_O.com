@@ -21,12 +21,16 @@ export default () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [team, setTeam] = useState("");
+  const [images, setImage] = useState('');
+  const [videos, setVideo] = useState('');
   const [userData, setUserData] = useState([]);
+
 
   const [nickname, setNick] = useState("");
   const handleInputChange = (e) => setTitle(e.target.value);
   const handleInputChange2 = (e) => setContent(e.target.value);
   const handleInputChange3 = (e) => setTeam(e.target.value);
+  const [itemImageError, setItemImageError] = useState(false);
 
   const isError = title === "";
   const isError2 = content === "";
@@ -58,18 +62,19 @@ export default () => {
     }
   }, []);
 
+  let body = {
+    title: title,
+    content: content,
+    nickname: userData.nickname || "nick",
+    email: userData.email,
+    team: team,
+    images: images,
+    videos: videos
+  };
+
   const onSubmitHandler = (e) => {
     //새로고침 방지
     e.preventDefault();
-
-    let body = {
-      title: title,
-      content: content,
-      nickname: userData.nickname || "nick",
-      email: userData.email,
-      team: team
-    };
-
     fetch("/api/boardcreate", {
       method: "post",
       headers: {
@@ -92,6 +97,62 @@ export default () => {
         }
       })
       .catch((error) => { });
+  };
+
+  const handleImagesChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('videos', file);
+
+      fetch('/api/upload/images', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            console.log('이미지 업로드 성공');
+            const imagePath = data.mediapath;
+            console.log(data);
+            console.log('이미지경로: ' + imagePath);
+            setImage(imagePath)
+          } else {
+            console.error('이미지 업로드 실패:', data.error);
+          }
+        })
+        .catch(error => {
+          console.error('이미지 업로드 오류:', error);
+        });
+    }
+  };
+
+  const handleVideosChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('images', file);
+
+      fetch('/api/upload/videos', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            console.log('이미지 업로드 성공');
+            const videoPath = data.mediapath;
+            console.log(data);
+            console.log('이미지경로: ' + imagePath);
+            setVideo(videoPath)
+          } else {
+            console.error('이미지 업로드 실패:', data.error);
+          }
+        })
+        .catch(error => {
+          console.error('이미지 업로드 오류:', error);
+        });
+    }
   };
 
   return (
@@ -168,6 +229,28 @@ export default () => {
               <option>SSG</option>
               <option>NC</option>
             </Select>
+          </FormControl>
+          <FormControl isInvalid={itemImageError} mt='5'>
+            <FormLabel>이미지 업로드</FormLabel>
+            <Input type='file' name='images' onChange={handleImagesChange} />
+            {!itemImageError ? (
+              <FormHelperText color={'darkblue'}>이미지가 올라갑니다.</FormHelperText>
+            ) : (
+              <FormErrorMessage>
+                이미지를 넣어주세요.
+              </FormErrorMessage>
+            )}
+          </FormControl>
+          <FormControl isInvalid={itemImageError} mt='5'>
+            <FormLabel>동영상 업로드</FormLabel>
+            <Input type='file' name='videos' onChange={handleVideosChange} />
+            {!itemImageError ? (
+              <FormHelperText color={'darkblue'}>동영상이 올라갑니다.</FormHelperText>
+            ) : (
+              <FormErrorMessage>
+                동영상를 넣어주세요.
+              </FormErrorMessage>
+            )}
           </FormControl>
         </Box>
         <Flex justifyContent={"end"} gap={3}>

@@ -31,6 +31,14 @@ export default mongoose.Schema(
     },
     team: {
       type: String,
+    },
+    images: {
+      type: String,
+      default: "기본경로"
+    },
+    videos: {
+      type: String,
+      default: "기본경로"
     }
   },
   {

@@ -57,30 +57,30 @@ export default () => {
   const handleImagesChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-        const formData = new FormData();
-        formData.append('images', file);
+      const formData = new FormData();
+      formData.append('images', file);
 
-        fetch('/api/upload/images', {
-            method: 'POST',
-            body: formData,
+      fetch('/api/upload/images', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            console.log('이미지 업로드 성공');
+            const imagePath = data.mediapath;
+            console.log(data);
+            console.log('이미지경로: ' + imagePath);
+            setImage(imagePath)
+          } else {
+            console.error('이미지 업로드 실패:', data.error);
+          }
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    console.log('이미지 업로드 성공');
-                    const imagePath = data.mediapath;
-                    console.log(data);
-                    console.log('이미지경로: ' + imagePath);
-                    setImage(imagePath)
-                } else {
-                    console.error('이미지 업로드 실패:', data.error);
-                }
-            })
-            .catch(error => {
-                console.error('이미지 업로드 오류:', error);
-            });
+        .catch(error => {
+          console.error('이미지 업로드 오류:', error);
+        });
     }
-};
+  };
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
@@ -88,7 +88,7 @@ export default () => {
       name: name,
       nickname: nickname,
       team: team,
-      images:image,
+      images: image,
     };
     console.log(body);
     fetch('/api/usermodify', {
@@ -117,25 +117,25 @@ export default () => {
       .catch(error => {
       });
   };
-  
+
 
   return <Center>
     <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #0B0B0D" borderRadius="10px" width="500px">
       <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">정보수정</Box>
       <Grid templateColumns="1fr 1fr" width="70%" margin="auto">
-          <FormControl isInvalid={itemImageError} mt='5'>
-            <FormLabel>아이템 이미지 업로드</FormLabel>
-            <Input type='file' name='images' onChange={handleImagesChange} />
-            {!itemImageError ? (
-                <FormHelperText color={'darkblue'}>이미지가 올라갑니다.</FormHelperText>
-            ) : (
-                <FormErrorMessage>
-                    아이템 사진을 넣어주세요.
-                </FormErrorMessage>
-            )}
-        </FormControl>  
+        <FormControl isInvalid={itemImageError} mt='5'>
+          <FormLabel>아이템 이미지 업로드</FormLabel>
+          <Input type='file' name='images' onChange={handleImagesChange} />
+          {!itemImageError ? (
+            <FormHelperText color={'darkblue'}>이미지가 올라갑니다.</FormHelperText>
+          ) : (
+            <FormErrorMessage>
+              아이템 사진을 넣어주세요.
+            </FormErrorMessage>
+          )}
+        </FormControl>
         <Box>
-          <Input textAlign="center" border="1px solid black" borderRadius="15px" marginBottom="5px" h={"25px"} placeholder={userData.name} defaultValue={userData.name}  onChange={onNamedHandler} />
+          <Input textAlign="center" border="1px solid black" borderRadius="15px" marginBottom="5px" h={"25px"} placeholder={userData.name} defaultValue={userData.name} onChange={onNamedHandler} />
           <Input textAlign="center" border="1px solid black" borderRadius="15px" h={"25px"} placeholder={userData.nickname} defaultValue={userData.nickname} onChange={onNicknameHandler} />
         </Box>
       </Grid>

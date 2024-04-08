@@ -305,8 +305,29 @@ app.post(
     req.body = JSON.parse(JSON.stringify(req.body));
     next();
   },
-  (req, res, next) => {
-    // 파일 업로드 관련 기능
+  async (req, res, next) => {
+    try {
+      console.log('ddd');
+      // 동영상 업로드 후에 req.files에 동영상 정보가 담겨 있음
+      console.log('업로드된 이미지:', req.files);
+
+      // 이미지의 경로를 저장
+      const mediapath = req.files.map(file => file.path).join(';'); // 경로를 구분자로 연결하여 하나의 문자열로 만듦
+      console.log(mediapath);
+      // const { title, price } = req.body;
+
+      // 상품 정보를 데이터베이스에 저장하는 코드
+      // const store = new req.mongo.store({
+
+      //   images: mediapath // 이미지의 경로 저장
+      // });
+      // await store.save();
+      // next();
+      res.status(200).json({ success: true, message: '이미지 및 상품 정보 업로드 완료', mediapath: mediapath });
+    } catch (error) {
+      console.error('이미지 및 상품 정보 처리 중 오류 발생:', error);
+      res.status(500).json({ success: false, error: '이미지 및 상품 정보 처리 중 오류 발생' });
+    }
   }
 );
 
