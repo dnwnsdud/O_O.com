@@ -23,7 +23,7 @@ export default ({ price, title, id }) => {
                     orderId: id, // 주문번호를 적절한 값으로 변경
                     orderName: title, // 상품이름을 적절한 값으로 변경
                     customerName: '주문자 이름', // 주문자 이름을 적절한 값으로 변경
-                    successUrl: `${window.location.origin}/success`,
+                    successUrl: `${window.location.origin}/app/success`,
                     failUrl: `${window.location.origin}/fail`,
                 })
                 
