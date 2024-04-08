@@ -14,19 +14,21 @@ import {
   Textarea,
   Select
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../hook/User";
 import { useNavigate } from "react-router-dom";
 
+
 export default () => {
+  const { user } = useContext(UserContext);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [team, setTeam] = useState("");
   const [images, setImage] = useState('');
   const [videos, setVideo] = useState('');
-  const [userData, setUserData] = useState([]);
 
 
-  const [nickname, setNick] = useState("");
+
   const handleInputChange = (e) => setTitle(e.target.value);
   const handleInputChange2 = (e) => setContent(e.target.value);
   const handleInputChange3 = (e) => setTeam(e.target.value);
@@ -37,36 +39,13 @@ export default () => {
 
   const nav = useNavigate();
 
-  useEffect((e) => {
-    try {
-      fetch("/api/mypage")
-        .then((response) => {
-          if (response) {
-            console.log(response);
-            return response.json();
-          } else {
-            throw new Error(e);
-          }
-        })
-        .then((data) => {
-          if (data) {
-            console.log("이게 먼저오는거면 나는 어쩌라는건데 진짜 다 죽자");
-            setUserData(data);
-          } else {
-            alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
-          }
-        })
-        .catch((error) => { });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }, []);
+
 
   let body = {
     title: title,
     content: content,
-    nickname: userData.nickname || "nick",
-    email: userData.email,
+    nickname: user.nickname,
+    email: user.email,
     team: team,
     images: images,
     videos: videos

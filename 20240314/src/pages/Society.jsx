@@ -2,14 +2,12 @@ import {
   Box,
   Grid
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
-import { UserContext } from "../hook/User";
+import React from "react";
 import Today from "../component/board/Today";
 import Ciboard from "../component/board/Ciboard";
 
 
 export default () => {
-  let { x, setX } = useContext(UserContext);
   return (
     <>
       <Box maxW="1280px" margin="auto">
@@ -22,7 +20,6 @@ export default () => {
           <Box border="1px solid red">3</Box>
         </Grid>
       </Box>
-      <button onClick={() => { setX(x *= 2) }}>클릭해봐</button>
     </>
   );
 };

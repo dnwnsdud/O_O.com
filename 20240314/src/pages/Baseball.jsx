@@ -3,8 +3,12 @@ import React from "react";
 import Today from "../component/board/Today";
 import BaBoard from "../component/board/Baboard";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../hook/User";
+
 
 export default () => {
+  const { user } = useContext(UserContext);
   return (
     <>
       <Box maxW="1280px" margin="auto">
@@ -110,7 +114,7 @@ export default () => {
           </Box>
           <Box marginBottom="4rem">
             <Today />
-            <BaBoard />
+            <BaBoard user={user} />
           </Box>
           <Box border="1px solid red">3</Box>
         </Grid>
