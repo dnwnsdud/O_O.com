@@ -135,11 +135,12 @@ export default () => {
           borderTop="1px solid #0B0B0D"
           borderBottom="1px solid #0B0B0D"
           textAlign="center"
-          templateColumns="1fr 8fr 2fr 2fr 1fr 1fr"
+          templateColumns="1fr 1fr 8fr 2fr 2fr 1fr 1fr"
         >
           <Box w="100%" textAlign="center">
             번호
           </Box>
+          <Box>팀</Box>
           <Box>제목</Box>
           <Box>글쓴이</Box>
           <Box>작성일</Box>
@@ -151,10 +152,11 @@ export default () => {
             key={post._id}
             borderBottom="1px dotted #0B0B0D"
             textAlign="center"
-            templateColumns="1fr 8fr 2fr 2fr 1fr 1fr"
+            templateColumns="1fr 1fr 8fr 2fr 2fr 1fr 1fr"
             padding="10px 0"
           >
             <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
+            <Box>{post.team}</Box>
             <Box>
               <Link to={`/b/id=${post._id}`}>{post.title}</Link>
             </Box>

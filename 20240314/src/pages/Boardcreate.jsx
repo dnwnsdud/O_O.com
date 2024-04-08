@@ -12,6 +12,7 @@ import {
   Stack,
   Text,
   Textarea,
+  Select
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,12 +20,13 @@ import { useNavigate } from "react-router-dom";
 export default () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [isLoggedIn, setisLoggedIn] = useState("");
+  const [team, setTeam] = useState("");
   const [userData, setUserData] = useState([]);
 
   const [nickname, setNick] = useState("");
   const handleInputChange = (e) => setTitle(e.target.value);
   const handleInputChange2 = (e) => setContent(e.target.value);
+  const handleInputChange3 = (e) => setTeam(e.target.value);
 
   const isError = title === "";
   const isError2 = content === "";
@@ -50,7 +52,7 @@ export default () => {
             alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
           }
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -65,6 +67,7 @@ export default () => {
       content: content,
       nickname: userData.nickname || "nick",
       email: userData.email,
+      team: team
     };
 
     fetch("/api/boardcreate", {
@@ -73,7 +76,7 @@ export default () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    })
+    }, console.log(body))
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Server responded with status ${response.status}`);
@@ -88,7 +91,7 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   return (
@@ -151,6 +154,20 @@ export default () => {
           </FormControl>
           <FormControl>
             <Input value={"nickname"} placeholder={nickname} readOnly hidden />
+          </FormControl>
+          <FormControl>
+            <Select placeholder='Select option' value={team} onChange={handleInputChange3}>
+              <option>기아</option>
+              <option>키움</option>
+              <option>롯데</option>
+              <option>한화</option>
+              <option>두산</option>
+              <option>삼성</option>
+              <option>KT</option>
+              <option>LG</option>
+              <option>SSG</option>
+              <option>NC</option>
+            </Select>
           </FormControl>
         </Box>
         <Flex justifyContent={"end"} gap={3}>
