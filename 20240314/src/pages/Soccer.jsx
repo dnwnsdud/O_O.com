@@ -13,6 +13,8 @@ import React, { useState, useEffect } from "react";
 import Soboard from "../component/board/Soboard";
 import Today from "../component/board/Today";
 import { io } from 'socket.io-client';
+import { UserContext } from "../hook/User";
+import { useContext } from "react";
 
 export default function App() {
   const [chatList, setChatList] = useState([]);
@@ -63,7 +65,8 @@ export default function App() {
       setInputValue('');
     }
   };
-
+  let { x } = useContext(UserContext);
+  console.log(x);
   return (
     <Box maxW="1280px" margin="auto">
       <Box h={20} bg="red" margin="20px 0"></Box>
@@ -97,6 +100,7 @@ export default function App() {
         <Box border="1px solid red">
           <Today />
           <Soboard />
+          <>{x}</>
         </Box>
 
         <Flex

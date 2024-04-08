@@ -1,4 +1,5 @@
 import React from "react";
+import { UserProvider } from "../hook/User";
 import { Route, Routes } from "react-router-dom";
 import Baseball from "../pages/Baseball";
 import Layout from "../pages/Layout";
@@ -114,32 +115,34 @@ export default () => {
         ]
     ];
     return (
-        <Routes>
-            <Route element={<Layout />}>
-                <Route path="/" element={<Main />} />
-                <Route path="/b" element={<Baseball />} />
-                <Route path="/l" element={<LoL />} />
-                <Route path="/s" element={<Soccer />} />
-                <Route path="/c" element={<Society />} />
-                <Route path="/r" element={<Result />} />
-                <Route path="/n" element={<Notice />} />
-                <Route path="/st" element={<Store />} />
-                <Route path="/create" element={<Boardcreate />} />
-                <Route path="/b/:id" element={<Badetail />} />
-                <Route path="/b/:id/modify" element={<Boardmodify />} />
-                <Route path="/stsubmit" element={<SubmitProduct />} />
-                <Route path="/mypage" element={<Mypage />}>
-                    <Route path="" element={<Myprofile />} />
-                    <Route path="request" element={<Myrequest />} />
-                    <Route path="write" element={<Mywrite />} />
-                    <Route path="grade" element={<Mygrade />} />
-                    <Route path="modify" element={<UserModify />} />
+        <UserProvider>
+            <Routes>
+                <Route element={<Layout />}>
+                    <Route path="/" element={<Main />} />
+                    <Route path="/b" element={<Baseball />} />
+                    <Route path="/l" element={<LoL />} />
+                    <Route path="/s" element={<Soccer />} />
+                    <Route path="/c" element={<Society />} />
+                    <Route path="/r" element={<Result />} />
+                    <Route path="/n" element={<Notice />} />
+                    <Route path="/st" element={<Store />} />
+                    <Route path="/create" element={<Boardcreate />} />
+                    <Route path="/b/:id" element={<Badetail />} />
+                    <Route path="/b/:id/modify" element={<Boardmodify />} />
+                    <Route path="/stsubmit" element={<SubmitProduct />} />
+                    <Route path="/mypage" element={<Mypage />}>
+                        <Route path="" element={<Myprofile />} />
+                        <Route path="request" element={<Myrequest />} />
+                        <Route path="write" element={<Mywrite />} />
+                        <Route path="grade" element={<Mygrade />} />
+                        <Route path="modify" element={<UserModify />} />
+                    </Route>
+                    <Route path="/admin" element={<Mypage_Admin />} />
+                    <Route path="calendar" element={<Calendar weeks={weeks} />} />
                 </Route>
-                <Route path="/admin" element={<Mypage_Admin />} />
-                <Route path="calendar" element={<Calendar weeks={weeks} />} />
-            </Route>
-            <Route path="/signupform/:email?" element={<Signupform />} />
-        </Routes>
+                <Route path="/signupform/:email?" element={<Signupform />} />
+            </Routes>
+        </UserProvider>
     );
 };
 
