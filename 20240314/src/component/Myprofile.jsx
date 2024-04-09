@@ -81,6 +81,7 @@ export default () => {
             <Grid templateRows="1fr 1fr 1fr 1fr" gap="20px" margin="30px 0" >
                 <Box textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%" h={"25px"}>{userData.email}</Box>
                 <Box textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%">{userData.team}</Box>
+                <Box textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%">{userData.point}</Box>
                 <Box textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%">전체승률</Box>
             </Grid>
             <Grid templateRows="1fr 1fr" justifyContent="center" gap="10px">
