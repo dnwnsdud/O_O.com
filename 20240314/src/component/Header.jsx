@@ -61,7 +61,7 @@ export default () => {
         if (data.role == "user" || data.role == "admin") {
           console.log("로그인하려고요");
           setUser(data);
-          localStorage.setItem("login", 1)
+          console.log(data,"심각해요");
         }
       })
   }, [])
@@ -155,7 +155,7 @@ export default () => {
             상점
           </Button>
           {
-            user !== "logout" ? user.role = "user" ? <Button size="xs"
+            user !== "logout" ? user.role === "user" ? <Button size="xs"
               onClick={() => {
                 nav("/mypage")
               }}
@@ -163,7 +163,7 @@ export default () => {
               마이페이지
             </Button> : <Button size="xs"
               onClick={() => {
-                nav("/mypage")
+                nav("/admin")
               }}
             >
               관리자페이지

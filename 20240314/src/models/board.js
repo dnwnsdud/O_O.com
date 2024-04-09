@@ -40,6 +40,15 @@ export default mongoose.Schema(
       type: String,
       required: true,
     },
+    comment:[{
+      nickname:{
+        type:String,
+      },
+      content:{
+        type:String,
+
+      }
+    }]
   },
   {
     timestamps: true,

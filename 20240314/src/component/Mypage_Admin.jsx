@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Center, Flex, Grid, HStack, Input, Stack, VStack, Image, List, ListItem } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import { UserContext } from "../hook/User";
+
 export default () => {
+    const { user } = useContext(UserContext);
     const [userData, setUserData] = useState([]);
     const [writeData, setwriteData] = useState([]);
     let nav = useNavigate();
+    if(user.role === 'user'){
+        nav('/')
+    }
     useEffect((e) => {
         try {
             fetch('/api/admin')
@@ -20,7 +27,12 @@ export default () => {
                     if (data) {
                         setUserData(data.userdata);
                         setwriteData(data.writedata);
-                        console.log(data.userdata);
+                        if(user.role == 'user' || user == 'logout'){
+                            nav('/')
+                        }
+                        console.log(user, '페이지 시작시');
+
+                      
                     } else {
                         alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
                     }
@@ -30,7 +42,7 @@ export default () => {
         } catch (error) {
             console.error('Error fetching data:', error);
         }
-    }, []);
+    }, [user]);
     const Adminuserdelete = (userId, userEmail)=>{
         let body={
             id:userId,
@@ -85,6 +97,7 @@ export default () => {
             console.log(error);
         }
     }
+    console.log(user, '이게 왜 지랄인건지 물어본사람');
     return <Center>
         <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #0B0B0D" borderRadius="10px" width="1280px">
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">관리자페이지</Box>
