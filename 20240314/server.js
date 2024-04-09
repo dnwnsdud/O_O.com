@@ -313,7 +313,7 @@ app.post(
 
       // 이미지의 경로를 저장
       const mediapath = req.files.map(file => file.path).join(';'); // 경로를 구분자로 연결하여 하나의 문자열로 만듦
-      console.log(mediapath);
+      console.log(mediapath, "이거 확인하고싶어");
       // const { title, price } = req.body;
 
       // 상품 정보를 데이터베이스에 저장하는 코드

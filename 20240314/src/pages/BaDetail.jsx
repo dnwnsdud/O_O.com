@@ -12,7 +12,8 @@ import {
   Stack,
   Text,
   Textarea,
-  Image
+  Image,
+  AspectRatio,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -118,38 +119,84 @@ export default () => {
   }
   return (
     <>
-      <Box>{baDetails.title}</Box>
-      <Box>{baDetails.content}</Box>
-      <Box border="1px solid black" borderRadius="50%" width="400px" height="auto" margin="auto" ><Image
-        src={`http://localhost:3000/${baDetails.images}`}
-        boxSize='100%'
-        objectFit='cover'
-        alt="아이템 이미지"
-        m='auto'
-      /></Box>
-      <Box>{likeCount}</Box>
-      <Button
-        onClick={(e) => {
-          like(e);
-          console.log("Hi");
-        }}
+      <Stack
+        w={"35%"}
+        m={"auto"}
+        direction={"column"}
+        justifyContent={"center"}
       >
-        추천~!
-      </Button>
-      {!Check ? (
-        <Button
-          onClick={() => {
-            nav(`/b/${id}/modify`);
-          }}
+        <Stack
+          height={"80%"}
+          direction={"column"}
+          justifyContent={"space-around"}
+          borderRadius={"10px"}
+          bg={"white"}
+          boxShadow={"md"}
+          p={10}
         >
-          수정
-        </Button>
-      ) : (
-        ""
-      )}
-      <Button onClick={(e) => deleteSubmit(e, baDetails._id, baDetails.email)}>
-        삭제
-      </Button>
+          <Box display="none">{baDetails.tap}</Box>
+          <Box>{baDetails.title}</Box>
+          <Box>{baDetails.content}</Box>
+          {baDetails.images && (
+            <Box
+              border="1px solid black"
+              borderRadius="50%"
+              width="400px"
+              height="auto"
+              margin="auto"
+            >
+              <Image
+                src={`http://localhost:3000/${baDetails.images}`}
+                boxSize="100%"
+                objectFit="cover"
+                alt="아이템 이미지"
+                m="auto"
+              />
+            </Box>
+          )}
+          {baDetails.videos && (
+            <AspectRatio maxW="560px" ratio={1}>
+              <iframe
+                title="비디오"
+                src={`http://localhost:3000/${baDetails.videos}`}
+                allowFullScreen
+              />
+            </AspectRatio>
+          )}
+
+          <Flex>
+            <Button
+              onClick={(e) => {
+                like(e);
+                console.log("Hi");
+              }}
+            >
+              추천~!
+            </Button>
+            <Box alignContent="center">{likeCount}</Box>
+            {!Check ? (
+              <Button
+                onClick={() => {
+                  nav(`/b/${id}/modify`);
+                }}
+              >
+                수정
+              </Button>
+            ) : (
+              ""
+            )}
+            {!Check ? (
+              <Button
+                onClick={(e) => deleteSubmit(e, baDetails._id, baDetails.email)}
+              >
+                삭제
+              </Button>
+            ) : (
+              ""
+            )}
+          </Flex>
+        </Stack>
+      </Stack>
     </>
   );
 };

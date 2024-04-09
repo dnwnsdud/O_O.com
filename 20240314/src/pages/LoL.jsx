@@ -6,8 +6,12 @@ import {
 import React from "react";
 import Today from "../component/board/Today";
 import Lolboard from "../component/board/Lolboard";
+import { useContext } from "react";
+import { UserContext } from "../hook/User";
 
 export default () => {
+  const { user } = useContext(UserContext);
+
   return (
     <>
       <Box maxW="1280px" margin="auto">

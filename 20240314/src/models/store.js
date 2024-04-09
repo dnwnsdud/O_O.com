@@ -13,7 +13,4 @@ export default mongoose.Schema({
         "type": String,
         "required": true,
     },
-    // "mediapath": {
-    //     "type": String,
-    // }
 });

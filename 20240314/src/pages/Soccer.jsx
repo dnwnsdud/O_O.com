@@ -13,41 +13,17 @@ import React, { useState, useEffect } from "react";
 import Soboard from "../component/board/Soboard";
 import Today from "../component/board/Today";
 import { io } from 'socket.io-client';
-import { UserContext } from "../hook/User";
 import { useContext } from "react";
+import { UserContext } from "../hook/User";
 
 export default function App() {
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [userData, setUserData] = useState([]);
   const socket = io('http://192.168.6.3:9999', { cors: { origin: '*' } });
-
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    try {
-      fetch('/api/mypage')
-        .then(response => {
-          if (response) {
-            console.log(response);
-            return response.json();
-          }
-          else {
-            throw new Error(e);
-          }
-        })
-        .then(data => {
-          if (data) {
-            console.log("☆이게 먼저오는거면 나는 어쩌라는건데 진짜 다 죽자★");
-            setUserData(data);
-          } else {
-            alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
-          }
-        })
-        .catch(error => {
-        });
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
     socket.on('soccer', (data) => {
       setChatList(prevChatList => [data, ...prevChatList].slice(0, 50));
     });
@@ -65,8 +41,8 @@ export default function App() {
       setInputValue('');
     }
   };
-  let { x } = useContext(UserContext);
-  console.log(x);
+
+
   return (
     <Box maxW="1280px" margin="auto">
       <Box h={20} bg="red" margin="20px 0"></Box>
@@ -100,7 +76,7 @@ export default function App() {
         <Box border="1px solid red">
           <Today />
           <Soboard />
-          <>{x}</>
+
         </Box>
 
         <Flex
@@ -125,7 +101,7 @@ export default function App() {
                 chatList.map((chat, index) =>
                   <Box _hover={{
                     bg: "gray.700"
-                  }} borderRadius={5} key={index}><Text>{userData.nickname}</Text>{chat}</Box>
+                  }} borderRadius={5} key={index}><Text>{user.nickname}</Text>{chat}</Box>
                 )
               }
             </Stack>
