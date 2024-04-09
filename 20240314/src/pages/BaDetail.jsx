@@ -13,7 +13,7 @@ import {
   Text,
   Textarea,
   Image,
-  AspectRatio
+  AspectRatio,
 } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -119,10 +119,12 @@ export default () => {
   }
   return (
     <>
-      <Stack w={"35%"}
+      <Stack
+        w={"35%"}
         m={"auto"}
         direction={"column"}
-        justifyContent={"center"}>
+        justifyContent={"center"}
+      >
         <Stack
           height={"80%"}
           direction={"column"}
@@ -135,30 +137,32 @@ export default () => {
           <Box display="none">{baDetails.tap}</Box>
           <Box>{baDetails.title}</Box>
           <Box>{baDetails.content}</Box>
-          {
-            baDetails.images && (
-              <Box border="1px solid black" borderRadius="50%" width="400px" height="auto" margin="auto" >
-                <Image
-                  src={`http://localhost:3000/${baDetails.images}`}
-                  boxSize='100%'
-                  objectFit='cover'
-                  alt="아이템 이미지"
-                  m='auto'
-                />
-              </Box>
-            )
-          }
-          {
-            baDetails.videos && (
-              <AspectRatio maxW='560px' ratio={1}>
-                <iframe
-                  title='비디오'
-                  src={`http://localhost:3000/${baDetails.videos}`}
-                  allowFullScreen
-                />
-              </AspectRatio>
-            )
-          }
+          {baDetails.images && (
+            <Box
+              border="1px solid black"
+              borderRadius="50%"
+              width="400px"
+              height="auto"
+              margin="auto"
+            >
+              <Image
+                src={`http://localhost:3000/${baDetails.images}`}
+                boxSize="100%"
+                objectFit="cover"
+                alt="아이템 이미지"
+                m="auto"
+              />
+            </Box>
+          )}
+          {baDetails.videos && (
+            <AspectRatio maxW="560px" ratio={1}>
+              <iframe
+                title="비디오"
+                src={`http://localhost:3000/${baDetails.videos}`}
+                allowFullScreen
+              />
+            </AspectRatio>
+          )}
 
           <Flex>
             <Button
@@ -181,9 +185,15 @@ export default () => {
             ) : (
               ""
             )}
-            <Button onClick={(e) => deleteSubmit(e, baDetails._id, baDetails.email)}>
-              삭제
-            </Button>
+            {!Check ? (
+              <Button
+                onClick={(e) => deleteSubmit(e, baDetails._id, baDetails.email)}
+              >
+                삭제
+              </Button>
+            ) : (
+              ""
+            )}
           </Flex>
         </Stack>
       </Stack>

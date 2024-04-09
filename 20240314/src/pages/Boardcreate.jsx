@@ -24,6 +24,7 @@ export default () => {
   const [images, setImage] = useState("");
   const [videos, setVideo] = useState("");
   const [tap, setTap] = useState("");
+
   const [userData, setUserData] = useState([]);
 
   const [nickname, setNick] = useState("");
@@ -164,13 +165,7 @@ export default () => {
   };
 
   return (
-    <Stack
-      w={"35%"}
-      m={"auto"}
-      height={"100vh"}
-      direction={"column"}
-      justifyContent={"center"}
-    >
+    <Stack w={"35%"} m={"auto"} direction={"column"} justifyContent={"center"}>
       <Stack
         height={"80%"}
         direction={"column"}

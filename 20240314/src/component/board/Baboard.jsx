@@ -62,24 +62,38 @@ export default ({ selectedTeam }) => {
   const [totalPosts, setTotalPosts] = useState(10);
   const [postsPerPage] = useState(10);
   const [currentTab, setCurrentTab] = useState("야구");
+  const [sortOrder, setSortOrder] = useState("최신순");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const url = `/api/boards?tap=${encodeURIComponent(currentTab)}`;
+        const url = `/api/boards?tap=${encodeURIComponent(
+          currentTab
+        )}&sortOrder=${sortOrder}`;
         const response = await fetch(url);
         const contentType = response.headers.get("Content-type");
 
         if (contentType && contentType.includes("application/json")) {
           let data = await response.json();
-          console.log(data);
-          data.posts.sort((a, b) =>
-            moment(b.createdAt).diff(moment(a.createdAt))
-          );
+          switch (sortOrder) {
+            case "최신순":
+              data.posts.sort((a, b) =>
+                moment(b.createdAt).diff(moment(a.createdAt))
+              );
+              break;
+            case "조회순":
+              data.posts.sort((a, b) => b.count - a.count);
+              break;
+            case "추천순":
+              data.posts.sort((a, b) => b.like - a.like);
+              break;
+            default:
+              break;
+          }
+
           setPosts(data.posts);
           setTotalPosts(data.totalCount);
-          console.log("확인");
-          console.log(data);
         } else {
           throw new Error();
         }
@@ -88,7 +102,7 @@ export default ({ selectedTeam }) => {
       }
     };
     fetchPosts();
-  }, []);
+  }, [sortOrder]);
 
   // 페이지네이션 버튼
 
@@ -122,7 +136,6 @@ export default ({ selectedTeam }) => {
   };
 
   const pageNumbers = getPageNumbers();
-  console.log(currentTab);
 
   return (
     <>
@@ -131,14 +144,47 @@ export default ({ selectedTeam }) => {
           야구
         </Box>
         <Flex padding="10px" fontWeight="bold" gap="10px" justify="end">
-          <Button size="xs">최신순</Button>
-          <Button size="xs">인기순</Button>
+          <Button
+            size="xs"
+            padding="15px 10px"
+            backgroundColor="#5181e3 !important"
+            color="#fff !important"
+            onClick={() => {
+              setSortOrder("최신순");
+            }}
+          >
+            최신순
+          </Button>
+          <Button
+            size="xs"
+            backgroundColor="#5181e3 !important"
+            color="#fff !important"
+            padding="15px 10px"
+            onClick={() => {
+              setSortOrder("조회순");
+            }}
+          >
+            조회순
+          </Button>
+          <Button
+            size="xs"
+            backgroundColor="#5181e3 !important"
+            color="#fff !important"
+            padding="15px 10px"
+            onClick={() => {
+              setSortOrder("추천순");
+            }}
+          >
+            추천순
+          </Button>
         </Flex>
         <Grid
           borderTop="1px solid #0B0B0D"
           borderBottom="1px solid #0B0B0D"
           textAlign="center"
           templateColumns="1fr 1fr 8fr 2fr 2fr 1fr 1fr"
+          padding="8px 0"
+          color="#5181e3"
         >
           <Box w="100%" textAlign="center">
             번호
@@ -163,11 +209,23 @@ export default ({ selectedTeam }) => {
               padding="10px 0"
             >
               <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
-              <Box>{post.team}</Box>
-              <Box>
+              <Box color="#5181e3">{post.team}</Box>
+              <Box
+                whiteSpace="nowrap"
+                overflow="hidden"
+                textOverflow="ellipsis"
+                padding="0 20px 0 20px"
+              >
                 <Link to={`/b/id=${post._id}`}>{post.title}</Link>
               </Box>
-              <Box>{post.nickname}</Box>
+              <Box
+                whiteSpace="nowrap"
+                overflow="hidden"
+                textOverflow="ellipsis"
+                padding="0 10px 0 10px"
+              >
+                {post.nickname}
+              </Box>
               <Box>{getDayMinuteCounter(post.createdAt)}</Box>
               <Box>{post.count}</Box>
               <Box>{post.like}</Box>
@@ -176,7 +234,7 @@ export default ({ selectedTeam }) => {
         <Flex fontWeight="bold" justify="end" marginTop="10px">
           <Button
             sx={{
-              backgroundColor: "#6f6dd9 !important",
+              backgroundColor: "#5181e3 !important",
               color: "white",
               _hover: {
                 bg: "#E03F62",
@@ -210,15 +268,26 @@ export default ({ selectedTeam }) => {
             <ArrowRightIcon />
           </Button>
         </Flex>
-
-        <Flex h={10} padding="10px" justify="end">
-          <InputGroup w={200} size="xs">
-            <Input pr="4.5rem" />
+{/* 
+        <Flex h={50} padding="10px" justify="center">
+          <InputGroup w={400}>
+            <Input
+              pr="4.5rem"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <InputRightElement>
-              <SearchIcon color="gray.300" />
+              <Button
+                size="xs"
+                padding="22px 17px"
+                backgroundColor="#5181e3 !important"
+                onClick={() => fetchPosts()}
+              >
+                <SearchIcon w="20px" h="20px" color="#fff" />
+              </Button>
             </InputRightElement>
           </InputGroup>
-        </Flex>
+        </Flex> */}
       </Box>
     </>
   );

@@ -3,11 +3,8 @@
 export default async (req, res, next) => {
   const obj = await JSON.parse(req.body);
   const session = req.session.user;
-  console.log(obj, "ㅇㄴㅇㅁㄴㅇ");
   const _id = obj.id;
   const post = await req.mongo.board.findOne({ _id: _id });
-  console.log(post);
-  console.log(session, "세션");
   try {
     if (obj.like == "like") {
       const updatedDocument = await req.mongo.board.findOneAndUpdate(
