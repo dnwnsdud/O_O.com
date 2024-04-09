@@ -3,7 +3,6 @@
 export default async (req, res, next) => {
   try {
     let create = new req.mongo.board(req.body);
-    console.log(create, "이거 확인");
     let savedDocument = await create.save();
 
     res.status(201).json({ success: true });

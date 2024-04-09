@@ -3,11 +3,8 @@
 export default async (req, res, next) => {
   const obj = await JSON.parse(req.body);
   const session = req.session.user;
-  console.log(obj, "ㅇㄴㅇㅁㄴㅇ");
   const _id = obj.id;
   const post = await req.mongo.board.findOne({ _id: _id });
-  console.log(post);
-  console.log(session, "세션");
   try {
     if (obj.like == "like") {
       const updatedDocument = await req.mongo.board.findOneAndUpdate(
@@ -26,13 +23,6 @@ export default async (req, res, next) => {
       } else {
         return res.json({ updatedDocument, success: false });
       }
-      // else if (post.email === session.email) {
-      //   return res.json({ updatedDocument, success: false });
-      // } else if (post.email !== session.email) {
-      //   return res.json({ updatedDocument, success: true });
-      // } else if (!session) {
-      //   return res.json({ updatedDocument, success: true });
-      // }
     } else if (obj.like == "") {
       const updatedDocument = await req.mongo.board.findOneAndUpdate(
         { _id },
@@ -50,13 +40,6 @@ export default async (req, res, next) => {
       } else {
         return res.json({ updatedDocument, success: false });
       }
-      //else if (post.email === session.email) {
-      //   return res.json({ updatedDocument, success: false });
-      // } else if (post.email !== session.email) {
-      //   return res.json({ updatedDocument, success: true });
-      // } else if (!session) {
-      //   return res.json({ updatedDocument, success: true });
-      // }
     } // 업데이트된 문서를 응답으로 전송
   } catch (err) {
     next(err);
