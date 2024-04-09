@@ -82,6 +82,12 @@ export default () => {
       })
   }
 
+
+  // let buy = {
+  //   email: user.email,
+  //   itemname: stores.title,
+  // }
+
   const buyStore = (e, price) => {
     e.preventDefault();
     console.log('구매');
