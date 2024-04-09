@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Center, Flex, Grid, HStack, Input, Stack, VStack, Image, FormLabel, FormHelperText, FormErrorMessage, FormControl } from '@chakra-ui/react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { useNavigate, useOutletContext } from 'react-router-dom';
+import { UserContext } from "../hook/User";
 
 export default () => {
   const [userData, setUserData] = useState([]);
@@ -11,6 +12,7 @@ export default () => {
   const [team, setTeam] = useState(userData.team);
   const [image, setImage] = useState(userData.images);
   const [itemImageError, setItemImageError] = useState(false);
+  const { user, setUser } = useContext(UserContext);
 
 
 
@@ -31,6 +33,7 @@ export default () => {
           if (data) {
             console.log("이게 먼저오는거면 나는 어쩌라는건데 진짜 다 죽자");
             setUserData(data);
+
           } else {
             alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
           }
@@ -42,14 +45,11 @@ export default () => {
     }
   }, []);
 
-
   const onNamedHandler = (e) => {
     setName(e.target.value);
   };
   const onNicknameHandler = (e) => {
     setnickname(e.target.value);
-
-
   };
   const onTeamHandler = (e) => {
     setTeam(e.target.value);
@@ -108,6 +108,7 @@ export default () => {
       .then(data => {
         console.log(data, 12341234)
         if (data.success) {
+          setUser(data.userdata);
           nav("/mypage");
         } else {
           console.log(data.error);
@@ -117,7 +118,6 @@ export default () => {
       .catch(error => {
       });
   };
-
 
   return <Center>
     <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #0B0B0D" borderRadius="10px" width="500px">
@@ -148,7 +148,9 @@ export default () => {
         <Button border="1px solid #0B0B0D" borderRadius="10px" onClick={() => {
           nav('/mypage/modify')
         }}>취소</Button>
-        <Button width="100px" border="1px solid black" borderRadius="10px" onClick={onSubmitHandler}>정보수정</Button>
+        <Button width="100px" border="1px solid black" borderRadius="10px" onClick={(e) => {
+          onSubmitHandler(e);
+        }}>정보수정</Button>
       </Grid>
     </Stack>
   </Center>

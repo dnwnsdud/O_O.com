@@ -193,10 +193,10 @@ export default () => {
             )}
           </FormControl>
           <FormControl>
-            <Input value={"nickname"} placeholder={nickname} readOnly hidden />
+            <Input value={"nickname"} placeholder={user.nickname} readOnly hidden />
           </FormControl>
           <FormControl>
-            <Select placeholder='Select option' value={team} onChange={handleInputChange3}>
+            <Select placeholder='논란거리의 팀을 골라주세요' value={team} onChange={handleInputChange3} required={true}>
               <option>기아</option>
               <option>키움</option>
               <option>롯데</option>
