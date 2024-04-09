@@ -6,18 +6,17 @@ import {
   Stack,
   useDisclosure
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import UserModal from "./UserModal";
+import { UserContext } from "../hook/User";
 
 export default () => {
-
+  const { user, setUser, } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [fill, fillChange] = useState("#0B0B0D");
   const [cl, clChange] = useState(true);
-  const [logincheck, setLogincheck] = useState(['logout']);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   let nav = useNavigate()
 
   const logout = () => {
@@ -38,9 +37,6 @@ export default () => {
       })
       .then(data => {
         if (data) {
-          localStorage.removeItem('isLoggedIn');
-          setLogincheck(data);
-          setIsLoggedIn(false);
           alert("로그아웃되었습니다.");
           nav('/')
         }
@@ -52,7 +48,6 @@ export default () => {
   }
 
   useEffect((e) => {
-    localStorage.removeItem('isLoggedIn');
     fetch('/api/logincheck')
       .then(res => {
         if (res) {
@@ -65,14 +60,12 @@ export default () => {
       .then(data => {
         if (data.role == "user" || data.role == "admin") {
           console.log("로그인하려고요");
-          localStorage.setItem('isLoggedIn', data.email);
-        }
-        setLogincheck(data);
-        if (localStorage.getItem("isLoggedIn")) {
-          setIsLoggedIn(true);
+          setUser(data);
+          localStorage.setItem("login", 1)
         }
       })
   }, [])
+  console.log("항상 찍는 자리", user);
   return (
     <Box borderBottom="3px solid #0B0B0D" pt={1} pb={1}>
       <Grid maxWidth="55%" margin="auto" templateColumns='1fr 3fr 2fr'>
@@ -162,7 +155,7 @@ export default () => {
             상점
           </Button>
           {
-            !isLoggedIn ? "" : logincheck === "logout" ? "" : logincheck.role = "user" ? <Button size="xs"
+            user !== "logout" ? user.role = "user" ? <Button size="xs"
               onClick={() => {
                 nav("/mypage")
               }}
@@ -174,16 +167,19 @@ export default () => {
               }}
             >
               관리자페이지
-            </Button>
+            </Button> : ""
           }
           {
-            logincheck === "logout" ? <Button size="xs" onClick={onOpen}>
-              로그인
-            </Button> : <Button type="submit" size="xs" onClick={logout}>
+            user !== "logout" ? <Button type="submit" size="xs" onClick={() => {
+              logout();
+              setUser("logout");
+
+            }}>
               로그아웃
+            </Button> : <Button size="xs" onClick={onOpen}>
+              로그인
             </Button>
           }
-
         </Stack>
       </Grid>
       <UserModal isOpen={isOpen} onClose={onClose} />

@@ -4,10 +4,14 @@ import Today from "../component/board/Today";
 import BaBoard from "../component/board/Baboard";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
+import { useContext } from "react";
+import { UserContext } from "../hook/User";
+
 
 export default () => {
 
   const [selectedTeam, setSelectedTeam] = useState('모든 팀');
+  const { user } = useContext(UserContext);
   return (
     <>
       <Box maxW="1280px" margin="auto">
@@ -123,11 +127,11 @@ export default () => {
           </Box>
           <Box marginBottom="4rem">
             <Today />
-            <BaBoard selectedTeam={selectedTeam} />
-          </Box>
+            <BaBoard selectedTeam={selectedTeam} user={user} />
+          </Box >
           <Box border="1px solid red">3</Box>
-        </Grid>
-      </Box>
+        </Grid >
+      </Box >
     </>
   );
 };

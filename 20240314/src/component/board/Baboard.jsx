@@ -17,6 +17,8 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ko";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../../hook/User";
 
 moment.locale("ko");
 
@@ -44,13 +46,11 @@ const getDayMinuteCounter = (date) => {
   return Math.abs(dayDiff) + "일 전";
 };
 
-export default ({ selectedTeam }) => {
+export default ({ selectedTeam, user }) => {
   const nav = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const goToPage = () => {
-    if (localStorage.getItem("isLoggedIn")) {
-      setIsLoggedIn(true);
+    if (user !== "logout") {
       nav("/create");
     } else {
       alert("로그인이 필요합니다!");
@@ -268,7 +268,7 @@ export default ({ selectedTeam }) => {
             <ArrowRightIcon />
           </Button>
         </Flex>
-{/* 
+        {/* 
         <Flex h={50} padding="10px" justify="center">
           <InputGroup w={400}>
             <Input
