@@ -36,20 +36,15 @@ export default mongoose.Schema(
     tap: {
       type: String,
     },
-    comment: [
-      {
-        nickname: {
-          type: String,
-        },
-        content: {
-          type: String,
-        },
-        images: {
-          type: String,
-          default: "기본경로",
-        },
+    comment:[{
+      nickname:{
+        type:String,
       },
-    ],
+      content:{
+        type:String,
+
+      }
+    }]
   },
   {
     timestamps: true,
