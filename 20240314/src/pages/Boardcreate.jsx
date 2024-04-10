@@ -28,7 +28,6 @@ export default () => {
   const [videos, setVideo] = useState("");
   const [tap, setTap] = useState("");
 
-  const [userData, setUserData] = useState([]);
 
 
   const handleInputChange = (e) => setTitle(e.target.value);
