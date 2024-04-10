@@ -3,12 +3,10 @@ export default mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
       maxlength: 150,
     },
     content: {
       type: String,
-      required: true,
     },
     nickname: {
       type: String,
@@ -23,7 +21,6 @@ export default mongoose.Schema(
     },
     email: {
       type: String,
-      required: true,
     },
     team: {
       type: String,
@@ -38,8 +35,21 @@ export default mongoose.Schema(
     },
     tap: {
       type: String,
-      required: true,
     },
+    comment: [
+      {
+        nickname: {
+          type: String,
+        },
+        content: {
+          type: String,
+        },
+        images: {
+          type: String,
+          default: "기본경로",
+        },
+      },
+    ],
   },
   {
     timestamps: true,

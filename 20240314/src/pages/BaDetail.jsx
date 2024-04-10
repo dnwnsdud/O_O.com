@@ -15,13 +15,18 @@ import {
   Image,
   AspectRatio,
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { UserContext } from "../hook/User";
 import { useLocation, useNavigate } from "react-router-dom";
+import Coment from "./Coment";
+import Coments from "./Coments";
 
 export default () => {
   const [baDetails, setbaDetails] = useState();
   const [likeCount, setLikeCount] = useState(0);
   const [Check, setCheck] = useState();
+  const { user } = useContext(UserContext);
+  console.log(user, "유저확인용");
 
   const location = useLocation();
   const nav = useNavigate();
@@ -195,6 +200,8 @@ export default () => {
               ""
             )}
           </Flex>
+          <Coment user={user} />
+          <Coments user={user} />
         </Stack>
       </Stack>
     </>
