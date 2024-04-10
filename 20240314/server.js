@@ -30,7 +30,7 @@ mongoose.connect(process.env.MONGO_URI, {
   maxPoolSize: 200,
   minPoolSize: 50,
 });
-redisClient.connect();
+redisClient.connect().catch(console.error());
 
 let models = fs.readdirSync("./src/models", { encoding: "utf-8" });
 for (let key of models)
