@@ -106,22 +106,22 @@ export default () => {
       },
       console.log(body)
     )
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Server responded with status ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      if (data.success) {
-        nav("/");
-        // 나중에 경로 생각좀
-      } else {
-        console.log(data.error);
-        alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
-      }
-    })
-    .catch((error) => { });
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Server responded with status ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          nav("/");
+          // 나중에 경로 생각좀
+        } else {
+          console.log(data.error);
+          alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
+        }
+      })
+      .catch((error) => { });
   };
 
 
