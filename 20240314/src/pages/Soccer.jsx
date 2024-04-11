@@ -19,9 +19,9 @@ import { UserContext } from "../hook/User";
 export default function App() {
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const [userData, setUserData] = useState([]);
-  const socket = io('http://192.168.6.3:9999', { cors: { origin: '*' } });
+  const socket = io('http://localhost:9999', { cors: { origin: '*' } });
   const { user } = useContext(UserContext);
+
 
   useEffect(() => {
     socket.on('soccer', (data) => {
