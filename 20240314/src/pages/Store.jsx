@@ -14,10 +14,8 @@ import Payment from "./Payment";
 
 export default () => {
 
-  const { user } = useContext(UserContext);
   const [firstSwiper, setFirstSwiper] = useState(null);
   const [secondSwiper, setSecondSwiper] = useState(null);
-  const [title, setTitle] = useState(null);
   let nav = useNavigate();
 
   const [stores, setStores] = useState([]);
@@ -84,45 +82,12 @@ export default () => {
       })
   }
 
-
-  let body = {
-    email: user.email,
-    itemname: title,
-  }
-
   const buyStore = (e, price) => {
     e.preventDefault();
     console.log('구매');
     console.log('구매 가격' + price);
     alert('구매하시겠습니까?');
-    fetch(
-      "/api/storebuy",
-      {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
-      },
-      console.log(body)
-    )
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Server responded with status ${response.status}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      if (data.success) {
-        nav("/");
-        // 나중에 경로 생각좀
-      } else {
-        console.log(data.error);
-        alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
-      }
-    })
-    .catch((error) => { });
-  };
+  }
 
 
   return <Box width={'45%'} margin={'auto'}>
@@ -270,7 +235,7 @@ export default () => {
                         m='auto'
                       />
                     </Box>
-                    <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'} name="title" >{store.title}</Text>
+                    <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}>{store.title}</Text>
                     <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
                     <Flex justifyContent={'right'}>
                       {/* <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'>구매</Button> */}
