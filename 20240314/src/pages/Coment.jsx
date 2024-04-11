@@ -111,17 +111,17 @@ export default ({ user }) => {
       ...cmtmodify,
       [commentId]: !cmtmodify[commentId]
     });
-    if (!cmtmodify[commentId]) {
-      fetch(`/api/comment/${commentId}`)
-        .then(response => response.json())
-        .then(data => {
-          setModifyContent({
-            ...modifyContent,
-            [commentId]: data.content
-          });
-        })
-        .catch(error => console.error('댓글 내용을 가져오는 중 오류 발생:', error));
-    }
+    // if (!cmtmodify[commentId]) {
+    //   fetch(`/api/commentcreate`)
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       setModifyContent({
+    //         ...modifyContent,
+    //         [commentId]: data.content
+    //       });
+    //     })
+    //     .catch(error => console.error('댓글 내용을 가져오는 중 오류 발생:', error));
+    // }
   };
 
   const deleteComment = (commentId) => {
@@ -154,22 +154,22 @@ export default ({ user }) => {
   };
 
   const submitModify = (commentId) => {
-    const modifiedContent = modifyContent[commentId] || ''; // 수정된 내용 또는 빈 문자열
+    const modifiedContent = modifyContent[commentId] || ''; 
     const body = {
       id: commentId,
       postId: id,
       content: modifiedContent
     };
-    fetch('/api/commentupdate', { // 해당 댓글을 업데이트하는 API 엔드포인트로 수정
+    fetch('/api/commentupdate', { 
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    })
+    },console.log("해볼게"))
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Server responded with status ${response.status}`);
+          throw new Error('에런데영');
         }
         return response.json();
       })
@@ -179,7 +179,7 @@ export default ({ user }) => {
           setbaDetails(data.comment);
           setCmtModify({
             ...cmtmodify,
-            [commentId]: false // 수정 상태 해제
+            [commentId]: false 
           });
         } else {
           console.log(data.error);
