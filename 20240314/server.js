@@ -16,12 +16,15 @@ import compression from "compression";
 import fs from "fs";
 import { createServer } from "http";
 import { Server } from "socket.io";
+import sharedsession from "express-socket.io-session";
+
 
 
 dotenv.config({ path: "./.env", encoding: "UTF-8" });
 const app = express({ xPoweredBy: false });
 app.set("view engine", "ejs");
 app.set("views", "src/views");
+const httpServer = createServer(app);
 
 const schemas = {};
 const redisClient = redis.createClient({ url: process.env.REDIS_URI });
@@ -44,18 +47,13 @@ for (let key of models)
     key.replace('.js', ''),
     (await import(`./src/models/${key}`)).default
   );
-app.use(process.env.API_BASE, express.json());
-app.use(process.env.API_BASE, express.raw());
-app.use(process.env.API_BASE, express.text());
-app.use(process.env.API_BASE, express.urlencoded({ extended: true }));
-app.use(
+const sessionMiddleware =
   session({
     secret: process.env.COOKIE_SECRET,
     resave: false,
     saveUninitialized: true,
     rolling: true,
     cookie: {
-
       maxAge: parseInt(process.env.MAX_AGE),
       secure: false,
     },
@@ -65,7 +63,12 @@ app.use(
       ttl: 360000,
       scanCount: 100
     })
-  }));
+  })
+app.use(sessionMiddleware);
+app.use(process.env.API_BASE, express.json());
+app.use(process.env.API_BASE, express.raw());
+app.use(process.env.API_BASE, express.text());
+app.use(process.env.API_BASE, express.urlencoded({ extended: true }));
 
 app.use(cors({
   origin: `https://${process.env.DOMAIN}`,
@@ -428,22 +431,39 @@ app.use((err, req, res, next) => {
   }
 });
 
-const httpServer = createServer(app);
+
 const io = new Server(httpServer, {
   cors: {
     origin: `*`,
     methods: ["get", "post"],
   },
 });
-const Chatting = {};
+io.use(sharedsession(sessionMiddleware, {
+  autoSave: true,
+}));
 httpServer.listen(process.env.CHAT, () => {
   console.log(`Port ${process.env.CHAT} server open!`);
 });
-// if(socket.request.session.user){
-// const user = socket.request.session.user;}
-
 io.on("connection", (socket) => {
-  console.log('a user connected', socket.id);
+
+  socket.on("join_room", (room) => {
+    socket.join(room);
+    console.log(`${socket.id} , ${room}`);
+  });
+
+  socket.on("s_chat", (data) => {
+    console.log(data);
+    const { room, user, chat } = data;
+    if (room && user && chat) {
+      io.to(room).emit("s_chat", {
+        user: user,
+        room: room,
+        message: chat,
+        sender: socket.id
+      });
+    }
+  });
+
 
   socket.on("disconnect", () => {
     console.log("user disconnected");

@@ -15,19 +15,36 @@ import Today from "../component/board/Today";
 import { io } from 'socket.io-client';
 import { useContext } from "react";
 import { UserContext } from "../hook/User";
+import { useLocation } from "react-router";
+const socket = io('http://192.168.6.3:9999', { cors: { origin: '*' } });
 
-export default function App() {
+export default () => {
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const socket = io('http://localhost:9999', { cors: { origin: '*' } });
   const { user } = useContext(UserContext);
-
+  const location = useLocation();
 
   useEffect(() => {
-    socket.on('soccer', (data) => {
-      setChatList(prevChatList => [data, ...prevChatList].slice(0, 50));
+    const currentPath = location.pathname;
+    const room = currentPath.split('/')[1];
+    const chatEvent = room + '_chat';
+
+    const receiveMessage = (data) => {
+      setChatList(prevChatList => [data, ...prevChatList]);
+      console.log(data);
+    };
+
+    socket.emit('join_room', room);
+    socket.on(chatEvent, (data) => {
+      setChatList(prevChatList => [data, ...prevChatList]);
+
     });
-  }, []);
+
+    return () => {
+      socket.off(chatEvent, receiveMessage);
+    };
+  }, [location.pathname]);
+
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -37,7 +54,11 @@ export default function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim() !== '') {
-      socket.emit('soccer', `chat:${inputValue}`);
+      const currentPath = location.pathname;
+      const room = currentPath.split('/')[1];
+      const chatEvent = room + '_chat';
+
+      socket.emit(chatEvent, { room: room, user: user.nickname, chat: `${inputValue}` });
       setInputValue('');
     }
   };
@@ -101,7 +122,7 @@ export default function App() {
                 chatList.map((chat, index) =>
                   <Box _hover={{
                     bg: "gray.700"
-                  }} borderRadius={5} key={index}><Text>{user.nickname}</Text>{chat}</Box>
+                  }} borderRadius={5} key={index}><Text>{chat.user}</Text><Text>{chat.message}</Text></Box>
                 )
               }
             </Stack>
@@ -120,6 +141,7 @@ export default function App() {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     handleSubmit(e);
+                    console.log(chatList);
                   }
                 }}
               />

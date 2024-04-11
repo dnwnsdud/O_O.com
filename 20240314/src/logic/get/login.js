@@ -15,7 +15,6 @@ export default async (req, res, next) => {
         role: emailSearch.role,
         nickname: emailSearch.nickname
     };
-    
 
     res.redirect('/');
 }
