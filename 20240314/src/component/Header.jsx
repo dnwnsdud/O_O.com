@@ -61,7 +61,6 @@ export default () => {
         if (data.role == "user" || data.role == "admin") {
           console.log("로그인하려고요");
           setUser(data);
-          localStorage.setItem("login", 1)
         }
       })
   }, [])
@@ -173,7 +172,6 @@ export default () => {
             user !== "logout" ? <Button type="submit" size="xs" onClick={() => {
               logout();
               setUser("logout");
-
             }}>
               로그아웃
             </Button> : <Button size="xs" onClick={onOpen}>

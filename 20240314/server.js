@@ -432,8 +432,12 @@ const Chatting = {};
 httpServer.listen(process.env.CHAT, () => {
   console.log(`Port ${process.env.CHAT} server open!`);
 });
+// if(socket.request.session.user){
+// const user = socket.request.session.user;}
+
 io.on("connection", (socket) => {
   console.log('a user connected', socket.id);
+
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });
