@@ -24,22 +24,22 @@ export default mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
-    },
-    tap: {
-      type: String,
     },
     team: {
       type: String,
     },
     images: {
       type: String,
-      default: "기본경로"
+      default: "기본경로",
     },
     videos: {
       type: String,
-      default: "기본경로"
-    }
+      default: "기본경로",
+    },
+    tap: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,

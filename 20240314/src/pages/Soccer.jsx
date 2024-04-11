@@ -16,7 +16,6 @@ import { io } from 'socket.io-client';
 import { useContext } from "react";
 import { UserContext } from "../hook/User";
 
-
 export default function App() {
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState('');

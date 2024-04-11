@@ -12,7 +12,7 @@ import {
   Stack,
   Text,
   Textarea,
-  Select
+  Select,
 } from "@chakra-ui/react";
 import React, { useState, useContext } from "react";
 import { UserContext } from "../hook/User";
@@ -24,21 +24,23 @@ export default () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [team, setTeam] = useState("");
-  const [images, setImage] = useState('');
-  const [videos, setVideo] = useState('');
+  const [images, setImage] = useState("");
+  const [videos, setVideo] = useState("");
+  const [tap, setTap] = useState("");
 
 
 
   const handleInputChange = (e) => setTitle(e.target.value);
   const handleInputChange2 = (e) => setContent(e.target.value);
   const handleInputChange3 = (e) => setTeam(e.target.value);
+  const handleInputChange4 = (e) => setTap(e.target.value);
   const [itemImageError, setItemImageError] = useState(false);
 
   const isError = title === "";
   const isError2 = content === "";
+  const isError3 = tap === "";
 
   const nav = useNavigate();
-
 
 
   let body = {
@@ -48,19 +50,24 @@ export default () => {
     email: user.email,
     team: team,
     images: images,
-    videos: videos
+    videos: videos,
+    tap: tap,
   };
 
   const onSubmitHandler = (e) => {
     //새로고침 방지
     e.preventDefault();
-    fetch("/api/boardcreate", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
+    fetch(
+      "/api/boardcreate",
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
       },
-      body: JSON.stringify(body),
-    }, console.log(body))
+      console.log(body)
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Server responded with status ${response.status}`);
@@ -70,6 +77,7 @@ export default () => {
       .then((data) => {
         if (data.success) {
           nav("/b");
+          // 나중에 경로 생각좀
         } else {
           console.log(data.error);
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
@@ -82,26 +90,26 @@ export default () => {
     const file = e.target.files[0];
     if (file) {
       const formData = new FormData();
-      formData.append('videos', file);
+      formData.append("videos", file);
 
-      fetch('/api/upload/images', {
-        method: 'POST',
+      fetch("/api/upload/images", {
+        method: "POST",
         body: formData,
       })
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           if (data.success) {
-            console.log('이미지 업로드 성공');
+            console.log("이미지 업로드 성공");
             const imagePath = data.mediapath;
             console.log(data);
-            console.log('이미지경로: ' + imagePath);
-            setImage(imagePath)
+            console.log("이미지경로: " + imagePath);
+            setImage(imagePath);
           } else {
-            console.error('이미지 업로드 실패:', data.error);
+            console.error("이미지 업로드 실패:", data.error);
           }
         })
-        .catch(error => {
-          console.error('이미지 업로드 오류:', error);
+        .catch((error) => {
+          console.error("이미지 업로드 오류:", error);
         });
     }
   };
@@ -110,38 +118,32 @@ export default () => {
     const file = e.target.files[0];
     if (file) {
       const formData = new FormData();
-      formData.append('images', file);
+      formData.append("videos", file);
 
-      fetch('/api/upload/videos', {
-        method: 'POST',
+      fetch("/api/upload/videos", {
+        method: "POST",
         body: formData,
       })
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           if (data.success) {
-            console.log('이미지 업로드 성공');
+            console.log("동영상 업로드 성공");
             const videoPath = data.mediapath;
             console.log(data);
-            console.log('이미지경로: ' + imagePath);
-            setVideo(videoPath)
+            console.log("동영상경로: " + videoPath);
+            setVideo(videoPath);
           } else {
-            console.error('이미지 업로드 실패:', data.error);
+            console.error("동영상 업로드 실패:", data.error);
           }
         })
-        .catch(error => {
-          console.error('이미지 업로드 오류:', error);
+        .catch((error) => {
+          console.error("동영상 업로드 오류:", error);
         });
     }
   };
 
   return (
-    <Stack
-      w={"35%"}
-      m={"auto"}
-      height={"100vh"}
-      direction={"column"}
-      justifyContent={"center"}
-    >
+    <Stack w={"35%"} m={"auto"} direction={"column"} justifyContent={"center"}>
       <Stack
         height={"80%"}
         direction={"column"}
@@ -157,6 +159,33 @@ export default () => {
           </Text>
         </Center>
         <Box>
+          <FormControl isInvalid={isError3} isRequired>
+            <FormLabel>카테고리</FormLabel>
+            <Select
+              placeholder="카테고리 선택"
+              value={tap}
+              onChange={handleInputChange4}
+            >
+              <option>야구</option>
+              <option>LOL</option>
+              <option>축구</option>
+              <option>사회</option>
+            </Select>
+            {!isError3 ? (
+              <FormHelperText color={"#3182ce"}>
+                선택한 카테고리로 저장됩니다
+              </FormHelperText>
+            ) : (
+              <FormErrorMessage>카테고리를 꼭 선택해주세요!</FormErrorMessage>
+            )}
+          </FormControl>
+          <Divider
+            orientation="horizontal"
+            borderBottomWidth={"2px"}
+            borderColor={"#0b0b0d"}
+            marginTop={"5px"}
+            marginBottom={"5px"}
+          />
           <FormControl isInvalid={isError} isRequired>
             <FormLabel>제목</FormLabel>
             <Input type="text" value={title} onChange={handleInputChange} />
@@ -192,11 +221,22 @@ export default () => {
               <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
             )}
           </FormControl>
-          <FormControl>
-            <Input value={"nickname"} placeholder={nickname} readOnly hidden />
+          <Divider
+            orientation="horizontal"
+            borderBottomWidth={"2px"}
+            borderColor={"#0b0b0d"}
+            marginTop={"5px"}
+            marginBottom={"5px"}
+          />
+          <FormControl marginTop="20px">
+            <Input value={"nickname"} placeholder={user.nickname} readOnly hidden />
           </FormControl>
           <FormControl>
-            <Select placeholder='Select option' value={team} onChange={handleInputChange3}>
+            <Select
+              placeholder="응원팀"
+              value={team}
+              onChange={handleInputChange3}
+            >
               <option>기아</option>
               <option>키움</option>
               <option>롯데</option>
@@ -209,26 +249,26 @@ export default () => {
               <option>NC</option>
             </Select>
           </FormControl>
-          <FormControl isInvalid={itemImageError} mt='5'>
+          <FormControl isInvalid={itemImageError} mt="5">
             <FormLabel>이미지 업로드</FormLabel>
-            <Input type='file' name='images' onChange={handleImagesChange} />
+            <Input type="file" name="images" onChange={handleImagesChange} />
             {!itemImageError ? (
-              <FormHelperText color={'darkblue'}>이미지가 올라갑니다.</FormHelperText>
+              <FormHelperText color={"darkblue"}>
+                이미지가 올라갑니다.
+              </FormHelperText>
             ) : (
-              <FormErrorMessage>
-                이미지를 넣어주세요.
-              </FormErrorMessage>
+              <FormErrorMessage>이미지를 넣어주세요.</FormErrorMessage>
             )}
           </FormControl>
-          <FormControl isInvalid={itemImageError} mt='5'>
+          <FormControl isInvalid={itemImageError} mt="5">
             <FormLabel>동영상 업로드</FormLabel>
-            <Input type='file' name='videos' onChange={handleVideosChange} />
+            <Input type="file" name="videos" onChange={handleVideosChange} />
             {!itemImageError ? (
-              <FormHelperText color={'darkblue'}>동영상이 올라갑니다.</FormHelperText>
+              <FormHelperText color={"darkblue"}>
+                동영상이 올라갑니다.
+              </FormHelperText>
             ) : (
-              <FormErrorMessage>
-                동영상를 넣어주세요.
-              </FormErrorMessage>
+              <FormErrorMessage>동영상를 넣어주세요.</FormErrorMessage>
             )}
           </FormControl>
         </Box>

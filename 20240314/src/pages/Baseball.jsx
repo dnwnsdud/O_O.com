@@ -3,11 +3,14 @@ import React from "react";
 import Today from "../component/board/Today";
 import BaBoard from "../component/board/Baboard";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
 import { useContext } from "react";
 import { UserContext } from "../hook/User";
 
 
 export default () => {
+
+  const [selectedTeam, setSelectedTeam] = useState('모든 팀');
   const { user } = useContext(UserContext);
   return (
     <>
@@ -26,6 +29,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
+                onClick={() => setSelectedTeam('LG')}
               >
                 LG
               </Button>
@@ -35,6 +39,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
+                onClick={() => setSelectedTeam('롯데')}
               >
                 롯데
               </Button>
@@ -44,6 +49,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
+                onClick={() => setSelectedTeam('기아')}
               >
                 기아
               </Button>
@@ -53,6 +59,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
+                onClick={() => setSelectedTeam('SSG')}
               >
                 SSG
               </Button>
@@ -62,6 +69,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
+                onClick={() => setSelectedTeam('KT')}
               >
                 KT
               </Button>
@@ -71,6 +79,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
+                onClick={() => setSelectedTeam('한화')}
               >
                 한화
               </Button>
@@ -80,6 +89,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
+                onClick={() => setSelectedTeam('삼성')}
               >
                 삼성
               </Button>
@@ -89,6 +99,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
+                onClick={() => setSelectedTeam('두산')}
               >
                 두산
               </Button>
@@ -98,6 +109,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
+                onClick={() => setSelectedTeam('키움')}
               >
                 키움
               </Button>
@@ -107,6 +119,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
+                onClick={() => setSelectedTeam('NC')}
               >
                 NC
               </Button>
@@ -114,11 +127,11 @@ export default () => {
           </Box>
           <Box marginBottom="4rem">
             <Today />
-            <BaBoard user={user} />
-          </Box>
+            <BaBoard selectedTeam={selectedTeam} user={user} />
+          </Box >
           <Box border="1px solid red">3</Box>
-        </Grid>
-      </Box>
+        </Grid >
+      </Box >
     </>
   );
 };
