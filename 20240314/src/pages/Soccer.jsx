@@ -16,7 +16,7 @@ import { io } from 'socket.io-client';
 import { useContext } from "react";
 import { UserContext } from "../hook/User";
 import { useLocation } from "react-router";
-const socket = io('http://192.168.6.3:9999', { cors: { origin: '*' } });
+const socket = io('http://localhost:9999', { cors: { origin: '*' } });
 
 export default () => {
   const [chatList, setChatList] = useState([]);
