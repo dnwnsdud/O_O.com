@@ -19,7 +19,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../hook/User";
 import { useLocation, useNavigate } from "react-router-dom";
 import Coment from "./Coment";
-import Coments from "./Coments";
+// import Coments from "./Coments";
 
 export default () => {
   const [baDetails, setbaDetails] = useState();
@@ -51,9 +51,6 @@ export default () => {
         }
       })
       .then((data) => {
-        console.log(Check);
-        console.log(data, "132134545");
-        console.log(data.success, "확인용입니다");
         // setCheck(data.success);
         // console.log(Check);
         if (data.success) {
@@ -201,7 +198,7 @@ export default () => {
             )}
           </Flex>
           <Coment user={user} />
-          <Coments user={user} />
+          {/* <Coments user={user} /> */}
         </Stack>
       </Stack>
     </>
