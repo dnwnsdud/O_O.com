@@ -25,12 +25,18 @@ app.set("views", "src/views");
 
 const schemas = {};
 const redisClient = redis.createClient({ url: process.env.REDIS_URI });
+redisClient.on('connect', () => {
+  console.info('Redis connected!');
+});
+redisClient.on("error", (err) => {
+  console.error(err);
+});
+redisClient.connect();
 mongoose.connect(process.env.MONGO_URI, {
   autoIndex: true,
   maxPoolSize: 200,
   minPoolSize: 50,
 });
-redisClient.connect();
 
 let models = fs.readdirSync("./src/models", { encoding: "utf-8" });
 for (let key of models)
@@ -45,10 +51,11 @@ app.use(process.env.API_BASE, express.urlencoded({ extended: true }));
 app.use(
   session({
     secret: process.env.COOKIE_SECRET,
-    resave: true,
+    resave: false,
     saveUninitialized: true,
     rolling: true,
     cookie: {
+
       maxAge: parseInt(process.env.MAX_AGE),
       secure: false,
     },
