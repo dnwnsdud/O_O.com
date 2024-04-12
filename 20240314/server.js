@@ -450,7 +450,7 @@ io.on("connection", (socket) => {
     socket.join(room);
     console.log(`${socket.id} , ${room}`);
   });
-
+  // 축구
   socket.on("s_chat", (data) => {
     console.log(data);
     const { room, user, chat } = data;
@@ -463,6 +463,49 @@ io.on("connection", (socket) => {
       });
     }
   });
+  // 축구
+  // 야구
+  socket.on("b_chat", (data) => {
+    console.log(data);
+    const { room, user, chat } = data;
+    if (room && user && chat) {
+      io.to(room).emit("b_chat", {
+        user: user,
+        room: room,
+        message: chat,
+        sender: socket.id
+      });
+    }
+  });
+  // 야구
+  // 롤
+  socket.on("l_chat", (data) => {
+    console.log(data);
+    const { room, user, chat } = data;
+    if (room && user && chat) {
+      io.to(room).emit("l_chat", {
+        user: user,
+        room: room,
+        message: chat,
+        sender: socket.id
+      });
+    }
+  });
+  // 롤
+  // 사회
+  socket.on("c_chat", (data) => {
+    console.log(data);
+    const { room, user, chat } = data;
+    if (room && user && chat) {
+      io.to(room).emit("c_chat", {
+        user: user,
+        room: room,
+        message: chat,
+        sender: socket.id
+      });
+    }
+  });
+  // 사회
 
 
   socket.on("disconnect", () => {

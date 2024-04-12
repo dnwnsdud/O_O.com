@@ -16,19 +16,17 @@ import { io } from 'socket.io-client';
 import { useContext } from "react";
 import { UserContext } from "../hook/User";
 import { useLocation } from "react-router";
-const socket = io('http://localhost:9999', { cors: { origin: '*' } });
+const socket = io('http://192.168.6.3:9999', { cors: { origin: '*' } });
 
 export default () => {
+  const { user } = useContext(UserContext);
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const { user } = useContext(UserContext);
   const location = useLocation();
-
   useEffect(() => {
     const currentPath = location.pathname;
     const room = currentPath.split('/')[1];
     const chatEvent = room + '_chat';
-
     const receiveMessage = (data) => {
       setChatList(prevChatList => [data, ...prevChatList]);
       console.log(data);
@@ -97,7 +95,6 @@ export default () => {
         <Box border="1px solid red">
           <Today />
           <Soboard />
-
         </Box>
 
         <Flex
