@@ -1,4 +1,4 @@
-import React, { useEffect, useState , useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   Box, Flex, Badge, Text, HStack, Button, border,
   Image, Tabs, TabList, Tab, TabIndicator, TabPanel, TabPanels, Grid, GridItem, SimpleGrid, Card, CardHeader, Heading, CardBody, CardFooter
@@ -86,49 +86,49 @@ export default () => {
 
 
   const buyStore = (e, price, title, images) => {
-    if(user == "logout"){
+    if (user == "logout") {
       alert("로그인이 필요합니다!");
-    }else{
-    console.log('구매 가격' + price);
-    console.log(title);
-    console.log(images);
-    console.log(user.email);
-    let body = {
-        title:title,
-        price:price,
-        images:images,
+    } else {
+      console.log('구매 가격' + price);
+      console.log(title);
+      console.log(images);
+      console.log(user.email);
+      let body = {
+        title: title,
+        price: price,
+        images: images,
         email: user.email
       }
-    console.log("body:", body);
-    alert('구매하시겠습니까?');
-    fetch(
-      "/api/storebuy",
-      {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
+      console.log("body:", body);
+      alert('구매하시겠습니까?');
+      fetch(
+        "/api/storebuy",
+        {
+          method: "post",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(body),
         },
-        body: JSON.stringify(body),
-      },
-      console.log(body)
-    )
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Server responded with status ${response.status}`);
-        }
-        alert("구매가 완료되었습니다.");
-        return response.json();
-      })
-      .then((data) => {
-        if (data.success) {
-          nav("/");
-          // 나중에 경로 생각좀
-        } else {
-          console.log(data.error);
-          alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
-        }
-      })
-      .catch((error) => { });
+        console.log(body)
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Server responded with status ${response.status}`);
+          }
+          alert("구매가 완료되었습니다.");
+          return response.json();
+        })
+        .then((data) => {
+          if (data.success) {
+            nav("/");
+            // 나중에 경로 생각좀
+          } else {
+            console.log(data.error);
+            alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
+          }
+        })
+        .catch((error) => { });
     }
   }
 
@@ -139,13 +139,13 @@ export default () => {
     </Box>
     {
       user.role === "admin" ?
-    <Button
-      onClick={() => {
-        nav("/stsubmit")
-      }}
-      border={'1px solid #ddd'}
-    >아이템등록</Button>
-     : null
+        <Button
+          onClick={() => {
+            nav("/stsubmit")
+          }}
+          border={'1px solid #ddd'}
+        >아이템등록</Button>
+        : null
     }
     {/* 관리자만 버튼 뜨게 */}
 
@@ -243,13 +243,13 @@ export default () => {
                     <Flex justifyContent={'right'}>
                       {
                         user.role === "admin" ?
-                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
-                        onClick={(e) => deleteSubmit(e, store.price)}
-                      >삭제</Button>
-                      :
-                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
-                        onClick={(e) => buyStore(e, store.price, store.title, store.images)}
-                      >구매</Button>
+                          <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
+                            onClick={(e) => deleteSubmit(e, store.price)}
+                          >삭제</Button>
+                          :
+                          <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
+                            onClick={(e) => buyStore(e, store.price, store.title, store.images)}
+                          >구매</Button>
                       }
                       {/* 관리자는 삭제버튼 뜨게 일반 유저는 구매 버튼 뜨게 */}
                     </Flex>
@@ -289,15 +289,15 @@ export default () => {
                     <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'} name='title'>{store.title}</Text>
                     <Text textAlign={'center'} fontSize={'13'} name='price'>{store.price}원</Text>
                     <Flex justifyContent={'right'}>
-                     {
+                      {
                         user.role === "admin" ?
-                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
-                        onClick={(e) => deleteSubmit(e, store.price)}
-                      >삭제</Button>
-                      :
-                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
-                        onClick={(e) => buyStore(e, store.price, store.title, store.images)}
-                      >구매</Button>
+                          <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
+                            onClick={(e) => deleteSubmit(e, store.price)}
+                          >삭제</Button>
+                          :
+                          <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
+                            onClick={(e) => buyStore(e, store.price, store.title, store.images)}
+                          >구매</Button>
                       }
                     </Flex>
                   </Box>
@@ -324,8 +324,8 @@ export default () => {
                 <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}>{store.title}</Text>
                 <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
                 <Flex justifyContent={'right'}>
-                      {
-                        user.role === "admin" ?
+                  {
+                    user.role === "admin" ?
                       <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
                         onClick={(e) => deleteSubmit(e, store.price)}
                       >삭제</Button>
@@ -333,7 +333,7 @@ export default () => {
                       <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
                         onClick={(e) => buyStore(e, store.price, store.title, store.images)}
                       >구매</Button>
-                      }
+                  }
                 </Flex>
               </GridItem>
             )
