@@ -13,7 +13,7 @@ import {
   Text,
   Textarea,
   Select,
-  Grid
+  Grid,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -30,11 +30,10 @@ export default ({ user }) => {
   const handleModifyInputChange = (e, commentId) => {
     setModifyContent({
       ...modifyContent,
-      [commentId]: e.target.value
+      [commentId]: e.target.value,
     });
   };
 
-  const isError2 = content === "";
   const isError3 = content === "";
 
   const nav = useNavigate();
@@ -43,20 +42,18 @@ export default ({ user }) => {
   let body = {
     id: id,
     nickname: user.nickname,
-    content: content
+    content: content,
+    email: user.email,
   };
 
   const onSubmitHandler = (e) => {
-    fetch(
-      "/api/commentcreate",
-      {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+    fetch("/api/commentcreate", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
       },
-    )
+      body: JSON.stringify(body),
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Server responded with status ${response.status}`);
@@ -67,26 +64,23 @@ export default ({ user }) => {
         if (data) {
           console.log("댓글 성공!");
           setbaDetails(data.comment);
-          setContent('');
+          setContent("");
         } else {
           console.log(data.error);
           alert(`댓글을 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
 
   useEffect(() => {
-    fetch(
-      "/api/commentcreate",
-      {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+    fetch("/api/commentcreate", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
       },
-    )
+      body: JSON.stringify(body),
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Server responded with status ${response.status}`);
@@ -102,26 +96,14 @@ export default ({ user }) => {
           alert(`댓글을 가져오는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   }, []);
-
 
   const toggleModify = (commentId) => {
     setCmtModify({
       ...cmtmodify,
-      [commentId]: !cmtmodify[commentId]
+      [commentId]: !cmtmodify[commentId],
     });
-    // if (!cmtmodify[commentId]) {
-    //   fetch(`/api/commentcreate`)
-    //     .then(response => response.json())
-    //     .then(data => {
-    //       setModifyContent({
-    //         ...modifyContent,
-    //         [commentId]: data.content
-    //       });
-    //     })
-    //     .catch(error => console.error('댓글 내용을 가져오는 중 오류 발생:', error));
-    // }
   };
 
   const deleteComment = (commentId) => {
@@ -131,45 +113,51 @@ export default ({ user }) => {
     };
 
     try {
-      fetch('/api/commentdelete', { method: "post", body: JSON.stringify(body) })
-        .then(res => {
+      fetch("/api/commentdelete", {
+        method: "post",
+        body: JSON.stringify(body),
+      })
+        .then((res) => {
           if (res) {
             return res.json();
           } else {
             throw new Error();
           }
         })
-        .then(data => {
-          console.log(data);
+        .then((data) => {
           if (data) {
             setbaDetails(data.comment);
-            console.log('댓글을 삭제하였습니다.');
+            console.log("댓글을 삭제하였습니다.");
           } else {
-            alert('댓글 삭제에 실패하였습니다.');
+            alert("댓글 삭제에 실패하였습니다.");
           }
-        })
+        });
     } catch (error) {
       console.log(error);
     }
   };
 
   const submitModify = (commentId) => {
-    const modifiedContent = modifyContent[commentId] || ''; 
+    const modifiedContent = modifyContent[commentId] || "";
     const body = {
       id: commentId,
       postId: id,
-      content: modifiedContent
+      content: modifiedContent,
     };
-    fetch('/api/commentupdate', { 
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
+    fetch(
+      "/api/commentupdate",
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
       },
-      body: JSON.stringify(body),
-    },console.log("해볼게"))
+      console.log("해볼게")
+    )
       .then((response) => {
         if (!response.ok) {
-          throw new Error('에런데영');
+          throw new Error("에런데영");
         }
         return response.json();
       })
@@ -179,14 +167,14 @@ export default ({ user }) => {
           setbaDetails(data.comment);
           setCmtModify({
             ...cmtmodify,
-            [commentId]: false 
+            [commentId]: false,
           });
         } else {
           console.log(data.error);
           alert(`댓글을 수정하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
 
   return (
@@ -211,21 +199,35 @@ export default ({ user }) => {
           marginTop={"5px"}
           marginBottom={"5px"}
         />
-        <FormControl isInvalid={isError2} isRequired>
+        <FormControl>
           <FormLabel>내용</FormLabel>
-          <Textarea
-            value={content}
-            onChange={handleInputChange2}
-            size={"lg"}
-            resize={"none"}
-            h={"150px"}
-          />
-          {!isError2 ? (
-            <FormHelperText color={"#3182ce"}>
-              입력하신 내용으로 요청이 됩니다.
-            </FormHelperText>
+          {user == "logout" ? (
+            <Textarea
+              value={content}
+              onChange={handleInputChange2}
+              size={"lg"}
+              resize={"none"}
+              h={"70px"}
+              disabled={true}
+              placeholder="로그인이 필요합니다!!"
+              sx={{
+                "::placeholder": {
+                  textAlign: "center", // 플레이스홀더 텍스트를 가운데 정렬합니다.
+                  opacity: 1, // 플레이스홀더 텍스트를 더 잘 보이게 합니다 (선택적).
+                  color: "gray.500", // 플레이스홀더 텍스트 색상 변경 (선택적).
+                  lineHeight: "70px",
+                },
+                padding: "0",
+              }}
+            />
           ) : (
-            <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
+            <Textarea
+              value={content}
+              onChange={handleInputChange2}
+              size={"lg"}
+              resize={"none"}
+              h={"70px"}
+            />
           )}
         </FormControl>
         <FormControl marginTop="20px">
@@ -237,62 +239,93 @@ export default ({ user }) => {
           />
         </FormControl>
       </Box>
-      <Flex justifyContent={"end"} gap={3}>
-        <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"}>
-          취소
-        </Button>
-        <Button
-          border={"2px solid"}
-          borderColor={"rgba(11,11,13,.6)"}
-          onClick={() => {
-            onSubmitHandler();
-          }}
-        >
-          작성
-        </Button>
-      </Flex>
-      <Box>
-        {
-          baDetails.map((detail) => {
-            return (
-              <Box borderBottom="1px solid black" marginBottom="20px">
-                <Grid
-                  key={detail._id}
-                  templateColumns="2fr 5fr"
-                >
-                  <Box>{detail.nickname}</Box>
-                  <Flex justifyContent="flex-end">
-                    <Button size="xs" onClick={() => toggleModify(detail._id)}>{cmtmodify[detail._id] ? "취소" : "수정"}</Button>
-                    {cmtmodify[detail._id] ? <Button size="xs" onClick={() => submitModify(detail._id)}>확인</Button>: <Button size="xs" onClick={() => deleteComment(detail._id)}>삭제</Button>}
-                    
-                  </Flex>
-                </Grid>
+      {user == "logout" ? (
+        <Flex justifyContent={"end"} gap={3}>
+          <Button
+            border={"2px solid"}
+            borderColor={"rgba(11,11,13,.6)"}
+            isDisabled={true}
+          >
+            취소
+          </Button>
+          <Button
+            border={"2px solid"}
+            borderColor={"rgba(11,11,13,.6)"}
+            isDisabled={true}
+            onClick={() => {
+              onSubmitHandler();
+            }}
+          >
+            작성
+          </Button>
+        </Flex>
+      ) : (
+        <Flex justifyContent={"end"} gap={3}>
+          <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"}>
+            취소
+          </Button>
+          <Button
+            border={"2px solid"}
+            borderColor={"rgba(11,11,13,.6)"}
+            onClick={() => {
+              onSubmitHandler();
+            }}
+          >
+            작성
+          </Button>
+        </Flex>
+      )}
+      {baDetails.map((detail) => {
+        return (
+          <Box borderBottom="1px solid black" marginBottom="20px">
+            <Grid key={detail._id} templateColumns="2fr 5fr">
+              <Box>{detail.nickname}</Box>
+              {user == "logout" ? (
+                ""
+              ) : detail.email !== user.email ? (
+                ""
+              ) : (
+                <Flex justifyContent="flex-end">
+                  <Button size="xs" onClick={() => toggleModify(detail._id)}>
+                    {cmtmodify[detail._id] ? "취소" : "수정"}
+                  </Button>
+                  {cmtmodify[detail._id] ? (
+                    <Button size="xs" onClick={() => submitModify(detail._id)}>
+                      확인
+                    </Button>
+                  ) : (
+                    <Button size="xs" onClick={() => deleteComment(detail._id)}>
+                      삭제
+                    </Button>
+                  )}
+                </Flex>
+              )}
+            </Grid>
 
-                {
-                  !cmtmodify[detail._id] ? <Box>{detail.content}</Box> :
-                    <FormControl isInvalid={isError3} isRequired>
-                      <FormLabel>내용</FormLabel>
-                      <Textarea
-                        value={modifyContent[detail._id] || detail.content}
-                        onChange={(e) => handleModifyInputChange(e, detail._id)}
-                        size={"lg"}
-                        resize={"none"}
-                        h={"150px"}
-                      />
-                      {!isError3 ? (
-                        <FormHelperText color={"#3182ce"}>
-                          입력하신 내용으로 요청이 됩니다.
-                        </FormHelperText>
-                      ) : (
-                        <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
-                      )}
-                    </FormControl>
-                }
-              </Box>
-            )
-          })
-        }
-      </Box>
+            {!cmtmodify[detail._id] ? (
+              <Box>{detail.content}</Box>
+            ) : (
+              <FormControl isInvalid={isError3} isRequired>
+                <FormLabel>내용</FormLabel>
+                <Textarea
+                  value={modifyContent[detail._id] || detail.content}
+                  onChange={(e) => handleModifyInputChange(e, detail._id)}
+                  size={"lg"}
+                  resize={"none"}
+                  h={"150px"}
+                />
+                {!isError3 ? (
+                  <FormHelperText color={"#3182ce"}>
+                    입력하신 내용으로 요청이 됩니다.
+                  </FormHelperText>
+                ) : (
+                  <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
+                )}
+              </FormControl>
+            )}
+          </Box>
+        );
+      })}
     </>
   );
 };

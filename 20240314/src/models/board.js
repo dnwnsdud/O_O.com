@@ -48,10 +48,13 @@ export default mongoose.Schema(
           type: String,
           default: "기본경로",
         },
+        email: {
+          type: String,
+        },
       },
       {
         timestamps: true,
-      }
+      },
     ],
   },
   {
