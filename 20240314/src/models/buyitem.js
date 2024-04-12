@@ -4,7 +4,13 @@ export default mongoose.Schema(
         "email": {
             "type": String,
         },
-        "itemname": {
+        "title": {
             "type": String,
+        }, 
+        "price": {
+            "type": Number,
         },
+        "images":{
+            "type": String,
+        }
     });
