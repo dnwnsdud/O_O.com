@@ -23,6 +23,8 @@ export default () => {
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const location = useLocation();
+  const [selectedTeam, setSelectedTeam] = useState('전체');
+
   useEffect(() => {
     const currentPath = location.pathname;
     const room = currentPath.split('/')[1];
@@ -72,30 +74,73 @@ export default () => {
             gap="10px"
             padding="10px 30px"
           >
-            <Button size="xs" color="#000">
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam('EPL')}
+            >
               EPL
             </Button>
-            <Button size="xs" color="#000">
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam('라리가')}
+            >
               라리가
             </Button>
-            <Button size="xs" color="#000">
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam('분데스리가')}
+            >
               분데스리가
             </Button>
-            <Button size="xs" color="#000">
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam('세리에')}
+            >
               세리에
             </Button>
-            <Button size="xs" color="#000">
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam('K리그')}
+            >
               K리그
             </Button>
-            <Button size="xs" color="#000">
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam('국대')}
+            >
               국대
             </Button>
           </Grid>
         </Box>
         <Box border="1px solid red">
           <Today />
-          <Soboard />
-        </Box>
+          <Soboard selectedTeam={selectedTeam} user={user} />
+
+        </Box >
 
         <Flex
           direction={"column"}

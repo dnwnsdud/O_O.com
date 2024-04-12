@@ -13,7 +13,7 @@ import Main from "./Main";
 import Signupform from "../pages/Signupform";
 import SubmitProduct from "../pages/SubmitProduct";
 import Boardcreate from "../pages/Boardcreate";
-import Badetail from "../pages/BaDetail";
+import Badetail from "../pages/BoardDetail";
 import Boardmodify from "../pages/Boardmodify";
 import Mypage from "../pages/Mypage";
 import Mygrade from "./Mygrade";

@@ -73,14 +73,26 @@ export default () => {
       })
       .then((data) => {
         if (data.success) {
-          nav("/b");
-          // 나중에 경로 생각좀
+          switch (data.create.tap) {
+            case '야구':
+              nav("/b");
+              break;
+            case 'LOL':
+              nav("/l");
+              break;
+            case '축구':
+              nav("/s");
+              break;
+            case '사회':
+              nav("/c");
+              break;
+          }
         } else {
           console.log(data.error);
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   const handleImagesChange = (e) => {
