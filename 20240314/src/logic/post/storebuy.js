@@ -4,7 +4,7 @@ export default async (req, res, next) => {
   try {
     let user = await req.mongo.user.findOne({ email: req.body.email });
     if (!user || user.point < req.body.price) {
-      alert("포인트가 부족합니다.");
+      console.log('포인트가 부족합니다');
       return res.status(400).json({ message: "포인트가 부족합니다." });
     }
 
@@ -17,7 +17,7 @@ export default async (req, res, next) => {
     let create = new req.mongo.buyitem(req.body);
     let savedDocument = await create.save();
 
-    res.status(201).json({ success: true });
+    res.status(201).json({ success: true, message: "구매 되었습니다." });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "서버 오류 발생" });

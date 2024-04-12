@@ -114,7 +114,10 @@ export default () => {
       )
         .then((response) => {
           if (!response.ok) {
-            throw new Error(`Server responded with status ${response.status}`);
+            return response.json().then(data => {
+              alert(`구매 실패: ${data.message}`);
+              throw new Error(`Server responded with status ${response.status}`);
+            });
           }
           alert("구매가 완료되었습니다.");
           return response.json();
