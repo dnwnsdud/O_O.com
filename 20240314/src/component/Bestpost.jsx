@@ -1,4 +1,4 @@
-import { Divider, ListItem, List, Text, Grid, Box, textDecoration } from "@chakra-ui/react";
+import { Divider, ListItem, List, Text, Grid, Box, textDecoration, Flex } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -31,18 +31,23 @@ export default ()=>{
         <Text fontSize={"xl"} fontWeight={"bold"} paddingBottom={"10px"}>
           실시간 인기글
         </Text>
-        <Grid templateColumns="3fr 1fr">
-            <Box>제목</Box>
-            <Box margin={"auto"}>댓글수</Box>
+        <Grid templateColumns="2fr 1fr 1fr">
+            <Box margin={"auto"}>제목</Box>
+            <Box margin={"auto"}>추천수</Box>
+            <Box margin={"auto"}>조회수</Box>
         </Grid>
         <Divider orientation="horizontal" />
 
         {
          bestpost.map((posts)=>{
              return(<ListItem key={posts._id}>
-                 <Grid templateColumns="3fr 1fr" paddingBottom={"3px"}>  
-                 <Box _hover={{textDecoration:"underline"}}><Link to={`/b/id=${posts._id}`}>{posts.title}</Link></Box>
-                     <Box margin={"auto"}>{posts.comment.length}</Box>
+                 <Grid templateColumns="2fr 1fr 1fr" paddingBottom={"3px"}>  
+                     <Flex  margin={"auto"} alignItems={"center"} gap={"5px"}>
+                        <Box _hover={{textDecoration:"underline"}}><Link to={`/b/id=${posts._id}`}>{posts.title}</Link></Box>
+                        <Box fontSize="10px" opacity={0.7} >({posts.comment.length})</Box>
+                        </Flex>
+                     <Box margin={"auto"}>{posts.like}</Box>
+                     <Box margin={"auto"}>{posts.count}</Box>
                  </Grid>
                <Divider orientation="horizontal" />
                
