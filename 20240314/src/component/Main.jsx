@@ -65,7 +65,11 @@ export default () => {
           paddingBottom={3}
           boxShadow={"md"}
         >
-          <Link fontSize={"xl"} fontWeight={"bold"}>
+          <Link fontSize={"xl"} fontWeight={"bold"}
+            onClick={() => {
+              nav("/n");
+            }}
+          >
             공지사항
           </Link>
           <Divider orientation="horizontal" />
@@ -90,7 +94,7 @@ export default () => {
           </ListItem>
           <Divider orientation="horizontal" />
         </List>
-        <Bestpost/>
+        <Bestpost />
         <Grid
           flexWrap={"wrap"}
           gap={5}
