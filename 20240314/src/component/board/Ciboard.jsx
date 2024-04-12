@@ -20,6 +20,30 @@ import { Link } from "react-router-dom";
 
 moment.locale("ko");
 
+const getDayMinuteCounter = (date) => {
+  if (!date) {
+    return "";
+  }
+
+  const today = moment();
+  const postingDate = moment(date);
+  const dayDiff = postingDate.diff(today, "days");
+  const hourDiff = postingDate.diff(today, "hours");
+  const minutesDiff = postingDate.diff(today, "minutes");
+
+  if (dayDiff === 0 && hourDiff === 0) {
+    const minutes = Math.ceil(-minutesDiff);
+    return minutes + "분 전";
+  }
+
+  if (dayDiff === 0 && hourDiff < 24) {
+    const hours = Math.ceil(-hourDiff);
+    return hours + "시간 전";
+  }
+
+  return Math.abs(dayDiff) + "일 전";
+};
+
 export default ({ selectedtab, user }) => {
   const nav = useNavigate();
 

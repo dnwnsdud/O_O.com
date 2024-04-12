@@ -137,8 +137,16 @@ export default () => {
           p={10}
         >
           <Box display="none">{baDetails.tap}</Box>
-          <Box>{baDetails.title}</Box>
+          <Flex justifyContent={"space-between"}>
+            <Text fontWeight={"bold"} fontSize={"xl"}>{baDetails.title}</Text>
+            <Flex fontSize={"xs"} alignItems={"end"}>
+              <Text>작성자</Text>
+              <Text>작성일시</Text>
+            </Flex>
+          </Flex>
+          <Divider />
           <Box>{baDetails.content}</Box>
+          <Divider />
           {baDetails.images && (
             <Box
               border="1px solid black"
