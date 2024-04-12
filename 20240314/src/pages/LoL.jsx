@@ -1,8 +1,4 @@
-import {
-  Box,
-  Button,
-  Grid
-} from "@chakra-ui/react";
+import { Box, Button, Grid } from "@chakra-ui/react";
 import React from "react";
 import Today from "../component/board/Today";
 import Lolboard from "../component/board/Lolboard";
@@ -27,7 +23,7 @@ export default () => {
                 T1
               </Button>
               <Button size="xs" bg="#aa8a00" color="#ffffff">
-                Geng
+                Gen.G
               </Button>
               <Button size="xs" bg="#ff6b01" color="#ffffff">
                 한화생명
