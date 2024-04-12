@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Bestpost from "./Bestpost";
 
 export default () => {
 
@@ -89,42 +90,7 @@ export default () => {
           </ListItem>
           <Divider orientation="horizontal" />
         </List>
-        <List
-          bg={"white"}
-          h={"12%"}
-          borderRadius={"10px"}
-          spacing={0.5}
-          paddingLeft={6}
-          paddingRight={6}
-          paddingTop={3}
-          paddingBottom={3}
-          boxShadow={"md"}
-        >
-          <Text fontSize={"xl"} fontWeight={"bold"}>
-            실시간 인기글
-          </Text>
-          <Divider orientation="horizontal" />
-          <ListItem>
-            <Link>Lorem ipsum dolor sit amet</Link>
-          </ListItem>
-          <Divider orientation="horizontal" />
-          <ListItem>
-            <Link>Consectetur adipiscing elit</Link>
-          </ListItem>
-          <Divider orientation="horizontal" />
-          <ListItem>
-            <Link>Integer molestie lorem at massa</Link>
-          </ListItem>
-          <Divider orientation="horizontal" />
-          <ListItem>
-            <Link>Facilisis in pretium nisl aliquet</Link>
-          </ListItem>
-          <Divider orientation="horizontal" />
-          <ListItem>
-            <Link>Facilisis in pretium nisl aliquet</Link>
-          </ListItem>
-          <Divider orientation="horizontal" />
-        </List>
+        <Bestpost/>
         <Grid
           flexWrap={"wrap"}
           gap={5}
