@@ -18,7 +18,6 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../hook/User";
 import { useNavigate } from "react-router-dom";
 
-
 export default () => {
   const { user } = useContext(UserContext);
   const [title, setTitle] = useState("");
@@ -27,8 +26,7 @@ export default () => {
   const [images, setImage] = useState("");
   const [videos, setVideo] = useState("");
   const [tap, setTap] = useState("");
-
-
+  const [teamsOptions, setTeamsOptions] = useState([]);
 
   const handleInputChange = (e) => setTitle(e.target.value);
   const handleInputChange2 = (e) => setContent(e.target.value);
@@ -41,7 +39,6 @@ export default () => {
   const isError3 = tap === "";
 
   const nav = useNavigate();
-
 
   let body = {
     title: title,
@@ -83,7 +80,7 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
 
   const handleImagesChange = (e) => {
@@ -142,6 +139,69 @@ export default () => {
     }
   };
 
+  const handleCategoryChange = (e) => {
+    const selectedCategory = e.target.value;
+    setTap(selectedCategory);
+    updateTeams(selectedCategory);
+  };
+
+  const updateTeams = (category) => {
+    switch (category) {
+      case "야구":
+        setTeamsOptions([
+          "기아",
+          "롯데",
+          "LG",
+          "두산",
+          "키움",
+          "SSG",
+          "NC",
+          "한화",
+          "삼성",
+          "KT",
+        ]);
+        break;
+      case "축구":
+        setTeamsOptions([
+          "EPL",
+          "라리가",
+          "분데스리가",
+          "세리에",
+          "K리그",
+          "국대",
+        ]);
+        break;
+      case "LOL":
+        setTeamsOptions([
+          "T1",
+          "DRX",
+          "Gen.G",
+          "한화생명",
+          "KT",
+          "DK",
+          "광동",
+          "피어엑스",
+          "농심",
+          "브리온",
+        ]);
+        break;
+      case "사회":
+        setTeamsOptions([
+          "잡담",
+          "정치",
+          "연애",
+          "여행",
+          "취미",
+          "경제",
+          "역사",
+        ]);
+        break;
+      default:
+        setTeamsOptions([]);
+        break;
+    }
+  };
+
   return (
     <Stack w={"35%"} m={"auto"} direction={"column"} justifyContent={"center"}>
       <Stack
@@ -164,11 +224,11 @@ export default () => {
             <Select
               placeholder="카테고리 선택"
               value={tap}
-              onChange={handleInputChange4}
+              onChange={handleCategoryChange}
             >
               <option>야구</option>
-              <option>LOL</option>
               <option>축구</option>
+              <option>LOL</option>
               <option>사회</option>
             </Select>
             {!isError3 ? (
@@ -179,6 +239,23 @@ export default () => {
               <FormErrorMessage>카테고리를 꼭 선택해주세요!</FormErrorMessage>
             )}
           </FormControl>
+          {teamsOptions.length > 0 && (
+            <FormControl marginBottom="20px">
+              <FormLabel>응원팀</FormLabel>
+              <Select
+                placeholder="응원팀 선택"
+                value={team}
+                onChange={(e) => setTeam(e.target.value)}
+                disabled={!teamsOptions.length}
+              >
+                {teamsOptions.map((team) => (
+                  <option key={team} value={team}>
+                    {team}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
+          )}
           <Divider
             orientation="horizontal"
             borderBottomWidth={"2px"}
@@ -229,25 +306,12 @@ export default () => {
             marginBottom={"5px"}
           />
           <FormControl marginTop="20px">
-            <Input value={"nickname"} placeholder={user.nickname} readOnly hidden />
-          </FormControl>
-          <FormControl>
-            <Select
-              placeholder="응원팀"
-              value={team}
-              onChange={handleInputChange3}
-            >
-              <option>기아</option>
-              <option>키움</option>
-              <option>롯데</option>
-              <option>한화</option>
-              <option>두산</option>
-              <option>삼성</option>
-              <option>KT</option>
-              <option>LG</option>
-              <option>SSG</option>
-              <option>NC</option>
-            </Select>
+            <Input
+              value={"nickname"}
+              placeholder={user.nickname}
+              readOnly
+              hidden
+            />
           </FormControl>
           <FormControl isInvalid={itemImageError} mt="5">
             <FormLabel>이미지 업로드</FormLabel>
