@@ -189,7 +189,7 @@ export default () => {
           <Badge variant='outline' colorScheme="blue">
             할인
           </Badge>
-          <Flex>
+          <Flex gap={1} alignItems={"center"}>
             <Text as='del' fontSize={'sm'}>
               50000원
             </Text>

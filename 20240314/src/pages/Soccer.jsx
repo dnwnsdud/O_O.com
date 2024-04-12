@@ -150,7 +150,7 @@ export default () => {
           overflow={"hidden"}
         >
           <Flex flexDirection={"column"} justifyContent={"space-between"}>
-            <Box pl={2} color={"white"} fontSize={"xl"}>채팅</Box>
+            <Box pl={2} pt={2} color={"white"} fontSize={"xl"}>채팅</Box>
             <Stack className="chat-list"
               // maxH={"50vh"}
               h={"50vh"}
