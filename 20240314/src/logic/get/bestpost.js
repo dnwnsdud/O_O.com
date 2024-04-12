@@ -5,7 +5,7 @@ export default async (req, res, next) => {
         const posts = await req.mongo.board.aggregate([
             {
                 $addFields: {
-                    totalScore: { $add: [ { $multiply: ["$like", 2] }, "$count" ] }
+                    totalScore: { $add: [{ $multiply: ["$like", 2] }, "$count"] }
                 }
             },
             {
@@ -15,7 +15,6 @@ export default async (req, res, next) => {
                 $limit: 10
             }
         ]);
-        console.log(posts);
         res.status(200).json(posts);
     } catch (error) {
         console.error(error);
