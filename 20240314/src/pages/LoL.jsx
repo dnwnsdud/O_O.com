@@ -77,6 +77,16 @@ export default () => {
             >
               <Button
                 sx={{
+                  backgroundColor: "#5181e3 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam('모든 팀')}
+              >
+                전체
+              </Button>
+              <Button
+                sx={{
                   backgroundColor: "#e4002b !important",
                   color: "#ffffff",
                 }}
