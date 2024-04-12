@@ -32,7 +32,6 @@ export default () => {
       name: name,
       email: paramValue,
       nickname: nickname,
-      role: "admin",
     };
 
     fetch('/api/signup', {
