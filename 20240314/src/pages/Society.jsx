@@ -78,6 +78,16 @@ export default () => {
             >
               <Button
                 sx={{
+                  backgroundColor: "#5181e3 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTab('전체')}
+              >
+                전체
+              </Button>
+              <Button
+                sx={{
                   backgroundColor: "#C30452 !important",
                   color: "#ffffff",
                 }}
