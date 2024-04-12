@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useContext} from "react";
 import {
   Box, Flex, Badge, Text, HStack, Button, border,
   Image, Tabs, TabList, Tab, TabIndicator, TabPanel, TabPanels, Grid, GridItem, SimpleGrid, Card, CardHeader, Heading, CardBody, CardFooter
@@ -11,11 +11,13 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { useNavigate } from "react-router-dom";
 import Payment from "./Payment";
+import { UserContext } from "../hook/User";
 
 export default () => {
 
   const [firstSwiper, setFirstSwiper] = useState(null);
   const [secondSwiper, setSecondSwiper] = useState(null);
+  const { user } = useContext(UserContext);
   let nav = useNavigate();
 
   const [stores, setStores] = useState([]);
@@ -82,11 +84,52 @@ export default () => {
       })
   }
 
-  const buyStore = (e, price) => {
-    e.preventDefault();
-    console.log('구매');
+
+  const buyStore = (e, price, title, images) => {
+    if(user == "logout"){
+      alert("로그인이 필요합니다!");
+    }else{
     console.log('구매 가격' + price);
+    console.log(title);
+    console.log(images);
+    console.log(user.email);
+    let body = {
+        title:title,
+        price:price,
+        images:images,
+        email: user.email
+      }
+    console.log("body:", body);
     alert('구매하시겠습니까?');
+    fetch(
+      "/api/storebuy",
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      },
+      console.log(body)
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Server responded with status ${response.status}`);
+        }
+        alert("구매가 완료되었습니다.");
+        return response.json();
+      })
+      .then((data) => {
+        if (data.success) {
+          nav("/");
+          // 나중에 경로 생각좀
+        } else {
+          console.log(data.error);
+          alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
+        }
+      })
+      .catch((error) => { });
+    }
   }
 
 
@@ -94,12 +137,16 @@ export default () => {
     <Box border={'1px solid black'} h='8rem'>
       광고
     </Box>
+    {
+      user.role === "admin" ?
     <Button
       onClick={() => {
         nav("/stsubmit")
       }}
       border={'1px solid #ddd'}
     >아이템등록</Button>
+     : null
+    }
     {/* 관리자만 버튼 뜨게 */}
 
     <SimpleGrid spacing={4} templateColumns={'repeat(auto-fill, minmax(30%, 1fr))'} my='2'>
@@ -194,13 +241,16 @@ export default () => {
                     <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}>{store.title}</Text>
                     <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
                     <Flex justifyContent={'right'}>
-                      <Button fontSize={10} w='10' h='5' border='1px solid #ddd'
-
+                      {
+                        user.role === "admin" ?
+                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
                         onClick={(e) => deleteSubmit(e, store.price)}
                       >삭제</Button>
-
-
-                      <Payment price={store.price} title={store.title} id={store._id} />
+                      :
+                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
+                        onClick={(e) => buyStore(e, store.price, store.title, store.images)}
+                      >구매</Button>
+                      }
                       {/* 관리자는 삭제버튼 뜨게 일반 유저는 구매 버튼 뜨게 */}
                     </Flex>
                   </Box>
@@ -233,21 +283,22 @@ export default () => {
                         objectFit='cover'
                         alt="아이템 이미지"
                         m='auto'
+                        name='images'
                       />
                     </Box>
-                    <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}>{store.title}</Text>
-                    <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
+                    <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'} name='title'>{store.title}</Text>
+                    <Text textAlign={'center'} fontSize={'13'} name='price'>{store.price}원</Text>
                     <Flex justifyContent={'right'}>
-                      {/* <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'>구매</Button> */}
-                      {/* 관리자는 삭제버튼 뜨게 일반 유저는 구매 버튼 뜨게 */}
-                      <Button fontSize={10} w='10' h='5' border='1px solid #ddd'
-
-                        onClick={(e) => deleteSubmit(e, store._id)}
+                     {
+                        user.role === "admin" ?
+                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
+                        onClick={(e) => deleteSubmit(e, store.price)}
                       >삭제</Button>
-                      {/* <Payment price={store.price} title={store.title} id={store._id} /> */}
-                      <Button fontSize={10} w='10' h='5' border='1px solid #ddd'
-                        onClick={(e) => buyStore(e, store.price)}
+                      :
+                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
+                        onClick={(e) => buyStore(e, store.price, store.title, store.images)}
                       >구매</Button>
+                      }
                     </Flex>
                   </Box>
                 </SwiperSlide>
@@ -273,10 +324,16 @@ export default () => {
                 <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}>{store.title}</Text>
                 <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
                 <Flex justifyContent={'right'}>
-                  {/* <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'>구매</Button> */}
-
-                  <Payment price={store.price} title={store.title} id={store._id} />
-                  {/* 관리자는 삭제버튼 뜨게 일반 유저는 구매 버튼 뜨게 */}
+                      {
+                        user.role === "admin" ?
+                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
+                        onClick={(e) => deleteSubmit(e, store.price)}
+                      >삭제</Button>
+                      :
+                      <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
+                        onClick={(e) => buyStore(e, store.price, store.title, store.images)}
+                      >구매</Button>
+                      }
                 </Flex>
               </GridItem>
             )
