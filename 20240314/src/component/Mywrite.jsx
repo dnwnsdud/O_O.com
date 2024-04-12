@@ -18,9 +18,7 @@ export default () => {
         })
         .then(data => {
           if (data) {
-            console.log("이게 먼저오는거면 나는 어쩌라는건데 진짜 다 죽자");
             setUserData(data);
-            console.log(data);
           } else {
             alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
           }
@@ -42,7 +40,7 @@ export default () => {
         <Box>조회</Box>
         <Box>추천</Box>
       </Grid>
-      <List List height="500px" >
+      <List height="500px" >
         {userData.map((user) => (
           <ListItem key={user._id}>
             <Grid

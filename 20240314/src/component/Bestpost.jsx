@@ -31,9 +31,10 @@ export default () => {
             <Text fontSize={"xl"} fontWeight={"bold"} paddingBottom={"10px"}>
                 실시간 인기글
             </Text>
-            <Grid templateColumns="1fr 2fr 1fr 1fr">
+            <Grid templateColumns="1fr 2fr 1fr 0.5fr 0.5fr">
                 <Box margin={"auto"}>카테고리</Box>
                 <Box margin={"auto"}>제목</Box>
+                <Box margin={"auto"}>작성자</Box>
                 <Box margin={"auto"}>추천수</Box>
                 <Box margin={"auto"}>조회수</Box>
             </Grid>
@@ -42,14 +43,15 @@ export default () => {
             {
                 bestpost.map((posts) => {
                     return (<ListItem key={posts._id}>
-                        <Grid templateColumns="1fr 2fr 1fr 1fr" paddingBottom={"3px"}>
-                            <Box margin={"auto"} borderRadius={"5px"} backgroundColor={"#999"} color={"black"} fontSize={"13px"} padding={"5px 10px"}>{posts.tap}</Box>
+                        <Grid templateColumns="1fr 2fr 1fr 0.5fr 0.5fr" paddingBottom={"3px"}>
+                            <Box margin={"auto"} borderRadius={"5px"} backgroundColor={"#999"} color={"black"} fontSize={"13px"} padding={"5px 10px"} width={"47px"} textAlign={"center"}>{posts.tap}</Box>
                             <Flex margin={"auto"} alignItems={"center"} gap={"5px"}>
                                 <Box _hover={{ textDecoration: "underline" }}><Link to={`/b/id=${posts._id}`}>{posts.title}</Link></Box>
                                 <Box fontSize="10px" opacity={0.7} >[{posts.comment.length}]</Box>
                             </Flex>
-                            <Box margin={"auto"}>{posts.like}</Box>
-                            <Box margin={"auto"}>{posts.count}</Box>
+                            <Box margin={"auto"} fontSize={"13px"}>{posts.nickname}</Box>
+                            <Box margin={"auto"} fontSize={"13px"}>{posts.like}</Box>
+                            <Box margin={"auto"} fontSize={"13px"}>{posts.count}</Box>
                         </Grid>
                         <Divider orientation="horizontal" />
 
