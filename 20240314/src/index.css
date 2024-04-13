@@ -5,3 +5,7 @@
 .chat-list::-webkit-scrollbar {
     display: none;
 }
+
+.user {
+    color: "tomato";
+}

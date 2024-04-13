@@ -206,14 +206,16 @@ export default ({ selectedtab, user }) => {
             >
               <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
               <Box color="#5181e3">{post.team}</Box>
-              <Box
+              <Flex
                 whiteSpace="nowrap"
                 overflow="hidden"
                 textOverflow="ellipsis"
                 padding="0 20px 0 20px"
+                justifyContent="center"
               >
                 <Link to={`/b/id=${post._id}`}>{post.title}</Link>
-              </Box>
+                <Box color="#5181e3">[{post.comment.length}]</Box>
+              </Flex>
               <Box
                 whiteSpace="nowrap"
                 overflow="hidden"

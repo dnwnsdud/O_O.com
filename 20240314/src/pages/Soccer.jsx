@@ -76,6 +76,16 @@ export default () => {
           >
             <Button
               sx={{
+                backgroundColor: "#5181e3 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam('전체')}
+            >
+              전체
+            </Button>
+            <Button
+              sx={{
                 backgroundColor: "#e4002b !important",
                 color: "#ffffff",
               }}
@@ -164,7 +174,7 @@ export default () => {
                 chatList.map((chat, index) =>
                   <Box _hover={{
                     bg: "gray.700"
-                  }} borderRadius={5} key={index}><Text>{chat.user}</Text><Text>{chat.message}</Text></Box>
+                  }} borderRadius={5} key={index}>{chat.user === user.nickname ? <Text color="#46a3d2" fontWeight={"bold"}>{chat.user}</Text> : <Text fontWeight={"bold"}>{chat.user}</Text>}<Text>{chat.message}</Text></Box>
                 )
               }
             </Stack>

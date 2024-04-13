@@ -5,7 +5,7 @@ export default async (req, res, next) => {
         const posts = await req.mongo.board.aggregate([
             {
                 $addFields: {
-                    totalScore: { $add: [ { $multiply: ["$like", 2] }, "$count" ] }
+                    totalScore: { $add: [{ $multiply: ["$like", 2] }, "$count"] }
                 }
             },
             {

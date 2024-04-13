@@ -181,7 +181,7 @@ export default ({ selectedTeam, user }) => {
           borderTop="1px solid #0B0B0D"
           borderBottom="1px solid #0B0B0D"
           textAlign="center"
-          templateColumns="1fr 1fr 8fr 2fr 2fr 1fr 1fr"
+          templateColumns="1fr 2fr 8fr 2fr 2fr 1fr 1fr"
           padding="8px 0"
           color="#5181e3"
         >
@@ -204,19 +204,21 @@ export default ({ selectedTeam, user }) => {
               key={post._id}
               borderBottom="1px dotted #0B0B0D"
               textAlign="center"
-              templateColumns="1fr 1fr 8fr 2fr 2fr 1fr 1fr"
+              templateColumns="1fr 2fr 8fr 2fr 2fr 1fr 1fr"
               padding="10px 0"
             >
               <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
               <Box color="#5181e3">{post.team}</Box>
-              <Box
+              <Flex
                 whiteSpace="nowrap"
                 overflow="hidden"
                 textOverflow="ellipsis"
                 padding="0 20px 0 20px"
+                justifyContent="center"
               >
                 <Link to={`/b/id=${post._id}`}>{post.title}</Link>
-              </Box>
+                <Box color="#5181e3">[{post.comment.length}]</Box>
+              </Flex>
               <Box
                 whiteSpace="nowrap"
                 overflow="hidden"
