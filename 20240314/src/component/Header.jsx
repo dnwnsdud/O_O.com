@@ -167,7 +167,7 @@ export default () => {
           {
             user !== "logout" ? user.role === "user" ? 
             <Menu>
-                <MenuButton as={Button} rightIcon={<ChevronDownIcon transform={isRotated ? "rotate(180deg)" : "none"} />} size="xs" onClick={handleMenuClick}>
+                <MenuButton as={Button} rightIcon={<ChevronDownIcon />} size="xs" onClick={handleMenuClick}>
                   마이페이지
                 </MenuButton>
                 <MenuList minW={0}>
