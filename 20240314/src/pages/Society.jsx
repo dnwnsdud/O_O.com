@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import React from "react";
-import Today from "../component/board/Today";
+import Vote from "../component/board/Vote";
 import Ciboard from "../component/board/Ciboard";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -159,7 +159,7 @@ export default () => {
             </Grid>
           </Box>
           <Box border="1px solid red">
-            <Today />
+            <Vote />
             <Ciboard selectedtab={selectedtab} user={user} />
           </Box>
           <Flex

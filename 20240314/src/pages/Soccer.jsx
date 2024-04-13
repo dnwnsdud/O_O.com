@@ -11,7 +11,7 @@ import {
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import React, { useState, useEffect } from "react";
 import Soboard from "../component/board/Soboard";
-import Today from "../component/board/Today";
+import Vote from "../component/board/Vote";
 import { io } from 'socket.io-client';
 import { useContext } from "react";
 import { UserContext } from "../hook/User";
@@ -147,7 +147,7 @@ export default () => {
           </Grid>
         </Box>
         <Box border="1px solid red">
-          <Today />
+          <Vote />
           <Soboard selectedTeam={selectedTeam} user={user} />
 
         </Box >

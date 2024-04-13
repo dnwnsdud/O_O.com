@@ -11,7 +11,7 @@ import {
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 import React from "react";
-import Today from "../component/board/Today";
+import Vote from "../component/board/Vote";
 import Lolboard from "../component/board/Lolboard";
 import { useContext, useState, useEffect } from "react";
 import { io } from 'socket.io-client';
@@ -187,7 +187,7 @@ export default () => {
             </Grid>
           </Box>
           <Box border="1px solid red">
-            <Today />
+            <Vote />
             <Lolboard selectedTeam={selectedTeam} user={user} />
           </Box>
           <Flex

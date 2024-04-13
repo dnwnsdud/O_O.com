@@ -12,10 +12,12 @@ import {
   ListItem,
   Stack,
   Text,
+  Flex,
 } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Bestpost from "./Bestpost";
+import MainVote from "./board/MainVote";
 
 export default () => {
 
@@ -29,8 +31,7 @@ export default () => {
         spacing={8}
         h={"180vh"}
       >
-        <Box
-          display={"flex"}
+        <Flex
           flexDirection={"column"}
           bg={"white"}
           h={"20%"}
@@ -45,6 +46,7 @@ export default () => {
           >
             오늘의 O_O
           </Text>
+          <MainVote/>
           <Button
             border={"2px solid #0b0b0d"}
             onClick={() => {
@@ -53,7 +55,7 @@ export default () => {
           >
             이전결과
           </Button>
-        </Box>
+        </Flex>
         <List
           bg={"white"}
           h={"12%"}
