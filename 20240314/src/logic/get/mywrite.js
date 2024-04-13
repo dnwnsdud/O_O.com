@@ -3,7 +3,7 @@ dotenv.config({path:'./.env'});
 export default async(req,res,next)=>{
     try{
         const session = req.session.user.email; 
-        const data = await req.mongo.board.find({content:session})
+        const data = await req.mongo.board.find({email:session})
         res.status(200).json(data)
     }catch(err){
         console.log("망했어 실패야");

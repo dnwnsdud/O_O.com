@@ -122,10 +122,10 @@ export default () => {
   return <Center>
     <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #0B0B0D" borderRadius="10px" width="500px">
       <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">정보수정</Box>
-      <Grid templateColumns="1fr 1fr" width="70%" margin="auto">
-        <FormControl isInvalid={itemImageError} mt='5'>
-          <FormLabel>아이템 이미지 업로드</FormLabel>
-          <Input type='file' name='images' onChange={handleImagesChange} />
+      <Grid templateColumns="1fr 1fr" width="70%" margin="auto" alignItems={"center"} gap={2}>
+        <FormControl border={"1px solid gray"}  isInvalid={itemImageError} >
+          <FormLabel fontSize={"sm"} >프로필 이미지 수정</FormLabel>
+          <Input type='file' name='images' onChange={handleImagesChange} hidden  />
           {!itemImageError ? (
             <FormHelperText color={'darkblue'}>이미지가 올라갑니다.</FormHelperText>
           ) : (
@@ -140,8 +140,8 @@ export default () => {
         </Box>
       </Grid>
       <Grid templateRows="1fr 1fr 1fr" gap="20px" margin="30px 0" >
-        <Input textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%" h={"25px"} placeholder={userData.email} defaultValue={userData.email} />
-        <Input textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%" placeholder={userData.team} defaultValue={userData.team} onChange={onTeamHandler} />
+        <Input textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%" h={"25px"} placeholder={userData.email} defaultValue={userData.email} readOnly/>
+        <Input textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%" placeholder={userData.team} defaultValue={userData.team} onChange={onTeamHandler}/>
         <Input textAlign="center" border="1px solid black" borderRadius="15px" margin="auto" width="70%" placeholder="내 승률" defaultValue="내 승률" readOnly />
       </Grid>
       <Grid templateRows="1fr 1fr" justifyContent="center" gap="10px">
