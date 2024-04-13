@@ -3,6 +3,10 @@ import {
   Button,
   Flex,
   Grid,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Stack,
   useDisclosure
 } from "@chakra-ui/react";
@@ -11,6 +15,9 @@ import { useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import UserModal from "./UserModal";
 import { UserContext } from "../hook/User";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { GrRotateRight } from "react-icons/gr";
+import { FaRotateRight } from "react-icons/fa6";
 
 export default () => {
   const { user, setUser, } = useContext(UserContext);
@@ -18,7 +25,10 @@ export default () => {
   const [fill, fillChange] = useState("#0B0B0D");
   const [cl, clChange] = useState(true);
   let nav = useNavigate()
-
+  const [isRotated, setIsRotated] = useState(false);
+  const handleMenuClick = () => {
+    setIsRotated(!isRotated);
+  };
   const logout = () => {
     fetch('/api/logout', {
       method: 'POST',
@@ -155,13 +165,18 @@ export default () => {
             상점
           </Button>
           {
-            user !== "logout" ? user.role === "user" ? <Button size="xs"
-              onClick={() => {
-                nav("/mypage")
-              }}
-            >
-              마이페이지
-            </Button> : <Button size="xs"
+            user !== "logout" ? user.role === "user" ? 
+            <Menu>
+                <MenuButton as={Button} rightIcon={<ChevronDownIcon transform={isRotated ? "rotate(180deg)" : "none"} />} size="xs" onClick={handleMenuClick}>
+                  마이페이지
+                </MenuButton>
+                <MenuList minW={0}>
+                  <MenuItem onClick={()=>{nav('/mypage/')}} fontSize="xs" width="150px">내 프로필</MenuItem>
+                  <MenuItem onClick={()=>{nav('/mypage/write')}} fontSize="xs" width="150px">내 게시글</MenuItem>
+                  <MenuItem onClick={()=>{nav('/mypage/grade')}} fontSize="xs" width="150px">내 승률</MenuItem>
+                  <MenuItem onClick={()=>{nav('/mypage/request')}} fontSize="xs" width="150px">내 요청사항</MenuItem>
+                </MenuList>
+          </Menu> : <Button size="xs"
               onClick={() => {
                 nav("/admin")
               }}
