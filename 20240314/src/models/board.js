@@ -51,6 +51,12 @@ export default mongoose.Schema(
         email: {
           type: String,
         },
+        postId: {
+          type: String,
+        },
+        tap: {
+          type: String,
+        },
       },
       {
         timestamps: true,

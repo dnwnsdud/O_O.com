@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Center, Flex, Grid, HStack, Input, Stack, VStack, Image, List, ListItem } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from "react";
 import { UserContext } from "../hook/User";
 
@@ -8,6 +8,7 @@ export default () => {
     const { user } = useContext(UserContext);
     const [userData, setUserData] = useState([]);
     const [writeData, setwriteData] = useState([]);
+    const [commentData, setcommentData] = useState([]);
     let nav = useNavigate();
     if(user.role === 'user'){
         nav('/')
@@ -27,6 +28,7 @@ export default () => {
                     if (data) {
                         setUserData(data.userdata);
                         setwriteData(data.writedata);
+                        setcommentData(data.comments);
                         if(user.role == 'user' || user == 'logout'){
                             nav('/')
                         }
@@ -85,7 +87,7 @@ export default () => {
                 }
             })
             .then(data=>{
-                console.log(data);
+                console.log(data,123123);
                 if(data){
                     setwriteData(data);
                     console.log('게시글을 삭제하였습니다.');
@@ -97,7 +99,32 @@ export default () => {
             console.log(error);
         }
     }
-    console.log(user, '이게 왜 지랄인건지 물어본사람');
+    const Admincommentdelete = (writeId, writePostId)=>{
+        let body={
+            id:writeId,
+            postId:writePostId
+        }
+        try{
+            fetch('/api/admincommentdelete',{method:"post", body:JSON.stringify(body)})
+            .then(res =>{
+                if(res){
+                    return res.json();
+                }else{
+                    throw new Error()
+                }
+            })
+            .then(data=>{
+                if(data){
+                    setcommentData(data);
+                    console.log('게시글을 삭제하였습니다.');
+                }else{
+                    alert('게시글 삭제에 실패하였습니다.')
+                }
+            }) 
+        }catch(error){
+            console.log(error);
+        }
+    }
     return <Center>
         <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #0B0B0D" borderRadius="10px" width="1280px">
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">관리자페이지</Box>
@@ -121,7 +148,7 @@ export default () => {
                                 <Grid templateColumns="1fr 1fr 1fr" textAlign="center" alignItems="center" padding="5px 0">
                                     <Box>{user.email}</Box>
                                     <Box>{user.nickname}</Box>
-                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={()=>{
+                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto"  onClick={()=>{
                                         Adminuserdelete(user._id, user.email)
                                     }}>유저탈퇴</Button>
                                 </Grid>
@@ -133,8 +160,8 @@ export default () => {
             <Box>게시글관리</Box>
             <Box border="1px solid black">
                 <Grid templateColumns="1fr 1fr 1fr" borderBottom="1px solid black" textAlign="center">
-                    <Box>아이디</Box>
-                    <Box>게시글제목</Box>
+                        <Box>아이디</Box>
+                        <Box>게시글제목</Box>
                     <Box >게시글관리</Box>
                 </Grid>
                 <List height="100px" overflowX='auto'>
@@ -143,10 +170,37 @@ export default () => {
                             return (<ListItem key={write._id}>
                                 <Grid templateColumns="1fr 1fr 1fr" textAlign="center" alignItems="center" padding="5px 0">
                                     <Box>{write.nickname}</Box>
-                                    <Box>{write.title}</Box>
+                                    <Link to={`/b/id=${write._id}`}>
+                                        <Box>{write.title}</Box>
+                                    </Link>
                                     <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={()=>{
                                         Adminwritedelete(write._id, write.email)
                                     }}>게시글삭제</Button>
+                                </Grid>
+                            </ListItem>)
+                        })
+                    }
+                </List>
+            </Box>
+            <Box>댓글관리</Box>
+            <Box border="1px solid black">
+                <Grid templateColumns="1fr 1fr 1fr" borderBottom="1px solid black" textAlign="center">
+                        <Box>아이디</Box>
+                        <Box>댓글내용</Box>
+                    <Box >댓글관리</Box>
+                </Grid>
+                <List height="100px" overflowX='auto'>
+                    {
+                        commentData.map((write) => {
+                            return (<ListItem key={write._id}>
+                                <Grid templateColumns="1fr 1fr 1fr" textAlign="center" alignItems="center" padding="5px 0">
+                                    <Box>{write.nickname}</Box>
+                                    <Link to={`/b/id=${write.postId}`}>
+                                        <Box>{write.content}</Box>
+                                    </Link>
+                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={()=>{
+                                        Admincommentdelete(write._id, write.postId)
+                                    }}>댓글삭제</Button>
                                 </Grid>
                             </ListItem>)
                         })

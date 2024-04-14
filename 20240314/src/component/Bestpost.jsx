@@ -59,7 +59,7 @@ export default () => {
 
                 })
             }
-            <Box opacity={0.5} fontSize={"10px"} marginLeft={"83%"}>인기글 = 추천수 * 2 + 조회수</Box>
+                <Box opacity={0.5} fontSize={"10px"} marginLeft={"83%"}>인기글 = 추천수 * 2 + 조회수</Box>
         </List>
     )
 }

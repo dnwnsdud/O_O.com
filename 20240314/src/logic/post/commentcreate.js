@@ -10,7 +10,10 @@ export default async (req, res, next) => {
         nickname: req.body.nickname,
         content: req.body.content,
         email: req.body.email,
+        postId:req.body.id,
+        tap: create.tap
       });
+      
       await create.save();
       res.status(201).json(create);
     }
