@@ -35,35 +35,39 @@ export default () => {
   const body = {
     id: id,
     like: "",
+    email: user.email,
   };
 
   // 게시글 나오게 하는 곳
-  useEffect((e) => {
-    fetch(`/api/boarddetail`, {
-      method: "post",
-      body: JSON.stringify(body),
-    })
-      .then((res) => {
-        if (res) {
-          return res.json();
-        } else {
-          throw new Error(e);
-        }
+  useEffect(
+    (e) => {
+      fetch(`/api/boarddetail`, {
+        method: "post",
+        body: JSON.stringify(body),
       })
-      .then((data) => {
-        // setCheck(data.success);
-        // console.log(Check);
-        if (data.success) {
-          setCheck(false);
-          console.log("ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅇㅁㄴ");
-        } else if (!data.success) {
-          setCheck(true);
-          console.log("ASDasdasdasdasdas");
-        }
-        setbaDetails(data.updatedDocument);
-        setLikeCount(data.updatedDocument.like);
-      });
-  }, []);
+        .then((res) => {
+          if (res) {
+            return res.json();
+          } else {
+            throw new Error(e);
+          }
+        })
+        .then((data) => {
+          // setCheck(data.success);
+          // console.log(Check);
+          if (data.success) {
+            setCheck(false);
+            console.log("ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅇㅁㄴ");
+          } else if (!data.success) {
+            setCheck(true);
+            console.log("ASDasdasdasdasdas");
+          }
+          setbaDetails(data.updatedDocument);
+          setLikeCount(data.updatedDocument.like);
+        });
+    },
+    [user.email, id]
+  );
   // 좋아요 부분
   const like = (e) => {
     body.like = "like";
@@ -74,16 +78,14 @@ export default () => {
     })
       .then((res) => {
         if (res) {
-          console.log("정동혁");
-
           return res.json();
         } else {
           throw new Error(e);
         }
       })
       .then((data) => {
-        console.log(data);
-        setLikeCount(data.like);
+        console.log(data, "확인");
+        setLikeCount(data.updatedDocument.like);
       });
   };
 
@@ -138,7 +140,9 @@ export default () => {
         >
           <Box display="none">{baDetails.tap}</Box>
           <Flex justifyContent={"space-between"}>
-            <Text fontWeight={"bold"} fontSize={"xl"}>{baDetails.title}</Text>
+            <Text fontWeight={"bold"} fontSize={"xl"}>
+              {baDetails.title}
+            </Text>
             <Flex fontSize={"xs"} alignItems={"end"}>
               <Text>작성자</Text>
               <Text>작성일시</Text>
@@ -178,7 +182,6 @@ export default () => {
             <Button
               onClick={(e) => {
                 like(e);
-                console.log("Hi");
               }}
             >
               추천~!

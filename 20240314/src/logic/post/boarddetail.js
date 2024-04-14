@@ -4,12 +4,20 @@ export default async (req, res, next) => {
   const obj = await JSON.parse(req.body);
   const session = req.session.user;
   const _id = obj.id;
+  const email = obj.email;
   const post = await req.mongo.board.findOne({ _id: _id });
+
   try {
     if (obj.like == "like") {
+      if (post.likeuser.includes(email)) {
+        return res.status(400).json({ message: "이미 추천한 게시글입니다!" });
+      }
       const updatedDocument = await req.mongo.board.findOneAndUpdate(
         { _id },
-        { $inc: { like: 1 } },
+        {
+          $inc: { like: 1 },
+          $push: { likeuser: email },
+        },
         { new: true }
       );
       if (!updatedDocument) {
