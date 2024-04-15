@@ -207,6 +207,31 @@ export default () => {
                     }
                 </List>
             </Box>
+            <Box>블랙리스트관리</Box>
+            <Box border="1px solid black">
+                <Grid templateColumns="1fr 1fr 1fr" borderBottom="1px solid black" textAlign="center">
+                        <Box>아이디</Box>
+                        <Box>댓글내용</Box>
+                    <Box >댓글관리</Box>
+                </Grid>
+                <List height="100px" overflowX='auto'>
+                    {
+                        commentData.map((write) => {
+                            return (<ListItem key={write._id}>
+                                <Grid templateColumns="1fr 1fr 1fr" textAlign="center" alignItems="center" padding="5px 0">
+                                    <Box>{write.nickname}</Box>
+                                    <Link to={`/b/id=${write.postId}`}>
+                                        <Box>{write.content}</Box>
+                                    </Link>
+                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={()=>{
+                                        Admincommentdelete(write._id, write.postId)
+                                    }}>댓글삭제</Button>
+                                </Grid>
+                            </ListItem>)
+                        })
+                    }
+                </List>
+            </Box>
             <Box>토픽요청</Box>
             <Box border="1px solid black">
                 <Grid templateColumns="1fr 1fr 1fr" borderBottom="1px solid black" textAlign="center">
