@@ -14,46 +14,23 @@ import {
   Textarea,
   Image,
   AspectRatio,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../hook/User";
 import { useLocation, useNavigate } from "react-router-dom";
 import Coment from "./Coment";
-import moment from "moment";
-import "moment/locale/ko";
-
-moment.locale("ko");
-
-// 시간 함수
-const getDayMinuteCounter = (date) => {
-  if (!date) {
-    return "";
-  }
-
-  const today = moment();
-  const postingDate = moment(date);
-  const dayDiff = postingDate.diff(today, "days");
-  const hourDiff = postingDate.diff(today, "hours");
-  const minutesDiff = postingDate.diff(today, "minutes");
-
-  if (dayDiff === 0 && hourDiff === 0) {
-    const minutes = Math.ceil(-minutesDiff);
-    return minutes + "분 전";
-  }
-
-  if (dayDiff === 0 && hourDiff < 24) {
-    const hours = Math.ceil(-hourDiff);
-    return hours + "시간 전";
-  }
-
-  return Math.abs(dayDiff) + "일 전";
-};
 
 export default () => {
   const [baDetails, setbaDetails] = useState();
   const [likeCount, setLikeCount] = useState(0);
+  const [dislikeCount, setDislikeCount] = useState(0);
   const [Check, setCheck] = useState();
   const { user } = useContext(UserContext);
+
   console.log(user, "유저확인용");
 
   const location = useLocation();
@@ -63,6 +40,7 @@ export default () => {
   const body = {
     id: id,
     like: "",
+    dislike: "",
     email: user.email,
   };
 
@@ -92,6 +70,7 @@ export default () => {
           }
           setbaDetails(data.updatedDocument);
           setLikeCount(data.updatedDocument.like);
+          setDislikeCount(data.updatedDocument.dislike);
         });
     },
     [user.email, id]
@@ -119,33 +98,68 @@ export default () => {
       });
   };
 
+  //비추천
+  const dislike = (e) => {
+    body.dislike = "dislike";
+    e.preventDefault();
+    fetch(`/api/boarddetail`, {
+      method: "post",
+      body: JSON.stringify(body),
+    })
+      .then((res) => {
+        if (!res.ok && res.status === 400) {
+          res.json().then((data) => {
+            alert(data.message);
+          });
+          throw new Error("Server responded with 400");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data, "확인");
+        setDislikeCount(data.updatedDocument.dislike);
+      });
+  };
+
   //삭제
   const deleteSubmit = (e, userid, useremail) => {
     e.preventDefault();
     console.log("삭제");
     console.log("내 아이디다" + userid);
-    alert("삭제하시겠습니까?");
-    fetch("/api/boarddelete", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json; charset=utf-8",
-      },
-      body: JSON.stringify({ id: userid, email: useremail }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.success) {
-          alert("삭제되었습니다.");
-          nav("/b");
-        } else {
-          alert("작성자만 삭제할 수 있습니다");
-          console.log("삭제 실패얌");
-        }
+    if (confirm("이 게시글을 삭제하시겠습니까?")) {
+      fetch("/api/boarddelete", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify({ id: userid, email: useremail }),
       })
-      .catch((error) => {
-        console.error("아이템 삭제 실패 : ", error);
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.success) {
+            alert("삭제되었습니다.");
+            nav("/b");
+          } else {
+            alert("작성자만 삭제할 수 있습니다");
+            console.log("삭제 실패얌");
+          }
+        })
+        .catch((error) => {
+          console.error("아이템 삭제 실패 : ", error);
+        });
+    } else {
+      console.log("삭제 취소됨");
+    }
+  };
+
+  // 시간 함수
+  const getDayMinuteCounter = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
   if (!baDetails) {
@@ -174,7 +188,13 @@ export default () => {
               {baDetails.title}
             </Text>
             <Flex fontSize={"xs"} alignItems={"end"} gap="10px">
-              <Text>{baDetails.nickname}</Text>
+              <Menu>
+                <MenuButton fontWeight="bold">{baDetails.nickname}</MenuButton>
+                <MenuList>
+                  <MenuItem>신고하기</MenuItem>
+                  <MenuItem>작성글 보기</MenuItem>
+                </MenuList>
+              </Menu>
               <Text>{getDayMinuteCounter(baDetails.createdAt)}</Text>
             </Flex>
           </Flex>
@@ -217,6 +237,8 @@ export default () => {
               추천~!
             </Button>
             <Box alignContent="center">{likeCount}</Box>
+            <Button onClick={(e) => dislike(e)}>비추천!</Button>
+            <Box alignContent="center">{dislikeCount}</Box>
             {!Check ? (
               <Button
                 onClick={() => {
