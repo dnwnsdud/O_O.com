@@ -18,6 +18,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Bestpost from "./Bestpost";
 import MainVote from "./board/MainVote";
+import MainStore from "../pages/MainStore";
 
 export default () => {
 
@@ -46,7 +47,7 @@ export default () => {
           >
             오늘의 O_O
           </Text>
-          <MainVote/>
+          <MainVote />
           <Button
             border={"2px solid #0b0b0d"}
             onClick={() => {
@@ -168,14 +169,18 @@ export default () => {
         <Box
           cursor={"pointer"}
           bg={"white"}
-          h={"20%"}
+          h={"17%"}
           borderRadius={"10px"}
           boxShadow={"md"}
-          onClick={() => {
-            nav("/st");
-          }}
+
         >
-          포인트
+          <Text
+            ml='10'
+            fontWeight={"bold"} mb='7' mt='5'
+            onClick={() => {
+              nav("/st");
+            }}>아이템</Text>
+          <MainStore />
         </Box>
       </Stack>
     </div>

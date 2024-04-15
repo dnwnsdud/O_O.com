@@ -69,19 +69,20 @@ export default () => {
 
   return (
     <>
-      <Box maxW="1280px" margin="auto">
+      <Box maxW="1300px" margin="auto">
         <Box h={20} bg="red" margin="20px 0"></Box>
-        <Grid templateColumns="1fr 4fr 1fr" gap="20px">
+        <Grid templateColumns="0.7fr 4fr 1.5fr" gap="20px">
           <Box>
             <Grid
               templateColumns="repeat(1 , 1fr)"
-              gap="10px"
+              gap="1px"
               padding="10px 30px"
             >
               <Button
                 sx={{
                   backgroundColor: "#5181e3 !important",
                   color: "#ffffff",
+
                 }}
                 size="xs"
                 onClick={() => setSelectedTeam('모든 팀')}
@@ -198,15 +199,17 @@ export default () => {
             direction={"column"}
             justifyContent={"space-between"}
             borderRadius={5}
-            bg={"#0b0b0d"}
+            bg={"#f7f7f8"}
             overflow={"hidden"}
+            h={550}
+            marginTop={75}
           >
-            <Flex flexDirection={"column"} justifyContent={"space-between"}>
-              <Box pl={2} color={"white"} fontSize={"xl"}>채팅</Box>
+            <Flex flexDirection={"column"} justifyContent={"space-between"} >
+              <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>
               <Stack className="chat-list"
                 // maxH={"50vh"}
                 h={"50vh"}
-                color={"white"}
+                color={"black"}
                 direction={"column-reverse"}
                 pl={2}
                 pr={2}
@@ -215,7 +218,7 @@ export default () => {
                 {
                   chatList.map((chat, index) =>
                     <Box _hover={{
-                      bg: "gray.700"
+                      bg: "#dedee3"
                     }} borderRadius={5} key={index}>
                       {chat.user === user.nickname ? <Text color="#46a3d2" fontWeight={"bold"}>{chat.user}</Text> : <Text fontWeight={"bold"}>{chat.user}</Text>}
                       <Text>{chat.message}</Text>
@@ -224,8 +227,8 @@ export default () => {
                 }
               </Stack>
             </Flex>
-            <Box p={2} bg={"#555"}>
-              <Flex bg={"#999"} borderRadius={20}>
+            <Box p={2} >
+              <Flex border='1px solid #c8c8d0' borderRadius={5}>
                 <Input
                   pl={2}
                   variant={"unstyled"}
@@ -234,7 +237,7 @@ export default () => {
                   value={inputValue}
                   onChange={handleInputChange}
                   placeholder="메시지를 입력하세요"
-                  _placeholder={{ color: "white" }}
+                  _placeholder={{ color: "black" }}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                       handleSubmit(e);
