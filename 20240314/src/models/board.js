@@ -36,6 +36,12 @@ export default mongoose.Schema(
     tap: {
       type: String,
     },
+    likeuser: [String],
+    dislike: {
+      type: Number,
+      default: 0,
+    },
+    dislikeuser: [String],
     comment: [
       {
         nickname: {
