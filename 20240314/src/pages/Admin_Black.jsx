@@ -26,7 +26,7 @@ export default () => {
 
   useEffect(() => {
     try {
-      fetch("/api/notices")
+      fetch("/api/blackboard")
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -64,13 +64,6 @@ export default () => {
   const handleNextPage = () => {
     setCurrentPage((prev) => Math.min(prev + 1, pageCount));
   };
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}-${String(date.getDate()).padStart(2, "0")}`;
-  };
 
   return (
     <Stack w={"50%"} m={"auto"} direction={"column"} justifyContent={"center"}>
@@ -91,14 +84,8 @@ export default () => {
             fontWeight="bold"
             marginBottom="20px"
           >
-            공지사항
+            블랙리스트 관리
           </Box>
-          <Flex justifyContent={"end"}>
-            {user.role === "admin" && (
-              <Button onClick={() => {
-                nav(`/n/write`)
-              }}>작성</Button>)}
-          </Flex>
           <Divider
             orientation="horizontal"
             borderBottomWidth={"2px"}
@@ -110,7 +97,7 @@ export default () => {
             {currentPosts.map((user) => (
               <ListItem key={user._id}>
 
-                <Link to={`/n/id=${user._id}`}>
+                <Link to={`/b/id=${user._id}`}>
                   <Grid
                     templateColumns=" 1fr 5fr 1fr "
                     textAlign="center"
@@ -122,21 +109,14 @@ export default () => {
                       textOverflow={"ellipsis"}
                       whiteSpace={"nowrap"}
                     >
-                      [공지]
+                      {user.blacktype}
                     </Box>
                     <Box
                       overflow={"hidden"}
                       textOverflow={"ellipsis"}
                       whiteSpace={"nowrap"}
                     >
-                      {user.title}
-                    </Box>
-                    <Box
-                      overflow={"hidden"}
-                      textOverflow={"ellipsis"}
-                      whiteSpace={"nowrap"}
-                    >
-                      {formatDate(user.createdAt)}
+                      {user.blackid}
                     </Box>
                   </Grid>
                 </Link>

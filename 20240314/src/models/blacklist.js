@@ -3,7 +3,14 @@ export default mongoose.Schema({
   email: {
     type: String,
   },
-  type: {
+  blacktype: {
     type: String,
   },
+  blackdetail: {
+    type: String,
+  },
+  blackid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post',
+  }
 });

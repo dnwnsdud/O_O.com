@@ -18,11 +18,13 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  useDisclosure
 } from "@chakra-ui/react";
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../hook/User";
 import { useLocation, useNavigate } from "react-router-dom";
 import Coment from "./Coment";
+import BlackModal from "./BlackModal";
 
 export default () => {
   const [baDetails, setbaDetails] = useState();
@@ -30,8 +32,7 @@ export default () => {
   const [dislikeCount, setDislikeCount] = useState(0);
   const [Check, setCheck] = useState();
   const { user } = useContext(UserContext);
-
-  console.log(user, "유저확인용");
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const location = useLocation();
   const nav = useNavigate();
@@ -191,15 +192,16 @@ export default () => {
               <Menu>
                 <MenuButton fontWeight="bold">{baDetails.nickname}</MenuButton>
                 <MenuList>
-                  <MenuItem>신고하기</MenuItem>
+                  <MenuItem onClick={onOpen}>신고하기</MenuItem>
                   <MenuItem>작성글 보기</MenuItem>
                 </MenuList>
               </Menu>
+              <BlackModal isOpen={isOpen} onClose={onClose} postId={id} />
               <Text>{getDayMinuteCounter(baDetails.createdAt)}</Text>
             </Flex>
           </Flex>
           <Divider />
-          <Box>{baDetails.content}</Box>
+          <Box style={{ whiteSpace: "pre-wrap" }}>{baDetails.content}</Box>
           <Divider />
           {baDetails.images && (
             <Box
