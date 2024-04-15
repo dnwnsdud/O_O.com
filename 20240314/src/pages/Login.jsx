@@ -47,7 +47,11 @@ export default () => {
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">로그인</Box>
             <Box>이메일로 로그인</Box>
             <Flex>
-                <Input type='email' value={input} onChange={handleInputChange} />
+                <Input type='email' value={input} onChange={handleInputChange} onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                        handleVerification();
+                    }
+                }} />
                 <Box>
                     <Button w="100px" border="1px solid #0B0B0D" borderRadius="10px" onClick={handleVerification}>
                         {isEmailSent ? (

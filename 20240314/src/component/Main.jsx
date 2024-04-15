@@ -46,15 +46,8 @@ export default () => {
           >
             오늘의 O_O
           </Text>
-          <MainVote/>
-          <Button
-            border={"2px solid #0b0b0d"}
-            onClick={() => {
-              nav("/r");
-            }}
-          >
-            이전결과
-          </Button>
+          <MainVote />
+
         </Flex>
         <List
           bg={"white"}

@@ -10,16 +10,6 @@ export default ({ onClose, isOpen }) => {
         <ModalOverlay />
         <ModalContent>
             <ModalCloseButton />
-            {/* <ModalHeader>Modal Title</ModalHeader>
-            <ModalBody>
-                hijasdfasdf
-            </ModalBody>
-            <ModalFooter>
-                <Button colorScheme='blue' mr={3} onClick={onClose}>
-                    Close
-                </Button>
-                <Button variant='ghost'>Secondary Action</Button>
-            </ModalFooter> */}
             {isClick ? <Signup /> : <Login />}
             <Button onClick={() => setIsClick(!isClick)}>{
                 isClick ? "로그인" : "회원가입"

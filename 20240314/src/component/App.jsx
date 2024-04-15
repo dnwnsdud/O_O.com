@@ -25,6 +25,7 @@ import UserModify from "./UserModify";
 import Calendar from "./Calendar";
 import Loading from "../pages/Loading";
 import Success from "../pages/Success";
+import CreateVote from "../pages/CreateVote";
 
 export default () => {
   const weeks = [
@@ -143,6 +144,7 @@ export default () => {
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
         <Route path="/deleteloading" element={<Loading />} />
+        <Route path="/vote" element={<CreateVote />} />
       </Routes>
     </UserProvider>
   );
