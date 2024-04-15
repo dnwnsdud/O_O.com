@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import Noticepost from "../pages/Noticepost";
 import Bestpost from "./Bestpost";
 import MainVote from "./board/MainVote";
+import MainStore from "../pages/MainStore";
 
 export default () => {
 
@@ -123,14 +124,18 @@ export default () => {
         <Box
           cursor={"pointer"}
           bg={"white"}
-          h={"20%"}
+          h={"17%"}
           borderRadius={"10px"}
           boxShadow={"md"}
-          onClick={() => {
-            nav("/st");
-          }}
+
         >
-          포인트
+          <Text
+            ml='10'
+            fontWeight={"bold"} mb='7' mt='5'
+            onClick={() => {
+              nav("/st");
+            }}>아이템</Text>
+          <MainStore />
         </Box>
       </Stack>
     </div>
