@@ -19,7 +19,35 @@ import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../hook/User";
 import { useLocation, useNavigate } from "react-router-dom";
 import Coment from "./Coment";
-// import Coments from "./Coments";
+import moment from "moment";
+import "moment/locale/ko";
+
+moment.locale("ko");
+
+// 시간 함수
+const getDayMinuteCounter = (date) => {
+  if (!date) {
+    return "";
+  }
+
+  const today = moment();
+  const postingDate = moment(date);
+  const dayDiff = postingDate.diff(today, "days");
+  const hourDiff = postingDate.diff(today, "hours");
+  const minutesDiff = postingDate.diff(today, "minutes");
+
+  if (dayDiff === 0 && hourDiff === 0) {
+    const minutes = Math.ceil(-minutesDiff);
+    return minutes + "분 전";
+  }
+
+  if (dayDiff === 0 && hourDiff < 24) {
+    const hours = Math.ceil(-hourDiff);
+    return hours + "시간 전";
+  }
+
+  return Math.abs(dayDiff) + "일 전";
+};
 
 export default () => {
   const [baDetails, setbaDetails] = useState();
@@ -77,11 +105,13 @@ export default () => {
       body: JSON.stringify(body),
     })
       .then((res) => {
-        if (res) {
-          return res.json();
-        } else {
-          throw new Error(e);
+        if (!res.ok && res.status === 400) {
+          res.json().then((data) => {
+            alert(data.message);
+          });
+          throw new Error("Server responded with 400");
         }
+        return res.json();
       })
       .then((data) => {
         console.log(data, "확인");
@@ -143,9 +173,9 @@ export default () => {
             <Text fontWeight={"bold"} fontSize={"xl"}>
               {baDetails.title}
             </Text>
-            <Flex fontSize={"xs"} alignItems={"end"}>
-              <Text>작성자</Text>
-              <Text>작성일시</Text>
+            <Flex fontSize={"xs"} alignItems={"end"} gap="10px">
+              <Text>{baDetails.nickname}</Text>
+              <Text>{getDayMinuteCounter(baDetails.createdAt)}</Text>
             </Flex>
           </Flex>
           <Divider />
