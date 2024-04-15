@@ -41,24 +41,27 @@ export default () => {
             <Divider orientation="horizontal" />
 
             {
-                bestpost.map((posts) => {
-                    return (<ListItem key={posts._id}>
-                        <Grid templateColumns="1fr 2fr 1fr 0.5fr 0.5fr" paddingBottom={"3px"}>
-                            <Box margin={"auto"} borderRadius={"5px"} backgroundColor={"#999"} color={"black"} fontSize={"13px"} padding={"5px 10px"} width={"47px"} textAlign={"center"}>{posts.tap}</Box>
-                            <Flex margin={"auto"} alignItems={"center"} gap={"5px"}>
-                                <Box _hover={{ textDecoration: "underline" }}><Link to={`/b/id=${posts._id}`}>{posts.title}</Link></Box>
-                                <Box fontSize="10px" opacity={0.7} >[{posts.comment.length}]</Box>
+            bestpost.length === 0 ? 
+                <Box textAlign={"center"} padding={"10px"}>아직 게시글이 없습니다.</Box> 
+                : 
+                bestpost.map((posts) => (
+                    <ListItem key={posts._id}>
+                        <Grid key={`grid_${posts._id}`} templateColumns="1fr 2fr 1fr 0.5fr 0.5fr" paddingBottom={"3px"}>
+                            <Box key={`box_${posts._id}`} margin={"auto"} borderRadius={"5px"} backgroundColor={"#999"} color={"black"} fontSize={"13px"} padding={"5px 10px"} width={"47px"} textAlign={"center"}>{posts.tap}</Box>
+                            <Flex key={`flex_${posts._id}`} margin={"auto"} alignItems={"center"} gap={"5px"}>
+                                <Box key={`title_${posts._id}`} _hover={{ textDecoration: "underline" }}><Link to={`/b/id=${posts._id}`}>{posts.title}</Link></Box>
+                                <Box key={`comment_${posts._id}`} fontSize="10px" opacity={0.7} >[{posts.comment.length}]</Box>
                             </Flex>
-                            <Box margin={"auto"} fontSize={"13px"}>{posts.nickname}</Box>
-                            <Box margin={"auto"} fontSize={"13px"}>{posts.like}</Box>
-                            <Box margin={"auto"} fontSize={"13px"}>{posts.count}</Box>
+                            <Box key={`nickname_${posts._id}`} margin={"auto"} fontSize={"13px"}>{posts.nickname}</Box>
+                            <Box key={`like_${posts._id}`} margin={"auto"} fontSize={"13px"}>{posts.like}</Box>
+                            <Box key={`count_${posts._id}`} margin={"auto"} fontSize={"13px"}>{posts.count}</Box>
                         </Grid>
                         <Divider orientation="horizontal" />
+                    </ListItem>
+        ))
+}
 
-                    </ListItem>)
 
-                })
-            }
                 <Box opacity={0.5} fontSize={"10px"} marginLeft={"83%"}>인기글 = 추천수 * 2 + 조회수</Box>
         </List>
     )

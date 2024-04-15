@@ -122,7 +122,7 @@ export default () => {
   };
 
   //삭제
-  const deleteSubmit = (e, userid, useremail) => {
+  const deleteSubmit = (e, userid, useremail, postId) => {
     e.preventDefault();
     console.log("삭제");
     console.log("내 아이디다" + userid);
@@ -132,7 +132,7 @@ export default () => {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
         },
-        body: JSON.stringify({ id: userid, email: useremail }),
+        body: JSON.stringify({ id: userid, email: useremail, postid:postId }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -239,7 +239,7 @@ export default () => {
             <Box alignContent="center">{likeCount}</Box>
             <Button onClick={(e) => dislike(e)}>비추천!</Button>
             <Box alignContent="center">{dislikeCount}</Box>
-            {!Check ? (
+            {user === "logout" ? "" : user.role === "admin"? "": !Check ? (
               <Button
                 onClick={() => {
                   nav(`/b/${id}/modify`);
@@ -250,10 +250,12 @@ export default () => {
             ) : (
               ""
             )}
-            {!Check ? (
-              <Button
-                onClick={(e) => deleteSubmit(e, baDetails._id, baDetails.email)}
-              >
+            {user==="logout" ? "" : user.role === "admin" ? (
+              <Button onClick={(e) => deleteSubmit(e, baDetails._id, baDetails.email, id)}>
+                삭제
+              </Button>
+            ) : !Check ? (
+              <Button onClick={(e) => deleteSubmit(e, baDetails._id, baDetails.email, id)}>
                 삭제
               </Button>
             ) : (
