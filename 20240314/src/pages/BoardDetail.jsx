@@ -55,10 +55,8 @@ export default () => {
         // console.log(Check);
         if (data.success) {
           setCheck(false);
-          console.log("ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅇㅁㄴ");
         } else if (!data.success) {
           setCheck(true);
-          console.log("ASDasdasdasdasdas");
         }
         setbaDetails(data.updatedDocument);
         setLikeCount(data.updatedDocument.like);
@@ -74,7 +72,6 @@ export default () => {
     })
       .then((res) => {
         if (res) {
-          console.log("정동혁");
 
           return res.json();
         } else {
