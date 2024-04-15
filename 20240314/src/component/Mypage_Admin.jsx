@@ -10,7 +10,7 @@ export default () => {
     const [writeData, setwriteData] = useState([]);
     const [commentData, setcommentData] = useState([]);
     let nav = useNavigate();
-    if(user.role === 'user'){
+    if (user.role === 'user') {
         nav('/')
     }
     useEffect((e) => {
@@ -29,12 +29,12 @@ export default () => {
                         setUserData(data.userdata);
                         setwriteData(data.writedata);
                         setcommentData(data.comments);
-                        if(user.role == 'user' || user == 'logout'){
+                        if (user.role == 'user' || user == 'logout') {
                             nav('/')
                         }
                         console.log(user, '페이지 시작시');
 
-                      
+
                     } else {
                         alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
                     }
@@ -45,83 +45,83 @@ export default () => {
             console.error('Error fetching data:', error);
         }
     }, [user]);
-    const Adminuserdelete = (userId, userEmail)=>{
-        let body={
-            id:userId,
-            email:userEmail
+    const Adminuserdelete = (userId, userEmail) => {
+        let body = {
+            id: userId,
+            email: userEmail
         }
-        try{
-            fetch('/api/adminuserdelete',{method:"post", body:JSON.stringify(body)})
-            .then(res =>{
-                if(res){
-                    return res.json();
-                }else{
-                    throw new Error()
-                }
-            })
-            .then(data=>{
-                console.log(data);
-                if(data){
-                    setUserData(data);
-                    console.log('유저를 삭제하였습니다.');
-                }else{
-                    alert('유저정보 삭제에 실패하였습니다.')
-                }
-            }) 
-        }catch(error){
+        try {
+            fetch('/api/adminuserdelete', { method: "post", body: JSON.stringify(body) })
+                .then(res => {
+                    if (res) {
+                        return res.json();
+                    } else {
+                        throw new Error()
+                    }
+                })
+                .then(data => {
+                    console.log(data);
+                    if (data) {
+                        setUserData(data);
+                        console.log('유저를 삭제하였습니다.');
+                    } else {
+                        alert('유저정보 삭제에 실패하였습니다.')
+                    }
+                })
+        } catch (error) {
             console.log(error);
         }
     }
-    const Adminwritedelete = (writeId, writeEmail)=>{
-        let body={
-            id:writeId,
-            email:writeEmail
+    const Adminwritedelete = (writeId, writeEmail) => {
+        let body = {
+            id: writeId,
+            email: writeEmail
         }
-        try{
-            fetch('/api/adminwritedelete',{method:"post", body:JSON.stringify(body)})
-            .then(res =>{
-                if(res){
-                    return res.json();
-                }else{
-                    throw new Error()
-                }
-            })
-            .then(data=>{
-                console.log(data,123123);
-                if(data){
-                    setwriteData(data);
-                    console.log('게시글을 삭제하였습니다.');
-                }else{
-                    alert('게시글 삭제에 실패하였습니다.')
-                }
-            }) 
-        }catch(error){
+        try {
+            fetch('/api/adminwritedelete', { method: "post", body: JSON.stringify(body) })
+                .then(res => {
+                    if (res) {
+                        return res.json();
+                    } else {
+                        throw new Error()
+                    }
+                })
+                .then(data => {
+                    console.log(data, 123123);
+                    if (data) {
+                        setwriteData(data);
+                        console.log('게시글을 삭제하였습니다.');
+                    } else {
+                        alert('게시글 삭제에 실패하였습니다.')
+                    }
+                })
+        } catch (error) {
             console.log(error);
         }
     }
-    const Admincommentdelete = (writeId, writePostId)=>{
-        let body={
-            id:writeId,
-            postId:writePostId
+    const Admincommentdelete = (writeId, writePostId) => {
+        let body = {
+            id: writeId,
+            postId: writePostId
         }
-        try{
-            fetch('/api/admincommentdelete',{method:"post", body:JSON.stringify(body)})
-            .then(res =>{
-                if(res){
-                    return res.json();
-                }else{
-                    throw new Error()
-                }
-            })
-            .then(data=>{
-                if(data){
-                    setcommentData(data);
-                    console.log('게시글을 삭제하였습니다.');
-                }else{
-                    alert('게시글 삭제에 실패하였습니다.')
-                }
-            }) 
-        }catch(error){
+        try {
+            fetch('/api/admincommentdelete', { method: "post", body: JSON.stringify(body) })
+                .then(res => {
+                    if (res) {
+                        return res.json();
+                    } else {
+                        throw new Error()
+                    }
+                })
+                .then(data => {
+                    if (data) {
+                        setcommentData(data);
+                        console.log('게시글을 삭제하였습니다.');
+                    } else {
+                        alert('게시글 삭제에 실패하였습니다.')
+                    }
+                })
+        } catch (error) {
             console.log(error);
         }
     }
@@ -132,6 +132,7 @@ export default () => {
                 <Grid templateColumns="1fr 1fr" w="200px" gap="10px">
                     <Button border="1px solid black" borderRadius="10px" >공지작성</Button>
                     <Button border="1px solid black" borderRadius="10px" >서버관리</Button>
+                    <Link to="/admin/black"><Button border="1px solid black" borderRadius="10px" >블랙리스트</Button></Link>
                 </Grid>
             </Flex>
             <Box>유저관리</Box>
@@ -148,7 +149,7 @@ export default () => {
                                 <Grid templateColumns="1fr 1fr 1fr" textAlign="center" alignItems="center" padding="5px 0">
                                     <Box>{user.email}</Box>
                                     <Box>{user.nickname}</Box>
-                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto"  onClick={()=>{
+                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={() => {
                                         Adminuserdelete(user._id, user.email)
                                     }}>유저탈퇴</Button>
                                 </Grid>
@@ -160,8 +161,8 @@ export default () => {
             <Box>게시글관리</Box>
             <Box border="1px solid black">
                 <Grid templateColumns="1fr 1fr 1fr" borderBottom="1px solid black" textAlign="center">
-                        <Box>아이디</Box>
-                        <Box>게시글제목</Box>
+                    <Box>아이디</Box>
+                    <Box>게시글제목</Box>
                     <Box >게시글관리</Box>
                 </Grid>
                 <List height="100px" overflowX='auto'>
@@ -173,7 +174,7 @@ export default () => {
                                     <Link to={`/b/id=${write._id}`}>
                                         <Box>{write.title}</Box>
                                     </Link>
-                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={()=>{
+                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={() => {
                                         Adminwritedelete(write._id, write.email)
                                     }}>게시글삭제</Button>
                                 </Grid>
@@ -185,8 +186,8 @@ export default () => {
             <Box>댓글관리</Box>
             <Box border="1px solid black">
                 <Grid templateColumns="1fr 1fr 1fr" borderBottom="1px solid black" textAlign="center">
-                        <Box>아이디</Box>
-                        <Box>댓글내용</Box>
+                    <Box>아이디</Box>
+                    <Box>댓글내용</Box>
                     <Box >댓글관리</Box>
                 </Grid>
                 <List height="100px" overflowX='auto'>
@@ -198,7 +199,7 @@ export default () => {
                                     <Link to={`/b/id=${write.postId}`}>
                                         <Box>{write.content}</Box>
                                     </Link>
-                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={()=>{
+                                    <Button w="100px" border="1px solid black" borderRadius="10px" margin="auto" onClick={() => {
                                         Admincommentdelete(write._id, write.postId)
                                     }}>댓글삭제</Button>
                                 </Grid>

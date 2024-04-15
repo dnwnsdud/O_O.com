@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Noticepost from "../pages/Noticepost";
 import Bestpost from "./Bestpost";
 import MainVote from "./board/MainVote";
 
@@ -46,7 +47,7 @@ export default () => {
           >
             오늘의 O_O
           </Text>
-          <MainVote/>
+          <MainVote />
           <Button
             border={"2px solid #0b0b0d"}
             onClick={() => {
@@ -56,46 +57,8 @@ export default () => {
             이전결과
           </Button>
         </Flex>
-        <List
-          bg={"white"}
-          h={"12%"}
-          borderRadius={"10px"}
-          spacing={0.5}
-          paddingLeft={6}
-          paddingRight={6}
-          paddingTop={3}
-          paddingBottom={3}
-          boxShadow={"md"}
-        >
-          <Link fontSize={"xl"} fontWeight={"bold"}
-            onClick={() => {
-              nav("/n");
-            }}
-          >
-            공지사항
-          </Link>
-          <Divider orientation="horizontal" />
-          <ListItem>
-            <Link>Lorem ipsum dolor sit amet</Link>
-          </ListItem>
-          <Divider orientation="horizontal" />
-          <ListItem>
-            <Link>Consectetur adipiscing elit</Link>
-          </ListItem>
-          <Divider orientation="horizontal" />
-          <ListItem>
-            <Link>Integer molestie lorem at massa</Link>
-          </ListItem>
-          <Divider orientation="horizontal" />
-          <ListItem>
-            <Link>Facilisis in pretium nisl aliquet</Link>
-          </ListItem>
-          <Divider orientation="horizontal" />
-          <ListItem>
-            <Link>Facilisis in pretium nisl aliquet</Link>
-          </ListItem>
-          <Divider orientation="horizontal" />
-        </List>
+        <Divider orientation="horizontal" />
+        <Noticepost />
         <Bestpost />
         <Grid
           flexWrap={"wrap"}

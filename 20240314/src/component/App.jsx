@@ -25,6 +25,10 @@ import UserModify from "./UserModify";
 import Calendar from "./Calendar";
 import Loading from "../pages/Loading";
 import Success from "../pages/Success";
+import NoticeWrite from "../pages/NoticeWrite";
+import NoticeDetail from "../pages/NoticeDetail";
+import NoticeModify from "../pages/NoticeModify";
+import Admin_Black from "../pages/Admin_Black";
 
 export default () => {
   const weeks = [
@@ -124,6 +128,9 @@ export default () => {
           <Route path="/c" element={<Society />} />
           <Route path="/r" element={<Result />} />
           <Route path="/n" element={<Notice />} />
+          <Route path="/n/write" element={<NoticeWrite />} />
+          <Route path="/n/:id" element={<NoticeDetail />} />
+          <Route path="/n/:id/modify" element={<NoticeModify />} />
           <Route path="/st" element={<Store />} />
           <Route path="/create" element={<Boardcreate />} />
           <Route path="/b/:id" element={<Badetail />} />
@@ -138,7 +145,7 @@ export default () => {
             <Route path="modify" element={<UserModify />} />
           </Route>
           <Route path="/admin" element={<Mypage_Admin />} />
-          {/* <Route path="/admin/black" element={<Mypage_Admin />} /> */}
+          <Route path="/admin/black" element={<Admin_Black />} />
           <Route path="calendar" element={<Calendar weeks={weeks} />} />
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
