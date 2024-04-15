@@ -1,160 +1,95 @@
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  Center,
-  Divider,
   Flex,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Input,
+  Grid,
+  List,
+  ListItem,
   Stack,
-  Text,
-  Textarea,
-  Image,
-  AspectRatio,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
+  Divider,
 } from "@chakra-ui/react";
-import React, { useState, useContext, useEffect } from "react";
-import { UserContext } from "../hook/User";
-import { useLocation, useNavigate } from "react-router-dom";
-import Coment from "./Coment";
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import { Link } from "react-router-dom";
 
 export default () => {
-  const [baDetails, setbaDetails] = useState();
-  const [likeCount, setLikeCount] = useState(0);
-  const [dislikeCount, setDislikeCount] = useState(0);
-  const [Check, setCheck] = useState();
-  const { user } = useContext(UserContext);
+  const [userData, setUserData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
+  const [totalPosts, setTotalPosts] = useState(10);
 
-  console.log(user, "유저확인용");
-
-  const location = useLocation();
-  const nav = useNavigate();
-  let id = location.pathname.slice(location.pathname.indexOf("=") + 1);
-
-  const body = {
-    id: id,
-    like: "",
-    dislike: "",
-    email: user.email,
-  };
-
-  // 게시글 나오게 하는 곳
-  useEffect(
-    (e) => {
-      fetch(`/api/boarddetail`, {
-        method: "post",
-        body: JSON.stringify(body),
-      })
-        .then((res) => {
-          if (res) {
-            return res.json();
+  useEffect(() => {
+    try {
+      fetch("/api/notices")
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
           } else {
-            throw new Error(e);
+            throw new Error("Network response was not ok");
           }
         })
         .then((data) => {
-          // setCheck(data.success);
-          // console.log(Check);
-          if (data.success) {
-            setCheck(false);
-            console.log("ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅇㅁㄴ");
-          } else if (!data.success) {
-            setCheck(true);
-            console.log("ASDasdasdasdasdas");
-          }
-          setbaDetails(data.updatedDocument);
-          setLikeCount(data.updatedDocument.like);
-          setDislikeCount(data.updatedDocument.dislike);
-        });
-    },
-    [user.email, id]
-  );
-  // 좋아요 부분
-  const like = (e) => {
-    body.like = "like";
-    e.preventDefault();
-    fetch(`/api/boarddetail`, {
-      method: "post",
-      body: JSON.stringify(body),
-    })
-      .then((res) => {
-        if (!res.ok && res.status === 400) {
-          res.json().then((data) => {
-            alert(data.message);
-          });
-          throw new Error("Server responded with 400");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data, "확인");
-        setLikeCount(data.updatedDocument.like);
-      });
-  };
-
-  //비추천
-  const dislike = (e) => {
-    body.dislike = "dislike";
-    e.preventDefault();
-    fetch(`/api/boarddetail`, {
-      method: "post",
-      body: JSON.stringify(body),
-    })
-      .then((res) => {
-        if (!res.ok && res.status === 400) {
-          res.json().then((data) => {
-            alert(data.message);
-          });
-          throw new Error("Server responded with 400");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data, "확인");
-        setDislikeCount(data.updatedDocument.dislike);
-      });
-  };
-
-  //삭제
-  const deleteSubmit = (e, userid, useremail) => {
-    e.preventDefault();
-    console.log("삭제");
-    console.log("내 아이디다" + userid);
-    if (confirm("이 게시글을 삭제하시겠습니까?")) {
-      fetch("/api/boarddelete", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-        body: JSON.stringify({ id: userid, email: useremail }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.success) {
-            alert("삭제되었습니다.");
-            nav("/b");
+          if (data) {
+            console.log(data);
+            setUserData(data);
+            setTotalPosts(data.commentCount);
           } else {
-            alert("작성자만 삭제할 수 있습니다");
-            console.log("삭제 실패얌");
+            throw new Error("Data is empty");
           }
         })
         .catch((error) => {
-          console.error("아이템 삭제 실패 : ", error);
+          console.error("Error fetching data:", error);
         });
-    } else {
-      console.log("삭제 취소됨");
+    } catch (error) {
+      console.error("Error fetching data:", error);
     }
-  };
+  }, []);
 
-  // 시간 함수
-  const getDayMinuteCounter = (dateString) => {
+  
+//   const Admincommentdelete = (writeId, writePostId) => {
+//     let body = {
+//       id: writeId,
+//       postId: writePostId,
+//     };
+//     try {
+//       fetch("/api/admincommentdelete", {
+//         method: "post",
+//         body: JSON.stringify(body),
+//       })
+//         .then((res) => {
+//           if (res) {
+//             return res.json();
+//           } else {
+//             throw new Error();
+//           }
+//         })
+//         .then((data) => {
+//           if (data) {
+//             setUserData(data);
+//             console.log("게시글을 삭제하였습니다.");
+//           } else {
+//             alert("게시글 삭제에 실패하였습니다.");
+//           }
+//         });
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = userData.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const pageCount = Math.ceil(totalPosts / postsPerPage);
+  const handlePrevPage = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+  const handleNextPage = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, pageCount));
+  };
+  const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
       2,
@@ -162,108 +97,116 @@ export default () => {
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
-  if (!baDetails) {
-    return <div>Loading...</div>;
-  }
   return (
-    <>
+    <Stack w={"50%"} m={"auto"} direction={"column"} justifyContent={"center"}>
       <Stack
-        w={"35%"}
-        m={"auto"}
+        height={"80%"}
         direction={"column"}
-        justifyContent={"center"}
+        justifyContent={"space-around"}
+        borderRadius={"10px"}
+        bg={"white"}
+        boxShadow={"md"}
+        p={10}
       >
-        <Stack
-          height={"80%"}
-          direction={"column"}
-          justifyContent={"space-around"}
-          borderRadius={"10px"}
-          bg={"white"}
-          boxShadow={"md"}
-          p={10}
-        >
-          <Box display="none">{baDetails.tap}</Box>
-          <Flex justifyContent={"space-between"}>
-            <Text fontWeight={"bold"} fontSize={"xl"}>
-              {baDetails.title}
-            </Text>
-            <Flex fontSize={"xs"} alignItems={"end"} gap="10px">
-              <Menu>
-                <MenuButton fontWeight="bold">{baDetails.nickname}</MenuButton>
-                <MenuList>
-                  <MenuItem>신고하기</MenuItem>
-                  <MenuItem>작성글 보기</MenuItem>
-                </MenuList>
-              </Menu>
-              <Text>{getDayMinuteCounter(baDetails.createdAt)}</Text>
-            </Flex>
-          </Flex>
-          <Divider />
-          <Box>{baDetails.content}</Box>
-          <Divider />
-          {baDetails.images && (
-            <Box
-              border="1px solid black"
-              borderRadius="50%"
-              width="400px"
-              height="auto"
-              margin="auto"
-            >
-              <Image
-                src={`http://localhost:3000/${baDetails.images}`}
-                boxSize="100%"
-                objectFit="cover"
-                alt="아이템 이미지"
-                m="auto"
-              />
-            </Box>
-          )}
-          {baDetails.videos && (
-            <AspectRatio maxW="560px" ratio={1}>
-              <iframe
-                title="비디오"
-                src={`http://localhost:3000/${baDetails.videos}`}
-                allowFullScreen
-              />
-            </AspectRatio>
-          )}
-
-          <Flex>
-            <Button
-              onClick={(e) => {
-                like(e);
-              }}
-            >
-              추천~!
-            </Button>
-            <Box alignContent="center">{likeCount}</Box>
-            <Button onClick={(e) => dislike(e)}>비추천!</Button>
-            <Box alignContent="center">{dislikeCount}</Box>
-            {!Check ? (
+        <Box height={"480px"}>
+          <Box
+            fontSize="30px"
+            padding="0 30px"
+            textAlign="center"
+            fontWeight="bold"
+            marginBottom="20px"
+          >
+            공지사항
+          </Box>
+          <Divider
+            orientation="horizontal"
+            borderBottomWidth={"2px"}
+            borderColor={"#0b0b0d"}
+            marginTop={"5px"}
+            marginBottom={"5px"}
+          />
+          <List>
+            {currentPosts.map((user) => (
+              <ListItem key={user._id}>
+                <Grid
+                  templateColumns="4fr 1fr"
+                  borderBottom="1px solid rgba(0,0,0,0.3)"
+                  textAlign="center"
+                  padding={"8px 0"}
+                  fontSize={"13px"}
+                >
+                  <Link to={`/b/id=${user.postId}`}>
+                    <Grid
+                      templateColumns=" 1fr 1fr 1fr 1fr"
+                      textAlign="center"
+                      padding={"8px 0"}
+                      fontSize={"13px"}
+                    >
+                      <Box
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace={"nowrap"}
+                      >
+                        [공지]
+                      </Box>
+                      <Box
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace={"nowrap"}
+                      >
+                        {user.title}
+                      </Box>
+                      <Box
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace={"nowrap"}
+                      >
+                        {formatDate(user.createdAt)}
+                      </Box>
+                    </Grid>
+                  </Link>
+                  <Button
+                    size={"xs"}
+                    border="1px solid black"
+                    borderRadius="10px"
+                    margin="auto"
+                    onClick={() => {
+                      Admincommentdelete(user._id, user.postId);
+                    }}
+                  >
+                    댓글삭제
+                  </Button>
+                </Grid>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+        <Flex justifyContent="center" marginTop={"30px"}>
+          <Button
+            disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
+            onClick={handlePrevPage}
+          >
+            <ArrowLeftIcon />
+          </Button>
+          {Array.from({ length: pageCount }, (_, idx) => idx + 1).map(
+            (number) => (
               <Button
-                onClick={() => {
-                  nav(`/b/${id}/modify`);
-                }}
+                key={number}
+                onClick={() => paginate(number)}
+                mx="1"
+                bg={currentPage === number ? "#f9f9f9 !important" : "#000000"}
+                variant={currentPage === number ? "outline" : "ghost"}
+                color={currentPage === number ? "#000000" : "#999999"}
               >
-                수정
+                {number}
               </Button>
-            ) : (
-              ""
-            )}
-            {!Check ? (
-              <Button
-                onClick={(e) => deleteSubmit(e, baDetails._id, baDetails.email)}
-              >
-                삭제
-              </Button>
-            ) : (
-              ""
-            )}
-          </Flex>
-          <Coment user={user} />
-          {/* <Coments user={user} /> */}
-        </Stack>
+            )
+          )}
+          <Button disabled={currentPage === pageCount} onClick={handleNextPage}>
+            <ArrowRightIcon />
+          </Button>
+        </Flex>
       </Stack>
-    </>
+    </Stack>
   );
 };
