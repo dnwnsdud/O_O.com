@@ -18,13 +18,13 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../hook/User";
 import { useLocation, useNavigate } from "react-router-dom";
 import Coment from "./Coment";
-import BlackModal from "./BlackModal";
+import BlackModal from "./Modal";
 
 export default () => {
   const [baDetails, setbaDetails] = useState();
@@ -133,7 +133,7 @@ export default () => {
         headers: {
           "Content-Type": "application/json; charset=utf-8",
         },
-        body: JSON.stringify({ id: userid, email: useremail, postid:postId }),
+        body: JSON.stringify({ id: userid, email: useremail, postid: postId }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -196,7 +196,12 @@ export default () => {
                   <MenuItem>작성글 보기</MenuItem>
                 </MenuList>
               </Menu>
-              <BlackModal isOpen={isOpen} onClose={onClose} postId={id} />
+              <BlackModal
+                isOpen={isOpen}
+                onClose={onClose}
+                postId={id}
+                userEmail={user.email}
+              />
               <Text>{getDayMinuteCounter(baDetails.createdAt)}</Text>
             </Flex>
           </Flex>
@@ -241,7 +246,11 @@ export default () => {
             <Box alignContent="center">{likeCount}</Box>
             <Button onClick={(e) => dislike(e)}>비추천!</Button>
             <Box alignContent="center">{dislikeCount}</Box>
-            {user === "logout" ? "" : user.role === "admin"? "": !Check ? (
+            {user === "logout" ? (
+              ""
+            ) : user.role === "admin" ? (
+              ""
+            ) : !Check ? (
               <Button
                 onClick={() => {
                   nav(`/b/${id}/modify`);
@@ -252,12 +261,22 @@ export default () => {
             ) : (
               ""
             )}
-            {user==="logout" ? "" : user.role === "admin" ? (
-              <Button onClick={(e) => deleteSubmit(e, baDetails._id, baDetails.email, id)}>
+            {user === "logout" ? (
+              ""
+            ) : user.role === "admin" ? (
+              <Button
+                onClick={(e) =>
+                  deleteSubmit(e, baDetails._id, baDetails.email, id)
+                }
+              >
                 삭제
               </Button>
             ) : !Check ? (
-              <Button onClick={(e) => deleteSubmit(e, baDetails._id, baDetails.email, id)}>
+              <Button
+                onClick={(e) =>
+                  deleteSubmit(e, baDetails._id, baDetails.email, id)
+                }
+              >
                 삭제
               </Button>
             ) : (

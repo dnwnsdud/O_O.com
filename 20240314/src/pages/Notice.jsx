@@ -36,7 +36,9 @@ export default () => {
         })
         .then((data) => {
           if (data) {
-            const sortedData = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            const sortedData = data.data.sort(
+              (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            );
             setUserData(sortedData);
             setTotalPosts(data.totalCount);
           } else {
@@ -95,9 +97,14 @@ export default () => {
           </Box>
           <Flex justifyContent={"end"}>
             {user.role === "admin" && (
-              <Button onClick={() => {
-                nav(`/n/write`)
-              }}>작성</Button>)}
+              <Button
+                onClick={() => {
+                  nav(`/n/write`);
+                }}
+              >
+                작성
+              </Button>
+            )}
           </Flex>
           <Divider
             orientation="horizontal"
@@ -109,7 +116,6 @@ export default () => {
           <List>
             {currentPosts.map((user) => (
               <ListItem key={user._id}>
-
                 <Link to={`/n/id=${user._id}`}>
                   <Grid
                     templateColumns=" 1fr 5fr 1fr "
@@ -140,7 +146,6 @@ export default () => {
                     </Box>
                   </Grid>
                 </Link>
-
               </ListItem>
             ))}
           </List>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -9,18 +9,18 @@ import {
   ModalFooter,
   Button,
   Textarea,
-  Select
-} from '@chakra-ui/react';
+  Select,
+  Box,
+} from "@chakra-ui/react";
 
-export default ({ isOpen, onClose, postId }) => {
-
-  const [reportContent, setReportContent] = useState('');
-  const [selectedOption, setSelectedOption] = useState('');
+export default ({ isOpen, onClose, postId, userEmail }) => {
+  const [reportContent, setReportContent] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
-    if (e.target.value !== '기타') {
-      setReportContent('');
+    if (e.target.value !== "기타") {
+      setReportContent("");
     }
   };
 
@@ -30,16 +30,13 @@ export default ({ isOpen, onClose, postId }) => {
 
   const submitReport = (e) => {
     e.preventDefault();
-    fetch(
-      "/api/blacklists",
-      {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+    fetch("/api/reports", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
       },
-    )
+      body: JSON.stringify(body),
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Server responded with status ${response.status}`);
@@ -49,21 +46,23 @@ export default ({ isOpen, onClose, postId }) => {
       .then((data) => {
         if (data) {
           console.log(data);
+          alert("신고 접수가 완료되었습니다.");
         } else {
           console.log(data.error);
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
       .catch((error) => {
-        alert(`Error submitting report: ${error.message}`)
+        alert(`Error submitting report: ${error.message}`);
       });
     onClose();
   };
 
   let body = {
     blacktype: selectedOption,
-    blackdetail: selectedOption === '기타' ? reportContent : selectedOption,
-    blackid: postId
+    blackdetail: selectedOption === "기타" ? reportContent : selectedOption,
+    blackid: postId,
+    email: userEmail,
   };
 
   return (
@@ -74,7 +73,12 @@ export default ({ isOpen, onClose, postId }) => {
           <ModalHeader textAlign={"center"}>신고하기</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Select value={selectedOption} onChange={handleSelectChange} placeholder="선택하세요">
+            <Box>{userEmail}</Box>
+            <Select
+              value={selectedOption}
+              onChange={handleSelectChange}
+              placeholder="선택하세요"
+            >
               <option value="욕설">욕설</option>
               <option value="타인 비하">타인 비하</option>
               <option value="과도한 혐오 발언">과도한 혐오 발언</option>
@@ -82,7 +86,7 @@ export default ({ isOpen, onClose, postId }) => {
               <option value="성희롱">성희롱</option>
               <option value="기타">기타</option>
             </Select>
-            {selectedOption === '기타' && (
+            {selectedOption === "기타" && (
               <Textarea
                 placeholder="기타 사유 입력"
                 value={reportContent}
@@ -95,10 +99,12 @@ export default ({ isOpen, onClose, postId }) => {
             <Button mr={3} onClick={submitReport}>
               신고 제출
             </Button>
-            <Button variant="ghost" onClick={onClose}>취소</Button>
+            <Button variant="ghost" onClick={onClose}>
+              취소
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
     </>
-  )
-}
+  );
+};
