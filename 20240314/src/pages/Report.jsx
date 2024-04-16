@@ -9,16 +9,19 @@ import {
   ListItem,
   Stack,
   Divider,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import RepodeModal from "./RepodeModal";
 
 export default () => {
   const [userData, setUserData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const [totalPosts, setTotalPosts] = useState(10);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const nav = useNavigate();
 
@@ -67,6 +70,13 @@ export default () => {
     setCurrentPage((prev) => Math.min(prev + 1, pageCount));
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}-${String(date.getDate()).padStart(2, "0")}`;
+  };
   return (
     <Stack w={"50%"} m={"auto"} direction={"column"} justifyContent={"center"}>
       <Stack
@@ -86,7 +96,7 @@ export default () => {
             fontWeight="bold"
             marginBottom="20px"
           >
-            블랙리스트 관리
+            신고 관리
           </Box>
           <Divider
             orientation="horizontal"
@@ -98,29 +108,58 @@ export default () => {
           <List>
             {currentPosts.map((user) => (
               <ListItem key={user.blackid}>
-                <Link to={`/b/id=${user.blackid}`}>
-                  <Grid
-                    templateColumns=" 1fr 5fr 1fr "
-                    textAlign="center"
-                    padding={"8px 0"}
-                    fontSize={"13px"}
-                  >
-                    <Box
-                      overflow={"hidden"}
-                      textOverflow={"ellipsis"}
-                      whiteSpace={"nowrap"}
+                <Grid
+                  templateColumns=" 10fr 1fr"
+                  textAlign="center"
+                  padding={"8px 0"}
+                  fontSize={"13px"}
+                >
+                  <Link to={`/b/id=${user.blackid}`}>
+                    <Grid
+                      templateColumns=" 1fr 1fr 1fr 1fr"
+                      textAlign="center"
+                      padding={"8px 0"}
+                      fontSize={"13px"}
                     >
-                      {user.blacktype}
-                    </Box>
-                    <Box
-                      overflow={"hidden"}
-                      textOverflow={"ellipsis"}
-                      whiteSpace={"nowrap"}
-                    >
-                      {user.blackid}
-                    </Box>
-                  </Grid>
-                </Link>
+                      <Box
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace={"nowrap"}
+                      >
+                        {user.blacktype}
+                      </Box>
+                      <Box
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace={"nowrap"}
+                      >
+                        {user.email}
+                      </Box>
+                      <Box
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace={"nowrap"}
+                      >
+                        {user.blackid}
+                      </Box>
+                      <Box
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace={"nowrap"}
+                      >
+                        {formatDate(user.createdAt)}
+                      </Box>
+                    </Grid>
+                  </Link>
+                  {user.blacktype === "기타" && (
+                    <Button onClick={onOpen}>내용보기</Button>
+                  )}
+                </Grid>
+                <RepodeModal
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  content={user.blackdetail}
+                />
               </ListItem>
             ))}
           </List>

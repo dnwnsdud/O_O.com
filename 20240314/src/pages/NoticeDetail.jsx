@@ -55,7 +55,7 @@ export default () => {
         })
         .then((data) => {
           if (data) {
-            setbaDetails(data)
+            setbaDetails(data);
           } else if (!data) {
             console.log("ASDasdasdasdasdas");
           }
@@ -65,9 +65,8 @@ export default () => {
     [id]
   );
 
-
   // 시간 함수
-  const getDayMinuteCounter = (dateString) => {
+  const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
       2,
@@ -99,9 +98,18 @@ export default () => {
             <Text fontWeight={"bold"} fontSize={"xl"}>
               {baDetails.title}
             </Text>
+            <Text fontWeight={"bold"} fontSize={"xl"}>
+              {formatDate(baDetails.createdAt)}
+            </Text>
           </Flex>
           <Divider />
-          <Box marginTop={"20px"} minHeight="200px" style={{ whiteSpace: "pre-wrap" }}>{baDetails.content}</Box>
+          <Box
+            marginTop={"20px"}
+            minHeight="200px"
+            style={{ whiteSpace: "pre-wrap" }}
+          >
+            {baDetails.content}
+          </Box>
           <Divider />
 
           <Flex justifyContent={"end"}>
@@ -112,7 +120,8 @@ export default () => {
                 }}
               >
                 수정
-              </Button>)}
+              </Button>
+            )}
           </Flex>
         </Stack>
       </Stack>
