@@ -7,9 +7,7 @@ export default () => {
     console.log("hello");
 
     useEffect(() => {
-        setTimeout(() => {
-            nav('/')
-        }, 1000)
+        nav('/')
     }, [])
 
     return <>

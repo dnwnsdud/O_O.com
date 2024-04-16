@@ -61,26 +61,27 @@ export default () => {
     }
 }
 
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = userData.slice(indexOfFirstPost, indexOfLastPost);
+const indexOfLastPost = currentPage * postsPerPage;
+const indexOfFirstPost = indexOfLastPost - postsPerPage;
+const currentPosts = userData.slice(indexOfFirstPost, indexOfLastPost);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const pageCount = Math.ceil(totalPosts / postsPerPage);
-  const handlePrevPage = () => {
-    setCurrentPage((prev) => Math.max(prev - 1, 1));
-  };
-  const handleNextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, pageCount));
-  };
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
-  };
+const pageCount = Math.ceil(totalPosts / postsPerPage);
+const handlePrevPage = () => {
+  setCurrentPage((prev) => Math.max(prev - 1, 1));
+};
+const handleNextPage = () => {
+  setCurrentPage((prev) => Math.min(prev + 1, pageCount));
+};
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+};
+console.log(userData,"이게 왜 안되는거야 형????? 이거 형문제잖아");
 
-  return (
-    <Flex justifyContent="center" flexDir={'column'} padding="50px 50px 10px" border="1px solid #0B0B0D" borderRadius="10px" width="640px">
+return (
+  <Flex justifyContent="center" flexDir={'column'} padding="50px 50px 10px" border="1px solid #0B0B0D" borderRadius="10px" width="640px">
        <Box height={"480px"}>
          <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 댓글</Box>
                <List >

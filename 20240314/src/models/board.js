@@ -63,10 +63,12 @@ export default mongoose.Schema(
         tap: {
           type: String,
         },
+        creatAt:{
+          type: Date,
+          default: Date.now(),
+        }
       },
-      {
-        timestamps: true,
-      },
+   
     ],
   },
   {
