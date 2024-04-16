@@ -32,7 +32,7 @@ export default () => {
                         if (user.role == 'user' || user == 'logout') {
                             nav('/')
                         }
-                        console.log(user, '페이지 시작시');
+                        console.log(data.userdata, '유저입니당');
 
 
                     } else {
@@ -60,7 +60,6 @@ export default () => {
                     }
                 })
                 .then(data => {
-                    console.log(data);
                     if (data) {
                         setUserData(data);
                         console.log('유저를 삭제하였습니다.');
