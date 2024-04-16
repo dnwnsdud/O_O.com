@@ -32,7 +32,7 @@ export default mongoose.Schema({
         "type": Number,
         "default": 0
     },
-    "penalty":{
+    "penalty": {
         "type": Number,
         "default": 0
 

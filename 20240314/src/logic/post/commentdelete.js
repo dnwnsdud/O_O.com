@@ -11,8 +11,6 @@ export default async (req, res, next) => {
       }
     }
 
-
-
     await post.save();
     res.status(200).json(post);
 
