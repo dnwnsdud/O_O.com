@@ -22,6 +22,7 @@ import Society from "../pages/Society";
 import Store from "../pages/Store";
 import SubmitProduct from "../pages/SubmitProduct";
 import Success from "../pages/Success";
+import TopicRequest from "../pages/TopicRequest";
 import Main from "./Main";
 import Mygrade from "./Mygrade";
 import Mypage_Admin from "./Mypage_Admin";
@@ -29,15 +30,6 @@ import Myprofile from "./Myprofile";
 import Myrequest from "./Myrequest";
 import Mywrite from "./Mywrite";
 import UserModify from "./UserModify";
-import Calendar from "./Calendar";
-import Loading from "../pages/Loading";
-import Success from "../pages/Success";
-import CreateVote from "../pages/CreateVote";
-import NoticeWrite from "../pages/NoticeWrite";
-import NoticeDetail from "../pages/NoticeDetail";
-import NoticeModify from "../pages/NoticeModify";
-import Report from "../pages/Report";
-import TopicRequest from "../pages/TopicRequest";
 
 export default () => {
 
@@ -70,7 +62,6 @@ export default () => {
           </Route>
           <Route path="/admin" element={<Mypage_Admin />} />
           <Route path="/admin/report" element={<Report />} />
-          <Route path="calendar" element={<Calendar weeks={weeks} />} />
           <Route path="/topicrequest" element={<TopicRequest />} />
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />

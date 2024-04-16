@@ -8,18 +8,15 @@ import {
   Grid,
   Heading,
   Stack,
-  Text,
-  Flex,
-
+  Text
 } from "@chakra-ui/react";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import MainStore from "../pages/MainStore";
 import Noticepost from "../pages/Noticepost";
 import Bestpost from "./Bestpost";
 import Vote from "./board/Vote";
-import { useLocation } from "react-router-dom";
-import moment from "moment";
 
 moment.locale("ko");
 export default () => {
