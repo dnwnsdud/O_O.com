@@ -13,6 +13,7 @@ import {
   Stack,
   Text,
   Flex,
+  background,
 } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -26,12 +27,14 @@ export default () => {
   let nav = useNavigate();
   return (
     <div>
+      <Box
+        bg={"#f7f7f8"}>
       <Stack
-        bg={"gray.50"}
+        bg={"#f7f7f8"}
         width={"45%"}
         margin={"auto"}
         spacing={8}
-        h={"180vh"}
+        h={"230vh"}
       >
         <Flex
           flexDirection={"column"}
@@ -39,6 +42,7 @@ export default () => {
           h={"20%"}
           borderRadius={"10px"}
           boxShadow={"md"}
+          mt='5'
         >
           <Text
             fontSize={"6xl"}
@@ -127,7 +131,6 @@ export default () => {
           h={"17%"}
           borderRadius={"10px"}
           boxShadow={"md"}
-
         >
           <Text
             ml='10'
@@ -138,6 +141,7 @@ export default () => {
           <MainStore />
         </Box>
       </Stack>
+      </Box>
     </div>
   );
 };
