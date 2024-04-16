@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from "react";
 import {
+    Button,
+    Center,
+    Divider,
+    Flex,
     FormControl,
     FormLabel,
-    FormErrorMessage,
-    FormHelperText,
     Heading,
-    Center,
-    Flex,
-    Box,
+    Input,
     Select,
     Stack,
-    Input,
-    Textarea,
-    Button,
-    Divider
+    Textarea
 } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default () => {
@@ -31,111 +28,112 @@ export default () => {
 
     const onCategoryHandler = (e) => {
         setCategory(e.target.value);
-      };
-    const onTopicHandler = (e)=>{
+    };
+    const onTopicHandler = (e) => {
         setTopic(e.target.value);
     }
-    const onLefttitleHandler = (e)=>{
+    const onLefttitleHandler = (e) => {
         setLefttitle(e.target.value);
     }
-    const onLeftcontentHandler = (e)=>{
+    const onLeftcontentHandler = (e) => {
         setLeftcontent(e.target.value);
     }
-    
-    const onRighttitleHandler = (e)=>{
+
+    const onRighttitleHandler = (e) => {
         setRighttitle(e.target.value);
     }
-    const onRightcontentHandler = (e)=>{
+    const onRightcontentHandler = (e) => {
         setRightcontent(e.target.value);
     }
 
     const lefthandleImagesChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-          const formData = new FormData();
-          formData.append('images', file);
-    
-          fetch('/api/upload/images', {
-            method: 'POST',
-            body: formData,
-          })
-            .then(res => res.json())
-            .then(data => {
-              if (data.success) {
-                console.log('이미지 업로드 성공');
-                const imagePath = data.mediapath;
-                console.log('이미지경로: ' + imagePath);
-                setLeftimage(imagePath)
-              } else {
-                console.error('이미지 업로드 실패:', data.error);
-              }
+            const formData = new FormData();
+            formData.append('images', file);
+
+            fetch('/api/upload/images', {
+                method: 'POST',
+                body: formData,
             })
-            .catch(error => {
-              console.error('이미지 업로드 오류:', error);
-            });
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('이미지 업로드 성공');
+                        const imagePath = data.mediapath;
+                        console.log('이미지경로: ' + imagePath);
+                        setLeftimage(imagePath)
+                    } else {
+                        console.error('이미지 업로드 실패:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('이미지 업로드 오류:', error);
+                });
         }
-      };
+    };
     const righthandleImagesChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-          const formData = new FormData();
-          formData.append('images', file);
-    
-          fetch('/api/upload/images', {
-            method: 'POST',
-            body: formData,
-          })
-            .then(res => res.json())
-            .then(data => {
-              if (data.success) {
-                console.log('이미지 업로드 성공');
-                const imagePath = data.mediapath;
-                console.log('이미지경로: ' + imagePath);
-                setRightimage(imagePath)
-              } else {
-                console.error('이미지 업로드 실패:', data.error);
-              }
+            const formData = new FormData();
+            formData.append('images', file);
+
+            fetch('/api/upload/images', {
+                method: 'POST',
+                body: formData,
             })
-            .catch(error => {
-              console.error('이미지 업로드 오류:', error);
-            });
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        console.log('이미지 업로드 성공');
+                        const imagePath = data.mediapath;
+                        console.log('이미지경로: ' + imagePath);
+                        setRightimage(imagePath)
+                    } else {
+                        console.error('이미지 업로드 실패:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('이미지 업로드 오류:', error);
+                });
         }
-      };
+    };
 
     let body = {
-        category : category,
-        title : topic,
-        leftSide:{
-            image:leftimage,
-            title:lefttitle,
-            content:leftcontent,
+        category: category,
+        title: topic,
+        leftSide: {
+            image: leftimage,
+            title: lefttitle,
+            content: leftcontent,
         },
-        rightSide:{
-            image:rightimage,
-            title:righttitle,
-            content:rightcontent,
+        rightSide: {
+            image: rightimage,
+            title: righttitle,
+            content: rightcontent,
         }
-      
+
     }
 
-    const onSubmitHandler = (e)=>{
+    const onSubmitHandler = (e) => {
         fetch("/api/createvote",
-        {method:"post",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify(body),    
-    })
-    .then((res)=>{
-        if(res){
-            return res.json();
-        }
-        throw new Error("Network response was not ok.");
-    })
-    .then((data)=>{
-        if(data.success == true){
-            nav('/')
-        }
-        throw new Error("data was not ok.");
-    })
+            {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
+            })
+            .then((res) => {
+                if (res) {
+                    return res.json();
+                }
+                throw new Error("Network response was not ok.");
+            })
+            .then((data) => {
+                if (data.success == true) {
+                    nav('/')
+                }
+                throw new Error("data was not ok.");
+            })
     }
 
     return <>
@@ -171,15 +169,15 @@ export default () => {
                     <Stack gap={4}>
                         <FormControl isRequired>
                             <FormLabel>오른쪽 제목</FormLabel>
-                            <Input type='text' onChange={onRighttitleHandler}/>
+                            <Input type='text' onChange={onRighttitleHandler} />
                             <FormLabel>오른쪽 내용</FormLabel>
                             <Textarea resize={"none"} onChange={onRightcontentHandler} />
                         </FormControl>
                         <FormLabel>오른쪽 이미지</FormLabel>
-                        <Input type='file' onChange={righthandleImagesChange}/>
+                        <Input type='file' onChange={righthandleImagesChange} />
                     </Stack>
                 </Flex>
-                <Button onClick = {onSubmitHandler}>작성</Button>
+                <Button onClick={onSubmitHandler}>작성</Button>
             </Stack>
         </Center>
     </>

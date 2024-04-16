@@ -1,26 +1,33 @@
 import React from "react";
-import { UserProvider } from "../hook/User";
 import { Route, Routes } from "react-router-dom";
+import { UserProvider } from "../hook/User";
 import Baseball from "../pages/Baseball";
+import Badetail from "../pages/BoardDetail";
+import Boardcreate from "../pages/Boardcreate";
+import Boardmodify from "../pages/Boardmodify";
+import CreateVote from "../pages/CreateVote";
 import Layout from "../pages/Layout";
 import LoL from "../pages/LoL";
+import Loading from "../pages/Loading";
+import Mypage from "../pages/Mypage";
 import Notice from "../pages/Notice";
+import NoticeDetail from "../pages/NoticeDetail";
+import NoticeModify from "../pages/NoticeModify";
+import NoticeWrite from "../pages/NoticeWrite";
+import Report from "../pages/Report";
 import Result from "../pages/Result";
+import Signupform from "../pages/Signupform";
 import Soccer from "../pages/Soccer";
 import Society from "../pages/Society";
 import Store from "../pages/Store";
-import Main from "./Main";
-import Signupform from "../pages/Signupform";
 import SubmitProduct from "../pages/SubmitProduct";
-import Boardcreate from "../pages/Boardcreate";
-import Badetail from "../pages/BoardDetail";
-import Boardmodify from "../pages/Boardmodify";
-import Mypage from "../pages/Mypage";
+import Success from "../pages/Success";
+import Main from "./Main";
 import Mygrade from "./Mygrade";
+import Mypage_Admin from "./Mypage_Admin";
 import Myprofile from "./Myprofile";
 import Myrequest from "./Myrequest";
 import Mywrite from "./Mywrite";
-import Mypage_Admin from "./Mypage_Admin";
 import UserModify from "./UserModify";
 import Calendar from "./Calendar";
 import Loading from "../pages/Loading";
@@ -33,92 +40,7 @@ import Report from "../pages/Report";
 import TopicRequest from "../pages/TopicRequest";
 
 export default () => {
-  const weeks = [
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-    [
-      [1, 2, 3, 4, 5, 6, 7],
-      [8, 9, 10, 11, 12, 13, 14],
-      [15, 16, 17, 18, 19, 20, 21],
-      [22, 23, 24, 25, 26, 27, 28],
-      [29, 30, null, null, null, null, null], // Assuming the month ends on the 30th
-    ],
-  ];
+
   return (
     <UserProvider>
       <Routes>
