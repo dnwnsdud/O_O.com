@@ -95,6 +95,7 @@ export default () => {
       })
       .then((data) => {
         console.log(data, "확인");
+        alert(data.message);
         setLikeCount(data.updatedDocument.like);
       });
   };
@@ -118,6 +119,7 @@ export default () => {
       })
       .then((data) => {
         console.log(data, "확인");
+        alert(data.message)
         setDislikeCount(data.updatedDocument.dislike);
       });
   };
