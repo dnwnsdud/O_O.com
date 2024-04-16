@@ -36,7 +36,9 @@ export default () => {
         })
         .then((data) => {
           if (data) {
-            const sortedData = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            const sortedData = data.data.sort(
+              (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            );
             setUserData(sortedData);
             setTotalPosts(data.totalCount);
           } else {
@@ -95,9 +97,8 @@ export default () => {
           />
           <List>
             {currentPosts.map((user) => (
-              <ListItem key={user._id}>
-
-                <Link to={`/b/id=${user._id}`}>
+              <ListItem key={user.blackid}>
+                <Link to={`/b/id=${user.blackid}`}>
                   <Grid
                     templateColumns=" 1fr 5fr 1fr "
                     textAlign="center"
@@ -120,7 +121,6 @@ export default () => {
                     </Box>
                   </Grid>
                 </Link>
-
               </ListItem>
             ))}
           </List>
