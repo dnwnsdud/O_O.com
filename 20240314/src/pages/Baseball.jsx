@@ -71,18 +71,25 @@ export default () => {
     <>
       <Box maxW="1300px" margin="auto">
         <Box h={20} bg="red" margin="20px 0"></Box>
-        <Grid templateColumns="0.7fr 4fr 1.5fr" gap="20px">
-          <Box>
+        <Grid templateColumns="0.7fr 4fr 1.5fr" gap="20px" >
+          <Box
+          // position={'relative'}
+          >
             <Grid
               templateColumns="repeat(1 , 1fr)"
               gap="1px"
               padding="10px 30px"
+              // bg='#f7f7f8'
+              // borderRadius={10}
+              // position={'fixed'}
+              // width={'7%'}
+              // top={400}
+              marginTop={200}
             >
               <Button
                 sx={{
                   backgroundColor: "#5181e3 !important",
                   color: "#ffffff",
-
                 }}
                 size="xs"
                 onClick={() => setSelectedTeam('모든 팀')}
@@ -202,7 +209,7 @@ export default () => {
             bg={"#f7f7f8"}
             overflow={"hidden"}
             h={550}
-            marginTop={75}
+          // marginTop={75}
           >
             <Flex flexDirection={"column"} justifyContent={"space-between"} >
               <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>

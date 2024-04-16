@@ -143,99 +143,104 @@ export default ({ selectedTeam, user }) => {
           축구
         </Box>
         <Flex padding="10px" fontWeight="bold" gap="10px" justify="end">
-          <Button
-            size="xs"
-            padding="15px 10px"
-            backgroundColor="#5181e3 !important"
-            color="#fff !important"
-            onClick={() => {
-              setSortOrder("최신순");
-            }}
-          >
-            최신순
-          </Button>
-          <Button
-            size="xs"
-            backgroundColor="#5181e3 !important"
-            color="#fff !important"
-            padding="15px 10px"
-            onClick={() => {
-              setSortOrder("조회순");
-            }}
-          >
-            조회순
-          </Button>
-          <Button
-            size="xs"
-            backgroundColor="#5181e3 !important"
-            color="#fff !important"
-            padding="15px 10px"
-            onClick={() => {
-              setSortOrder("추천순");
-            }}
-          >
-            추천순
-          </Button>
-        </Flex>
-        <Grid
-          borderTop="1px solid #0B0B0D"
-          borderBottom="1px solid #0B0B0D"
-          textAlign="center"
-          templateColumns="1fr 2fr 8fr 2fr 2fr 1fr 1fr"
-          padding="8px 0"
-          color="#5181e3"
-        >
-          <Box w="100%" textAlign="center">
-            번호
-          </Box>
-          <Box>리그</Box>
-          <Box>제목</Box>
-          <Box>글쓴이</Box>
-          <Box>작성일</Box>
-          <Box>조회</Box>
-          <Box>추천</Box>
-        </Grid>
-        {currentPosts
-          .filter(
-            (post) => selectedTeam === "전체" || post.team === selectedTeam
-          )
-          .map((post, i) => (
-            <Grid
-              key={post._id}
-              borderBottom="1px dotted #0B0B0D"
-              textAlign="center"
-              templateColumns="1fr 2fr 8fr 2fr 2fr 1fr 1fr"
-              padding="10px 0"
+          <Flex bg='#efeff1' h='2.5rem' w='11rem' gap="5px" justify={'center'} align={'center'} borderRadius={'10px'}>
+            <Button
+              size="xs"
+              padding="15px 10px"
+              backgroundColor={sortOrder === "최신순" ? "#fff !important" : "inherit"}
+              color={sortOrder === "최신순" ? "black" : "#3b3b44"}
+              onClick={() => {
+                setSortOrder("최신순");
+              }}
             >
-              <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
-              <Box color="#5181e3">{post.team}</Box>
-              <Flex
-                whiteSpace="nowrap"
-                overflow="hidden"
-                textOverflow="ellipsis"
-                padding="0 20px 0 20px"
-                justifyContent="center"
+              최신순
+            </Button>
+            <Button
+              size="xs"
+              backgroundColor={sortOrder === "조회순" ? "#fff !important" : "inherit"}
+              color={sortOrder === "조회순" ? "black" : "#3b3b44"}
+              padding="15px 10px"
+              onClick={() => {
+                setSortOrder("조회순");
+              }}
+            >
+              조회순
+            </Button>
+            <Button
+              size="xs"
+              backgroundColor={sortOrder === "추천순" ? "#fff !important" : "inherit"}
+              color={sortOrder === "추천순" ? "black" : "#3b3b44"}
+              padding="15px 10px"
+              onClick={() => {
+                setSortOrder("추천순");
+              }}
+            >
+              추천순
+            </Button>
+          </Flex>
+        </Flex>
+
+        <Box h={500}>
+          <Grid
+            borderTop="1px solid #dedee3"
+            borderBottom="1px solid #dedee3"
+            textAlign="center"
+            templateColumns="1fr 2fr 8fr 2fr 2fr 1fr 1fr"
+            padding="8px 0"
+            color="black"
+          >
+            <Box w="100%" textAlign="center">
+              번호
+            </Box>
+            <Box>리그</Box>
+            <Box>제목</Box>
+            <Box>글쓴이</Box>
+            <Box>작성일</Box>
+            <Box>조회</Box>
+            <Box>추천</Box>
+          </Grid>
+          {currentPosts
+            .filter(
+              (post) => selectedTeam === "전체" || post.team === selectedTeam
+            )
+            .map((post, i) => (
+              <Grid
+                key={post._id}
+                borderBottom="1px solid #dedee3"
+                textAlign="center"
+                templateColumns="1fr 2fr 8fr 2fr 2fr 1fr 1fr"
+                padding="10px 0"
               >
-                <Link to={`/b/id=${post._id}`}>{post.title}</Link>
-                <Box color="#5181e3">[{post.comment.length}]</Box>
-              </Flex>
-              <Box
-                whiteSpace="nowrap"
-                overflow="hidden"
-                textOverflow="ellipsis"
-                padding="0 10px 0 10px"
-              >
-                {post.nickname}
-              </Box>
-              <Box>{getDayMinuteCounter(post.createdAt)}</Box>
-              <Box>{post.count}</Box>
-              <Box>{post.like}</Box>
-            </Grid>
-          ))}
+                <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
+                <Box color="#5181e3">{post.team}</Box>
+                <Flex
+                  whiteSpace="nowrap"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                  padding="0 20px 0 20px"
+                  justifyContent="center"
+                >
+                  <Link to={`/b/id=${post._id}`}>{post.title}</Link>
+                  <Box color="#5181e3">[{post.comment.length}]</Box>
+                </Flex>
+                <Box
+                  whiteSpace="nowrap"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                  padding="0 10px 0 10px"
+                >
+                  {post.nickname}
+                </Box>
+                <Box>{getDayMinuteCounter(post.createdAt)}</Box>
+                <Box>{post.count}</Box>
+                <Box>{post.like}</Box>
+              </Grid>
+            ))}
+        </Box>
         <Flex fontWeight="bold" justify="end" marginTop="10px">
           <Button
             sx={{
-              backgroundColor: "#5181e3 !important",
+              backgroundColor: "#53535f !important",
               color: "white",
               _hover: {
                 bg: "#E03F62",
