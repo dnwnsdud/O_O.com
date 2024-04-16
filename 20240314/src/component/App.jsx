@@ -30,6 +30,7 @@ import NoticeWrite from "../pages/NoticeWrite";
 import NoticeDetail from "../pages/NoticeDetail";
 import NoticeModify from "../pages/NoticeModify";
 import Report from "../pages/Report";
+import TopicRequest from "../pages/TopicRequest";
 
 export default () => {
   const weeks = [
@@ -148,6 +149,7 @@ export default () => {
           <Route path="/admin" element={<Mypage_Admin />} />
           <Route path="/admin/report" element={<Report />} />
           <Route path="calendar" element={<Calendar weeks={weeks} />} />
+          <Route path="/topicrequest" element={<TopicRequest />} />
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
         <Route path="/deleteloading" element={<Loading />} />

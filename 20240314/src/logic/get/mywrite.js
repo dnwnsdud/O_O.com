@@ -16,7 +16,7 @@ export default async(req,res,next)=>{
                 postId: "$comment.postId",
                 tap: "$comment.tap",
                 _id: "$comment._id",
-                createAt: "$comment.createAt",
+                createdAt: "$comment.createdAt",
             } } // comment 필드만 유지
           ]).sort({_id: -1});
           const commentCount = mycomments.length; // 배열의 길이를 사용하여 댓글 수 계산

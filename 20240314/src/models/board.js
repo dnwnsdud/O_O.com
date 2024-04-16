@@ -63,7 +63,7 @@ export default mongoose.Schema(
         tap: {
           type: String,
         },
-        creatAt:{
+        createdAt:{
           type: Date,
           default: Date.now(),
         }
