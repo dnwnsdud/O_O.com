@@ -87,35 +87,63 @@ export default () => {
     } catch (error) {
       console.log(error);
     }
-  };
-  const Adminwritedelete = (writeId, writeEmail) => {
-    let body = {
-      id: writeId,
-      email: writeEmail,
-    };
-    try {
-      fetch("/api/adminwritedelete", {
-        method: "post",
-        body: JSON.stringify(body),
-      })
-        .then((res) => {
-          if (res) {
-            return res.json();
-          } else {
-            throw new Error();
-          }
-        })
-        .then((data) => {
-          console.log(data, 123123);
-          if (data) {
-            setwriteData(data);
-            console.log("게시글을 삭제하였습니다.");
-          } else {
-            alert("게시글 삭제에 실패하였습니다.");
-          }
-        });
-    } catch (error) {
-      console.log(error);
+    useEffect((e) => {
+        try {
+            fetch('/api/admin')
+                .then(response => {
+                    if (response) {
+                        return response.json();
+                    }
+                    else {
+                        throw new Error(e);
+                    }
+                })
+                .then(data => {
+                    if (data) {
+                        setUserData(data.userdata);
+                        setwriteData(data.writedata);
+                        setcommentData(data.comments);
+                        if (user.role == 'user' || user == 'logout') {
+                            nav('/')
+                        }
+                        console.log(data.userdata, '유저입니당');
+
+
+                    } else {
+                        alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
+                    }
+                })
+                .catch(error => {
+                });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }, [user]);
+    const Adminuserdelete = (userId, userEmail) => {
+        let body = {
+            id: userId,
+            email: userEmail
+        }
+        try {
+            fetch('/api/adminuserdelete', { method: "post", body: JSON.stringify(body) })
+                .then(res => {
+                    if (res) {
+                        return res.json();
+                    } else {
+                        throw new Error()
+                    }
+                })
+                .then(data => {
+                    if (data) {
+                        setUserData(data);
+                        console.log('유저를 삭제하였습니다.');
+                    } else {
+                        alert('유저정보 삭제에 실패하였습니다.')
+                    }
+                })
+        } catch (error) {
+            console.log(error);
+        }
     }
   };
   const Admincommentdelete = (writeId, writePostId) => {
