@@ -31,5 +31,9 @@ export default mongoose.Schema({
     "point": {
         "type": Number,
         "default": 0
+    },
+    "penalty": {
+        "type": Number,
+        "default": 0
     }
 });

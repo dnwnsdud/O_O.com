@@ -2,7 +2,6 @@
 
 export default async (req, res, next) => {
   const obj = await JSON.parse(req.body);
-  const session = req.session.user;
   const _id = obj.id;
   const email = obj.email;
   const post = await req.mongo.board.findOne({ _id: _id });
