@@ -27,8 +27,10 @@ export default () => {
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const location = useLocation();
+  const currentPath = location.pathname;
+  let [todayVote, setTodayVote] = useState([]);
+  const category = currentPath
   useEffect(() => {
-    const currentPath = location.pathname;
     const room = currentPath.split('/')[1];
     const chatEvent = room + '_chat';
     const receiveMessage = (data) => {
@@ -39,8 +41,18 @@ export default () => {
     socket.emit('join_room', room);
     socket.on(chatEvent, (data) => {
       setChatList(prevChatList => [data, ...prevChatList]);
-
     });
+    fetch("/api/vote", {
+      method: "POST",
+      body: JSON.stringify({
+        category: category,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "data");
+        setTodayVote(data);
+      });
 
     return () => {
       socket.off(chatEvent, receiveMessage);
@@ -159,7 +171,7 @@ export default () => {
             </Grid>
           </Box>
           <Box border="1px solid red">
-            <Vote />
+            <Vote todayVote={todayVote} />
             <Ciboard selectedtab={selectedtab} user={user} />
           </Box>
           <Flex

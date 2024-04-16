@@ -24,9 +24,11 @@ export default () => {
   const [inputValue, setInputValue] = useState('');
   const location = useLocation();
   const [selectedTeam, setSelectedTeam] = useState('전체');
-
+  const currentPath = location.pathname;
+  let [todayVote, setTodayVote] = useState([]);
+  const category = currentPath
   useEffect(() => {
-    const currentPath = location.pathname;
+
     const room = currentPath.split('/')[1];
     const chatEvent = room + '_chat';
     const receiveMessage = (data) => {
@@ -39,7 +41,17 @@ export default () => {
       setChatList(prevChatList => [data, ...prevChatList]);
 
     });
-
+    fetch("/api/vote", {
+      method: "POST",
+      body: JSON.stringify({
+        category: category,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "data");
+        setTodayVote(data);
+      });
     return () => {
       socket.off(chatEvent, receiveMessage);
     };
@@ -147,7 +159,7 @@ export default () => {
           </Grid>
         </Box>
         <Box border="1px solid red">
-          <Vote />
+          <Vote todayVote={todayVote} />
           <Soboard selectedTeam={selectedTeam} user={user} />
 
         </Box >

@@ -1,35 +1,34 @@
 import React from "react";
-import { UserProvider } from "../hook/User";
 import { Route, Routes } from "react-router-dom";
+import { UserProvider } from "../hook/User";
 import Baseball from "../pages/Baseball";
+import Badetail from "../pages/BoardDetail";
+import Boardcreate from "../pages/Boardcreate";
+import Boardmodify from "../pages/Boardmodify";
+import CreateVote from "../pages/CreateVote";
 import Layout from "../pages/Layout";
 import LoL from "../pages/LoL";
+import Loading from "../pages/Loading";
+import Mypage from "../pages/Mypage";
 import Notice from "../pages/Notice";
+import NoticeDetail from "../pages/NoticeDetail";
+import NoticeModify from "../pages/NoticeModify";
+import NoticeWrite from "../pages/NoticeWrite";
+import Report from "../pages/Report";
 import Result from "../pages/Result";
+import Signupform from "../pages/Signupform";
 import Soccer from "../pages/Soccer";
 import Society from "../pages/Society";
 import Store from "../pages/Store";
-import Main from "./Main";
-import Signupform from "../pages/Signupform";
 import SubmitProduct from "../pages/SubmitProduct";
-import Boardcreate from "../pages/Boardcreate";
-import Badetail from "../pages/BoardDetail";
-import Boardmodify from "../pages/Boardmodify";
-import Mypage from "../pages/Mypage";
+import Success from "../pages/Success";
+import Main from "./Main";
 import Mygrade from "./Mygrade";
+import Mypage_Admin from "./Mypage_Admin";
 import Myprofile from "./Myprofile";
 import Myrequest from "./Myrequest";
 import Mywrite from "./Mywrite";
-import Mypage_Admin from "./Mypage_Admin";
 import UserModify from "./UserModify";
-import Calendar from "./Calendar";
-import Loading from "../pages/Loading";
-import Success from "../pages/Success";
-import CreateVote from "../pages/CreateVote";
-import NoticeWrite from "../pages/NoticeWrite";
-import NoticeDetail from "../pages/NoticeDetail";
-import NoticeModify from "../pages/NoticeModify";
-import Report from "../pages/Report";
 
 export default () => {
 
@@ -62,7 +61,6 @@ export default () => {
           </Route>
           <Route path="/admin" element={<Mypage_Admin />} />
           <Route path="/admin/report" element={<Report />} />
-          <Route path="calendar" element={<Calendar weeks={weeks} />} />
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
         <Route path="/deleteloading" element={<Loading />} />

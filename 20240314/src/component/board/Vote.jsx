@@ -1,17 +1,220 @@
-import { Box, Button, Center, Flex } from '@chakra-ui/react';
-import React from "react";
+import { Box, Button, Card, CardBody, Center, CloseButton, Divider, Flex, Heading, Image, Stack, Text, useDisclosure } from '@chakra-ui/react';
+import React, { useContext, useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../hook/User';
 
-export default () => {
+
+export default ({ todayVote }) => {
+  const { user } = useContext(UserContext)
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  let nav = useNavigate();
+  let [choice, setChoice] = useState("");
+  let check = <svg style={{ "width": "15%" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"> <path fill='black' d="M96 80c0-26.5 21.5-48 48-48H432c26.5 0 48 21.5 48 48V384H96V80zm313 47c-9.4-9.4-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L409 161c9.4-9.4 9.4-24.6 0-33.9zM0 336c0-26.5 21.5-48 48-48H64V416H512V288h16c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V336z" /></svg>
   return (
     <>
-      <Box border="1px solid blue" marginBottom="10px">
-        <Center fontSize={20}>오늘의 O_O</Center>
-        <Center>2024년 시즌 꼴등은 누가 할 거 같나요?</Center>
-        <Flex gap="10px" padding="10px" justify="end">
-          <Button size="xs">자세히 보기</Button>
-          <Button size="xs">요청하기</Button>
+      <Flex h={"100%"} maxH={"255px"} direction={"column"} justifyContent={"space-around"}>
+        <Text fontSize={"3xl"} textAlign={"center"}>{todayVote.title ? todayVote.title : "없을걸"}</Text>
+        <Flex gap="10px" padding="10px" justifyContent="center" border={"1px soild blue"}>
+          <Button
+            border={"2px solid #0b0b0d"}
+            onClick={() => {
+              nav("/r");
+            }}
+          >
+            이전결과
+          </Button>
+          <Button border={"2px solid #0b0b0d"} onClick={onOpen}>참여하기</Button>
         </Flex>
-      </Box>
+      </Flex>
+
+      {isOpen &&
+        <>
+          {window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+              onClose();
+              setChoice("");
+              document.body.style.overflow = "auto";
+              window.removeEventListener("keydown", (e) => { });
+            }
+          })}
+          {(document.body.style.overflow = "hidden")}
+          <Box
+            zIndex={10}
+            bg={"black"}
+            opacity={.5}
+            w={"100%"}
+            position={"absolute"}
+            left={0}
+            top={0}
+            h={"100%"}
+            color={"black"}
+            onClick={() => {
+              onClose();
+              document.body.style.overflow = "auto";
+              setChoice("");
+            }
+            }
+
+          > </Box>
+          <Flex
+            borderRadius={"15px"}
+            p={4}
+            pt={2}
+            pb={2}
+            zIndex={11}
+            bg={"white"}
+            direction={"column"}
+            isOpen={isOpen}
+            onClose={onClose}
+            w={"60%"}
+            maxW={"800px"}
+            position={"absolute"}
+            left={"50%"}
+            top={"30%"}
+            transform={"translate(-50%, -50%)"}
+            onKeyDown={(e) => {
+              if (e.key === "esc") {
+                console.log("esc");
+                onClose();
+                document.body.style.overflow = "auto";
+              }
+            }}
+          >
+            <Flex direction={"column"} w={"100%"} gap={4}>
+              <Flex justifyContent={"space-between"} gap={2} alignItems={"center"}>
+                <Heading>오늘의 O_O</Heading>
+                <CloseButton
+                  _hover={{ bg: "gray.100" }}
+                  onClick={() => {
+                    onClose();
+                    document.body.style.overflow = "auto";
+                    setChoice("");
+                  }} />
+              </Flex>
+              <Divider />
+              <Center fontSize={"3xl"} fontWeight={"bold"}>{todayVote.title ? todayVote.title : "없을걸"}</Center>
+              <Box >
+                <Flex gap={4} w={"100%"}>
+                  <Card maxW='sm' cursor={"pointer"} _hover={
+                    { boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.5)" }
+                  }
+                    onClick={() => {
+                      setChoice("left");
+                    }}
+                  >
+                    <CardBody>
+                      {choice === "left" ? <Flex
+                        bg={"rgba(255,255,255, 0.65)"}
+                        w={"100%"}
+                        h={"100%"}
+                        position={"absolute"}
+                        top={0}
+                        left={0}
+                        fontSize={"3xl"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                      >
+                        {check}
+                      </Flex>
+                        :
+                        ""}
+                      <Image
+                        w={"100%"}
+                        h={"100px"}
+                        src='https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202209/06/dailylife/20220906180136831gxmh.png'
+                        alt='Green double couch with wooden legs'
+                        borderRadius='lg'
+                      />
+                      <Stack mt='6' spacing='3'>
+                        <Heading size='md'>{todayVote.leftSide.title ? todayVote.leftSide.title : "없을걸"}</Heading>
+                        <Text>
+                          {todayVote.leftSide.content ? todayVote.leftSide.content : "없을걸"}
+                        </Text>
+                      </Stack>
+                    </CardBody>
+                  </Card>
+                  <Card
+                    maxW='sm' cursor={"pointer"} _hover={
+                      { boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.5)" }
+                    }
+                    onClick={() => {
+                      setChoice("right");
+                    }}
+                    position={"relative"}
+                    overflow={"hidden"}
+                  >
+                    <CardBody>
+                      {choice === "right" ?
+                        <Flex
+                          bg={"rgba(255,255,255, 0.65)"}
+                          w={"100%"}
+                          h={"100%"}
+                          position={"absolute"}
+                          top={0}
+                          left={0}
+                          fontSize={"3xl"}
+                          alignItems={"center"}
+                          justifyContent={"center"}
+                        >
+                          {check}
+                        </Flex>
+                        :
+                        ""
+                      }
+                      <Image
+                        w={"100%"}
+                        h={"100px"}
+                        src='https://femiwiki-uploaded-files.s3.amazonaws.com/2/2d/%ED%8C%8C%EB%9E%91%EC%83%89.png'
+                        alt='Green double couch with wooden legs'
+                        borderRadius='lg'
+                      />
+                      <Stack mt='6' spacing='3'>
+                        <Heading size='md'>{todayVote.rightSide.title ? todayVote.rightSide.title : "없을걸"}</Heading>
+                        <Text>
+                          {todayVote.rightSide.content ? todayVote.rightSide.content : "없을걸"}
+                        </Text>
+                      </Stack>
+                    </CardBody>
+                  </Card>
+                </Flex>
+              </Box>
+              <Divider />
+
+              {
+                todayVote.category === "main" ?
+                  <Flex justifyContent={"end"}>
+                    <Button variant='ghost' onClick={() => {
+                      if (user === "logout") {
+                        return alert("로그인이 필요합니다.");
+                      }
+                      onClose();
+                      document.body.style.overflow = "auto";
+                      setChoice("");
+                    }}>참여하기</Button>
+                  </Flex>
+                  :
+                  <Flex justifyContent={"end"}>
+                    <Button variant='ghost' onClick={() => {
+                      if (user === "logout") {
+                        return alert("로그인이 필요합니다.");
+                      }
+                      onClose();
+                      document.body.style.overflow = "auto";
+                      setChoice("");
+                    }}>참여하기</Button>
+                    <Button onClick={() => {
+                      if (user === "logout") {
+                        return alert("로그인이 필요합니다.");
+                      }
+                      onClose();
+                    }}>요청하기</Button>
+                  </Flex>
+              }
+
+            </Flex>
+          </Flex >
+        </>
+      }
     </>
   )
 }

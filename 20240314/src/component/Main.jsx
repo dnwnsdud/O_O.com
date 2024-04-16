@@ -1,28 +1,44 @@
 import {
   Box,
-  Button,
   Card,
   CardBody,
   CardHeader,
   Divider,
+  Flex,
   Grid,
   Heading,
-  Link,
-  List,
-  ListItem,
   Stack,
-  Text,
-  Flex,
+  Text
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import MainStore from "../pages/MainStore";
 import Noticepost from "../pages/Noticepost";
 import Bestpost from "./Bestpost";
-import MainVote from "./board/MainVote";
-import MainStore from "../pages/MainStore";
+import Vote from "./board/Vote";
+import { useLocation } from "react-router-dom";
+import moment from "moment";
 
+moment.locale("ko");
 export default () => {
-
+  const location = useLocation();
+  let date = new Date()
+  let today = moment(date).format("YYYY-MM-DD");
+  const category = location.pathname;
+  let [todayVote, setTodayVote] = useState([]);
+  useEffect(() => {
+    fetch("/api/vote", {
+      method: "POST",
+      body: JSON.stringify({
+        category: category,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "data");
+        setTodayVote(data);
+      });
+  }, [])
   let nav = useNavigate();
   return (
     <div>
@@ -48,7 +64,7 @@ export default () => {
           >
             오늘의 O_O
           </Text>
-          <MainVote />
+          <Vote todayVote={todayVote} />
         </Flex>
         <Divider orientation="horizontal" />
         <Noticepost />
