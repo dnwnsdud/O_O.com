@@ -9,16 +9,19 @@ import {
   ListItem,
   Stack,
   Divider,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import RepodeModal from "./RepodeModal";
 
 export default () => {
   const [userData, setUserData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const [totalPosts, setTotalPosts] = useState(10);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const nav = useNavigate();
 
@@ -26,7 +29,7 @@ export default () => {
 
   useEffect(() => {
     try {
-      fetch("/api/notices")
+      fetch("/api/blackboard")
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -66,6 +69,7 @@ export default () => {
   const handleNextPage = () => {
     setCurrentPage((prev) => Math.min(prev + 1, pageCount));
   };
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
@@ -73,7 +77,6 @@ export default () => {
       "0"
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
-
   return (
     <Stack w={"50%"} m={"auto"} direction={"column"} justifyContent={"center"}>
       <Stack
@@ -93,19 +96,8 @@ export default () => {
             fontWeight="bold"
             marginBottom="20px"
           >
-            공지사항
+            신고 관리
           </Box>
-          <Flex justifyContent={"end"}>
-            {user.role === "admin" && (
-              <Button
-                onClick={() => {
-                  nav(`/n/write`);
-                }}
-              >
-                작성
-              </Button>
-            )}
-          </Flex>
           <Divider
             orientation="horizontal"
             borderBottomWidth={"2px"}
@@ -115,37 +107,59 @@ export default () => {
           />
           <List>
             {currentPosts.map((user) => (
-              <ListItem key={user._id}>
-                <Link to={`/n/id=${user._id}`}>
-                  <Grid
-                    templateColumns=" 1fr 5fr 1fr "
-                    textAlign="center"
-                    padding={"8px 0"}
-                    fontSize={"13px"}
-                  >
-                    <Box
-                      overflow={"hidden"}
-                      textOverflow={"ellipsis"}
-                      whiteSpace={"nowrap"}
+              <ListItem key={user.blackid}>
+                <Grid
+                  templateColumns=" 10fr 1fr"
+                  textAlign="center"
+                  padding={"8px 0"}
+                  fontSize={"13px"}
+                >
+                  <Link to={`/b/id=${user.blackid}`}>
+                    <Grid
+                      templateColumns=" 1fr 1fr 1fr 1fr"
+                      textAlign="center"
+                      padding={"8px 0"}
+                      fontSize={"13px"}
                     >
-                      [공지]
-                    </Box>
-                    <Box
-                      overflow={"hidden"}
-                      textOverflow={"ellipsis"}
-                      whiteSpace={"nowrap"}
-                    >
-                      {user.title}
-                    </Box>
-                    <Box
-                      overflow={"hidden"}
-                      textOverflow={"ellipsis"}
-                      whiteSpace={"nowrap"}
-                    >
-                      {formatDate(user.createdAt)}
-                    </Box>
-                  </Grid>
-                </Link>
+                      <Box
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace={"nowrap"}
+                      >
+                        {user.blacktype}
+                      </Box>
+                      <Box
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace={"nowrap"}
+                      >
+                        {user.email}
+                      </Box>
+                      <Box
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace={"nowrap"}
+                      >
+                        {user.blackid}
+                      </Box>
+                      <Box
+                        overflow={"hidden"}
+                        textOverflow={"ellipsis"}
+                        whiteSpace={"nowrap"}
+                      >
+                        {formatDate(user.createdAt)}
+                      </Box>
+                    </Grid>
+                  </Link>
+                  {user.blacktype === "기타" && (
+                    <Button onClick={onOpen}>내용보기</Button>
+                  )}
+                </Grid>
+                <RepodeModal
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  content={user.blackdetail}
+                />
               </ListItem>
             ))}
           </List>

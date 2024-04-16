@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Center, Flex, Grid, HStack, Input, Stack, VStack, Image } from '@chakra-ui/react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { useNavigate, useOutletContext } from 'react-router-dom';
+import { UserContext } from '../hook/User';
 
 
 
 export default () => {
     const [userData, setUserData] = useState([]);
-    
+    const { setUser } = useContext(UserContext);
 
     let nav = useNavigate();
     useEffect((e) => {
@@ -24,7 +25,6 @@ export default () => {
                 })
                 .then(data => {
                     if (data) {
-                        console.log("이게 먼저오는거면 나는 어쩌라는건데 진짜 다 죽자");
                         setUserData(data);
                     } else {
                         alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
@@ -37,9 +37,9 @@ export default () => {
         }
     }, []);
 
-    const deleteUser = ()=>{
+    const deleteUser = () => {
         try {
-            fetch('/api/deleteuser',{method:'post'})
+            fetch('/api/deleteuser', { method: 'post' })
                 .then(response => {
                     if (response) {
                         console.log(response);
@@ -51,8 +51,9 @@ export default () => {
                 })
                 .then(data => {
                     if (data.success === true) {
-                        alert('삭제되었습니다.')
-                        nav('/deleteloading')
+                            setUser('logout')
+                            nav('/deleteloading')
+                            alert('삭제되었습니다.')
                     } else {
                         alert(`사용자를 삭제하는 동안 오류 발생:${data.error}`);
                     }
@@ -69,22 +70,22 @@ export default () => {
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 정보</Box>
             <Grid templateColumns="1fr 1fr" width="70%" margin="auto">
                 <Box borderRadius="50%" width="50px" height="50px" margin="auto" overflow="hidden" ><Image
-                        src={userData.images}
-                        boxSize='100%'
-                        objectFit='cover'
-                        alt="유저 이미지"
-                        m='auto'
-                      /></Box>
+                    src={userData.images}
+                    boxSize='100%'
+                    objectFit='cover'
+                    alt="유저 이미지"
+                    m='auto'
+                /></Box>
                 <Box>
-                    <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"}  color="black" >{userData.name}</Box>
-                    <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"}  color="black">{userData.nickname}</Box>
+                    <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"} color="black" >{userData.name}</Box>
+                    <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"} color="black">{userData.nickname}</Box>
                 </Box>
             </Grid>
             <Grid templateRows="1fr 1fr 1fr 1fr" gap="20px" margin="30px 0" >
-                <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"}  color="black" width="50%" margin="auto">{userData.email}</Box>
-                <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"}  color="black" width="50%" margin="auto">{userData.team}</Box>
-                <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"}  color="black" width="50%" margin="auto">{userData.point}</Box>
-                <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"}  color="black" width="50%" margin="auto">전체승률</Box>
+                <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"} color="black" width="50%" margin="auto">{userData.email}</Box>
+                <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"} color="black" width="50%" margin="auto">{userData.team}</Box>
+                <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"} color="black" width="50%" margin="auto">{userData.point}</Box>
+                <Box textAlign="center" borderBottom="1px solid rgba(0,0,0,0.6)" marginBottom="5px" h={"25px"} color="black" width="50%" margin="auto">전체승률</Box>
             </Grid>
             <Grid templateRows="1fr 1fr" justifyContent="center" gap="10px">
                 <Button width="100px" border="1px solid black" borderRadius="10px" onClick={deleteUser}>회원탈퇴</Button>

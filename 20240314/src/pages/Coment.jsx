@@ -282,7 +282,13 @@ export default ({ user }) => {
               <Box>{detail.nickname}</Box>
               {user == "logout" ? (
                 ""
-              ) : detail.email !== user.email ? (
+              ) : detail.email !== user.email ? user.role == "admin" ? <Flex justifyContent="flex-end">
+              <Button size="xs" onClick={() => toggleModify(detail._id)} display={"none"}>
+              </Button>
+              <Button size="xs" onClick={() => deleteComment(detail._id)}>
+                  삭제
+              </Button>
+            </Flex> : (
                 ""
               ) : (
                 <Flex justifyContent="flex-end">
