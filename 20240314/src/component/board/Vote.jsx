@@ -10,6 +10,26 @@ export default ({ todayVote }) => {
   let nav = useNavigate();
   let [choice, setChoice] = useState("");
   let check = <svg style={{ "width": "15%" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"> <path fill='black' d="M96 80c0-26.5 21.5-48 48-48H432c26.5 0 48 21.5 48 48V384H96V80zm313 47c-9.4-9.4-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L409 161c9.4-9.4 9.4-24.6 0-33.9zM0 336c0-26.5 21.5-48 48-48H64V416H512V288h16c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V336z" /></svg>
+  const agree = (choice, user) => {
+    console.log(choice, user);
+    fetch("/api/takeVote", {
+      method: "POST",
+      body: JSON.stringify({
+        choice: choice,
+        user: user,
+        voteId: todayVote._id
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data.success) {
+          alert("참여완료");
+        } else {
+          alert("이미 참여하셨습니다.");
+        }
+      })
+  }
   return (
     <>
       <Flex h={"100%"} maxH={"255px"} direction={"column"} justifyContent={"space-around"}>
@@ -184,28 +204,27 @@ export default ({ todayVote }) => {
                 todayVote.category === "main" ?
                   <Flex justifyContent={"end"}>
                     <Button variant='ghost' onClick={() => {
-                      if (user === "logout") {
-                        return alert("로그인이 필요합니다.");
-                      }
+                      if (user === "logout") return alert("로그인이 필요합니다.");
+                      if (choice === "") return alert("선택해주세요.");
                       onClose();
                       document.body.style.overflow = "auto";
                       setChoice("");
+                      agree(choice, user.email);
                     }}>참여하기</Button>
                   </Flex>
                   :
                   <Flex justifyContent={"end"}>
                     <Button variant='ghost' onClick={() => {
-                      if (user === "logout") {
-                        return alert("로그인이 필요합니다.");
-                      }
+                      if (user === "logout") return alert("로그인이 필요합니다.");
+                      if (choice === "") return alert("선택해주세요.");
                       onClose();
                       document.body.style.overflow = "auto";
                       setChoice("");
+                      agree(choice, user.email);
+
                     }}>참여하기</Button>
                     <Button onClick={() => {
-                      if (user === "logout") {
-                        return alert("로그인이 필요합니다.");
-                      }
+                      if (user === "logout") return alert("로그인이 필요합니다.");
                       onClose();
                     }}>요청하기</Button>
                   </Flex>
