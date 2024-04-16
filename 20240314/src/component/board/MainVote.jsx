@@ -1,10 +1,11 @@
-import { Box, Button, Center, Flex, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, Card, CardHeader, CardBody, CardFooter, Image, Stack, Heading, Divider, ButtonGroup, CloseButton } from '@chakra-ui/react';
-import { CheckIcon } from '@chakra-ui/icons'
-import React, { useState } from "react";
+import { Box, Button, Card, CardBody, Center, CloseButton, Divider, Flex, Heading, Image, Stack, Text, useDisclosure } from '@chakra-ui/react';
+import React, { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../hook/User';
 
 
 export default () => {
+  const { user } = useContext(UserContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
   let nav = useNavigate();
   let [choice, setChoice] = useState("");
@@ -181,6 +182,9 @@ export default () => {
               <Divider />
               <Flex justifyContent={"end"}>
                 <Button variant='ghost' onClick={() => {
+                  if (user === "logout") {
+                    return alert("로그인이 필요합니다.");
+                  }
                   onClose();
                   document.body.style.overflow = "auto";
                   setChoice("");
