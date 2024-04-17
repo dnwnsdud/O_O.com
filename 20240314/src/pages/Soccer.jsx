@@ -162,7 +162,7 @@ export default () => {
             </Button>
           </Grid>
         </Box>
-        <Box>
+        <Box marginBottom="4rem">
           <Vote todayVote={todayVote} />
           <Soboard selectedTeam={selectedTeam} user={user} />
 
@@ -181,7 +181,7 @@ export default () => {
             <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>
             <Stack className="chat-list"
               // maxH={"50vh"}
-              h={"50vh"}
+              h={"40vh"}
               color={"black"}
               direction={"column-reverse"}
               pl={2}

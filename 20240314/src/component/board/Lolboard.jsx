@@ -266,6 +266,7 @@ export default ({ selectedTeam, user }) => {
               bg={currentPage === number ? "#f9f9f9 !important" : "#000000"}
               variant={currentPage === number ? "outline" : "ghost"}
               color={currentPage === number ? "#000000" : "#999999"}
+              marginBottom={'10rem'}
             >
               {number}
             </Button>
