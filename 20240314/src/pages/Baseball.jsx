@@ -244,7 +244,7 @@ export default () => {
               <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>
               <Stack className="chat-list"
                 // maxH={"50vh"}
-                h={"40vh"}
+                h={"50vh"}
                 color={"black"}
                 direction={"column-reverse"}
                 pl={2}
@@ -263,7 +263,9 @@ export default () => {
                 }
               </Stack>
             </Flex>
-            <Box p={2} >
+            <Box
+              p={2}
+            >
               <Flex border='1px solid #c8c8d0' borderRadius={5}>
                 <Input
                   pl={2}
