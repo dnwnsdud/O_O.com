@@ -3,8 +3,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../hook/User';
 
+export default ({ todayVote, main }) => {
 
-export default ({ todayVote }) => {
   const { user } = useContext(UserContext)
   const { isOpen, onOpen, onClose } = useDisclosure()
   let nav = useNavigate();
@@ -43,7 +43,10 @@ export default ({ todayVote }) => {
           >
             이전결과
           </Button>
-          <Button border={"2px solid #0b0b0d"} onClick={onOpen}>참여하기</Button>
+          <Button border={"2px solid #0b0b0d"} onClick={() => {
+            if (user === "logout") return alert("로그인이 필요합니다.");
+            onOpen();
+          }}>참여하기</Button>
         </Flex>
       </Flex>
 
@@ -154,7 +157,7 @@ export default ({ todayVote }) => {
                     </CardBody>
                   </Card>
                   <Card
-                  w={"45%"}
+                    w={"45%"}
                     maxW='sm' cursor={"pointer"} _hover={
                       { boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.5)" }
                     }
@@ -202,7 +205,8 @@ export default ({ todayVote }) => {
               <Divider />
 
               {
-                todayVote.category === "main" ?
+                // || todayVote.category === "main"
+                main ?
                   <Flex justifyContent={"end"}>
                     <Button variant='ghost' onClick={() => {
                       if (user === "logout") return alert("로그인이 필요합니다.");

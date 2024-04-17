@@ -66,7 +66,7 @@ export default () => {
             >
               오늘의 O_O
             </Text>
-            <Vote todayVote={todayVote} />
+            <Vote todayVote={todayVote} main={category} />
           </Flex>
           <Divider orientation="horizontal" />
           <Noticepost />
