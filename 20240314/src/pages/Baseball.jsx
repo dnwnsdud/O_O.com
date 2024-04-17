@@ -6,7 +6,8 @@ import {
   Grid,
   Input,
   Stack,
-  Text
+  Text,
+  Img
 } from "@chakra-ui/react";
 import React from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
@@ -86,19 +87,8 @@ export default () => {
   return (
     <>
       <Box maxW="1300px" margin="auto">
-        <Box h={'10rem'} border={'1px solid black'} margin="20px 0">
-          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2761297661062301"
-            crossorigin="anonymous"></script>
-          <ins className="adsbygoogle"
-            style={{ display: 'block' }}
-            data-ad-format="fluid"
-            data-adtest="on"
-            data-ad-layout-key="-fb+5w+4e-db+86"
-            data-ad-client="ca-pub-2761297661062301"
-            data-ad-slot="7768389705"></ins>
-          <script>
-            (adsbygoogle = window.adsbygoogle || []).push({ });
-          </script>
+        <Box overflow="hidden" h={'12rem'} margin="20px 0">
+          <Img objectFit="cover" w="100%" h="150%" src="/static/img/맨위광고1.jpg"></Img>
         </Box>
         <Grid templateColumns="0.7fr 4fr 1.5fr" gap="20px" >
           <Box
