@@ -234,7 +234,7 @@ export default () => {
               <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>
               <Stack className="chat-list"
                 // maxH={"50vh"}
-                h={"50vh"}
+                h={460}
                 color={"black"}
                 direction={"column-reverse"}
                 pl={2}
