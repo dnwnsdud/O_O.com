@@ -4,6 +4,8 @@ import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { UserContext } from '../hook/User';
 
+import Mypost from './Mypost';
+import Mycomment from './Mycomment';
 
 
 export default () => {
@@ -51,9 +53,9 @@ export default () => {
                 })
                 .then(data => {
                     if (data.success === true) {
-                            setUser('logout')
-                            nav('/deleteloading')
-                            alert('삭제되었습니다.')
+                        setUser('logout')
+                        nav('/deleteloading')
+                        alert('삭제되었습니다.')
                     } else {
                         alert(`사용자를 삭제하는 동안 오류 발생:${data.error}`);
                     }
@@ -65,8 +67,12 @@ export default () => {
         }
     }
 
-    return <Center>
-        <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #e6e6ea"  boxShadow='base' borderRadius="10px" width="500px">
+    return <Grid
+        templateRows='repeat(2, 1fr)'
+
+        templateColumns='repeat(2, 1fr)'
+    >
+        <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #e6e6ea" boxShadow='base' borderRadius="10px" width="500px">
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 정보</Box>
             <Grid templateColumns="1fr 1fr" width="70%" margin="auto">
                 <Box borderRadius="50%" width="50px" height="50px" margin="auto" overflow="hidden" ><Image
@@ -88,21 +94,24 @@ export default () => {
                 <Box textAlign="center" borderBottom="1px solid #e6e6ea" marginBottom="5px" h={"25px"} color="black" width="50%" margin="auto">전체승률</Box>
             </Grid>
             <Grid justifyContent="center" gap="10px">
-               
-                <Button width="100px"  border="1px solid #e6e6ea" 
-                // border="1px solid black"
-                  boxShadow='base' borderRadius="10px" onClick={() => {
-                    nav('/mypage/modify')
-                }}>정보수정</Button>
-                  </Grid>
-                  <Flex justify={'end'}>
-                  <Button 
-                  width="50px" 
-                  fontSize={'10px'}  
-                  border='none' 
-                  color={'crimson'}
-                  onClick={deleteUser}>회원탈퇴</Button>
-                  </Flex>
+
+                <Button width="100px" border="1px solid #e6e6ea"
+                    // border="1px solid black"
+                    boxShadow='base' borderRadius="10px" onClick={() => {
+                        nav('/mypage/modify')
+                    }}>정보수정</Button>
+            </Grid>
+            <Flex justify={'end'}>
+                <Button
+                    width="50px"
+                    fontSize={'10px'}
+                    border='none'
+                    color={'crimson'}
+                    onClick={deleteUser}>회원탈퇴</Button>
+            </Flex>
         </Stack>
-    </Center>
+        <Mypost />
+        <Mycomment />
+
+    </Grid >
 }; 
