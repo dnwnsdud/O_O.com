@@ -103,12 +103,12 @@ export default () => {
         category: category,
         title: topic,
         leftSide: {
-            image: leftimage,
+            images: leftimage,
             title: lefttitle,
             content: leftcontent,
         },
         rightSide: {
-            image: rightimage,
+            images: rightimage,
             title: righttitle,
             content: rightcontent,
         }

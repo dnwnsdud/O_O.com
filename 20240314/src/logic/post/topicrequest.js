@@ -3,7 +3,7 @@
 export default async (req, res, next) => {
   try {
     let create = new req.mongo.request(req.body);
-    if((req.body.leftSide.image != "" && req.body.rightSide.image == "")||(req.body.leftSide.image  == "" && req.body.rightSide.image != "")){
+    if((req.body.leftSide.images != "" && req.body.rightSide.images == "")||(req.body.leftSide.images  == "" && req.body.rightSide.images != "")){
         res.status(201).json({success: false});
 
     }

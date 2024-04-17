@@ -110,12 +110,12 @@ export default () => {
         title : topic,
         user : user.nickname,
         leftSide:{
-            image:leftimage,
+            images:leftimage,
             title:lefttitle,
             content:leftcontent,
         },
         rightSide:{
-            image:rightimage,
+            images:rightimage,
             title:righttitle,
             content:rightcontent,
         }
@@ -135,10 +135,12 @@ export default () => {
         throw new Error("Network response was not ok.");
     })
     .then((data)=>{
-        if(data.success == true){
+        if(data.success){
             nav('/')
         }
-        throw new Error("data was not ok.");
+        else{
+          throw new Error("data was not ok.");
+        }
     })
     }
 
