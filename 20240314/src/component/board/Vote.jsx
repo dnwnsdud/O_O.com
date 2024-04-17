@@ -24,10 +24,10 @@ export default ({ todayVote, main }) => {
       .then(res => res.json())
       .then(data => {
         console.log(data);
-        if (data.success) {
+        if (data.success === true) {
           alert("참여완료");
         } else {
-          alert("이미 참여하셨습니다.");
+          alert(data.success);
         }
       })
   }
@@ -223,6 +223,10 @@ export default ({ todayVote, main }) => {
                   </Flex>
                   :
                   <Flex justifyContent={"end"}>
+                    <Button onClick={() => {
+                      if (user === "logout") return alert("로그인이 필요합니다.");
+                      onClose();
+                    }}>요청하기</Button>
                     <Button variant='ghost' onClick={() => {
                       if (user === "logout") return alert("로그인이 필요합니다.");
                       if (choice === "") return alert("선택해주세요.");
@@ -232,10 +236,6 @@ export default ({ todayVote, main }) => {
                       agree(choice, user.email);
 
                     }}>참여하기</Button>
-                    <Button onClick={() => {
-                      if (user === "logout") return alert("로그인이 필요합니다.");
-                      onClose();
-                    }}>요청하기</Button>
                   </Flex>
               }
 
