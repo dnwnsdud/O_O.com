@@ -40,7 +40,9 @@ export default () => {
         })
         .then((data) => {
           if (data) {
-            const sortedData = data.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            const sortedData = data.data.sort(
+              (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+            );
             setUserData(sortedData);
             setTotalPosts(data.totalCount);
           } else {
@@ -83,7 +85,7 @@ export default () => {
       id: userId,
       postId: postId,
       userEmail: userEmail,
-      state: state
+      state: state,
     };
 
     try {
@@ -179,20 +181,36 @@ export default () => {
                     </Grid>
                   </Link>
                   {user.blacktype === "기타" && (
-                    <Button onClick={() => {
-                      submit(user._id, user.blackid, user.email, "open"),
-                        setTimeout(() => {
-                          onOpen()
-                        }, 400)
-                    }}>내용보기</Button>
+                    <Button
+                      onClick={() => {
+                        submit(user._id, user.blackid, user.email, "open"),
+                          setTimeout(() => {
+                            onOpen();
+                          }, 400);
+                      }}
+                    >
+                      내용보기
+                    </Button>
                   )}
                   <RepodeModal
                     openData={openData}
                     isOpen={isOpen}
                     onClose={onClose}
                   />
-                  <Button onClick={() => submit(user._id, user.blackid, user.email, "reject")}>반려</Button>
-                  <Button onClick={() => submit(user._id, user.blackid, user.email, "approval")}>승인</Button>
+                  <Button
+                    onClick={() =>
+                      submit(user._id, user.blackid, user.email, "reject")
+                    }
+                  >
+                    반려
+                  </Button>
+                  <Button
+                    onClick={() =>
+                      submit(user._id, user.blackid, user.email, "approval")
+                    }
+                  >
+                    승인
+                  </Button>
                 </Grid>
               </ListItem>
             ))}

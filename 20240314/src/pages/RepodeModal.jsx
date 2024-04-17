@@ -8,7 +8,7 @@ import {
   Button,
   Text,
   useDisclosure,
-  Box
+  Box,
 } from "@chakra-ui/react";
 
 export default ({ isOpen, onClose, openData }) => {
