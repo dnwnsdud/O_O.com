@@ -63,7 +63,7 @@ export default ({ todayVote }) => {
             bg={"black"}
             opacity={.5}
             w={"100%"}
-            position={"absolute"}
+            position={"fixed"}
             left={0}
             top={0}
             h={"100%"}
@@ -88,9 +88,9 @@ export default ({ todayVote }) => {
             onClose={onClose}
             w={"60%"}
             maxW={"800px"}
-            position={"absolute"}
+            position={"fixed"}
             left={"50%"}
-            top={"30%"}
+            top={"50%"}
             transform={"translate(-50%, -50%)"}
             onKeyDown={(e) => {
               if (e.key === "esc") {
@@ -114,8 +114,8 @@ export default ({ todayVote }) => {
               <Divider />
               <Center fontSize={"3xl"} fontWeight={"bold"}>{todayVote.title ? todayVote.title : "없을걸"}</Center>
               <Box >
-                <Flex gap={4} w={"100%"}>
-                  <Card maxW='sm' cursor={"pointer"} _hover={
+                <Flex w={"100%"} justifyContent={"space-around"}>
+                  <Card w={"45%"} maxW='sm' cursor={"pointer"} _hover={
                     { boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.5)" }
                   }
                     onClick={() => {
@@ -154,6 +154,7 @@ export default ({ todayVote }) => {
                     </CardBody>
                   </Card>
                   <Card
+                  w={"45%"}
                     maxW='sm' cursor={"pointer"} _hover={
                       { boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.5)" }
                     }

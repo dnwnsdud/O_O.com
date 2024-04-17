@@ -11,7 +11,10 @@ export default async (req, res, next) => {
             res.json({ success: false });
             return;
         }
-
+        if (vote.leftSide.participants.includes(user) || vote.rightSide.participants.includes(user)) {
+            res.json({ success: false });
+            return;
+        }
         let participantsArray = [];
         if (choice === "left") {
             participantsArray = vote.leftSide.participants;
@@ -22,10 +25,7 @@ export default async (req, res, next) => {
             return;
         }
 
-        if (participantsArray.includes(user)) {
-            res.json({ success: false });
-            return;
-        }
+
 
         updateQuery = {
             $addToSet: {
