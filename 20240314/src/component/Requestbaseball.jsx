@@ -71,7 +71,7 @@ export default()=>{
                                 <Box>{data.user}</Box>
                                 <Box>{data.date}</Box>
                                 <Button onClick={()=>{
-                                    nav()
+                                    nav(`/requestlist/id=${data._id}`)
                                 }}>자세히보기</Button>
                             </Grid>
                         </ListItem>

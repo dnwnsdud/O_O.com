@@ -13,8 +13,6 @@ import Requestsociety from "../component/Requestsociety";
 
 export default () => {
 
-
-    
   return (
     <Stack>
       <Box margin={"auto"}>요청내역</Box>

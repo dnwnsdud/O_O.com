@@ -1,7 +1,7 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { Box, Button, Center, Divider, Grid, List, ListIcon, ListItem, Stack, Flex } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
@@ -32,6 +32,7 @@ export default()=>{
       "0"
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
+  let nav = useNavigate();
 
   useEffect(()=>{
     try{
@@ -69,7 +70,7 @@ export default()=>{
                                 <Box>{data.user}</Box>
                                 <Box>{data.date}</Box>
                                 <Button onClick={()=>{
-                                    nav()
+                                    nav(`/requestlist/id=${data._id}`)
                                 }}>자세히보기</Button>
                             </Grid>
                         </ListItem>
