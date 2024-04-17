@@ -47,7 +47,7 @@ export default () => {
                     bestpost.map((posts) => (
                         <ListItem key={posts._id}>
                             <Grid key={`grid_${posts._id}`} templateColumns="1fr 2fr 1fr 0.5fr 0.5fr" paddingBottom={"3px"}>
-                                <Box key={`box_${posts._id}`} margin={"auto"} borderRadius={"10px"} backgroundColor={"#c8c8d0"} color={"#3b3b44"} fontSize={"13px"} padding={"5px 10px"} h='80%' width={"43px"} textAlign={"center"}>{posts.tap}</Box>
+                                <Box key={`box_${posts._id}`} margin={"auto"} borderRadius={"10px"} backgroundColor={"#c8c8d0"} color={"#3b3b44"} fontSize={"13px"} padding={"5px 10px"} h='80%' lineHeight={"80%"} width={"43px"} textAlign={"center"}>{posts.tap}</Box>
                                 <Flex key={`flex_${posts._id}`} margin={"auto"} alignItems={"center"} gap={"5px"}>
                                     <Box key={`title_${posts._id}`} _hover={{ textDecoration: "underline" }}><Link to={`/b/id=${posts._id}`}>{posts.title}</Link></Box>
                                     <Box key={`comment_${posts._id}`} fontSize="10px" opacity={0.7} >[{posts.comment.length}]</Box>

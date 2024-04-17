@@ -8,11 +8,11 @@ export default async (req, res, next) => {
         const vote = await req.mongo.vote.findOne({ _id: voteId });
 
         if (!vote) {
-            res.json({ success: false });
+            res.json({ success: "오류 발생" });
             return;
         }
         if (vote.leftSide.participants.includes(user) || vote.rightSide.participants.includes(user)) {
-            res.json({ success: false });
+            res.json({ success: "이미 참여하셨습니다" });
             return;
         }
         let participantsArray = [];
@@ -21,7 +21,7 @@ export default async (req, res, next) => {
         } else if (choice === "right") {
             participantsArray = vote.rightSide.participants;
         } else {
-            res.json({ success: false });
+            res.json({ success: "오류 발생" });
             return;
         }
 
@@ -40,13 +40,13 @@ export default async (req, res, next) => {
         );
 
         if (!updatedVote) {
-            res.json({ success: false });
+            res.json({ success: "오류 발생" });
             return;
         }
 
         res.json({ success: true });
     } catch (error) {
         console.error(error);
-        res.json({ success: false });
+        res.json({ success: "오류 발생" });
     }
 };
