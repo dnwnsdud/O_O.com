@@ -1,9 +1,18 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Box, Button, Center, Divider, Grid, List, ListIcon, ListItem, Stack, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Divider,
+  Grid,
+  List,
+  ListIcon,
+  ListItem,
+  Stack,
+  Flex,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-
 
 export default () => {
   const [baseballData, setBaseballData] = useState([]);
@@ -41,7 +50,7 @@ export default () => {
           if (res) {
             return res.json();
           } else {
-            throw new Error("Network response was not ok")
+            throw new Error("Network response was not ok");
           }
         })
         .then((data) => {
@@ -49,42 +58,74 @@ export default () => {
             setBaseballData(data.baseball);
             setTotalPosts(data.baseballCount);
           } else {
-            throw new Error("Data is empty")
+            throw new Error("Data is empty");
           }
-        })
+        });
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  }, [])
+  }, []);
   console.log(currentPosts, "배열로 잘 나오지롱~~~~");
   return (
     <Center>
       <Stack w="100%">
-        <Box paddingTop="10px" fontWeight="bold" fontSize="1.2rem" textAlign="center">야구</Box>
+        <Box
+          paddingTop="10px"
+          fontWeight="bold"
+          fontSize="1.2rem"
+          textAlign="center"
+        >
+          야구
+        </Box>
         <List w="100%">
-          <Grid fontWeight="bold" bgColor="#ffffff" templateColumns={"3fr 2fr 2fr 1fr"} padding="10px 0">
+          <Grid
+            fontWeight="bold"
+            bgColor="#ffffff"
+            templateColumns={"3fr 2fr 2fr 1fr"}
+            padding="10px 0"
+          >
             <Box textAlign="center">주제</Box>
             <Box textAlign="center">닉네임</Box>
             <Box textAlign="center">날짜</Box>
             <Box></Box>
           </Grid>
-          {
-            currentPosts.map((data) => {
-              return <ListItem key={data._id}>
-
+          {currentPosts.map((data) => {
+            return (
+              <ListItem key={data._id}>
                 <Grid templateColumns={"3fr 2fr 2fr 1fr"} padding="10px 10px">
-                  <Box textAlign="center" isTruncated maxWidth="100%" paddingRight="10px">{data.title}</Box>
-                  <Box textAlign="center" isTruncated maxWidth="100%" paddingRight="10px">{data.user}</Box>
+                  <Box
+                    textAlign="center"
+                    isTruncated
+                    maxWidth="100%"
+                    paddingRight="10px"
+                  >
+                    {data.title}
+                  </Box>
+                  <Box
+                    textAlign="center"
+                    isTruncated
+                    maxWidth="100%"
+                    paddingRight="10px"
+                  >
+                    {data.user}
+                  </Box>
                   <Box textAlign="center">{formatDate(data.date)}</Box>
                   <Flex alignContent="center" justifyContent="center">
-                    <Button size="xs" bgColor="#6c839f !important" color="#ffffff" onClick={() => {
-                      nav()
-                    }}>보기</Button>
+                    <Button
+                      size="xs"
+                      bgColor="#6c839f !important"
+                      color="#ffffff"
+                      onClick={() => {
+                        nav();
+                      }}
+                    >
+                      보기
+                    </Button>
                   </Flex>
                 </Grid>
               </ListItem>
-            })
-          }
+            );
+          })}
         </List>
         <Flex justifyContent="center" marginTop={"30px"} paddingBottom="30px">
           <Button
@@ -94,25 +135,30 @@ export default () => {
           >
             <ArrowLeftIcon />
           </Button>
-          {Array.from({ length: pageCount }, (_, idx) => idx + 1).map((number) => (
-            <Button
-              key={number}
-              onClick={() => paginate(number)}
-              mx="1"
-              size="xs"
-              bg={currentPage === number ? "#f9f9f9 !important" : "#000000"}
-              variant={currentPage === number ? "outline" : "ghost"}
-              color={currentPage === number ? "#000000" : "#999999"}
-            >
-              {number}
-            </Button>
-          ))}
-          <Button size="xs" disabled={currentPage === pageCount} onClick={handleNextPage}>
+          {Array.from({ length: pageCount }, (_, idx) => idx + 1).map(
+            (number) => (
+              <Button
+                key={number}
+                onClick={() => paginate(number)}
+                mx="1"
+                size="xs"
+                bg={currentPage === number ? "#f9f9f9 !important" : "#000000"}
+                variant={currentPage === number ? "outline" : "ghost"}
+                color={currentPage === number ? "#000000" : "#999999"}
+              >
+                {number}
+              </Button>
+            )
+          )}
+          <Button
+            size="xs"
+            disabled={currentPage === pageCount}
+            onClick={handleNextPage}
+          >
             <ArrowRightIcon />
           </Button>
         </Flex>
       </Stack>
-
     </Center>
-  )
-}
+  );
+};

@@ -146,7 +146,7 @@ export default ({ todayVote, main }) => {
                       <Image
                         w={"100%"}
                         h={"100px"}
-                        src='https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202209/06/dailylife/20220906180136831gxmh.png'
+                        src={`${todayVote.leftSide.images}`}
                         alt='Green double couch with wooden legs'
                         borderRadius='lg'
                       />
