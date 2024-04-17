@@ -99,7 +99,7 @@ export default () => {
     const file = e.target.files[0];
     if (file) {
       const formData = new FormData();
-      formData.append("videos", file);
+      formData.append("images", file);
 
       fetch("/api/upload/images", {
         method: "POST",
