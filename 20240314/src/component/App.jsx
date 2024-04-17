@@ -30,6 +30,7 @@ import Myprofile from "./Myprofile";
 import Myrequest from "./Myrequest";
 import Mywrite from "./Mywrite";
 import UserModify from "./UserModify";
+import Requestlist from "../pages/Requestlist";
 
 export default () => {
 
@@ -63,6 +64,7 @@ export default () => {
           <Route path="/admin" element={<Mypage_Admin />} />
           <Route path="/admin/report" element={<Report />} />
           <Route path="/topicrequest" element={<TopicRequest />} />
+          <Route path="/requestlist" element={<Requestlist />} />
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
         <Route path="/deleteloading" element={<Loading />} />
