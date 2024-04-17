@@ -217,7 +217,7 @@ export default () => {
               </Button>
             </Grid>
           </Box>
-          <Box marginBottom="4rem" border={"1px solid black"}>
+          <Box borderRadius={"10px"} marginBottom="4rem" >
             <Vote todayVote={todayVote} />
             <BaBoard selectedTeam={selectedTeam} user={user} />
           </Box >

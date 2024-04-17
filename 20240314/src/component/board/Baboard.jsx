@@ -247,8 +247,9 @@ export default ({ selectedTeam, user }) => {
               </Grid>
             ))}
         </Box>
-        <Flex fontWeight="bold" justify="end" marginTop="10px">
+        <Flex fontWeight="bold" justify="end" marginTop="10px" pr={2}>
           <Button
+
             sx={{
               backgroundColor: "#53535f !important",
               color: "white",

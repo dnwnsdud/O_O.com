@@ -17,7 +17,6 @@ import MainStore from "../pages/MainStore";
 import Noticepost from "../pages/Noticepost";
 import Bestpost from "./Bestpost";
 import Vote from "./board/Vote";
-
 moment.locale("ko");
 export default () => {
   const location = useLocation();
@@ -25,6 +24,7 @@ export default () => {
   let today = moment(date).format("YYYY-MM-DD");
   const category = location.pathname;
   let [todayVote, setTodayVote] = useState([]);
+  let [topic, setTopic] = useState([]);
   useEffect(() => {
     fetch("/api/vote", {
       method: "POST",
@@ -34,8 +34,8 @@ export default () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "data");
-        setTodayVote(data);
+        setTodayVote(data.result);
+        setTopic(data.result2.title);
       }).catch((e) => {
         setTodayVote("비었음")
       });
@@ -80,66 +80,35 @@ export default () => {
             templateColumns={"1fr 1fr"}
             justifyContent={"space-between"}
           >
-            <Card
-              size="md"
-              cursor={"pointer"}
-              _hover={{ bg: "black" }}
-              onClick={() => {
-                nav("/b");
-              }}
-            >
-              <CardHeader>
-                <Heading size="md">야구</Heading>
-              </CardHeader>
-              <CardBody>
-                <Text>야구</Text>
-              </CardBody>
-            </Card>
-            <Card
-              size="md"
-              cursor={"pointer"}
-              _hover={{ bg: "black" }}
-              onClick={() => {
-                nav("/l");
-              }}
-            >
-              <CardHeader>
-                <Heading size="md"> LoL</Heading>
-              </CardHeader>
-              <CardBody>
-                <Text>LoL</Text>
-              </CardBody>
-            </Card>
-            <Card
-              size="md"
-              cursor={"pointer"}
-              _hover={{ bg: "black" }}
-              onClick={() => {
-                nav("/s");
-              }}
-            >
-              <CardHeader>
-                <Heading size="md">축구</Heading>
-              </CardHeader>
-              <CardBody>
-                <Text>축구</Text>
-              </CardBody>
-            </Card>
-            <Card
-              size="md"
-              cursor={"pointer"}
-              _hover={{ bg: "black" }}
-              onClick={() => {
-                nav("/c");
-              }}
-            >
-              <CardHeader>
-                <Heading size="md"> 사회</Heading>
-              </CardHeader>
-              <CardBody>
-                <Text>사회</Text>
-              </CardBody>
-            </Card>
+            {
+              topic.map((item, index) => {
+                return (
+                  <Card
+                    size="md"
+                    cursor={"pointer"}
+                    _hover={{ bg: "gray.100" }}
+                    onClick={() => {
+                      if (index === 0) {
+                        nav('/b');
+                      } else if (index === 1) {
+                        nav('/l');
+                      } else if (index === 2) {
+                        nav('/s');
+                      } else if (index === 3) {
+                        nav('/c');
+                      }
+                    }}
+                  >
+                    <CardHeader>
+                      <Heading size="md">{index === 0 ? "야구" : index === 1 ? "LoL" : index === 2 ? "축구" : index === 3 ? "사회" : "오류"}</Heading>
+                    </CardHeader>
+                    <CardBody>
+                      <Text>{item}</Text>
+                    </CardBody>
+                  </Card>
+                );
+              })
+            }
           </Grid>
           <Box
             cursor={"pointer"}
