@@ -81,7 +81,7 @@ export default () => {
 
   return (
     <>
-      <Box maxW="1300px" margin="auto">
+      <Box maxW="1300px" minH={1200} margin="auto">
         <Box overflow="hidden" h={'12rem'} margin="20px 0">
           <Img objectFit="cover" w="100%" h="150%" src="/static/img/맨위광고1.jpg"></Img>
         </Box>
@@ -207,24 +207,25 @@ export default () => {
               </Button>
             </Grid>
           </Box>
-          <Box marginBottom="4rem" border={'1px solid black'}>
+          <Box marginBottom="4rem">
             <Vote todayVote={todayVote} />
             <Lolboard selectedTeam={selectedTeam} user={user} />
           </Box>
           <Flex
+            w={"15%"}
+            position={'fixed'}
+            right={"15%"}
             direction={"column"}
             justifyContent={"space-between"}
             borderRadius={5}
             bg={"#f7f7f8"}
             overflow={"hidden"}
             h={550}
-          // marginTop={75}
           >
-            <Flex flexDirection={"column"} justifyContent={"space-between"} >
+            <Flex flexDirection={"column"} justifyContent={"space-between"} h={500}>
               <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>
               <Stack className="chat-list"
-                // maxH={"50vh"}
-                h={"40vh"}
+                maxH={450}
                 color={"black"}
                 direction={"column-reverse"}
                 pl={2}
@@ -243,7 +244,9 @@ export default () => {
                 }
               </Stack>
             </Flex>
-            <Box p={2} >
+            <Box
+              p={2}
+            >
               <Flex border='1px solid #c8c8d0' borderRadius={5}>
                 <Input
                   pl={2}

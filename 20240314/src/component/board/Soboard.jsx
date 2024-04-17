@@ -8,6 +8,7 @@ import {
   HStack,
   VStack,
   Center,
+  Stack,
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
@@ -138,7 +139,7 @@ export default ({ selectedTeam, user }) => {
 
   return (
     <>
-      <Box>
+      <Box maxW="1300px" minH={1200} margin="auto">
         <Box padding="0 10px" fontWeight="bold">
           축구
         </Box>

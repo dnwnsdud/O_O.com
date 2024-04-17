@@ -349,7 +349,9 @@ export default () => {
           </FormControl>
         </Box>
         <Flex justifyContent={"end"} gap={3}>
-          <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"}>
+          <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"} onClick={()=>{
+            window.history.back();
+          }}>
             취소
           </Button>
           <Button

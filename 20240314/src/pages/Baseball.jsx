@@ -19,7 +19,7 @@ import { useContext } from "react";
 import { UserContext } from "../hook/User";
 import { useLocation } from "react-router";
 import { io } from 'socket.io-client';
-const socket = io('http://192.168.6.3:9999', { cors: { origin: '*' } });
+const socket = io('http://localhost:9999', { cors: { origin: '*' } });
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2761297661062301"
   crossorigin="anonymous"></script>
@@ -86,7 +86,7 @@ export default () => {
 
   return (
     <>
-      <Box maxW="1300px" margin="auto">
+      <Box maxW="1300px" minH={1200} margin="auto">
         <Box overflow="hidden" h={'12rem'} margin="20px 0">
           <Img objectFit="cover" w="100%" h="150%" src="/static/img/맨위광고1.jpg"></Img>
         </Box>
@@ -222,19 +222,20 @@ export default () => {
             <BaBoard selectedTeam={selectedTeam} user={user} />
           </Box >
           <Flex
+            w={"15%"}
+            position={'fixed'}
+            right={"15%"}
             direction={"column"}
             justifyContent={"space-between"}
             borderRadius={5}
             bg={"#f7f7f8"}
             overflow={"hidden"}
             h={550}
-          // marginTop={75}
           >
-            <Flex flexDirection={"column"} justifyContent={"space-between"} >
+            <Flex flexDirection={"column"} justifyContent={"space-between"} h={500}>
               <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>
               <Stack className="chat-list"
-                // maxH={"50vh"}
-                h={"50vh"}
+                maxH={450}
                 color={"black"}
                 direction={"column-reverse"}
                 pl={2}

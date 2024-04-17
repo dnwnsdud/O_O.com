@@ -208,7 +208,7 @@ export default () => {
             </Flex>
           </Flex>
           <Divider />
-          <Box style={{ whiteSpace: "pre-wrap" }}>{baDetails.content}</Box>
+          <Box minH={"250px"} style={{ whiteSpace: "pre-wrap" }}>{baDetails.content}</Box>
           <Divider />
           {baDetails.images && (
             <Box
@@ -219,6 +219,8 @@ export default () => {
               margin="auto"
             >
               <Image
+                maxW={"60%"}
+                aspectRatio={"auto"}
                 src={`http://localhost:3000/${baDetails.images}`}
                 boxSize="100%"
                 objectFit="cover"
@@ -237,56 +239,68 @@ export default () => {
             </AspectRatio>
           )}
 
-          <Flex>
-            <Button
-              onClick={(e) => {
-                like(e);
-              }}
-            >
-              추천~!
-            </Button>
-            <Box alignContent="center">{likeCount}</Box>
-            <Button onClick={(e) => dislike(e)}>비추천!</Button>
-            <Box alignContent="center">{dislikeCount}</Box>
-            {user === "logout" ? (
-              ""
-            ) : user.role === "admin" ? (
-              ""
-            ) : !Check ? (
+          <Flex justifyContent={"space-between !important"}>
+            <Flex>
               <Button
-                onClick={() => {
-                  nav(`/b/${id}/modify`);
+                onClick={(e) => {
+                  like(e);
                 }}
               >
-                수정
+                추천~!
               </Button>
-            ) : (
-              ""
-            )}
-            {user === "logout" ? (
-              ""
-            ) : user.role === "admin" ? (
-              <Button
-                onClick={(e) =>
-                  deleteSubmit(e, baDetails._id, baDetails.email, id)
-                }
-              >
-                삭제
-              </Button>
-            ) : !Check ? (
-              <Button
-                onClick={(e) =>
-                  deleteSubmit(e, baDetails._id, baDetails.email, id)
-                }
-              >
-                삭제
-              </Button>
-            ) : (
-              ""
-            )}
+              <Box alignContent="center">{likeCount}</Box>
+              <Button onClick={(e) => dislike(e)}>비추천!</Button>
+              <Box alignContent="center">{dislikeCount}</Box>
+              {user === "logout" ? (
+                ""
+              ) : user.role === "admin" ? (
+                ""
+              ) : !Check ? (
+                <Button
+                  onClick={() => {
+                    nav(`/b/${id}/modify`);
+                  }}
+                >
+                  수정
+                </Button>
+              ) : (
+                ""
+              )}
+              {user === "logout" ? (
+                ""
+              ) : user.role === "admin" ? (
+                <Button
+                  onClick={(e) =>
+                    deleteSubmit(e, baDetails._id, baDetails.email, id)
+                  }
+                >
+                  삭제
+                </Button>
+              ) : !Check ? (
+                <Button
+                  onClick={(e) =>
+                    deleteSubmit(e, baDetails._id, baDetails.email, id)
+                  }
+                >
+                  삭제
+                </Button>
+              ) : (
+                ""
+              )}
+            </Flex>
+            <Button onClick={() => {
+              if (baDetails.tap === '야구') {
+                nav("/b")
+              } else if (baDetails.tap === '축구') {
+                nav("/s")
+              } else if (baDetails.tap === 'LOL') {
+                nav("/l")
+              } else if (baDetails.tap === '사회') {
+                nav("/c")
+              }
+            }}>글 목록으로</Button>
           </Flex>
           <Coment user={user} />
-          {/* <Coments user={user} /> */}
         </Stack>
       </Stack>
     </>

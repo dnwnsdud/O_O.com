@@ -9,6 +9,7 @@ import {
   VStack,
   Center,
   styled,
+  Stack,
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
@@ -142,7 +143,7 @@ export default ({ selectedTeam, user }) => {
 
   return (
     <>
-      <Box>
+      <Stack>
         <Box padding="0 10px" fontWeight="bold">
           야구
         </Box>
@@ -262,7 +263,7 @@ export default ({ selectedTeam, user }) => {
             글쓰기
           </Button>
         </Flex>
-        <Flex justifyContent="center">
+        <Flex h={"40px !important "} justifyContent="center">
           <Button
             disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
             onClick={handlePrevPage}
@@ -306,7 +307,7 @@ export default ({ selectedTeam, user }) => {
             </InputRightElement>
           </InputGroup>
         </Flex> */}
-      </Box >
+      </Stack >
     </>
   );
 };

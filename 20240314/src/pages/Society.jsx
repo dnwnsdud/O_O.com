@@ -184,6 +184,9 @@ export default () => {
             <Ciboard selectedtab={selectedtab} user={user} />
           </Box>
           <Flex
+            w={"15%"}
+            position={'fixed'}
+            right={"15%"}
             direction={"column"}
             justifyContent={"space-between"}
             borderRadius={5}
@@ -191,11 +194,10 @@ export default () => {
             overflow={"hidden"}
             h={550}
           >
-            <Flex flexDirection={"column"} justifyContent={"space-between"}>
+            <Flex flexDirection={"column"} justifyContent={"space-between"} h={500}>
               <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>
               <Stack className="chat-list"
-                // maxH={"50vh"}
-                h={"40vh"}
+                maxH={450}
                 color={"black"}
                 direction={"column-reverse"}
                 pl={2}
@@ -206,12 +208,17 @@ export default () => {
                   chatList.map((chat, index) =>
                     <Box _hover={{
                       bg: "#dedee3"
-                    }} borderRadius={5} key={index}>{chat.user === user.nickname ? <Text color="#46a3d2" fontWeight={"bold"}>{chat.user}</Text> : <Text fontWeight={"bold"}>{chat.user}</Text>}<Text>{chat.message}</Text></Box>
+                    }} borderRadius={5} key={index}>
+                      {chat.user === user.nickname ? <Text color="#46a3d2" fontWeight={"bold"}>{chat.user}</Text> : <Text fontWeight={"bold"}>{chat.user}</Text>}
+                      <Text>{chat.message}</Text>
+                    </Box>
                   )
                 }
               </Stack>
             </Flex>
-            <Box p={2} >
+            <Box
+              p={2}
+            >
               <Flex border='1px solid #c8c8d0' borderRadius={5}>
                 <Input
                   pl={2}

@@ -146,8 +146,8 @@ export default ({ todayVote, main }) => {
                       <Image
                         w={"100%"}
                         h={"100px"}
-                        src={`${todayVote.leftSide.images}`}
-                        alt='Green double couch with wooden legs'
+                        src={`${todayVote.leftSide.images || ""}`}
+                        alt='X'
                         borderRadius='lg'
                       />
                       <Stack mt='6' spacing='3'>
@@ -192,9 +192,8 @@ export default ({ todayVote, main }) => {
                       <Image
                         w={"100%"}
                         h={"100px"}
-                        src='https://femiwiki-uploaded-files.s3.amazonaws.com/2/2d/%ED%8C%8C%EB%9E%91%EC%83%89.png'
-                        alt='Green double couch with wooden legs'
-                        borderRadius='lg'
+                        src={`${todayVote.rightSide.images || ""}`}
+                        alt='X' borderRadius='lg'
                       />
                       <Stack mt='6' spacing='3'>
                         <Heading size='md'>{todayVote == "비었음" ? "없을걸" : todayVote.rightSide.title}</Heading>
