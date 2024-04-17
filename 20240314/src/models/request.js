@@ -24,6 +24,10 @@ export default mongoose.Schema(
                 type: String,
                 required: true,
             },
+            color:{
+                type: String,
+                required: true,
+            },
             participants:
                 [
                     {
@@ -43,6 +47,10 @@ export default mongoose.Schema(
                 type: String,
                 required: true,
             },
+            color:{
+                type: String,
+                required: true,
+            },
             participants:
                 [
                     {
@@ -51,5 +59,9 @@ export default mongoose.Schema(
                 ]
 
         },
+        date: {
+            type: Date,
+            default: Date.now,
+        }
     }
 )

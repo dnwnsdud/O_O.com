@@ -21,6 +21,10 @@ export default mongoose.Schema(
                 type: String,
                 required: true,
             },
+            color:{
+                type: String,
+                required: true,
+            },
             participants:
                 [
                     {
@@ -37,6 +41,10 @@ export default mongoose.Schema(
                 required: true,
             },
             content: {
+                type: String,
+                required: true,
+            },
+            color:{
                 type: String,
                 required: true,
             },
