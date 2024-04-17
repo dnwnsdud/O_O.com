@@ -10,6 +10,7 @@ export default ({ todayVote }) => {
   let nav = useNavigate();
   let [choice, setChoice] = useState("");
   let check = <svg style={{ "width": "15%" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"> <path fill='black' d="M96 80c0-26.5 21.5-48 48-48H432c26.5 0 48 21.5 48 48V384H96V80zm313 47c-9.4-9.4-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L409 161c9.4-9.4 9.4-24.6 0-33.9zM0 336c0-26.5 21.5-48 48-48H64V416H512V288h16c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V336z" /></svg>
+
   const agree = (choice, user) => {
     console.log(choice, user);
     fetch("/api/takeVote", {
@@ -33,7 +34,7 @@ export default ({ todayVote }) => {
   return (
     <>
       <Flex h={"100%"} maxH={"255px"} direction={"column"} justifyContent={"space-around"}>
-        <Text fontSize={"3xl"} textAlign={"center"}>{todayVote.title ? todayVote.title : "없을걸"}</Text>
+        <Text fontSize={"3xl"} textAlign={"center"}>{todayVote == "비었음" ? "없을걸" : todayVote.title}</Text>
         <Flex gap="10px" padding="10px" justifyContent="center" border={"1px soild blue"}>
           <Button
             border={"2px solid #0b0b0d"}
@@ -43,7 +44,10 @@ export default ({ todayVote }) => {
           >
             이전결과
           </Button>
-          <Button border={"2px solid #0b0b0d"} onClick={onOpen}>참여하기</Button>
+          <Button border={"2px solid #0b0b0d"} onClick={() => {
+            onOpen();
+            console.log(todayVote);
+          }}>참여하기</Button>
         </Flex>
       </Flex>
 
@@ -112,7 +116,9 @@ export default ({ todayVote }) => {
                   }} />
               </Flex>
               <Divider />
-              <Center fontSize={"3xl"} fontWeight={"bold"}>{todayVote.title ? todayVote.title : "없을걸"}</Center>
+              <Center fontSize={"3xl"} fontWeight={"bold"}>{
+                todayVote == "비었음" ? "없을걸" : todayVote.title
+              }</Center>
               <Box >
                 <Flex w={"100%"} justifyContent={"space-around"}>
                   <Card w={"45%"} maxW='sm' cursor={"pointer"} _hover={
@@ -146,15 +152,17 @@ export default ({ todayVote }) => {
                         borderRadius='lg'
                       />
                       <Stack mt='6' spacing='3'>
-                        <Heading size='md'>{todayVote.leftSide.title ? todayVote.leftSide.title : "없을걸"}</Heading>
+                        <Heading size='md'>{
+                          todayVote == "비었음" ? "없을걸" : todayVote.leftSide.title
+                        }</Heading>
                         <Text>
-                          {todayVote.leftSide.content ? todayVote.leftSide.content : "없을걸"}
+                          {todayVote == "비었음" ? "없을걸" : todayVote.leftSide.content}
                         </Text>
                       </Stack>
                     </CardBody>
                   </Card>
                   <Card
-                  w={"45%"}
+                    w={"45%"}
                     maxW='sm' cursor={"pointer"} _hover={
                       { boxShadow: "0 0 10px 0 rgba(0, 0, 0, 0.5)" }
                     }
@@ -190,9 +198,9 @@ export default ({ todayVote }) => {
                         borderRadius='lg'
                       />
                       <Stack mt='6' spacing='3'>
-                        <Heading size='md'>{todayVote.rightSide.title ? todayVote.rightSide.title : "없을걸"}</Heading>
+                        <Heading size='md'>{todayVote == "비었음" ? "없을걸" : todayVote.rightSide.title}</Heading>
                         <Text>
-                          {todayVote.rightSide.content ? todayVote.rightSide.content : "없을걸"}
+                          {todayVote == "비었음" ? "없을걸" : todayVote.rightSide.content}
                         </Text>
                       </Stack>
                     </CardBody>

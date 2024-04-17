@@ -52,6 +52,8 @@ export default () => {
       .then((data) => {
         console.log(data, "data");
         setTodayVote(data);
+      }).catch((e) => {
+        setTodayVote("비었음")
       });
     return () => {
       socket.off(chatEvent, receiveMessage);
