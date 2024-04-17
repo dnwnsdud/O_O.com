@@ -202,7 +202,7 @@ export default () => {
               </Button>
             </Grid>
           </Box>
-          <Box >
+          <Box marginBottom="4rem" border={'1px solid black'}>
             <Vote todayVote={todayVote} />
             <Lolboard selectedTeam={selectedTeam} user={user} />
           </Box>
@@ -219,7 +219,7 @@ export default () => {
               <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>
               <Stack className="chat-list"
                 // maxH={"50vh"}
-                h={"50vh"}
+                h={"40vh"}
                 color={"black"}
                 direction={"column-reverse"}
                 pl={2}
