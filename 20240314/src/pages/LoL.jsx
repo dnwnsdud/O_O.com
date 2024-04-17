@@ -6,7 +6,8 @@ import {
   Grid,
   Input,
   Stack,
-  Text
+  Text,
+  Img
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
@@ -81,7 +82,9 @@ export default () => {
   return (
     <>
       <Box maxW="1300px" margin="auto">
-        <Box h={20} bg="red" margin="20px 0"></Box>
+        <Box overflow="hidden" h={'12rem'} margin="20px 0">
+          <Img objectFit="cover" w="100%" h="150%" src="/static/img/맨위광고1.jpg"></Img>
+        </Box>
         <Grid templateColumns="0.7fr 4fr 1.5fr" gap="20px">
           <Box
           // position={'relative'}

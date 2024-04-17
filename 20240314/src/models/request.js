@@ -9,7 +9,7 @@ export default mongoose.Schema(
             type: String,
             required: true,
         },
-        user:{
+        user: {
             type: String,
         },
         leftSide: {
@@ -24,9 +24,9 @@ export default mongoose.Schema(
                 type: String,
                 required: true,
             },
-            color:{
+            color: {
                 type: String,
-                required: true,
+                // required: true,
             },
             participants:
                 [
@@ -47,9 +47,9 @@ export default mongoose.Schema(
                 type: String,
                 required: true,
             },
-            color:{
+            color: {
                 type: String,
-                required: true,
+                // required: true,
             },
             participants:
                 [
