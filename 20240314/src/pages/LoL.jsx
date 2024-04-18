@@ -21,7 +21,6 @@ import { UserContext } from "../hook/User";
 import { useLocation } from "react-router";
 const socket = io("http://192.168.6.3:9999", { cors: { origin: "*" } });
 export default () => {
-  const [selectedTeam, setSelectedTeam] = useState("모든 팀");
   const { user } = useContext(UserContext);
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -91,131 +90,11 @@ export default () => {
             src="/static/img/맨위광고1.jpg"
           ></Img>
         </Box>
-        <Grid templateColumns="0.7fr 4fr 1.5fr" gap="20px">
-          <Box
-          // position={'relative'}
-          >
-            <Grid
-              templateColumns="repeat(1 , 1fr)"
-              gap="1px"
-              padding="10px 30px"
-              marginTop={200}
-            >
-              <Button
-                sx={{
-                  backgroundColor: "#5181e3 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("모든 팀")}
-              >
-                전체
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#e4002b !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("T1")}
-              >
-                T1
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#aa8a00 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("Gen.G")}
-              >
-                Gen.G
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#ff6b01 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("한화생명")}
-              >
-                한화생명
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#000 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("KT")}
-              >
-                KT
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#0ec7b5 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("DK")}
-              >
-                DK
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#e73312 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("광동")}
-              >
-                광동
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#FFC900 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("피어엑스")}
-              >
-                피어엑스
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#de2027 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("농심")}
-              >
-                농심
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#5a8dff !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("DRX")}
-              >
-                DRX
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#00492b !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("브리온")}
-              >
-                브리온
-              </Button>
-            </Grid>
-          </Box>
+        <Grid templateColumns="4fr 1.5fr" gap="20px">
+
           <Box marginBottom="4rem">
             <Vote todayVote={todayVote} />
-            <Lolboard selectedTeam={selectedTeam} user={user} />
+            <Lolboard user={user} />
           </Box>
           <Flex
             w={"15%"}

@@ -62,6 +62,8 @@ export default ({ selectedtab, user }) => {
   const [currentTab, setCurrentTab] = useState("사회");
   const [sortOrder, setSortOrder] = useState("최신순");
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedtab, setSelectedTab] = useState("전체");
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -138,6 +140,95 @@ export default ({ selectedtab, user }) => {
   return (
     <>
       <Box>
+      <Box
+          // position={'relative'}
+          >
+            <Grid
+              templateColumns="repeat(8 , 1fr)"
+              gap={4}
+            >
+              <Button
+                sx={{
+                  backgroundColor: "#5181e3 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTab("전체")}
+              >
+                전체
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#C30452 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTab("잡담")}
+              >
+                잡담
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#041E42 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTab("정치")}
+              >
+                정치
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#EA0029 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTab("연예")}
+              >
+                연예
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#CE0E2D !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTab("여행")}
+              >
+                여행
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#000000 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTab("취미")}
+              >
+                취미
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#FF6600 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTab("경제")}
+              >
+                경제
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#074CA1 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTab("역사")}
+              >
+                역사
+              </Button>
+            </Grid>
+          </Box>
         <Box padding="0 10px" fontWeight="bold">
           사회
         </Box>

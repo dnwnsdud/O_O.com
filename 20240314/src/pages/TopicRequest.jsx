@@ -15,7 +15,7 @@ import {
     Button,
     Divider
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../hook/User";
 
 
@@ -31,6 +31,8 @@ export default () => {
     const [rightimage, setRightimage] = useState("");
 
     let nav = useNavigate();
+    const location = useLocation();
+    let id = location.pathname.slice(location.pathname.indexOf("=") + 1);
 
     const onCategoryHandler = (e) => {
         setCategory(e.target.value);
@@ -150,7 +152,7 @@ export default () => {
                 <Heading>오늘의 O_O 작성</Heading>
                 <FormControl isRequired>
                     <FormLabel>카테고리</FormLabel>
-                    <Select placeholder="카테고리를 선택해주세요" onChange={onCategoryHandler} >
+                    <Select defaultValue={id} onChange={onCategoryHandler} >
                         <option value='baseball'>야구</option>
                         <option value='lol'>LoL</option>
                         <option value='soccer'>축구</option>

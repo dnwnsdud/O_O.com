@@ -46,7 +46,7 @@ const getDayMinuteCounter = (date) => {
   return Math.abs(dayDiff) + "일 전";
 };
 
-export default ({ selectedTeam, user }) => {
+export default ({ user }) => {
   const nav = useNavigate();
 
   const goToPage = () => {
@@ -64,6 +64,8 @@ export default ({ selectedTeam, user }) => {
   const [currentTab, setCurrentTab] = useState("축구");
   const [sortOrder, setSortOrder] = useState("최신순");
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTeam, setSelectedTeam] = useState("전체");
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -140,6 +142,85 @@ export default ({ selectedTeam, user }) => {
   return (
     <>
       <Box maxW="1300px" minH={1200} margin="auto">
+      <Box
+        // position={'relative'}
+        >
+          <Grid
+            templateColumns="repeat(7 , 1fr)"
+            gap={4}
+          >
+            <Button
+              sx={{
+                backgroundColor: "#5181e3 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("전체")}
+            >
+              전체
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("EPL")}
+            >
+              EPL
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("라리가")}
+            >
+              라리가
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("분데스리가")}
+            >
+              분데스리가
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("세리에")}
+            >
+              세리에
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("K리그")}
+            >
+              K리그
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#e4002b !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("국대")}
+            >
+              국대
+            </Button>
+          </Grid>
+        </Box>
         <Box padding="0 10px" fontWeight="bold">
           축구
         </Box>

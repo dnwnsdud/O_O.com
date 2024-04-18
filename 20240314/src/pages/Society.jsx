@@ -23,7 +23,6 @@ const socket = io("http://192.168.6.3:9999", { cors: { origin: "*" } });
 
 export default () => {
   const { user } = useContext(UserContext);
-  const [selectedtab, setSelectedTab] = useState("전체");
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const location = useLocation();
@@ -93,101 +92,11 @@ export default () => {
             src="/static/img/맨위광고1.jpg"
           ></Img>
         </Box>
-        <Grid templateColumns="0.7fr 4fr 1.5fr" gap="20px">
-          <Box
-          // position={'relative'}
-          >
-            <Grid
-              templateColumns="repeat(1 , 1fr)"
-              gap="1px"
-              padding="10px 30px"
-              marginTop={200}
-            >
-              <Button
-                sx={{
-                  backgroundColor: "#5181e3 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTab("전체")}
-              >
-                전체
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#C30452 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTab("잡담")}
-              >
-                잡담
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#041E42 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTab("정치")}
-              >
-                정치
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#EA0029 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTab("연예")}
-              >
-                연예
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#CE0E2D !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTab("여행")}
-              >
-                여행
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#000000 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTab("취미")}
-              >
-                취미
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#FF6600 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTab("경제")}
-              >
-                경제
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#074CA1 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTab("역사")}
-              >
-                역사
-              </Button>
-            </Grid>
-          </Box>
+        <Grid templateColumns="4fr 1.5fr" gap="20px">
+
           <Box marginBottom="4rem">
             <Vote todayVote={todayVote} />
-            <Ciboard selectedtab={selectedtab} user={user} />
+            <Ciboard user={user} />
           </Box>
           <Flex
             w={"15%"}
