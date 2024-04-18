@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Grid
+  Grid,
+  Button,
+  Flex
 } from "@chakra-ui/react";
 
 import Requestbaseball from "../component/Requestbaseball";
 import Requestlol from "../component/Requestlol";
 import Requestsoccer from "../component/Requestsoccer";
 import Requestsociety from "../component/Requestsociety";
+import { useNavigate } from "react-router-dom";
 
 export default () => {
+
+  let nav = useNavigate();
   const [baseballData, setBaseballData] = useState([]);
   const [BaseballPosts, setBaseballPosts] = useState(10);
 
@@ -69,6 +74,18 @@ export default () => {
           <Requestsociety societyData={societyData} societyPosts={societyPosts}/>
         </Box>
       </Grid>
+      <Flex justifyContent={"end"} marginBottom={8}>
+        <Button
+          size="sm"
+          bgColor="#6c839f !important"
+          color="#ffffff"
+          onClick={() => {
+            nav(`/vote`);
+          }}
+        >
+          요청
+        </Button>
+      </Flex>
     </Box>
   );
 };

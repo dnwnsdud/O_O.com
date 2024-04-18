@@ -194,7 +194,12 @@ export default () => {
           관리자페이지
         </Box>
         <Flex w="100%" justifyContent="right">
-          <Grid templateColumns="1fr 1fr 1fr" w="200px" gap="10px">
+          <Grid templateColumns="1fr 1fr 1fr 1fr" w="350px" gap="10px">
+            <Button onClick={() => {
+              nav("/requestlist")
+            }} border="1px solid black" borderRadius="10px">
+              토픽요청
+            </Button>
             <Button onClick={() => {
               nav("/n")
             }} border="1px solid black" borderRadius="10px">
@@ -376,39 +381,6 @@ export default () => {
                 </ListItem>
               );
             })}
-          </List>
-        </Box>
-        <Box>토픽요청</Box>
-        <Box border="1px solid black">
-          <Grid
-            templateColumns="1fr 1fr 1fr"
-            borderBottom="1px solid black"
-            textAlign="center"
-          >
-            <Box>아이디</Box>
-            <Box>요청내용</Box>
-            <Box>승인여부</Box>
-          </Grid>
-          <List height="100px">
-            <Grid
-              templateColumns="1fr 1fr 1fr"
-              textAlign="center"
-              alignItems="center"
-              padding="5px 0"
-            >
-              <Box>1</Box>
-              <Box>1</Box>
-              <Flex justifyContent="center" gap="5px">
-                <Button w="100px" border="1px solid black" borderRadius="10px">
-                  요청승인
-                </Button>
-                <Button w="100px" border="1px solid black" borderRadius="10px">
-                  요청반려
-                </Button>
-              </Flex>
-            </Grid>
-            <Box>1</Box>
-            <Box>1</Box>
           </List>
         </Box>
         <Box>사용량</Box>
