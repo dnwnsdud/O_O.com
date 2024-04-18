@@ -99,14 +99,14 @@ export default () => {
                   templateColumns="3fr 1fr"
                   borderBottom="1px solid #e6e6ea"
                   textAlign="center"
-                  padding={"8px 0"}
+                  // padding={"8px 0"}
                   fontSize={"13px"}
                 >
                   <Link to={`/b/id=${user.postId}`}>
                     <Grid
                       templateColumns=" 1fr 1fr 1fr"
                       textAlign="center"
-                      padding={"8px 0"}
+                      // padding={"8px 0"}
                       fontSize={"13px"}
 
                     >
