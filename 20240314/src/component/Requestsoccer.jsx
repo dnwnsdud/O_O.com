@@ -11,14 +11,12 @@ import {
   Stack,
   Flex,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default () => {
-  const [soccerData, setSoccerData] = useState([]);
+export default ({soccerData , soccerPosts }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
-  const [totalPosts, setTotalPosts] = useState(10);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -26,7 +24,7 @@ export default () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const pageCount = Math.ceil(totalPosts / postsPerPage);
+  const pageCount = Math.ceil(soccerPosts / postsPerPage);
   const handlePrevPage = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
   };
@@ -43,28 +41,7 @@ export default () => {
   };
   let nav = useNavigate();
 
-  useEffect(() => {
-    try {
-      fetch("/api/requestlist")
-        .then((res) => {
-          if (res) {
-            return res.json();
-          } else {
-            throw new Error("Network response was not ok");
-          }
-        })
-        .then((data) => {
-          if (data) {
-            setSoccerData(data.soccer);
-            setTotalPosts(data.soccerCount);
-          } else {
-            throw new Error("Data is empty");
-          }
-        });
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }, []);
+  
   return (
     <Center>
       <Stack w="100%">
@@ -115,7 +92,7 @@ export default () => {
                       bgColor="#6c839f !important"
                       color="#ffffff"
                       onClick={() => {
-                        nav();
+                        nav(`/requestlist/id=${data._id}`);
                       }}
                     >
                       보기
