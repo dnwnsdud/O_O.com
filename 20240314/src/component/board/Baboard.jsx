@@ -287,26 +287,6 @@ export default ({ selectedTeam, user }) => {
             <ArrowRightIcon />
           </Button>
         </Flex>
-        {/* 
-        <Flex h={50} padding="10px" justify="center">
-          <InputGroup w={400}>
-            <Input
-              pr="4.5rem"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <InputRightElement>
-              <Button
-                size="xs"
-                padding="22px 17px"
-                backgroundColor="#5181e3 !important"
-                onClick={() => fetchPosts()}
-              >
-                <SearchIcon w="20px" h="20px" color="#fff" />
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-        </Flex> */}
       </Stack >
     </>
   );

@@ -86,7 +86,7 @@ export default () => {
 
   return (
     <>
-      <Box maxW="1300px" minH={1200} margin="auto" position={"relative"} overflow={"hidden"}>
+      <Box maxW="1300px" minH={1200} margin="auto" overflow={"hidden"}>
         <Box overflow="hidden" h={'12rem'} margin="20px 0">
           <Img objectFit="cover" w="100%" h="150%" src="/static/img/맨위광고1.jpg"></Img>
         </Box>
@@ -223,19 +223,19 @@ export default () => {
           </Box >
           <Flex
             // w={"15%"}
-            position={'fixed'}
-            right={"15%"}
+            // position={'fixed'}
+            // right={"15%"}
             direction={"column"}
             justifyContent={"space-between"}
             borderRadius={5}
             bg={"#f7f7f8"}
             overflow={"hidden"}
-            h={450}
+            h={"100vh"}
           >
-            <Flex flexDirection={"column"} justifyContent={"space-between"} h={400} w={150}>
+            <Flex flexDirection={"column"} justifyContent={"space-between"} h={"95vh"} w={150}>
               <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>
               <Stack className="chat-list"
-                maxH={350}
+                maxH={"90vh"}
                 color={"black"}
                 direction={"column-reverse"}
                 pl={2}
