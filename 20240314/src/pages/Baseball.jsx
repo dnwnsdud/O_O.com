@@ -86,7 +86,7 @@ export default () => {
 
   return (
     <>
-      <Box maxW="1300px" minH={1200} margin="auto">
+      <Box maxW="1300px" minH={1200} margin="auto" position={"relative"} overflow={"hidden"}>
         <Box overflow="hidden" h={'12rem'} margin="20px 0">
           <Img objectFit="cover" w="100%" h="150%" src="/static/img/맨위광고1.jpg"></Img>
         </Box>
@@ -222,7 +222,7 @@ export default () => {
             <BaBoard selectedTeam={selectedTeam} user={user} />
           </Box >
           <Flex
-            w={"15%"}
+            // w={"15%"}
             position={'fixed'}
             right={"15%"}
             direction={"column"}
@@ -230,12 +230,12 @@ export default () => {
             borderRadius={5}
             bg={"#f7f7f8"}
             overflow={"hidden"}
-            h={550}
+            h={450}
           >
-            <Flex flexDirection={"column"} justifyContent={"space-between"} h={500}>
+            <Flex flexDirection={"column"} justifyContent={"space-between"} h={400} w={150}>
               <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>
               <Stack className="chat-list"
-                maxH={450}
+                maxH={350}
                 color={"black"}
                 direction={"column-reverse"}
                 pl={2}

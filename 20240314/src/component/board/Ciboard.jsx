@@ -248,7 +248,7 @@ export default ({ selectedtab, user }) => {
             글쓰기
           </Button>
         </Flex>
-        <Flex justifyContent="center">
+        <Flex  h={"40px !important "} justifyContent="center">
           <Button
             disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
             onClick={handlePrevPage}
