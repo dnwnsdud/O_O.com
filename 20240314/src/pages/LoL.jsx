@@ -7,7 +7,7 @@ import {
   Input,
   Stack,
   Text,
-  Img
+  Img,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
@@ -15,33 +15,31 @@ import React from "react";
 import Vote from "../component/board/Vote";
 import Lolboard from "../component/board/Lolboard";
 import { useContext, useState, useEffect } from "react";
-import { io } from 'socket.io-client';
+import { io } from "socket.io-client";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../hook/User";
 import { useLocation } from "react-router";
-const socket = io('http://192.168.6.3:9999', { cors: { origin: '*' } });
+const socket = io("http://192.168.6.3:9999", { cors: { origin: "*" } });
 export default () => {
-
-  const [selectedTeam, setSelectedTeam] = useState('모든 팀');
+  const [selectedTeam, setSelectedTeam] = useState("모든 팀");
   const { user } = useContext(UserContext);
   const [chatList, setChatList] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const location = useLocation();
   const currentPath = location.pathname;
   let [todayVote, setTodayVote] = useState([]);
-  const category = currentPath
+  const category = currentPath;
   useEffect(() => {
-    const room = currentPath.split('/')[1];
-    const chatEvent = room + '_chat';
+    const room = currentPath.split("/")[1];
+    const chatEvent = room + "_chat";
     const receiveMessage = (data) => {
-      setChatList(prevChatList => [data, ...prevChatList]);
+      setChatList((prevChatList) => [data, ...prevChatList]);
       console.log(data);
     };
 
-    socket.emit('join_room', room);
+    socket.emit("join_room", room);
     socket.on(chatEvent, (data) => {
-      setChatList(prevChatList => [data, ...prevChatList]);
-
+      setChatList((prevChatList) => [data, ...prevChatList]);
     });
     fetch("/api/vote", {
       method: "POST",
@@ -53,37 +51,45 @@ export default () => {
       .then((data) => {
         console.log(data, "data");
         setTodayVote(data);
-      }).catch((e) => {
-        setTodayVote("비었음")
+      })
+      .catch((e) => {
+        setTodayVote("비었음");
       });
     return () => {
       socket.off(chatEvent, receiveMessage);
     };
   }, [location.pathname]);
 
-
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (inputValue.trim() !== '') {
+    if (inputValue.trim() !== "") {
       const currentPath = location.pathname;
-      const room = currentPath.split('/')[1];
-      const chatEvent = room + '_chat';
+      const room = currentPath.split("/")[1];
+      const chatEvent = room + "_chat";
 
-      socket.emit(chatEvent, { room: room, user: user.nickname, chat: `${inputValue}` });
-      setInputValue('');
+      socket.emit(chatEvent, {
+        room: room,
+        user: user.nickname,
+        chat: `${inputValue}`,
+      });
+      setInputValue("");
     }
   };
 
   return (
     <>
       <Box maxW="1300px" minH={1200} margin="auto">
-        <Box overflow="hidden" h={'12rem'} margin="20px 0">
-          <Img objectFit="cover" w="100%" h="150%" src="/static/img/맨위광고1.jpg"></Img>
+        <Box overflow="hidden" h={"12rem"} margin="20px 0">
+          <Img
+            objectFit="cover"
+            w="100%"
+            h="150%"
+            src="/static/img/맨위광고1.jpg"
+          ></Img>
         </Box>
         <Grid templateColumns="0.7fr 4fr 1.5fr" gap="20px">
           <Box
@@ -93,7 +99,6 @@ export default () => {
               templateColumns="repeat(1 , 1fr)"
               gap="1px"
               padding="10px 30px"
-
               marginTop={200}
             >
               <Button
@@ -102,7 +107,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
-                onClick={() => setSelectedTeam('모든 팀')}
+                onClick={() => setSelectedTeam("모든 팀")}
               >
                 전체
               </Button>
@@ -112,7 +117,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
-                onClick={() => setSelectedTeam('T1')}
+                onClick={() => setSelectedTeam("T1")}
               >
                 T1
               </Button>
@@ -122,7 +127,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
-                onClick={() => setSelectedTeam('Gen.G')}
+                onClick={() => setSelectedTeam("Gen.G")}
               >
                 Gen.G
               </Button>
@@ -132,7 +137,8 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
-                onClick={() => setSelectedTeam('한화생명')} >
+                onClick={() => setSelectedTeam("한화생명")}
+              >
                 한화생명
               </Button>
               <Button
@@ -141,7 +147,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
-                onClick={() => setSelectedTeam('KT')}
+                onClick={() => setSelectedTeam("KT")}
               >
                 KT
               </Button>
@@ -151,7 +157,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
-                onClick={() => setSelectedTeam('DK')}
+                onClick={() => setSelectedTeam("DK")}
               >
                 DK
               </Button>
@@ -161,7 +167,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
-                onClick={() => setSelectedTeam('광동')}
+                onClick={() => setSelectedTeam("광동")}
               >
                 광동
               </Button>
@@ -171,7 +177,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
-                onClick={() => setSelectedTeam('피어엑스')}
+                onClick={() => setSelectedTeam("피어엑스")}
               >
                 피어엑스
               </Button>
@@ -181,7 +187,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
-                onClick={() => setSelectedTeam('농심')}
+                onClick={() => setSelectedTeam("농심")}
               >
                 농심
               </Button>
@@ -191,7 +197,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
-                onClick={() => setSelectedTeam('DRX')}
+                onClick={() => setSelectedTeam("DRX")}
               >
                 DRX
               </Button>
@@ -201,7 +207,7 @@ export default () => {
                   color: "#ffffff",
                 }}
                 size="xs"
-                onClick={() => setSelectedTeam('브리온')}
+                onClick={() => setSelectedTeam("브리온")}
               >
                 브리온
               </Button>
@@ -213,7 +219,7 @@ export default () => {
           </Box>
           <Flex
             w={"15%"}
-            position={'fixed'}
+            position={"fixed"}
             right={"15%"}
             direction={"column"}
             justifyContent={"space-between"}
@@ -222,9 +228,16 @@ export default () => {
             overflow={"hidden"}
             h={550}
           >
-            <Flex flexDirection={"column"} justifyContent={"space-between"} h={500}>
-              <Box pl={2} color={"black"} fontSize={"xl"}>채팅</Box>
-              <Stack className="chat-list"
+            <Flex
+              flexDirection={"column"}
+              justifyContent={"space-between"}
+              h={500}
+            >
+              <Box pl={2} color={"black"} fontSize={"xl"}>
+                채팅
+              </Box>
+              <Stack
+                className="chat-list"
                 maxH={450}
                 color={"black"}
                 direction={"column-reverse"}
@@ -232,22 +245,28 @@ export default () => {
                 pr={2}
                 overflowY={"scroll"}
               >
-                {
-                  chatList.map((chat, index) =>
-                    <Box _hover={{
-                      bg: "#dedee3"
-                    }} borderRadius={5} key={index}>
-                      {chat.user === user.nickname ? <Text color="#46a3d2" fontWeight={"bold"}>{chat.user}</Text> : <Text fontWeight={"bold"}>{chat.user}</Text>}
-                      <Text>{chat.message}</Text>
-                    </Box>
-                  )
-                }
+                {chatList.map((chat, index) => (
+                  <Box
+                    _hover={{
+                      bg: "#dedee3",
+                    }}
+                    borderRadius={5}
+                    key={index}
+                  >
+                    {chat.user === user.nickname ? (
+                      <Text color="#46a3d2" fontWeight={"bold"}>
+                        {chat.user}
+                      </Text>
+                    ) : (
+                      <Text fontWeight={"bold"}>{chat.user}</Text>
+                    )}
+                    <Text>{chat.message}</Text>
+                  </Box>
+                ))}
               </Stack>
             </Flex>
-            <Box
-              p={2}
-            >
-              <Flex border='1px solid #c8c8d0' borderRadius={5}>
+            <Box p={2}>
+              <Flex border="1px solid #c8c8d0" borderRadius={5}>
                 <Input
                   pl={2}
                   variant={"unstyled"}
@@ -258,13 +277,15 @@ export default () => {
                   placeholder="메시지를 입력하세요"
                   _placeholder={{ color: "black" }}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
+                    if (e.key === "Enter") {
                       handleSubmit(e);
                       console.log(chatList);
                     }
                   }}
                 />
-                <Button onClick={handleSubmit}><ArrowForwardIcon /></Button>
+                <Button onClick={handleSubmit}>
+                  <ArrowForwardIcon />
+                </Button>
               </Flex>
             </Box>
           </Flex>
