@@ -8,7 +8,7 @@ import {
   Grid,
   Heading,
   Stack,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
@@ -20,7 +20,7 @@ import Vote from "./board/Vote";
 moment.locale("ko");
 export default () => {
   const location = useLocation();
-  let date = new Date()
+  let date = new Date();
   let today = moment(date).format("YYYY-MM-DD");
   const category = location.pathname;
   let [todayVote, setTodayVote] = useState([]);
@@ -36,15 +36,15 @@ export default () => {
       .then((data) => {
         setTodayVote(data.result);
         setTopic(data.result2.title);
-      }).catch((e) => {
-        setTodayVote("비었음")
+      })
+      .catch((e) => {
+        setTodayVote("비었음");
       });
-  }, [])
+  }, []);
   let nav = useNavigate();
   return (
     <div>
-      <Box
-        bg={"#f7f7f8"}>
+      <Box bg={"#f7f7f8"}>
         <Stack
           bg={"#f7f7f8"}
           width={"45%"}
@@ -58,7 +58,7 @@ export default () => {
             h={"20%"}
             borderRadius={"10px"}
             boxShadow={"md"}
-            mt='5'
+            mt="5"
           >
             <Text
               fontSize={"6xl"}
@@ -80,35 +80,44 @@ export default () => {
             templateColumns={"1fr 1fr"}
             justifyContent={"space-between"}
           >
-            {
-              topic.map((item, index) => {
-                return (
-                  <Card
-                    size="md"
-                    cursor={"pointer"}
-                    _hover={{ bg: "gray.100" }}
-                    onClick={() => {
-                      if (index === 0) {
-                        nav('/b');
-                      } else if (index === 1) {
-                        nav('/l');
-                      } else if (index === 2) {
-                        nav('/s');
-                      } else if (index === 3) {
-                        nav('/c');
-                      }
-                    }}
-                  >
-                    <CardHeader>
-                      <Heading size="md">{index === 0 ? "야구" : index === 1 ? "LoL" : index === 2 ? "축구" : index === 3 ? "사회" : "오류"}</Heading>
-                    </CardHeader>
-                    <CardBody>
-                      <Text>{item}</Text>
-                    </CardBody>
-                  </Card>
-                );
-              })
-            }
+            {topic.map((item, index) => {
+              console.log(topic);
+              return (
+                <Card
+                  size="md"
+                  cursor={"pointer"}
+                  _hover={{ bg: "gray.100" }}
+                  onClick={() => {
+                    if (index === 0) {
+                      nav("/b");
+                    } else if (index === 1) {
+                      nav("/l");
+                    } else if (index === 2) {
+                      nav("/s");
+                    } else if (index === 3) {
+                      nav("/c");
+                    }
+                  }}
+                >
+                  <CardHeader>
+                    <Heading size="md">
+                      {index === 0
+                        ? "야구"
+                        : index === 1
+                        ? "LoL"
+                        : index === 2
+                        ? "축구"
+                        : index === 3
+                        ? "사회"
+                        : "오류"}
+                    </Heading>
+                  </CardHeader>
+                  <CardBody>
+                    <Text>{item}</Text>
+                  </CardBody>
+                </Card>
+              );
+            })}
           </Grid>
           <Box
             cursor={"pointer"}
@@ -118,11 +127,16 @@ export default () => {
             boxShadow={"md"}
           >
             <Text
-              ml='10'
-              fontWeight={"bold"} mb='7' mt='5'
+              ml="10"
+              fontWeight={"bold"}
+              mb="7"
+              mt="5"
               onClick={() => {
                 nav("/st");
-              }}>아이템</Text>
+              }}
+            >
+              아이템
+            </Text>
             <MainStore />
           </Box>
         </Stack>
