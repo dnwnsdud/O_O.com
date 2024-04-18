@@ -70,7 +70,7 @@ export default ({ user }) => {
           alert(`댓글을 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export default ({ user }) => {
           alert(`댓글을 가져오는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }, []);
 
   const toggleModify = (commentId) => {
@@ -174,7 +174,7 @@ export default ({ user }) => {
           alert(`댓글을 수정하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   return (
@@ -199,6 +199,64 @@ export default ({ user }) => {
           marginTop={"5px"}
           marginBottom={"5px"}
         />
+
+        {baDetails.map((detail) => {
+          return (
+            <Box borderBottom="1px solid black" marginBottom="20px">
+              <Grid key={detail._id} templateColumns="2fr 5fr">
+                <Box>{detail.nickname}</Box>
+                {user == "logout" ? (
+                  ""
+                ) : detail.email !== user.email ? user.role == "admin" ? <Flex justifyContent="flex-end">
+                  <Button size="xs" onClick={() => toggleModify(detail._id)} display={"none"}>
+                  </Button>
+                  <Button size="xs" onClick={() => deleteComment(detail._id)}>
+                    삭제
+                  </Button>
+                </Flex> : (
+                  ""
+                ) : (
+                  <Flex justifyContent="flex-end">
+                    <Button size="xs" onClick={() => toggleModify(detail._id)}>
+                      {cmtmodify[detail._id] ? "취소" : "수정"}
+                    </Button>
+                    {cmtmodify[detail._id] ? (
+                      <Button size="xs" onClick={() => submitModify(detail._id)}>
+                        확인
+                      </Button>
+                    ) : (
+                      <Button size="xs" onClick={() => deleteComment(detail._id)}>
+                        삭제
+                      </Button>
+                    )}
+                  </Flex>
+                )}
+              </Grid>
+
+              {!cmtmodify[detail._id] ? (
+                <Box>{detail.content}</Box>
+              ) : (
+                <FormControl isInvalid={isError3} isRequired>
+                  <FormLabel>내용</FormLabel>
+                  <Textarea
+                    value={modifyContent[detail._id] || detail.content}
+                    onChange={(e) => handleModifyInputChange(e, detail._id)}
+                    size={"lg"}
+                    resize={"none"}
+                    h={"150px"}
+                  />
+                  {!isError3 ? (
+                    <FormHelperText color={"#3182ce"}>
+                      입력하신 내용으로 요청이 됩니다.
+                    </FormHelperText>
+                  ) : (
+                    <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
+                  )}
+                </FormControl>
+              )}
+            </Box>
+          );
+        })}
         <FormControl>
           <FormLabel>내용</FormLabel>
           {user == "logout" ? (
@@ -275,63 +333,6 @@ export default ({ user }) => {
           </Button>
         </Flex>
       )}
-      {baDetails.map((detail) => {
-        return (
-          <Box borderBottom="1px solid black" marginBottom="20px">
-            <Grid key={detail._id} templateColumns="2fr 5fr">
-              <Box>{detail.nickname}</Box>
-              {user == "logout" ? (
-                ""
-              ) : detail.email !== user.email ? user.role == "admin" ? <Flex justifyContent="flex-end">
-              <Button size="xs" onClick={() => toggleModify(detail._id)} display={"none"}>
-              </Button>
-              <Button size="xs" onClick={() => deleteComment(detail._id)}>
-                  삭제
-              </Button>
-            </Flex> : (
-                ""
-              ) : (
-                <Flex justifyContent="flex-end">
-                  <Button size="xs" onClick={() => toggleModify(detail._id)}>
-                    {cmtmodify[detail._id] ? "취소" : "수정"}
-                  </Button>
-                  {cmtmodify[detail._id] ? (
-                    <Button size="xs" onClick={() => submitModify(detail._id)}>
-                      확인
-                    </Button>
-                  ) : (
-                    <Button size="xs" onClick={() => deleteComment(detail._id)}>
-                      삭제
-                    </Button>
-                  )}
-                </Flex>
-              )}
-            </Grid>
-
-            {!cmtmodify[detail._id] ? (
-              <Box>{detail.content}</Box>
-            ) : (
-              <FormControl isInvalid={isError3} isRequired>
-                <FormLabel>내용</FormLabel>
-                <Textarea
-                  value={modifyContent[detail._id] || detail.content}
-                  onChange={(e) => handleModifyInputChange(e, detail._id)}
-                  size={"lg"}
-                  resize={"none"}
-                  h={"150px"}
-                />
-                {!isError3 ? (
-                  <FormHelperText color={"#3182ce"}>
-                    입력하신 내용으로 요청이 됩니다.
-                  </FormHelperText>
-                ) : (
-                  <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
-                )}
-              </FormControl>
-            )}
-          </Box>
-        );
-      })}
     </>
   );
 };
