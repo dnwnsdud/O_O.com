@@ -45,7 +45,7 @@ const getDayMinuteCounter = (date) => {
   return Math.abs(dayDiff) + "일 전";
 };
 
-export default ({ selectedTeam, user }) => {
+export default ({ user }) => {
   const nav = useNavigate();
 
   const goToPage = () => {
@@ -63,6 +63,8 @@ export default ({ selectedTeam, user }) => {
   const [currentTab, setCurrentTab] = useState("LOL");
   const [sortOrder, setSortOrder] = useState("최신순");
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTeam, setSelectedTeam] = useState("모든 팀");
+
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -139,6 +141,125 @@ export default ({ selectedTeam, user }) => {
   return (
     <>
       <Box>
+      <Box
+          // position={'relative'}
+          >
+            <Grid
+              templateColumns="repeat(11 , 1fr)"
+              gap={2}
+            >
+              <Button
+                sx={{
+                  backgroundColor: "#5181e3 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam("모든 팀")}
+              >
+                전체
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#e4002b !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam("T1")}
+              >
+                T1
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#aa8a00 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam("Gen.G")}
+              >
+                Gen.G
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#ff6b01 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam("한화생명")}
+              >
+                한화생명
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#000 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam("KT")}
+              >
+                KT
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#0ec7b5 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam("DK")}
+              >
+                DK
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#e73312 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam("광동")}
+              >
+                광동
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#FFC900 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam("피어엑스")}
+              >
+                피어엑스
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#de2027 !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam("농심")}
+              >
+                농심
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#5a8dff !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam("DRX")}
+              >
+                DRX
+              </Button>
+              <Button
+                sx={{
+                  backgroundColor: "#00492b !important",
+                  color: "#ffffff",
+                }}
+                size="xs"
+                onClick={() => setSelectedTeam("브리온")}
+              >
+                브리온
+              </Button>
+            </Grid>
+          </Box>
         <Box padding="0 10px" fontWeight="bold">
           LOL
         </Box>

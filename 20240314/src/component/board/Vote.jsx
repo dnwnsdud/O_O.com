@@ -11,7 +11,7 @@ export default ({ todayVote, main }) => {
   let [choice, setChoice] = useState("");
   let check = <svg style={{ "width": "15%" }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"> <path fill='black' d="M96 80c0-26.5 21.5-48 48-48H432c26.5 0 48 21.5 48 48V384H96V80zm313 47c-9.4-9.4-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L409 161c9.4-9.4 9.4-24.6 0-33.9zM0 336c0-26.5 21.5-48 48-48H64V416H512V288h16c26.5 0 48 21.5 48 48v96c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V336z" /></svg>
 
-  console.log(todayVote,"근데 아는 사람이 하면 되는거아니야? 이거 왜 내가 배우고 하고있는거지? 아니 해주면되잖아");
+  
   const agree = (choice, user) => {
 
     fetch("/api/takeVote", {
@@ -224,7 +224,7 @@ export default ({ todayVote, main }) => {
                   <Flex justifyContent={"end"}>
                     <Button onClick={() => {
                       if (user === "logout") return alert("로그인이 필요합니다.");
-                      nav("/topicrequest")
+                      nav(`/topicrequest/category=${todayVote.category}`)
                       onClose();
                     }}>요청하기</Button>
                     <Button variant='ghost' onClick={() => {

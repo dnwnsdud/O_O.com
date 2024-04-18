@@ -24,7 +24,6 @@ export default () => {
   const [chatList, setChatList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const location = useLocation();
-  const [selectedTeam, setSelectedTeam] = useState("전체");
   const currentPath = location.pathname;
   let [todayVote, setTodayVote] = useState([]);
   const category = currentPath;
@@ -89,91 +88,11 @@ export default () => {
           src="/static/img/맨위광고1.jpg"
         ></Img>
       </Box>
-      <Grid templateColumns="0.7fr 4fr 1.5fr" gap="20px">
-        <Box
-        // position={'relative'}
-        >
-          <Grid
-            templateColumns="repeat(1 , 1fr)"
-            gap="1px"
-            padding="10px 30px"
-            marginTop={200}
-          >
-            <Button
-              sx={{
-                backgroundColor: "#5181e3 !important",
-                color: "#ffffff",
-              }}
-              size="xs"
-              onClick={() => setSelectedTeam("전체")}
-            >
-              전체
-            </Button>
-            <Button
-              sx={{
-                backgroundColor: "#e4002b !important",
-                color: "#ffffff",
-              }}
-              size="xs"
-              onClick={() => setSelectedTeam("EPL")}
-            >
-              EPL
-            </Button>
-            <Button
-              sx={{
-                backgroundColor: "#e4002b !important",
-                color: "#ffffff",
-              }}
-              size="xs"
-              onClick={() => setSelectedTeam("라리가")}
-            >
-              라리가
-            </Button>
-            <Button
-              sx={{
-                backgroundColor: "#e4002b !important",
-                color: "#ffffff",
-              }}
-              size="xs"
-              onClick={() => setSelectedTeam("분데스리가")}
-            >
-              분데스리가
-            </Button>
-            <Button
-              sx={{
-                backgroundColor: "#e4002b !important",
-                color: "#ffffff",
-              }}
-              size="xs"
-              onClick={() => setSelectedTeam("세리에")}
-            >
-              세리에
-            </Button>
-            <Button
-              sx={{
-                backgroundColor: "#e4002b !important",
-                color: "#ffffff",
-              }}
-              size="xs"
-              onClick={() => setSelectedTeam("K리그")}
-            >
-              K리그
-            </Button>
-            <Button
-              sx={{
-                backgroundColor: "#e4002b !important",
-                color: "#ffffff",
-              }}
-              size="xs"
-              onClick={() => setSelectedTeam("국대")}
-            >
-              국대
-            </Button>
-          </Grid>
-        </Box>
+      <Grid templateColumns="4fr 1.5fr" gap="20px">
+
         <Box marginBottom="4rem">
           <Vote todayVote={todayVote} />
-          <Soboard selectedTeam={selectedTeam} user={user} />
+          <Soboard user={user} />
         </Box>
         <Flex
           w={"15%"}

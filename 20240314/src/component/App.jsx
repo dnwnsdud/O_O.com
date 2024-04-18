@@ -64,7 +64,7 @@ export default () => {
           </Route>
           <Route path="/admin" element={<Mypage_Admin />} />
           <Route path="/admin/report" element={<Report />} />
-          <Route path="/topicrequest" element={<TopicRequest />} />
+          <Route path="/topicrequest/:category" element={<TopicRequest />} />
           <Route path="/requestlist" element={<Requestlist />} />
           <Route path="/requestlist/:id" element={<Requestdetail />} />
           <Route path="/vote" element={<CreateVote />} />
