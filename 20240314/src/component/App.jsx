@@ -32,6 +32,7 @@ import Mywrite from "./Mywrite";
 import UserModify from "./UserModify";
 import Requestlist from "../pages/Requestlist";
 import Requestdetail from "../pages/Requestdetail";
+import Calender from "../pages/Calender";
 
 export default () => {
 
@@ -68,6 +69,7 @@ export default () => {
           <Route path="/requestlist" element={<Requestlist />} />
           <Route path="/requestlist/:id" element={<Requestdetail />} />
           <Route path="/vote" element={<CreateVote />} />
+          <Route path="/calender" element={<Calender />} />
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
         <Route path="/deleteloading" element={<Loading />} />
