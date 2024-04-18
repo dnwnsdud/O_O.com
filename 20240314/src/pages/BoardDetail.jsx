@@ -208,36 +208,37 @@ export default () => {
             </Flex>
           </Flex>
           <Divider />
-          <Box minH={"250px"} style={{ whiteSpace: "pre-wrap" }}>{baDetails.content}</Box>
+          <Box minH={"250px"} style={{ whiteSpace: "pre-wrap" }}>{baDetails.content}
+            {baDetails.images && (
+              <Box
+                width="400px"
+                height="auto"
+                margin="auto"
+              >
+                <Image
+                  maxW={"60%"}
+                  aspectRatio={"auto"}
+                  src={`http://localhost:3000/${baDetails.images}`}
+                  boxSize="100%"
+                  objectFit="cover"
+                  alt="아이템 이미지"
+                  m="auto"
+                />
+              </Box>
+            )}
+            {baDetails.videos && (
+              <AspectRatio maxW="560px" ratio={1}>
+                <iframe
+                  title="비디오"
+                  src={`http://localhost:3000/${baDetails.videos}`}
+                  allowFullScreen
+                />
+              </AspectRatio>
+            )}
+          </Box>
           <Divider />
-          {baDetails.images && (
-            <Box
-              border="1px solid black"
-              borderRadius="50%"
-              width="400px"
-              height="auto"
-              margin="auto"
-            >
-              <Image
-                maxW={"60%"}
-                aspectRatio={"auto"}
-                src={`http://localhost:3000/${baDetails.images}`}
-                boxSize="100%"
-                objectFit="cover"
-                alt="아이템 이미지"
-                m="auto"
-              />
-            </Box>
-          )}
-          {baDetails.videos && (
-            <AspectRatio maxW="560px" ratio={1}>
-              <iframe
-                title="비디오"
-                src={`http://localhost:3000/${baDetails.videos}`}
-                allowFullScreen
-              />
-            </AspectRatio>
-          )}
+
+
 
           <Flex justifyContent={"space-between !important"}>
             <Flex>
