@@ -44,7 +44,14 @@ export default async (req, res, next) => {
         { $inc: { "rating.lose": 1 } }
       );
     }
-    await req.mongo.result.create(result);
+    await req.mongo.result.create({
+      category: result.category,
+      title: result.title,
+      user: result.user,
+      leftSide: result.leftSide,
+      rightSide: result.rightSide,
+      date: result.date,
+    });
     await req.mongo.vote.deleteOne({ _id: req.body.voteId });
     res.status(200).json({ success: true });
   } catch (error) {
