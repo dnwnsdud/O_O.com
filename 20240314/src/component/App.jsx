@@ -67,10 +67,10 @@ export default () => {
           <Route path="/topicrequest" element={<TopicRequest />} />
           <Route path="/requestlist" element={<Requestlist />} />
           <Route path="/requestlist/:id" element={<Requestdetail />} />
+          <Route path="/vote" element={<CreateVote />} />
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
         <Route path="/deleteloading" element={<Loading />} />
-        <Route path="/vote" element={<CreateVote />} />
       </Routes>
     </UserProvider>
   );
