@@ -19,7 +19,7 @@ import { useContext } from "react";
 import { UserContext } from "../hook/User";
 import { useLocation } from "react-router";
 import { io } from "socket.io-client";
-const socket = io("http://localhost:9999", { cors: { origin: "*" } });
+const socket = io("http://192.168.6.3:9999", { cors: { origin: "*" } });
 
 <script
   async
