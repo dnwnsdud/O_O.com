@@ -95,27 +95,28 @@ export default () => {
           <Soboard user={user} />
         </Box>
         <Flex
-          w={"15%"}
-          position={"fixed"}
-          right={"15%"}
+          // w={"15%"}
+          // position={"fixed"}
+          // right={"15%"}
           direction={"column"}
           justifyContent={"space-between"}
           borderRadius={5}
           bg={"#f7f7f8"}
           overflow={"hidden"}
-          h={550}
+          h={"100vh"}
         >
           <Flex
             flexDirection={"column"}
             justifyContent={"space-between"}
-            h={500}
+            h={"95vh"}
+            w={150}
           >
             <Box pl={2} color={"black"} fontSize={"xl"}>
               채팅
             </Box>
             <Stack
               className="chat-list"
-              maxH={450}
+              maxH={"90vh"}
               color={"black"}
               direction={"column-reverse"}
               pl={2}

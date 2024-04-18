@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Flex, Grid, List, ListItem, Text } from '@chakra-ui/react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
+import { FaTrashCan } from "react-icons/fa6";
 
 export default () => {
   const [userData, setUserData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
-  const [totalPosts, setTotalPosts] = useState(10);
+  const [postsPerPage] = useState(6);
+  const [totalPosts, setTotalPosts] = useState(6);
 
   useEffect(() => {
     try {
@@ -80,6 +81,8 @@ export default () => {
   };
   console.log(userData, "이게 왜 안되는거야 형????? 이거 형문제잖아");
 
+  const [isListHover, setIsListHover] = useState(false);
+
   return (
     <>
       <Text fontWeight={'bold'}>내 댓글</Text>
@@ -117,7 +120,11 @@ export default () => {
                   </Link>
                   <Button size={"xs"} border="none" color='crimson' borderRadius="10px" margin="auto" onClick={() => {
                     Admincommentdelete(user._id, user.postId)
-                  }}>댓글삭제</Button>
+                  }}
+                    onMouseOver={() => setIsListHover(true)}
+                    onMouseOut={() => setIsListHover(false)}>
+                    {isListHover ? <FaTrashCan /> : '댓글삭제'}
+                  </Button>
 
                 </Grid>
               </ListItem>

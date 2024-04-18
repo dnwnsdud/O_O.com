@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Box, Button, ButtonGroup, Center, Flex, Grid, HStack, Input, Stack, VStack, Image, GridItem } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Center, Flex, Grid, HStack, Input, Stack, VStack, Image, GridItem, Text } from '@chakra-ui/react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { useNavigate, useOutletContext } from 'react-router-dom';
 import { UserContext } from '../hook/User';
 
 import Mypost from './Mypost';
 import Mycomment from './Mycomment';
+import MyStore from '../pages/MyStore';
 
 
 export default () => {
@@ -67,7 +68,7 @@ export default () => {
                 <Grid templateRows="1fr 1fr 1fr 1fr" gap="20px" margin="30px 0" >
                     <Box textAlign="center" borderBottom="1px solid #e6e6ea" marginBottom="5px" h={"25px"} color="black" width="50%" margin="auto">{userData.email}</Box>
                     <Box textAlign="center" borderBottom="1px solid #e6e6ea" marginBottom="5px" h={"25px"} color="black" width="50%" margin="auto">{userData.team}</Box>
-                    <Box textAlign="center" borderBottom="1px solid #e6e6ea" marginBottom="5px" h={"25px"} color="black" width="50%" margin="auto">{userData.point}</Box>
+                    <Box textAlign="center" borderBottom="1px solid #e6e6ea" marginBottom="5px" h={"25px"} color="black" width="50%" margin="auto">포인트 {userData.point}</Box>
                     <Box textAlign="center" borderBottom="1px solid #e6e6ea" marginBottom="5px" h={"25px"} color="black" width="50%" margin="auto">전체승률</Box>
                 </Grid>
                 <Grid justifyContent="center" gap="10px">
@@ -89,6 +90,10 @@ export default () => {
             <Mycomment />
         </GridItem>
 
+        <Text fontWeight={'bold'}>내 아이템</Text>
+        <GridItem colSpan={2} border={'1px solid e6e6ea'} boxShadow='base' borderRadius="10px" mb='10'>
+            <MyStore />
+        </GridItem>
 
     </Grid >
 }; 
