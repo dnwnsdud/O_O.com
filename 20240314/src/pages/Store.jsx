@@ -35,9 +35,9 @@ export default () => {
           }
         })
         .then(data => {
-          console.log("hi")
           if (data) {
             setStores(data);
+            console.log(data);
           } else {
             alert(`상품을 출력하는 동안 오류 발생:${data.error}`);
           }

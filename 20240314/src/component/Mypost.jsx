@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Flex, Grid, List, ListItem, Text } from '@chakra-ui/react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
+import { FaTrashCan } from "react-icons/fa6";
 
 export default () => {
   const [userData, setUserData] = useState([]);
@@ -79,6 +80,8 @@ export default () => {
     }
   }
 
+
+  const [isListHover, setIsListHover] = useState(false);
   return (
     <>
       <Text fontWeight={'bold'}>내 게시글</Text>
@@ -115,7 +118,11 @@ export default () => {
                   </Link>
                   <Button size={"xs"} border="none" color='crimson' borderRadius="10px" margin="auto" onClick={() => {
                     Adminwritedelete(user._id, user.email)
-                  }}>게시글삭제</Button>
+                  }}
+
+                    onMouseOver={() => setIsListHover(true)}
+                    onMouseOut={() => setIsListHover(false)}>
+                    {isListHover ? <FaTrashCan /> : '게시글삭제'}</Button>
                 </Grid>
               </ListItem>
             ))}

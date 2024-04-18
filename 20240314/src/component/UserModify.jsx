@@ -15,7 +15,10 @@ import {
   FormHelperText,
   FormErrorMessage,
   FormControl,
+  Tooltip,
 } from "@chakra-ui/react";
+import { IoPeopleCircleSharp } from "react-icons/io5";
+import { PiCameraPlus } from "react-icons/pi";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { UserContext } from "../hook/User";
@@ -28,6 +31,7 @@ export default () => {
   const [image, setImage] = useState(userData.images);
   const [itemImageError, setItemImageError] = useState(false);
   const { user, setUser } = useContext(UserContext);
+
 
   let nav = useNavigate();
   useEffect((e) => {
@@ -49,7 +53,7 @@ export default () => {
             alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
           }
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -124,7 +128,7 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
   const deleteUser = () => {
     try {
@@ -146,17 +150,20 @@ export default () => {
             alert(`사용자를 삭제하는 동안 오류 발생:${data.error}`);
           }
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+
+  const [isListHover, setIsListHover] = useState(false);
   return (
     <Center>
       <Stack
         margin="100px 0"
         padding="50px 50px 60px"
-        border="1px solid #0B0B0D"
+        border="1px solid #e6e6ea"
+        boxShadow='base'
         borderRadius="10px"
         width="500px"
       >
@@ -176,8 +183,18 @@ export default () => {
           alignItems={"center"}
           gap={2}
         >
-          <FormControl border={"1px solid gray"} isInvalid={itemImageError}>
-            <FormLabel fontSize={"sm"}>프로필 이미지 수정</FormLabel>
+          <FormControl isInvalid={itemImageError}>
+            <Tooltip hasArrow label='프로필 이미지 수정' fontSize='md'
+            >
+              <FormLabel fontSize={"sm"}
+                onMouseOver={() => setIsListHover(true)}
+                onMouseOut={() => setIsListHover(false)}
+              >
+                {/* <IoPeopleCircleSharp size={100} /> */}
+                {isListHover ? <PiCameraPlus size={100} /> : <IoPeopleCircleSharp size={100} />}
+              </FormLabel>
+
+            </Tooltip>
             <Input
               type="file"
               name="images"
@@ -185,8 +202,8 @@ export default () => {
               hidden
             />
             {!itemImageError ? (
-              <FormHelperText color={"darkblue"}>
-                이미지가 올라갑니다.
+              <FormHelperText>
+                {/* 사진을 넣어주세요 */}
               </FormHelperText>
             ) : (
               <FormErrorMessage>아이템 사진을 넣어주세요.</FormErrorMessage>
@@ -195,7 +212,7 @@ export default () => {
           <Box>
             <Input
               textAlign="center"
-              border="1px solid black"
+              border="1px solid #e6e6ea"
               borderRadius="15px"
               marginBottom="5px"
               h={"25px"}
@@ -205,7 +222,7 @@ export default () => {
             />
             <Input
               textAlign="center"
-              border="1px solid black"
+              border="1px solid #e6e6ea"
               borderRadius="15px"
               h={"25px"}
               placeholder={userData.nickname}
@@ -217,8 +234,9 @@ export default () => {
         <Grid templateRows="1fr 1fr 1fr" gap="20px" margin="30px 0">
           <Input
             textAlign="center"
-            border="1px solid black"
-            borderRadius="15px"
+            border={'none'}
+            borderBottom="1px solid #e6e6ea"
+            // borderRadius="15px"
             margin="auto"
             width="70%"
             h={"25px"}
@@ -228,7 +246,7 @@ export default () => {
           />
           <Input
             textAlign="center"
-            border="1px solid black"
+            border="1px solid #e6e6ea"
             borderRadius="15px"
             margin="auto"
             width="70%"
@@ -238,8 +256,9 @@ export default () => {
           />
           <Input
             textAlign="center"
-            border="1px solid black"
-            borderRadius="15px"
+            border={'none'}
+            borderBottom="1px solid #e6e6ea"
+            // borderRadius="15px"
             margin="auto"
             width="70%"
             placeholder="내 승률"
@@ -249,17 +268,8 @@ export default () => {
         </Grid>
         <Grid templateRows="1fr 1fr" justifyContent="center" gap="10px">
           <Button
-            border="1px solid #0B0B0D"
-            borderRadius="10px"
-            onClick={() => {
-              nav("/mypage/modify");
-            }}
-          >
-            취소
-          </Button>
-          <Button
             width="100px"
-            border="1px solid black"
+            border="1px solid #e6e6ea"
             borderRadius="10px"
             onClick={(e) => {
               onSubmitHandler(e);
@@ -267,6 +277,16 @@ export default () => {
           >
             정보수정
           </Button>
+          <Button
+            border="1px solid #e6e6ea"
+            borderRadius="10px"
+            onClick={() => {
+              nav("/mypage/");
+            }}
+          >
+            취소
+          </Button>
+
         </Grid>
         <Flex justify={"end"}>
           <Button
@@ -280,6 +300,6 @@ export default () => {
           </Button>
         </Flex>
       </Stack>
-    </Center>
+    </Center >
   );
 };
