@@ -126,7 +126,31 @@ export default () => {
       })
       .catch((error) => {});
   };
-
+  const deleteUser = () => {
+    try {
+      fetch("/api/deleteuser", { method: "post" })
+        .then((response) => {
+          if (response) {
+            console.log(response);
+            return response.json();
+          } else {
+            throw new Error(e);
+          }
+        })
+        .then((data) => {
+          if (data.success === true) {
+            setUser("logout");
+            nav("/deleteloading");
+            alert("삭제되었습니다.");
+          } else {
+            alert(`사용자를 삭제하는 동안 오류 발생:${data.error}`);
+          }
+        })
+        .catch((error) => {});
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   return (
     <Center>
       <Stack
@@ -228,7 +252,7 @@ export default () => {
             border="1px solid #0B0B0D"
             borderRadius="10px"
             onClick={() => {
-              nav("/mypage/");
+              nav("/mypage/modify");
             }}
           >
             취소
@@ -244,6 +268,17 @@ export default () => {
             정보수정
           </Button>
         </Grid>
+        <Flex justify={"end"}>
+          <Button
+            width="50px"
+            fontSize={"10px"}
+            border="none"
+            color={"crimson"}
+            onClick={deleteUser}
+          >
+            회원탈퇴
+          </Button>
+        </Flex>
       </Stack>
     </Center>
   );
