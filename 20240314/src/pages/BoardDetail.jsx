@@ -25,6 +25,7 @@ import { UserContext } from "../hook/User";
 import { useLocation, useNavigate } from "react-router-dom";
 import Coment from "./Coment";
 import BlackModal from "./Modal";
+import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 
 export default () => {
   const [baDetails, setbaDetails] = useState();
@@ -119,7 +120,7 @@ export default () => {
       })
       .then((data) => {
         console.log(data, "확인");
-        alert(data.message)
+        alert(data.message);
         setDislikeCount(data.updatedDocument.dislike);
       });
   };
@@ -192,7 +193,9 @@ export default () => {
             </Text>
             <Flex fontSize={"xs"} alignItems={"end"} gap="10px">
               <Menu>
-                <MenuButton fontWeight="bold">{baDetails.nickname}</MenuButton>
+                <MenuButton color={"#46a3d2"} fontWeight="bold">
+                  {baDetails.nickname}
+                </MenuButton>
                 <MenuList>
                   <MenuItem onClick={onOpen}>신고하기</MenuItem>
                   <MenuItem>작성글 보기</MenuItem>
@@ -208,13 +211,10 @@ export default () => {
             </Flex>
           </Flex>
           <Divider />
-          <Box minH={"250px"} style={{ whiteSpace: "pre-wrap" }}>{baDetails.content}
+          <Box minH={"250px"} style={{ whiteSpace: "pre-wrap" }}>
+            {baDetails.content}
             {baDetails.images && (
-              <Box
-                width="400px"
-                height="auto"
-                margin="auto"
-              >
+              <Box width="400px" height="auto" margin="auto">
                 <Image
                   maxW={"60%"}
                   aspectRatio={"auto"}
@@ -238,8 +238,6 @@ export default () => {
           </Box>
           <Divider />
 
-
-
           <Flex justifyContent={"space-between !important"}>
             <Flex>
               <Button
@@ -247,11 +245,17 @@ export default () => {
                   like(e);
                 }}
               >
-                추천~!
+                <FaRegThumbsUp />
               </Button>
-              <Box alignContent="center">{likeCount}</Box>
-              <Button onClick={(e) => dislike(e)}>비추천!</Button>
-              <Box alignContent="center">{dislikeCount}</Box>
+              <Box alignContent="center" fontWeight={"bold"}>
+                {likeCount}
+              </Box>
+              <Button onClick={(e) => dislike(e)}>
+                <FaRegThumbsDown />
+              </Button>
+              <Box alignContent="center" fontWeight={"bold"}>
+                {dislikeCount}
+              </Box>
               {user === "logout" ? (
                 ""
               ) : user.role === "admin" ? (
@@ -289,17 +293,21 @@ export default () => {
                 ""
               )}
             </Flex>
-            <Button onClick={() => {
-              if (baDetails.tap === '야구') {
-                nav("/b")
-              } else if (baDetails.tap === '축구') {
-                nav("/s")
-              } else if (baDetails.tap === 'LOL') {
-                nav("/l")
-              } else if (baDetails.tap === '사회') {
-                nav("/c")
-              }
-            }}>글 목록으로</Button>
+            <Button
+              onClick={() => {
+                if (baDetails.tap === "야구") {
+                  nav("/b");
+                } else if (baDetails.tap === "축구") {
+                  nav("/s");
+                } else if (baDetails.tap === "LOL") {
+                  nav("/l");
+                } else if (baDetails.tap === "사회") {
+                  nav("/c");
+                }
+              }}
+            >
+              글 목록으로
+            </Button>
           </Flex>
           <Coment user={user} />
         </Stack>

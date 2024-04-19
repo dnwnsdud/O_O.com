@@ -77,7 +77,13 @@ export default ({ todayVote, main }) => {
         maxH={"255px"}
         direction={"column"}
         justifyContent={"space-around"}
+        backgroundColor="#f7f7f8"
+        borderRadius={"0.5rem"}
+        marginBottom={"20px"}
       >
+        <Box paddingLeft={"30px"} color={"#46a3d2"} fontWeight={"bold"}>
+          오늘의 O_O
+        </Box>
         <Text fontSize={"3xl"} textAlign={"center"}>
           {todayVote == "비었음" ? "없을걸" : todayVote.title}
         </Text>
@@ -88,7 +94,8 @@ export default ({ todayVote, main }) => {
           border={"1px soild blue"}
         >
           <Button
-            border={"2px solid #0b0b0d"}
+            backgroundColor="#53535f !important"
+            color={"#ffffff"}
             onClick={() => {
               nav("/r");
             }}
@@ -96,7 +103,8 @@ export default ({ todayVote, main }) => {
             이전결과
           </Button>
           <Button
-            border={"2px solid #0b0b0d"}
+            backgroundColor="#53535f !important"
+            color={"#ffffff"}
             onClick={() => {
               onOpen();
             }}
