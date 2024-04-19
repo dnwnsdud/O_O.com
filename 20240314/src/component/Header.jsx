@@ -75,13 +75,25 @@ export default () => {
   }, [])
   console.log("항상 찍는 자리", user);
   return (
-    <Box borderBottom="3px solid #0B0B0D" pt={1} pb={1}>
+    <Box >
       <Grid maxWidth="55%" margin="auto" templateColumns='1fr 3fr 2fr'>
-        <Flex w="150px" h={20} cursor={"pointer"}
+        <Flex
+          w="60px"
+          h={20}
+          cursor={"pointer"}
           justifyContent={"center"}
-          onClick={() => { nav("/") }}
-          onMouseEnter={() => { fillChange(""); clChange(!cl) }}
-          onMouseLeave={() => { fillChange("#0B0B0D"); clChange(!cl) }}
+          alignItems={"center"}
+          onClick={() => {
+            nav("/");
+          }}
+          onMouseEnter={() => {
+            fillChange("");
+            clChange(!cl);
+          }}
+          onMouseLeave={() => {
+            fillChange("#0B0B0D");
+            clChange(!cl);
+          }}
         >
           <Logo width="100%" height="100%" fill={fill} cl={cl} />
         </Flex>

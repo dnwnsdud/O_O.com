@@ -3,23 +3,23 @@ import { Box } from "@chakra-ui/react";
 
 export default ({ width, height, fill, cl }) => {
         let color = cl ? "white" : "#0B0B0D";
-        return <Box pos={"relative"} zIndex={1}
-                _before={
-                        {
-                                content: '""',
-                                position: 'absolute',
-                                width: "97%", height: "98%",
-                                borderRadius: "50%",
-                                bg: `${color}`,
-                                top: "50%",
-                                left: "49%",
-                                transform: "translate(-50%, -50%)",
-                                zIndex: -1
-                        }
-                }
+        return <Box
+                pos={"relative"}
+                zIndex={1}
+                _before={{
+                        content: '""',
+                        position: "absolute",
+                        width: "59px",
+                        height: "59px",
+                        borderRadius: "50%",
+                        bg: `${color}`,
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        zIndex: -1,
+                }}
         >
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width={width ? width : "100%"} height={height ? height : "100%"} viewBox="0 0 720.000000 720.000000" preserveAspectRatio="xMidYMid meet">
-                        <g transform="translate(0.000000,720.000000) scale(0.100000,-0.100000)" fill={fill ? fill : "#eaeaea"} stroke="none">
+                        <g transform="translate(0.000000,720.000000) scale(0.100000,-0.100000)" fill={fill ? "#3b3b44" : "#eaeaea"} stroke="none">
                                 <path d="M3380 7164 c-649 -38 -1245 -234 -1769 -581 -376 -249 -721 -587
         -973 -953 -676 -981 -822 -2249 -386 -3360 174 -442 448 -864 784 -1205 386
         -393 868 -696 1374 -865 361 -121 759 -188 1125 -190 344 -1 772 67 1099 175

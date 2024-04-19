@@ -78,7 +78,8 @@ export default () => {
     return <div>Loading...</div>;
   }
   return (
-    <>
+
+    <Box bg={"#f7f7f8"}>
       <Stack
         w={"35%"}
         m={"auto"}
@@ -125,6 +126,6 @@ export default () => {
           </Flex>
         </Stack>
       </Stack>
-    </>
+    </Box>
   );
 };
