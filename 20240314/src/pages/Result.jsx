@@ -28,9 +28,16 @@ export default () => {
       <Box maxW="1280px" margin="auto">
         <Box maxW="800px" margin="20px auto">
           <Calender
+            defaultDate={
+              new Date(
+                new Date().getFullYear(),
+                new Date().getMonth(),
+                new Date().getDate() - 1
+              )
+            }
             onChange={(date) => {
               console.log(
-                `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
+                `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
               );
             }}
           />

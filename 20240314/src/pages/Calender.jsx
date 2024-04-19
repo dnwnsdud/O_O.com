@@ -143,16 +143,16 @@ export default ({
           }
           trigger={
             <div className="text-2xl text-center relative flex items-center font-bold">
-              {select + 1 == new Date().getDate() &&
-              date.getMonth() == new Date().getMonth() ? (
+              {select + 1 == defaultDate.getDate() &&
+              date.getMonth() == defaultDate.getMonth() ? (
                 <span className="text-xs border-2 border-gray-200 rounded-full py-1 px-4 mr-9 text-gray-200">
-                  최근
+                  이전 결과
                 </span>
               ) : (
                 <span
                   className="cursor-pointer text-xs border-2 border-gray-200 rounded-full py-1 px-4 mr-9"
                   onClick={() => {
-                    const date = new Date();
+                    const date = defaultDate;
                     selectChanger(date.getDate() - 1);
                     dateChanger(date);
                     swiper.current.swiper.slideTo(
@@ -163,7 +163,7 @@ export default ({
                     onChange(date);
                   }}
                 >
-                  최근
+                  이전 결과
                 </span>
               )}
               <ChevronLeftIcon
