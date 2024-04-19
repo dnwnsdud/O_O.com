@@ -176,13 +176,14 @@ export default () => {
     }
   };
   return (
-    <Center>
+    <Center bg={"#f7f7f8"}>
       <Stack
         margin="100px 0"
         padding="50px 50px 60px"
-        border="1px solid #0B0B0D"
+        border="1px solid #e6e6ea"
         borderRadius="10px"
         width="1280px"
+        bg='white'
       >
         <Box
           fontSize="30px"
@@ -197,31 +198,31 @@ export default () => {
           <Grid templateColumns="1fr 1fr 1fr 1fr" w="350px" gap="10px">
             <Button onClick={() => {
               nav("/requestlist")
-            }} border="1px solid black" borderRadius="10px">
+            }} border="1px solid #e6e6ea" borderRadius="10px">
               토픽요청
             </Button>
             <Button onClick={() => {
               nav("/n")
-            }} border="1px solid black" borderRadius="10px">
+            }} border="1px solid #e6e6ea" borderRadius="10px">
               공지작성
             </Button>
             <Button onClick={() => {
               nav("/")
-            }} border="1px solid black" borderRadius="10px">
+            }} border="1px solid #e6e6ea" borderRadius="10px">
               서버관리
             </Button>
             <Button onClick={() => {
               nav("/admin/report")
-            }} border="1px solid black" borderRadius="10px">
+            }} border="1px solid #e6e6ea" borderRadius="10px">
               신고관리
             </Button>
           </Grid>
         </Flex>
         <Box>유저관리</Box>
-        <Box border="1px solid black">
+        <Box border="1px solid #e6e6ea">
           <Grid
             templateColumns="1fr 1fr 1fr"
-            borderBottom="1px solid black"
+            borderBottom="1px solid #e6e6ea"
             textAlign="center"
           >
             <Box>아이디</Box>
@@ -231,7 +232,7 @@ export default () => {
           <List height="100px" overflowX="auto">
             {userData.map((user) => {
               return (
-                <ListItem key={user._id}>
+                <ListItem key={user._id} borderBottom="1px solid #e6e6ea">
                   <Grid
                     templateColumns="1fr 1fr 1fr"
                     textAlign="center"
@@ -242,7 +243,7 @@ export default () => {
                     <Box>{user.nickname}</Box>
                     <Button
                       w="100px"
-                      border="1px solid black"
+                      border="1px solid #e6e6ea"
                       borderRadius="10px"
                       margin="auto"
                       onClick={() => {
@@ -258,10 +259,10 @@ export default () => {
           </List>
         </Box>
         <Box>게시글관리</Box>
-        <Box border="1px solid black">
+        <Box border="1px solid #e6e6ea">
           <Grid
             templateColumns="1fr 1fr 1fr"
-            borderBottom="1px solid black"
+            borderBottom="1px solid #e6e6ea"
             textAlign="center"
           >
             <Box>아이디</Box>
@@ -271,7 +272,7 @@ export default () => {
           <List height="100px" overflowX="auto">
             {writeData.map((write) => {
               return (
-                <ListItem key={write._id}>
+                <ListItem key={write._id} borderBottom="1px solid #e6e6ea">
                   <Grid
                     templateColumns="1fr 1fr 1fr"
                     textAlign="center"
@@ -284,7 +285,7 @@ export default () => {
                     </Link>
                     <Button
                       w="100px"
-                      border="1px solid black"
+                      border="1px solid #e6e6ea"
                       borderRadius="10px"
                       margin="auto"
                       onClick={() => {
@@ -300,10 +301,10 @@ export default () => {
           </List>
         </Box>
         <Box>댓글관리</Box>
-        <Box border="1px solid black">
+        <Box border="1px solid #e6e6ea">
           <Grid
             templateColumns="1fr 1fr 1fr"
-            borderBottom="1px solid black"
+            borderBottom="1px solid #e6e6ea"
             textAlign="center"
           >
             <Box>아이디</Box>
@@ -313,7 +314,7 @@ export default () => {
           <List height="100px" overflowX="auto">
             {commentData.map((write) => {
               return (
-                <ListItem key={write._id}>
+                <ListItem key={write._id} borderBottom="1px solid #e6e6ea">
                   <Grid
                     templateColumns="1fr 1fr 1fr"
                     textAlign="center"
@@ -326,7 +327,7 @@ export default () => {
                     </Link>
                     <Button
                       w="100px"
-                      border="1px solid black"
+                      border="1px solid #e6e6ea"
                       borderRadius="10px"
                       margin="auto"
                       onClick={() => {
@@ -342,10 +343,10 @@ export default () => {
           </List>
         </Box>
         <Box>블랙리스트관리</Box>
-        <Box border="1px solid black">
+        <Box border="1px solid #e6e6ea">
           <Grid
             templateColumns="1fr 1fr 1fr"
-            borderBottom="1px solid black"
+            borderBottom="1px solid #e6e6ea"
             textAlign="center"
           >
             <Box>아이디</Box>
@@ -355,7 +356,7 @@ export default () => {
           <List height="100px" overflowX="auto">
             {commentData.map((write) => {
               return (
-                <ListItem key={write._id}>
+                <ListItem key={write._id} borderBottom="1px solid #e6e6ea">
                   <Grid
                     templateColumns="1fr 1fr 1fr"
                     textAlign="center"
@@ -368,7 +369,7 @@ export default () => {
                     </Link>
                     <Button
                       w="100px"
-                      border="1px solid black"
+                      border="1px solid #e6e6ea"
                       borderRadius="10px"
                       margin="auto"
                       onClick={() => {
@@ -385,25 +386,25 @@ export default () => {
         </Box>
         <Box>사용량</Box>
         <Grid templateColumns="1fr 1fr 1fr" textAlign="center" gap="15px">
-          <Box width="382px" height="200px" border="1px solid black">
+          <Box width="382px" height="200px" border="1px solid #e6e6ea">
             유저수
           </Box>
-          <Box width="382px" height="200px" border="1px solid black">
+          <Box width="382px" height="200px" border="1px solid #e6e6ea">
             회원수
           </Box>
-          <Box width="382px" height="200px" border="1px solid black">
+          <Box width="382px" height="200px" border="1px solid #e6e6ea">
             토픽 요청 수
           </Box>
         </Grid>
-        <Flex border="1px solid black" height="300px">
-          <Box margin="auto" border="1px solid black">
+        <Flex border="1px solid #e6e6ea" height="300px">
+          <Box margin="auto" border="1px solid #e6e6ea">
             <Flex
               justifyContent="space-between"
               alignItems="center"
               width="300px"
             >
               <Box>일별 아이템 판매량</Box>
-              <Button border="1px solid black">전체보기</Button>
+              <Button border="1px solid #e6e6ea">전체보기</Button>
             </Flex>
             <Box height="200px">그래프</Box>
           </Box>
