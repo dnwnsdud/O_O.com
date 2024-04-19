@@ -38,6 +38,7 @@ export default () => {
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
   return (
+
     <List
       bg={"white"}
       borderRadius={"10px"}
@@ -46,7 +47,7 @@ export default () => {
       paddingRight={6}
       paddingTop={3}
       paddingBottom={3}
-      boxShadow={"md"}
+      boxShadow={"base"}
     >
       <Text fontSize={"xl"} fontWeight={"bold"} paddingBottom={"10px"}>
         <Link to="/n" fontSize={"xl"} fontWeight={"bold"}>

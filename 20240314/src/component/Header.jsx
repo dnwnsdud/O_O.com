@@ -73,7 +73,7 @@ export default () => {
   }, []);
   console.log("항상 찍는 자리", user);
   return (
-    <Box borderBottom="3px solid #0B0B0D" pt={1} pb={1}>
+    <Box>
       <Grid maxWidth="55%" margin="auto" templateColumns="1fr 3fr 2fr">
         <Flex
           w="60px"
