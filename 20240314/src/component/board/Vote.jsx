@@ -64,10 +64,14 @@ export default ({ todayVote, main }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success === true) {
+          if (data.success.message) {
+            alert(data.success.message);
+          }
           alert("투표가 종료되었습니다.");
           window.location.reload();
         } else {
           alert(data.success);
+          window.location.reload();
         }
       });
   };
@@ -302,21 +306,34 @@ export default ({ todayVote, main }) => {
               <Divider />
 
               {user.role === "admin" ? (
-                <Flex justifyContent={"end"}>
-                  <Button
-                    variant="ghost"
-                    onClick={() => {
-                      if (user.role !== "admin")
-                        return alert("관리자만 가능합니다.");
-                      onClose();
-                      document.body.style.overflow = "auto";
-                      setChoice("");
-                      endVote();
-                    }}
-                  >
-                    종료하기
-                  </Button>
-                </Flex>
+                todayVote && todayVote == "비었음" ? (
+                  <Flex justifyContent={"end"}>
+                    <Button
+                      variant="ghost"
+                      onClick={() => {
+                        nav("/requestlist");
+                      }}
+                    >
+                      요청확인
+                    </Button>
+                  </Flex>
+                ) : (
+                  <Flex justifyContent={"end"}>
+                    <Button
+                      variant="ghost"
+                      onClick={() => {
+                        if (user.role !== "admin")
+                          return alert("관리자만 가능합니다.");
+                        onClose();
+                        document.body.style.overflow = "auto";
+                        setChoice("");
+                        endVote();
+                      }}
+                    >
+                      종료하기
+                    </Button>
+                  </Flex>
+                )
               ) : main ? (
                 <Flex justifyContent={"end"}>
                   <Button

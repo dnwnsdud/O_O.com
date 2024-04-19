@@ -6,6 +6,14 @@ export default async (req, res, next) => {
     console.log(result.leftSide.participants);
     console.log(result.rightSide.participants);
     if (
+      result.leftSide.participants.length === 0 ||
+      result.rightSide.participants.length === 0
+    ) {
+      return res
+        .status(200)
+        .json({ success: true, message: "참여자가 없이 종료되었습니다." });
+    }
+    if (
       result.leftSide.participants.length > result.rightSide.participants.length
     ) {
       for (let i = 0; i < result.leftSide.participants.length; i++) {

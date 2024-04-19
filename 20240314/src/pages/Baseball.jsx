@@ -106,6 +106,8 @@ export default () => {
             // w={"15%"}
             // position={'fixed'}
             // right={"15%"}
+            maxW={"350px"}
+            w={"100%"}
             direction={"column"}
             justifyContent={"space-between"}
             borderRadius={5}
@@ -117,22 +119,26 @@ export default () => {
               flexDirection={"column"}
               justifyContent={"space-between"}
               h={"95vh"}
-              w={150}
+              w={"100%"}
             >
               <Box pl={2} color={"black"} fontSize={"xl"}>
                 채팅
               </Box>
-              <Stack
+              <Flex
                 className="chat-list"
                 maxH={"90vh"}
                 color={"black"}
                 direction={"column-reverse"}
                 pl={2}
                 pr={2}
+                w={"100%"}
+                maxW={"350px"}
                 overflowY={"scroll"}
               >
                 {chatList.map((chat, index) => (
                   <Box
+                    w={"100%"}
+                    m={"auto"}
                     _hover={{
                       bg: "#dedee3",
                     }}
@@ -149,7 +155,7 @@ export default () => {
                     <Text>{chat.message}</Text>
                   </Box>
                 ))}
-              </Stack>
+              </Flex>
             </Flex>
             <Box p={2}>
               <Flex border="1px solid #c8c8d0" borderRadius={5}>
