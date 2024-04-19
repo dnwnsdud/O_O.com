@@ -39,6 +39,7 @@ export default () => {
       })
       .catch((e) => {
         setTodayVote("비었음");
+        setTopic("비었음");
       });
   }, []);
   let nav = useNavigate();
@@ -80,44 +81,45 @@ export default () => {
             templateColumns={"1fr 1fr"}
             justifyContent={"space-between"}
           >
-            {topic.map((item, index) => {
-              console.log(topic);
-              return (
-                <Card
-                  size="md"
-                  cursor={"pointer"}
-                  _hover={{ bg: "gray.100" }}
-                  onClick={() => {
-                    if (index === 0) {
-                      nav("/b");
-                    } else if (index === 1) {
-                      nav("/l");
-                    } else if (index === 2) {
-                      nav("/s");
-                    } else if (index === 3) {
-                      nav("/c");
-                    }
-                  }}
-                >
-                  <CardHeader>
-                    <Heading size="md">
-                      {index === 0
-                        ? "야구"
-                        : index === 1
-                        ? "LoL"
-                        : index === 2
-                        ? "축구"
-                        : index === 3
-                        ? "사회"
-                        : "오류"}
-                    </Heading>
-                  </CardHeader>
-                  <CardBody>
-                    <Text>{item}</Text>
-                  </CardBody>
-                </Card>
-              );
-            })}
+            {topic !== "비었음" &&
+              topic.map((item, index) => {
+                console.log(topic);
+                return (
+                  <Card
+                    size="md"
+                    cursor={"pointer"}
+                    _hover={{ bg: "gray.100" }}
+                    onClick={() => {
+                      if (index === 0) {
+                        nav("/b");
+                      } else if (index === 1) {
+                        nav("/l");
+                      } else if (index === 2) {
+                        nav("/s");
+                      } else if (index === 3) {
+                        nav("/c");
+                      }
+                    }}
+                  >
+                    <CardHeader>
+                      <Heading size="md">
+                        {index === 0
+                          ? "야구"
+                          : index === 1
+                          ? "LoL"
+                          : index === 2
+                          ? "축구"
+                          : index === 3
+                          ? "사회"
+                          : "오류"}
+                      </Heading>
+                    </CardHeader>
+                    <CardBody>
+                      <Text>{item}</Text>
+                    </CardBody>
+                  </Card>
+                );
+              })}
           </Grid>
           <Box
             cursor={"pointer"}

@@ -65,6 +65,7 @@ export default ({ todayVote, main }) => {
       .then((data) => {
         if (data.success === true) {
           alert("투표가 종료되었습니다.");
+          window.location.reload();
         } else {
           alert(data.success);
         }
@@ -205,7 +206,7 @@ export default ({ todayVote, main }) => {
                       ) : (
                         ""
                       )}
-                      {todayVote.leftSide.images && (
+                      {todayVote != "비었음" && todayVote.leftSide.images && (
                         <Image
                           w={"100%"}
                           h={"100px"}
@@ -257,7 +258,7 @@ export default ({ todayVote, main }) => {
                       ) : (
                         ""
                       )}
-                      {todayVote.rightSide.images && (
+                      {todayVote != "비었음" && todayVote.rightSide.images && (
                         <Image
                           w={"100%"}
                           h={"100px"}

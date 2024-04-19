@@ -14,13 +14,18 @@ export default async (req, res, next) => {
       votes = await req.mongo.vote.find({ category: "main" });
       result = votes[0];
       title1 = await req.mongo.vote.find({ category: "baseball" });
-      title1 = title1[0];
+      if (title1.length > 0) title1 = title1[0];
+      else title1.title = "비었음";
       title2 = await req.mongo.vote.find({ category: "lol" });
-      title2 = title2[0];
+      if (title2.length > 0) title2 = title2[0];
+      else title2.title = "비었음";
       title3 = await req.mongo.vote.find({ category: "soccer" });
-      title3 = title3[0];
+      if (title3.length > 0) title3 = title3[0];
+      else title3.title = "비었음";
       title4 = await req.mongo.vote.find({ category: "society" });
-      title4 = title4[0];
+      if (title4.length > 0) title4 = title4[0];
+      else title4.title = "비었음";
+
       titles = [title1.title, title2.title, title3.title, title4.title];
       result2 = { title: titles };
       return res.json({ result, result2 });

@@ -1,95 +1,175 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { TabIndicator } from '@chakra-ui/react';
-import { ChevronLeftIcon, ChevronRightIcon, CalendarIcon } from '@chakra-ui/icons';
-import Swiper from './Swiper';
+import React, { useState, useRef, useEffect } from "react";
+import { TabIndicator } from "@chakra-ui/react";
+import {
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CalendarIcon,
+} from "@chakra-ui/icons";
+import Swiper from "./Swiper";
 
-export default ({ slidesPerView = 13, spaceBetween = 0, speed = 500, pageChanger = 9, onChange = (date) => { }, ...props }) => {
+export default ({
+  slidesPerView = 13,
+  spaceBetween = 0,
+  speed = 500,
+  pageChanger = 9,
+  onChange = (date) => {},
+  ...props
+}) => {
   const [date, dateChanger] = useState(new Date());
   const swiper = useRef(null);
   const [isla, islaChanger] = useState(false);
   const [isra, israChanger] = useState(false);
   const [select, selectChanger] = useState(date.getDate() - 1);
   const dates = () => {
-    return Array.from({ length: new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() }, (v, i) => i + 1);
+    return Array.from(
+      {
+        length: new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(),
+      },
+      (v, i) => i + 1
+    );
   };
   const dateToName = (now) => {
-    const weekday = ['일', '월', '화', '수', '목', '금', '토', '일'];
+    const weekday = ["일", "월", "화", "수", "목", "금", "토", "일"];
     const setday = new Date(date.getFullYear(), date.getMonth(), now);
     const today = new Date();
-    if (today.getFullYear() == setday.getFullYear() && today.getMonth() == setday.getMonth() && today.getDate() == setday.getDate()) return "오늘";
+    if (
+      today.getFullYear() == setday.getFullYear() &&
+      today.getMonth() == setday.getMonth() &&
+      today.getDate() == setday.getDate()
+    )
+      return "오늘";
     return weekday[setday.getDay()];
   };
   useEffect(() => {
     if (swiper?.current?.swiper) {
-      swiper?.current?.addEventListener('swiperprogress', () => {
+      swiper?.current?.addEventListener("swiperprogress", () => {
         if (swiper.current.swiper.progress < 0.001) islaChanger(false);
         else islaChanger(true);
         if (swiper.current.swiper.progress > 0.999) israChanger(false);
         else israChanger(true);
-      })
+      });
     }
   }, []);
-  return <div className=' relative'>
-    <div className='inline-block relative left-1/2 -translate-x-1/2'>
-      <div className='text-3xl text-center relative flex items-center font-bold'>
-        {
-          select + 1 == new Date().getDate() && date.getMonth() == new Date().getMonth() ?
-            <span className='text-xs border-2 border-gray-200 rounded-full py-1 px-4 mr-9 text-gray-200'>최근</span> :
-            <span className='cursor-pointer text-xs border-2 border-gray-200 rounded-full py-1 px-4 mr-9' onClick={() => {
-              const date = new Date();
-              selectChanger(date.getDate() - 1);
-              dateChanger(date);
-              swiper.current.swiper.slideTo(date.getDate() - slidesPerView / 2 < 1 ? 0 : date.getDate() - slidesPerView / 2);
-              onChange(date);
-            }}>
+  return (
+    <div className=" relative">
+      <div className="inline-block relative left-1/2 -translate-x-1/2">
+        <div className="text-3xl text-center relative flex items-center font-bold">
+          {select + 1 == new Date().getDate() &&
+          date.getMonth() == new Date().getMonth() ? (
+            <span className="text-xs border-2 border-gray-200 rounded-full py-1 px-4 mr-9 text-gray-200">
               최근
             </span>
-        }
-        <ChevronLeftIcon position="relative" cursor="pointer" onClick={() => {
-          dateChanger(new Date(date.getFullYear(), date.getMonth() - 1, date.getDate()));
-          onChange(new Date(date.getFullYear(), date.getMonth() - 1, date.getDate()));
-        }} />
-        {date.getFullYear()}.{date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}
-        <ChevronRightIcon position="relative" cursor="pointer" onClick={() => {
-          dateChanger(new Date(date.getFullYear(), date.getMonth() + 1, date.getDate()));
-          onChange(new Date(date.getFullYear(), date.getMonth() + 1, date.getDate()));
-        }} />
-        <CalendarIcon ml="2.25rem" boxSize={5} cursor="pointer" />
+          ) : (
+            <span
+              className="cursor-pointer text-xs border-2 border-gray-200 rounded-full py-1 px-4 mr-9"
+              onClick={() => {
+                const date = new Date();
+                selectChanger(date.getDate() - 1);
+                dateChanger(date);
+                swiper.current.swiper.slideTo(
+                  date.getDate() - slidesPerView / 2 < 1
+                    ? 0
+                    : date.getDate() - slidesPerView / 2
+                );
+                onChange(date);
+              }}
+            >
+              최근
+            </span>
+          )}
+          <ChevronLeftIcon
+            position="relative"
+            cursor="pointer"
+            onClick={() => {
+              dateChanger(
+                new Date(
+                  date.getFullYear(),
+                  date.getMonth() - 1,
+                  date.getDate()
+                )
+              );
+              onChange(
+                new Date(
+                  date.getFullYear(),
+                  date.getMonth() - 1,
+                  date.getDate()
+                )
+              );
+            }}
+          />
+          {date.getFullYear()}.
+          {date.getMonth() + 1 < 10
+            ? `0${date.getMonth() + 1}`
+            : date.getMonth() + 1}
+          <ChevronRightIcon
+            position="relative"
+            cursor="pointer"
+            onClick={() => {
+              dateChanger(
+                new Date(
+                  date.getFullYear(),
+                  date.getMonth() + 1,
+                  date.getDate()
+                )
+              );
+              onChange(
+                new Date(
+                  date.getFullYear(),
+                  date.getMonth() + 1,
+                  date.getDate()
+                )
+              );
+            }}
+          />
+          <CalendarIcon ml="2.25rem" boxSize={5} cursor="pointer" />
+        </div>
       </div>
-    </div>
-    <div className='relative w-full mt-8 mx-auto'>
-      <Swiper
-        slides-per-view={slidesPerView}
-        space-between={spaceBetween}
-        speed={speed}
-        initial-slide={date.getDate() - slidesPerView / 2 < 1 ? 0 : date.getDate() - slidesPerView / 2}
-        swiper={swiper}>
-        {
-          dates().map((v, i) =>
-            <div key={i} className='w-full cursor-pointer' onClick={() => {
-              selectChanger(i);
-              onChange(new Date(date.getFullYear(), date.getMonth() + 1, i + 1));
-            }}>
-              {
-                i == select ?
-                  <div className='text-center text-xs font-bold text-blue-500'>{dateToName(v)}</div> :
-                  <div className='text-center text-xs'>{dateToName(v)}</div>
-              }
-              {
-                i == select ?
-                  <div className='text-center text-m font-bold text-blue-500'>{v}</div> :
-                  <div className='text-center text-m'>{v}</div>
-              }
-              {
-                i == select ?
-                  <div className='w-1/2 h-[0.4rem] bg-blue-500 mt-[0.9rem] mx-auto' /> :
-                  <div className='w-full h-[0.1rem] bg-gray-100 mt-[1.2rem]' />
-              }
-            </div>)
-        }
-      </Swiper>
-      {
-        isla ?
+      <div className="relative w-full mt-8 mx-auto">
+        <Swiper
+          slides-per-view={slidesPerView}
+          space-between={spaceBetween}
+          speed={speed}
+          initial-slide={
+            date.getDate() - slidesPerView / 2 < 1
+              ? 0
+              : date.getDate() - slidesPerView / 2
+          }
+          swiper={swiper}
+        >
+          {dates().map((v, i) => (
+            <div
+              key={i}
+              className="w-full cursor-pointer"
+              onClick={() => {
+                selectChanger(i);
+                onChange(
+                  new Date(date.getFullYear(), date.getMonth() + 1, i + 1)
+                );
+              }}
+            >
+              {i == select ? (
+                <div className="text-center text-xs font-bold text-blue-500">
+                  {dateToName(v)}
+                </div>
+              ) : (
+                <div className="text-center text-xs">{dateToName(v)}</div>
+              )}
+              {i == select ? (
+                <div className="text-center text-m font-bold text-blue-500">
+                  {v}
+                </div>
+              ) : (
+                <div className="text-center text-m">{v}</div>
+              )}
+              {i == select ? (
+                <div className="w-1/2 h-[0.4rem] bg-blue-500 mt-[0.9rem] mx-auto" />
+              ) : (
+                <div className="w-full h-[0.1rem] bg-gray-100 mt-[1.2rem]" />
+              )}
+            </div>
+          ))}
+        </Swiper>
+        {isla ? (
           <ChevronLeftIcon
             bg="white"
             color="black"
@@ -104,12 +184,15 @@ export default ({ slidesPerView = 13, spaceBetween = 0, speed = 500, pageChanger
             zIndex="49"
             cursor="pointer"
             onClick={() => {
-              const target = swiper.current.swiper.snapIndex < pageChanger ? 0 : swiper.current.swiper.snapIndex - pageChanger;
+              const target =
+                swiper.current.swiper.snapIndex < pageChanger
+                  ? 0
+                  : swiper.current.swiper.snapIndex - pageChanger;
               swiper.current.swiper.slideTo(target);
-            }} /> : undefined
-      }
-      {
-        isra ?
+            }}
+          />
+        ) : undefined}
+        {isra ? (
           <ChevronRightIcon
             bg="white"
             color="black"
@@ -125,13 +208,23 @@ export default ({ slidesPerView = 13, spaceBetween = 0, speed = 500, pageChanger
             zIndex="49"
             cursor="pointer"
             onClick={() => {
-              const target = swiper.current.swiper.snapIndex + pageChanger > new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() ? new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate() : swiper.current.swiper.snapIndex + pageChanger;
+              const target =
+                swiper.current.swiper.snapIndex + pageChanger >
+                new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+                  ? new Date(
+                      date.getFullYear(),
+                      date.getMonth() + 1,
+                      0
+                    ).getDate()
+                  : swiper.current.swiper.snapIndex + pageChanger;
               swiper.current.swiper.slideTo(target);
-            }} /> : undefined
-      }
+            }}
+          />
+        ) : undefined}
+      </div>
     </div>
-  </div>
-}
+  );
+};
 
 // import React, { useState, useEffect } from 'react';
 // import { Box, Button, Text, Grid, GridItem } from '@chakra-ui/react';
