@@ -1,18 +1,32 @@
-import React from "react";
-import Header from "../component/Header";
-import Footer from "../component/Footer";
 import {
   Box,
-  Button,
-  ButtonGroup,
   Flex,
-  Grid,
-  HStack,
-  VStack,
+  Grid
 } from "@chakra-ui/react";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import Calender from "./Calender";
+moment.locale("ko");
 
 export default () => {
+
+  let [date, setDate] = useState(`${moment(new Date()).format("YYYY-MM-DD")}`);
+  useEffect(() => {
+    console.log(date);
+    fetch('/api/result', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        {
+          date: date
+        }
+      ),
+    }).then((res) => res.json()).then((res) => {
+      console.log(res);
+    });
+  }, [])
   return (
     <>
       <Box maxW="1280px" margin="auto">
