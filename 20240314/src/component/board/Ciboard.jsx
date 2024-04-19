@@ -136,6 +136,16 @@ export default ({ user }) => {
 
   const pageNumbers = getPageNumbers();
 
+  const tabStyles = {
+    잡담: { color: "#ffffff", bg: "#E61E2B" },
+    정치: { color: "#ffffff", bg: "#004EA1" },
+    연예: { color: "#ffffff", bg: "#fff100" },
+    여행: { color: "#ffffff", bg: "#007c36" },
+    취미: { color: "#ffffff", bg: "#F37021" },
+    경제: { color: "#ffffff", bg: "#E7141A" },
+    역사: { color: "#ffffff", bg: "#074CA1" },
+  };
+
   return (
     <>
       <Box>
@@ -165,7 +175,7 @@ export default ({ user }) => {
             </Button>
             <Button
               sx={{
-                backgroundColor: "#041E42 !important",
+                backgroundColor: "#004EA1 !important",
                 color: "#ffffff",
               }}
               size="xs"
@@ -185,7 +195,7 @@ export default ({ user }) => {
             </Button>
             <Button
               sx={{
-                backgroundColor: "#CE0E2D !important",
+                backgroundColor: "#007c36 !important",
                 color: "#ffffff",
               }}
               size="xs"
@@ -195,7 +205,7 @@ export default ({ user }) => {
             </Button>
             <Button
               sx={{
-                backgroundColor: "#000000 !important",
+                backgroundColor: "#F37021 !important",
                 color: "#ffffff",
               }}
               size="xs"
@@ -205,7 +215,7 @@ export default ({ user }) => {
             </Button>
             <Button
               sx={{
-                backgroundColor: "#FF6600 !important",
+                backgroundColor: "#E7141A !important",
                 color: "#ffffff",
               }}
               size="xs"
@@ -225,10 +235,17 @@ export default ({ user }) => {
             </Button>
           </Grid>
         </Box>
-        <Box padding="0 10px" fontWeight="bold">
-          사회
-        </Box>
-        <Flex padding="10px" fontWeight="bold" gap="10px" justify="end">
+
+        <Flex
+          padding="10px"
+          fontWeight="bold"
+          gap="10px"
+          justifyContent="space-between"
+          marginTop={"20px"}
+        >
+          <Box fontSize={"1.5rem"} padding="0 10px" fontWeight="bold">
+            사회
+          </Box>
           <Flex
             bg="#efeff1"
             h="2.5rem"
@@ -314,7 +331,13 @@ export default ({ user }) => {
                 <Box>
                   {posts.length - ((currentPage - 1) * postsPerPage + i)}
                 </Box>
-                <Box color="#5181e3">{post.team}</Box>
+                <Box
+                  color={tabStyles[post.team]?.color || "#000"}
+                  bg={tabStyles[post.team]?.bg || "transparent"}
+                  borderRadius={"0.5rem"}
+                >
+                  {post.team}
+                </Box>
                 <Flex
                   whiteSpace="nowrap"
                   overflow="hidden"
