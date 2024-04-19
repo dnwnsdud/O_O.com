@@ -80,7 +80,9 @@ export default ({ todayVote, main }) => {
         justifyContent={"space-around"}
       >
         <Text fontSize={"3xl"} textAlign={"center"}>
-          {todayVote == "비었음" ? "없을걸" : todayVote.title}
+          {todayVote == "비었음"
+            ? "현재 투표가 진행중이지 않습니다."
+            : todayVote.title}
         </Text>
         <Flex
           gap="10px"
@@ -175,7 +177,9 @@ export default ({ todayVote, main }) => {
               </Flex>
               <Divider />
               <Center fontSize={"3xl"} fontWeight={"bold"}>
-                {todayVote == "비었음" ? "없을걸" : todayVote.title}
+                {todayVote == "비었음"
+                  ? "현재 투표가 진행중이지 않습니다."
+                  : todayVote.title}
               </Center>
               <Box>
                 <Flex w={"100%"} justifyContent={"space-around"}>
@@ -218,12 +222,12 @@ export default ({ todayVote, main }) => {
                       <Stack mt="6" spacing="3">
                         <Heading size="md">
                           {todayVote == "비었음"
-                            ? "없을걸"
+                            ? "현재 투표가 진행중이지 않습니다."
                             : todayVote.leftSide.title}
                         </Heading>
                         <Text>
                           {todayVote == "비었음"
-                            ? "없을걸"
+                            ? "현재 투표가 진행중이지 않습니다."
                             : todayVote.leftSide.content}
                         </Text>
                       </Stack>
@@ -270,12 +274,12 @@ export default ({ todayVote, main }) => {
                       <Stack mt="6" spacing="3">
                         <Heading size="md">
                           {todayVote == "비었음"
-                            ? "없을걸"
+                            ? "현재 투표가 진행중이지 않습니다."
                             : todayVote.rightSide.title}
                         </Heading>
                         <Text>
                           {todayVote == "비었음"
-                            ? "없을걸"
+                            ? "현재 투표가 진행중이지 않습니다."
                             : todayVote.rightSide.content}
                         </Text>
                       </Stack>
