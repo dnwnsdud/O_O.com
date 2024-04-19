@@ -86,7 +86,7 @@ export default ({ todayVote, main }) => {
           오늘의 O_O
         </Box>
         <Text fontSize={"3xl"} textAlign={"center"}>
-          {todayVote == "비었음"
+          {todayVote && todayVote == "비었음"
             ? "현재 투표가 진행중이지 않습니다."
             : todayVote.title}
         </Text>
@@ -185,7 +185,7 @@ export default ({ todayVote, main }) => {
               </Flex>
               <Divider />
               <Center fontSize={"3xl"} fontWeight={"bold"}>
-                {todayVote == "비었음"
+                {todayVote && todayVote == "비었음"
                   ? "현재 투표가 진행중이지 않습니다."
                   : todayVote.title}
               </Center>
@@ -218,15 +218,17 @@ export default ({ todayVote, main }) => {
                       ) : (
                         ""
                       )}
-                      {todayVote != "비었음" && todayVote.leftSide.images && (
-                        <Image
-                          w={"100%"}
-                          h={"100px"}
-                          src={`${todayVote.leftSide.images}`}
-                          alt="X"
-                          borderRadius="lg"
-                        />
-                      )}
+                      {todayVote &&
+                        todayVote != "비었음" &&
+                        todayVote.leftSide.images && (
+                          <Image
+                            w={"100%"}
+                            h={"100px"}
+                            src={`${todayVote.leftSide.images}`}
+                            alt="X"
+                            borderRadius="lg"
+                          />
+                        )}
                       <Stack mt="6" spacing="3">
                         <Heading size="md">
                           {todayVote == "비었음"
@@ -270,23 +272,25 @@ export default ({ todayVote, main }) => {
                       ) : (
                         ""
                       )}
-                      {todayVote != "비었음" && todayVote.rightSide.images && (
-                        <Image
-                          w={"100%"}
-                          h={"100px"}
-                          src={`${todayVote.rightSide.images}`}
-                          alt="X"
-                          borderRadius="lg"
-                        />
-                      )}
+                      {todayVote &&
+                        todayVote != "비었음" &&
+                        todayVote.rightSide.images && (
+                          <Image
+                            w={"100%"}
+                            h={"100px"}
+                            src={`${todayVote.rightSide.images}`}
+                            alt="X"
+                            borderRadius="lg"
+                          />
+                        )}
                       <Stack mt="6" spacing="3">
                         <Heading size="md">
-                          {todayVote == "비었음"
+                          {todayVote && todayVote == "비었음"
                             ? "현재 투표가 진행중이지 않습니다."
                             : todayVote.rightSide.title}
                         </Heading>
                         <Text>
-                          {todayVote == "비었음"
+                          {todayVote && todayVote == "비었음"
                             ? "현재 투표가 진행중이지 않습니다."
                             : todayVote.rightSide.content}
                         </Text>
