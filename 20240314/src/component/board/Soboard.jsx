@@ -19,7 +19,6 @@ import moment from "moment";
 import "moment/locale/ko";
 import { Link } from "react-router-dom";
 
-
 moment.locale("ko");
 
 const getDayMinuteCounter = (date) => {
@@ -65,7 +64,6 @@ export default ({ user }) => {
   const [sortOrder, setSortOrder] = useState("최신순");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTeam, setSelectedTeam] = useState("전체");
-
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -139,16 +137,22 @@ export default ({ user }) => {
 
   const pageNumbers = getPageNumbers();
 
+  const teamStyles = {
+    EPL: { color: "#ffffff", bg: "#3D195B" },
+    라리가: { color: "#ffffff", bg: "#FF4B44" },
+    분데스리가: { color: "#ffffff", bg: "#000000" },
+    세리에: { color: "#ffffff", bg: "#1A1659" },
+    K리그: { color: "#ffffff", bg: "#021858" },
+    국대: { color: "#ffffff", bg: "#EC0F32" },
+  };
+
   return (
     <>
       <Box maxW="1300px" minH={1200} margin="auto">
-      <Box
+        <Box
         // position={'relative'}
         >
-          <Grid
-            templateColumns="repeat(7 , 1fr)"
-            gap={4}
-          >
+          <Grid templateColumns="repeat(7 , 1fr)" gap={4}>
             <Button
               sx={{
                 backgroundColor: "#5181e3 !important",
@@ -161,7 +165,7 @@ export default ({ user }) => {
             </Button>
             <Button
               sx={{
-                backgroundColor: "#e4002b !important",
+                backgroundColor: "#3D195B !important",
                 color: "#ffffff",
               }}
               size="xs"
@@ -171,7 +175,7 @@ export default ({ user }) => {
             </Button>
             <Button
               sx={{
-                backgroundColor: "#e4002b !important",
+                backgroundColor: "#FF4B44 !important",
                 color: "#ffffff",
               }}
               size="xs"
@@ -181,7 +185,7 @@ export default ({ user }) => {
             </Button>
             <Button
               sx={{
-                backgroundColor: "#e4002b !important",
+                backgroundColor: "#000000 !important",
                 color: "#ffffff",
               }}
               size="xs"
@@ -191,7 +195,7 @@ export default ({ user }) => {
             </Button>
             <Button
               sx={{
-                backgroundColor: "#e4002b !important",
+                backgroundColor: "#1A1659 !important",
                 color: "#ffffff",
               }}
               size="xs"
@@ -201,7 +205,7 @@ export default ({ user }) => {
             </Button>
             <Button
               sx={{
-                backgroundColor: "#e4002b !important",
+                backgroundColor: "#021858 !important",
                 color: "#ffffff",
               }}
               size="xs"
@@ -211,7 +215,7 @@ export default ({ user }) => {
             </Button>
             <Button
               sx={{
-                backgroundColor: "#e4002b !important",
+                backgroundColor: "#EC0F32 !important",
                 color: "#ffffff",
               }}
               size="xs"
@@ -221,15 +225,31 @@ export default ({ user }) => {
             </Button>
           </Grid>
         </Box>
-        <Box padding="0 10px" fontWeight="bold">
-          축구
-        </Box>
-        <Flex padding="10px" fontWeight="bold" gap="10px" justify="end">
-          <Flex bg='#efeff1' h='2.5rem' w='11rem' gap="5px" justify={'center'} align={'center'} borderRadius={'10px'}>
+        <Flex
+          padding="10px"
+          fontWeight="bold"
+          gap="10px"
+          justifyContent="space-between"
+          marginTop={"20px"}
+        >
+          <Box fontSize={"1.5rem"} padding="0 10px" fontWeight="bold">
+            축구
+          </Box>
+          <Flex
+            bg="#efeff1"
+            h="2.5rem"
+            w="11rem"
+            gap="5px"
+            justify={"center"}
+            align={"center"}
+            borderRadius={"10px"}
+          >
             <Button
               size="xs"
               padding="15px 10px"
-              backgroundColor={sortOrder === "최신순" ? "#fff !important" : "inherit"}
+              backgroundColor={
+                sortOrder === "최신순" ? "#fff !important" : "inherit"
+              }
               color={sortOrder === "최신순" ? "black" : "#3b3b44"}
               onClick={() => {
                 setSortOrder("최신순");
@@ -239,7 +259,9 @@ export default ({ user }) => {
             </Button>
             <Button
               size="xs"
-              backgroundColor={sortOrder === "조회순" ? "#fff !important" : "inherit"}
+              backgroundColor={
+                sortOrder === "조회순" ? "#fff !important" : "inherit"
+              }
               color={sortOrder === "조회순" ? "black" : "#3b3b44"}
               padding="15px 10px"
               onClick={() => {
@@ -250,7 +272,9 @@ export default ({ user }) => {
             </Button>
             <Button
               size="xs"
-              backgroundColor={sortOrder === "추천순" ? "#fff !important" : "inherit"}
+              backgroundColor={
+                sortOrder === "추천순" ? "#fff !important" : "inherit"
+              }
               color={sortOrder === "추천순" ? "black" : "#3b3b44"}
               padding="15px 10px"
               onClick={() => {
@@ -293,8 +317,16 @@ export default ({ user }) => {
                 templateColumns="1fr 2fr 8fr 2fr 2fr 1fr 1fr"
                 padding="10px 0"
               >
-                <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
-                <Box color="#5181e3">{post.team}</Box>
+                <Box>
+                  {posts.length - ((currentPage - 1) * postsPerPage + i)}
+                </Box>
+                <Box
+                  color={teamStyles[post.team]?.color || "#000"}
+                  bg={teamStyles[post.team]?.bg || "transparent"}
+                  borderRadius={"0.5rem"}
+                >
+                  {post.team}
+                </Box>
                 <Flex
                   whiteSpace="nowrap"
                   overflow="hidden"

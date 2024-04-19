@@ -20,7 +20,6 @@ import moment from "moment";
 import "moment/locale/ko";
 import { Link } from "react-router-dom";
 
-
 moment.locale("ko");
 
 const getDayMinuteCounter = (date) => {
@@ -66,7 +65,6 @@ export default ({ user }) => {
   const [sortOrder, setSortOrder] = useState("최신순");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTeam, setSelectedTeam] = useState("모든 팀");
-
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -140,147 +138,174 @@ export default ({ user }) => {
 
   const pageNumbers = getPageNumbers();
 
-
-
+  const teamStyles = {
+    LG: { color: "#ffffff", bg: "#C30452" },
+    롯데: { color: "#ffffff", bg: "#041E42" },
+    기아: { color: "#ffffff", bg: "#EA0029" },
+    SSG: { color: "#ffffff", bg: "#CE0E2D" },
+    KT: { color: "#ffffff", bg: "#000000" },
+    한화: { color: "#ffffff", bg: "#FF6600" },
+    삼성: { color: "#ffffff", bg: "#074CA1" },
+    두산: { color: "#ffffff", bg: "#131230" },
+    키움: { color: "#ffffff", bg: "#570514" },
+    NC: { color: "#ffffff", bg: "#315288" },
+  };
 
   return (
     <>
       <Stack>
-      <Box
-          // position={'relative'}
+        <Box
+        // position={'relative'}
+        >
+          <Grid
+            templateColumns="repeat(11 , 1fr)"
+            gap={2}
+            // bg='#f7f7f8'
+            // borderRadius={10}
+            // position={'fixed'}
+            // width={'7%'}
+            // top={400}
           >
-            <Grid
-              templateColumns="repeat(11 , 1fr)"
-              gap={2}
-              // bg='#f7f7f8'
-              // borderRadius={10}
-              // position={'fixed'}
-              // width={'7%'}
-              // top={400}
+            <Button
+              sx={{
+                backgroundColor: "#5181e3 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("모든 팀")}
             >
-              <Button
-                sx={{
-                  backgroundColor: "#5181e3 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("모든 팀")}
-              >
-                전체
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#C30452 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("LG")}
-              >
-                LG
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#041E42 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("롯데")}
-              >
-                롯데
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#EA0029 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("기아")}
-              >
-                기아
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#CE0E2D !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("SSG")}
-              >
-                SSG
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#000000 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("KT")}
-              >
-                KT
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#FF6600 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("한화")}
-              >
-                한화
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#074CA1 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("삼성")}
-              >
-                삼성
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#131230 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("두산")}
-              >
-                두산
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#570514 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("키움")}
-              >
-                키움
-              </Button>
-              <Button
-                sx={{
-                  backgroundColor: "#315288 !important",
-                  color: "#ffffff",
-                }}
-                size="xs"
-                onClick={() => setSelectedTeam("NC")}
-              >
-                NC
-              </Button>
-            </Grid>
-          </Box>
-        <Box padding="0 10px" fontWeight="bold">
-          야구
+              전체
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#C30452 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("LG")}
+            >
+              LG
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#041E42 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("롯데")}
+            >
+              롯데
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#EA0029 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("기아")}
+            >
+              기아
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#CE0E2D !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("SSG")}
+            >
+              SSG
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#000000 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("KT")}
+            >
+              KT
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#FF6600 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("한화")}
+            >
+              한화
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#074CA1 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("삼성")}
+            >
+              삼성
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#131230 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("두산")}
+            >
+              두산
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#570514 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("키움")}
+            >
+              키움
+            </Button>
+            <Button
+              sx={{
+                backgroundColor: "#315288 !important",
+                color: "#ffffff",
+              }}
+              size="xs"
+              onClick={() => setSelectedTeam("NC")}
+            >
+              NC
+            </Button>
+          </Grid>
         </Box>
-        <Flex padding="10px" fontWeight="bold" gap="10px" justify="end">
-          <Flex bg='#efeff1' h='2.5rem' w='11rem' gap="5px" justify={'center'} align={'center'} borderRadius={'10px'}>
+
+        <Flex
+          padding="10px"
+          fontWeight="bold"
+          gap="10px"
+          justifyContent="space-between"
+          marginTop={"20px"}
+        >
+          <Box fontSize={"1.5rem"} padding="0 10px" fontWeight="bold">
+            야구
+          </Box>
+          <Flex
+            bg="#efeff1"
+            h="2.5rem"
+            w="11rem"
+            gap="5px"
+            justify={"center"}
+            align={"center"}
+            borderRadius={"10px"}
+          >
             <Button
               size="xs"
               padding="15px 10px"
               // backgroundColor="#fff !important"
               // color="black !important"
-              backgroundColor={sortOrder === "최신순" ? "#fff !important" : "inherit"}
+              backgroundColor={
+                sortOrder === "최신순" ? "#fff !important" : "inherit"
+              }
               color={sortOrder === "최신순" ? "black" : "#3b3b44"}
               onClick={() => {
                 setSortOrder("최신순");
@@ -290,14 +315,13 @@ export default ({ user }) => {
             </Button>
             <Button
               size="xs"
-              // backgroundColor="#dedee3 !important"
-              // color="#3b3b44 !important"
               padding="15px 10px"
               onClick={() => {
                 setSortOrder("조회순");
               }}
-
-              backgroundColor={sortOrder === "조회순" ? "#fff !important" : "inherit"}
+              backgroundColor={
+                sortOrder === "조회순" ? "#fff !important" : "inherit"
+              }
               color={sortOrder === "조회순" ? "black" : "#3b3b44"}
             >
               조회순
@@ -306,7 +330,9 @@ export default ({ user }) => {
               size="xs"
               // backgroundColor="#dedee3 !important"
               // color="#3b3b44 !important"
-              backgroundColor={sortOrder === "추천순" ? "#fff !important" : "inherit"}
+              backgroundColor={
+                sortOrder === "추천순" ? "#fff !important" : "inherit"
+              }
               color={sortOrder === "추천순" ? "black" : "#3b3b44"}
               padding="15px 10px"
               onClick={() => {
@@ -348,8 +374,16 @@ export default ({ user }) => {
                 templateColumns="1fr 1fr 8fr 2fr 2fr 1fr 1fr"
                 padding="10px 0"
               >
-                <Box>{posts.length - ((currentPage - 1) * postsPerPage + i)}</Box>
-                <Box color="#5181e3">{post.team}</Box>
+                <Box>
+                  {posts.length - ((currentPage - 1) * postsPerPage + i)}
+                </Box>
+                <Box
+                  color={teamStyles[post.team]?.color || "#000"}
+                  bg={teamStyles[post.team]?.bg || "transparent"}
+                  borderRadius={"0.5rem"}
+                >
+                  {post.team}
+                </Box>
                 <Flex
                   whiteSpace="nowrap"
                   overflow="hidden"
@@ -376,7 +410,6 @@ export default ({ user }) => {
         </Box>
         <Flex fontWeight="bold" justify="end" marginTop="10px" pr={2}>
           <Button
-
             sx={{
               backgroundColor: "#53535f !important",
               color: "white",
@@ -404,7 +437,7 @@ export default ({ user }) => {
               bg={currentPage === number ? "#f9f9f9 !important" : "#000000"}
               variant={currentPage === number ? "outline" : "ghost"}
               color={currentPage === number ? "#000000" : "#999999"}
-              marginBottom={'10rem'}
+              marginBottom={"10rem"}
             >
               {number}
             </Button>
@@ -413,7 +446,7 @@ export default ({ user }) => {
             <ArrowRightIcon />
           </Button>
         </Flex>
-      </Stack >
+      </Stack>
     </>
   );
 };

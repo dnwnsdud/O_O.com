@@ -81,7 +81,7 @@ export default () => {
 
   return (
     <>
-      <Box maxW="1300px" minH={1200} margin="auto">
+      <Box maxW="1300px" minH={1300} margin="auto">
         <Box overflow="hidden" h={"12rem"} margin="20px 0">
           <Img
             objectFit="cover"
@@ -91,7 +91,6 @@ export default () => {
           ></Img>
         </Box>
         <Grid templateColumns="4fr 1.5fr" gap="20px">
-
           <Box marginBottom="4rem">
             <Vote todayVote={todayVote} />
             <Lolboard user={user} />
