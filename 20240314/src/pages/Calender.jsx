@@ -5,7 +5,7 @@ import {
   ChevronRightIcon,
   CalendarIcon,
 } from "@chakra-ui/icons";
-import Swiper from "swiper";
+import Swiper from "./Swiper";
 import Popover from "./popover";
 
 export default ({
@@ -82,14 +82,16 @@ export default ({
     }
   }, []);
   return (
-    <div className="w-svw relative">
+    <div className="relative">
       <div className="inline-block relative left-1/2 -translate-x-1/2">
         <Popover
           isOpen={isOpen}
           onClose={onClose}
           header={
-            <div className="text-2xl text-center relative flex items-center font-bold">
+            <div className="text-m text-center relative flex items-center font-bold">
               <Select
+                fontSize="12px"
+                size="sm"
                 value={years.indexOf(popoverdate.getFullYear())}
                 onChange={(e) => {
                   popoverdateChanger(
@@ -140,15 +142,15 @@ export default ({
             </div>
           }
           trigger={
-            <div className="text-5xl text-center relative flex items-center font-bold">
+            <div className="text-2xl text-center relative flex items-center font-bold">
               {select + 1 == new Date().getDate() &&
               date.getMonth() == new Date().getMonth() ? (
-                <span className="text-xl border-2 border-gray-200 rounded-full py-1 px-4 mr-9 text-gray-200">
+                <span className="text-xs border-2 border-gray-200 rounded-full py-1 px-4 mr-9 text-gray-200">
                   최근
                 </span>
               ) : (
                 <span
-                  className="cursor-pointer text-xl border-2 border-gray-200 rounded-full py-1 px-4 mr-9"
+                  className="cursor-pointer text-xs border-2 border-gray-200 rounded-full py-1 px-4 mr-9"
                   onClick={() => {
                     const date = new Date();
                     selectChanger(date.getDate() - 1);
@@ -279,18 +281,18 @@ export default ({
               }}
             >
               {i == select ? (
-                <div className="text-center text-xl font-bold text-blue-500">
+                <div className="text-center text-xs font-bold text-blue-500">
                   {dateToName(v)}
                 </div>
               ) : (
-                <div className="text-center text-xl">{dateToName(v)}</div>
+                <div className="text-center text-xs">{dateToName(v)}</div>
               )}
               {i == select ? (
-                <div className="text-center text-3xl font-bold text-blue-500">
+                <div className="text-center text-m font-bold text-blue-500">
                   {v}
                 </div>
               ) : (
-                <div className="text-center text-3xl">{v}</div>
+                <div className="text-center text-m">{v}</div>
               )}
               {i == select ? (
                 <div className="w-1/2 h-[0.4rem] bg-blue-500 mt-[0.9rem] mx-auto" />
@@ -304,9 +306,8 @@ export default ({
           <ChevronLeftIcon
             bg="white"
             color="black"
-            w="3rem"
-            h="3rem"
-            padding="1rem"
+            w="1.5rem"
+            h="1.5rem"
             borderRadius="50%"
             boxShadow="0 0 5px -3px black"
             pos="absolute"
@@ -327,9 +328,8 @@ export default ({
           <ChevronRightIcon
             bg="white"
             color="black"
-            w="3rem"
-            h="3rem"
-            padding="1rem"
+            w="1.5rem"
+            h="1.5rem"
             borderRadius="50%"
             boxShadow="0 0 5px -3px black"
             pos="absolute"

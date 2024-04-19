@@ -47,6 +47,8 @@ export default ({ isOpen, onClose, postId, userEmail }) => {
         if (data) {
           console.log(data);
           alert("신고 접수가 완료되었습니다.");
+          setReportContent("");
+          setSelectedOption("");
         } else {
           console.log(data.error);
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
