@@ -8,45 +8,66 @@ export default async (req, res, next) => {
 
   try {
     if (obj.like === "like") {
-      if (post.likeuser.includes(email) || post.dislikeuser.includes(email)) {
+      if (post.dislikeuser.includes(email)) {
         return res
           .status(400)
-          .json({ message: "이미 추천 또는 비추천을 하셨습니다." });
+          .json({ message: "이미 비추천을 하셨습니다." });
+      } if (post.likeuser.includes(email)) {
+        const updatedDocument = await req.mongo.board.findOneAndUpdate(
+          { _id },
+          { $inc: { like: -1 }, $pull: { likeuser: email } },
+          { new: true });
+        return res.json({
+          message: "추천을 취소하였습니다.",
+          updatedDocument,
+          success: true,
+        });
+      } else if (!post.likeuser.includes(email)) {
+        const updatedDocument = await req.mongo.board.findOneAndUpdate(
+          { _id },
+          { $inc: { like: 1 }, $push: { likeuser: email } },
+          { new: true }
+        );
+        return res.json({
+          message: "추천하였습니다.",
+          updatedDocument,
+          success: true,
+        });
       }
-      const updatedDocument = await req.mongo.board.findOneAndUpdate(
-        { _id },
-        { $inc: { like: 1 }, $push: { likeuser: email } },
-        { new: true }
-      );
       if (!updatedDocument) {
         return res.status(404).json({ message: "Document not found" });
       }
-      return res.json({
-        message: "추천하였습니다.",
-        updatedDocument,
-        success: true,
-      });
     }
-
     if (obj.dislike === "dislike") {
-      if (post.likeuser.includes(email) || post.dislikeuser.includes(email)) {
+      if (post.likeuser.includes(email)) {
         return res
           .status(400)
-          .json({ message: "이미 추천 또는 비추천을 하셨습니다." });
+          .json({ message: "이미 추천을 하셨습니다." });
+      } if (post.dislikeuser.includes(email)) {
+        const updatedDocument = await req.mongo.board.findOneAndUpdate(
+          { _id },
+          { $inc: { dislike: -1 }, $pull: { dislikeuser: email } },
+          { new: true });
+        return res.json({
+          message: "비추천을 취소하였습니다.",
+          updatedDocument,
+          success: true,
+        });
+      } else if (!post.dislikeuser.includes(email)) {
+        const updatedDocument = await req.mongo.board.findOneAndUpdate(
+          { _id },
+          { $inc: { dislike: 1 }, $push: { dislikeuser: email } },
+          { new: true }
+        );
+        if (!updatedDocument) {
+          return res.status(404).json({ message: "Document not found" });
+        }
+        return res.json({
+          message: "비추천하였습니다.",
+          updatedDocument,
+          success: true,
+        });
       }
-      const updatedDocument = await req.mongo.board.findOneAndUpdate(
-        { _id },
-        { $inc: { dislike: 1 }, $push: { dislikeuser: email } },
-        { new: true }
-      );
-      if (!updatedDocument) {
-        return res.status(404).json({ message: "Document not found" });
-      }
-      return res.json({
-        message: "비추천하였습니다.",
-        updatedDocument,
-        success: true,
-      });
     }
 
     if (obj.like === "") {

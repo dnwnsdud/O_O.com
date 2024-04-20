@@ -1,31 +1,24 @@
 import {
+  AspectRatio,
   Box,
   Button,
-  Center,
   Divider,
   Flex,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Input,
-  Stack,
-  Text,
-  Textarea,
   Image,
-  AspectRatio,
   Menu,
   MenuButton,
-  MenuList,
   MenuItem,
-  useDisclosure,
+  MenuList,
+  Stack,
+  Text,
+  useDisclosure
 } from "@chakra-ui/react";
-import React, { useState, useContext, useEffect } from "react";
-import { UserContext } from "../hook/User";
+import React, { useContext, useEffect, useState } from "react";
+import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "../hook/User";
 import Coment from "./Coment";
 import BlackModal from "./Modal";
-import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa";
 
 export default () => {
   const [baDetails, setbaDetails] = useState();
