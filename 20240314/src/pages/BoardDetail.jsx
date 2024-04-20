@@ -165,6 +165,7 @@ export default () => {
       "0"
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
+  console.log(user);
 
   if (!baDetails) {
     return <div>Loading...</div>;
@@ -188,7 +189,7 @@ export default () => {
         >
           <Box display="none">{baDetails.tap}</Box>
           <Flex justifyContent={"space-between"}>
-            <Text fontWeight={"bold"} fontSize={"xl"}>
+            <Text fontWeight={"bold"} fontSize={"xl"} maxW={"400px"}>
               {baDetails.title}
             </Text>
             <Flex fontSize={"xs"} alignItems={"end"} gap="10px">
@@ -197,7 +198,13 @@ export default () => {
                   {baDetails.nickname}
                 </MenuButton>
                 <MenuList>
-                  <MenuItem onClick={onOpen}>신고하기</MenuItem>
+                  {user === "logout" ? (
+                    <MenuItem disabled opacity={"0.5"}>
+                      신고하기
+                    </MenuItem>
+                  ) : (
+                    <MenuItem onClick={onOpen}>신고하기</MenuItem>
+                  )}
                   <MenuItem>작성글 보기</MenuItem>
                 </MenuList>
               </Menu>
@@ -221,7 +228,7 @@ export default () => {
                   src={`http://localhost:3000/${baDetails.images}`}
                   boxSize="100%"
                   objectFit="cover"
-                  alt="아이템 이미지"
+                  alt="이미지"
                   m="auto"
                 />
               </Box>
