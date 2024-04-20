@@ -38,7 +38,6 @@ export default () => {
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
   return (
-
     <List
       bg={"white"}
       borderRadius={"10px"}
@@ -67,7 +66,13 @@ export default () => {
                 <Box color={"darkblue"} fontWeight={"bold"}>
                   [공지]
                 </Box>
-                <Box _hover={{ textDecoration: "underline" }}>
+                <Box
+                  _hover={{ textDecoration: "underline" }}
+                  maxW={"500px"}
+                  whiteSpace={"nowrap"}
+                  overflow={"hidden"}
+                  textOverflow={"ellipsis"}
+                >
                   {posts.title}
                 </Box>
                 <Box margin={"auto"} fontSize={"13px"}>
