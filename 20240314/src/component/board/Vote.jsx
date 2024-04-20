@@ -82,7 +82,7 @@ export default ({ todayVote, main }) => {
         maxH={"255px"}
         direction={"column"}
         justifyContent={"space-around"}
-        backgroundColor="#f7f7f8"
+        backgroundColor="white"
         borderRadius={"0.5rem"}
         marginBottom={"20px"}
       >
