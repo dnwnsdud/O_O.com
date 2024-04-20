@@ -13,6 +13,7 @@ export default async (req, res, next) => {
       let title4;
       votes = await req.mongo.vote.find({ category: "main" });
       if (votes.length > 0) result = votes[0];
+      else title1.title = "현재 투표가 진행중이지 않습니다.";
       title1 = await req.mongo.vote.find({ category: "baseball" });
       if (title1.length > 0) title1 = title1[0];
       else title1.title = "현재 투표가 진행중이지 않습니다.";
