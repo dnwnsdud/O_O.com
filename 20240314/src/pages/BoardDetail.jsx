@@ -5,6 +5,7 @@ import {
   Divider,
   Flex,
   Image,
+  Link,
   Menu,
   MenuButton,
   MenuItem,
@@ -180,7 +181,17 @@ export default () => {
           boxShadow={"md"}
           p={10}
         >
-          <Box display="none">{baDetails.tap}</Box>
+          <Box><Link color={"darkblue"} fontWeight={"bold"} onClick={() => {
+                if (baDetails.tap === "야구") {
+                  nav("/b");
+                } else if (baDetails.tap === "축구") {
+                  nav("/s");
+                } else if (baDetails.tap === "LOL") {
+                  nav("/l");
+                } else if (baDetails.tap === "사회") {
+                  nav("/c");
+                }
+              }}>{baDetails.tap}</Link></Box>
           <Flex justifyContent={"space-between"}>
             <Text fontWeight={"bold"} fontSize={"xl"} maxW={"400px"}>
               {baDetails.title}

@@ -1,13 +1,14 @@
 import { Box, Flex, Grid } from "@chakra-ui/react";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Calender from "./Calender";
+import moment from "moment";
+import { useUserContext } from "../hook/User";
 moment.locale("ko");
 
 export default () => {
-  let [day, setDay] = useState(`${moment(new Date()).format("YYYY-MM-DD")}`);
+  const { day, setDay } = useUserContext();
+
   useEffect(() => {
-    console.log(day);
     fetch("/api/result", {
       method: "POST",
       headers: {
@@ -21,7 +22,7 @@ export default () => {
       .then((res) => {
         console.log(res);
       });
-  }, []);
+  }, [day]);
 
   return (
     <>
@@ -36,9 +37,7 @@ export default () => {
               )
             }
             onChange={(date) => {
-              console.log(
-                `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-              );
+              setDay(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`)
             }}
           />
         </Box>

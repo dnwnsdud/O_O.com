@@ -77,6 +77,7 @@ export default ({ todayVote, main }) => {
   };
   return (
     <>
+    
       <Flex
         h={"100%"}
         maxH={"255px"}
@@ -85,6 +86,9 @@ export default ({ todayVote, main }) => {
         backgroundColor="white"
         borderRadius={"0.5rem"}
         marginBottom={"20px"}
+        bg={
+          todayVote&&todayVote.category=="main"?"":"#f5f5f5"
+        }
       >
         <Box paddingLeft={"30px"} color={"#46a3d2"} fontWeight={"bold"}>
           오늘의 O_O
