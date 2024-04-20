@@ -86,9 +86,7 @@ export default ({ todayVote, main }) => {
         borderRadius={"0.5rem"}
         marginBottom={"20px"}
       >
-        <Box paddingLeft={"30px"} color={"#46a3d2"} fontWeight={"bold"}>
-          오늘의 O_O
-        </Box>
+        
         <Text fontSize={"3xl"} textAlign={"center"}>
           {todayVote && todayVote == "비었음"
             ? "현재 투표가 진행중이지 않습니다."
