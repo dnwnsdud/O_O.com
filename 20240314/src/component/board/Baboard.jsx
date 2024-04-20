@@ -153,7 +153,7 @@ export default ({ user }) => {
 
   return (
     <>
-      <Stack>
+      <Stack >
         <Box
         // position={'relative'}
         >
@@ -165,6 +165,7 @@ export default ({ user }) => {
             // position={'fixed'}
             // width={'7%'}
             // top={400}
+            
           >
             <Button
               sx={{
@@ -351,6 +352,7 @@ export default ({ user }) => {
             templateColumns="1fr 1fr 8fr 2fr 2fr 1fr 1fr"
             padding="8px 0"
             color="black"
+            bg='#fff'
           >
             <Box w="100%" textAlign="center">
               번호
@@ -373,6 +375,7 @@ export default ({ user }) => {
                 textAlign="center"
                 templateColumns="1fr 1fr 8fr 2fr 2fr 1fr 1fr"
                 padding="10px 0"
+                bg='#fff'
               >
                 <Box>
                   {posts.length - ((currentPage - 1) * postsPerPage + i)}

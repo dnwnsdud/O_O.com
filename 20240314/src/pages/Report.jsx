@@ -114,6 +114,7 @@ export default () => {
     }
   };
   return (
+    <Box bg='#f7f7f8'>
     <Stack w={"50%"} m={"auto"} direction={"column"} justifyContent={"center"}>
       <Stack
         height={"80%"}
@@ -123,6 +124,7 @@ export default () => {
         bg={"white"}
         boxShadow={"md"}
         p={10}
+        my='10'
       >
         <Box height={"480px"}>
           <Box
@@ -143,24 +145,27 @@ export default () => {
           />
           <List>
             {currentPosts.map((user) => (
-              <ListItem key={user._id}>
+              <ListItem key={user._id} borderBottom={'1px solid #dedee3'}>
                 <Grid
                   templateColumns=" 10fr 1fr 1fr 1fr"
                   textAlign="center"
-                  padding={"8px 0"}
+
+                  alignItems={'center'}
+                  padding={"2px 0"}
                   fontSize={"13px"}
                 >
                   <Link to={`/b/id=${user.blackid}`}>
                     <Grid
                       templateColumns=" 1fr 1fr 1fr"
                       textAlign="center"
-                      padding={"8px 0"}
+                      padding={"2px 0"}
                       fontSize={"13px"}
                     >
                       <Box
                         overflow={"hidden"}
                         textOverflow={"ellipsis"}
                         whiteSpace={"nowrap"}
+                        fontWeight={'bold'}
                       >
                         {user.blacktype}
                       </Box>
@@ -192,6 +197,11 @@ export default () => {
                       내용보기
                     </Button>
                   )}
+                  {
+                    user.blacktype !=="기타" && (
+                      <Box></Box>
+                    )
+                  }
                   <RepodeModal
                     openData={openData}
                     isOpen={isOpen}
@@ -201,6 +211,7 @@ export default () => {
                     onClick={() =>
                       submit(user._id, user.blackid, user.email, "reject")
                     }
+                    color={'crimson'}
                   >
                     반려
                   </Button>
@@ -208,6 +219,7 @@ export default () => {
                     onClick={() =>
                       submit(user._id, user.blackid, user.email, "approval")
                     }
+                    color='darkblue'
                   >
                     승인
                   </Button>
@@ -218,6 +230,7 @@ export default () => {
         </Box>
         <Flex justifyContent="center" marginTop={"30px"}>
           <Button
+          size='sm'
             disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
             onClick={handlePrevPage}
           >
@@ -226,6 +239,7 @@ export default () => {
           {Array.from({ length: pageCount }, (_, idx) => idx + 1).map(
             (number) => (
               <Button
+              size='sm'
                 key={number}
                 onClick={() => paginate(number)}
                 mx="1"
@@ -237,11 +251,13 @@ export default () => {
               </Button>
             )
           )}
-          <Button disabled={currentPage === pageCount} onClick={handleNextPage}>
+          <Button 
+          size='sm' disabled={currentPage === pageCount} onClick={handleNextPage}>
             <ArrowRightIcon />
           </Button>
         </Flex>
       </Stack>
     </Stack>
+    </Box>
   );
 };

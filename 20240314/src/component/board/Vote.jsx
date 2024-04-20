@@ -90,9 +90,7 @@ export default ({ todayVote, main }) => {
           todayVote&&todayVote.category=="main"?"":"#f5f5f5"
         }
       >
-        <Box paddingLeft={"30px"} color={"#46a3d2"} fontWeight={"bold"}>
-          오늘의 O_O
-        </Box>
+        
         <Text fontSize={"3xl"} textAlign={"center"}>
           {todayVote && todayVote == "비었음"
             ? "현재 투표가 진행중이지 않습니다."

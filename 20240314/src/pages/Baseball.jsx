@@ -99,7 +99,7 @@ export default () => {
         </Box>
         <Grid templateColumns="4fr 1.5fr" gap="20px">
           <Box borderRadius={"10px"} marginBottom="4rem">
-            <Vote todayVote={todayVote} />
+            <Vote todayVote={todayVote}xcjkdlEo4iu98 />
             <BaBoard user={user} />
           </Box>
           <Flex

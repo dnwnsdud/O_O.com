@@ -59,6 +59,7 @@ export default ({soccerData , soccerPosts }) => {
             bgColor="#ffffff"
             templateColumns={"3fr 2fr 2fr 1fr"}
             padding="10px 0"
+            borderBottom={'1px solid #dedee3'}
           >
             <Box textAlign="center">주제</Box>
             <Box textAlign="center">닉네임</Box>
@@ -67,7 +68,8 @@ export default ({soccerData , soccerPosts }) => {
           </Grid>
           {currentPosts.map((data) => {
             return (
-              <ListItem key={data._id}>
+              <ListItem key={data._id} 
+              borderBottom={'1px solid #dedee3'}>
                 <Grid templateColumns={"3fr 2fr 2fr 1fr"} padding="10px 10px">
                   <Box
                     textAlign="center"

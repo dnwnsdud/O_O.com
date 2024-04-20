@@ -165,7 +165,7 @@ export default () => {
     return <div>Loading...</div>;
   }
   return (
-    <>
+    <Box  bg={"#f7f7f8"}>
       <Stack
         w={"35%"}
         m={"auto"}
@@ -180,6 +180,7 @@ export default () => {
           bg={"white"}
           boxShadow={"md"}
           p={10}
+          my='10'
         >
           <Box><Link color={"darkblue"} fontWeight={"bold"} onClick={() => {
                 if (baDetails.tap === "야구") {
@@ -323,6 +324,6 @@ export default () => {
           <Coment user={user} />
         </Stack>
       </Stack>
-    </>
+    </Box>
   );
 };

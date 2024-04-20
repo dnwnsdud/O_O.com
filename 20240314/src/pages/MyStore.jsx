@@ -53,7 +53,7 @@ export default () => {
 
 
     return (
-        <>
+        <Box bg='#fff'>
             {stores.length > 0 ? (
                 <Swiper
                     style={swiperStyle}
@@ -91,6 +91,6 @@ export default () => {
             ) : (
                 <div>Loading...</div>
             )}
-        </>
+        </Box>
     );
 }    
