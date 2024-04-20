@@ -12,25 +12,26 @@ import {
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { FaTrashCan } from "react-icons/fa6";
-import { useLocation } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 export default () => {
   const [userData, setUserData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
   const [totalPosts, setTotalPosts] = useState(6);
-  let param = useLocation().pathname.split("/")[2];
-
-  console.log(param);
+  //   let param = useLocation().pathname.split("/")[2];
+  const [searchParams] = useSearchParams();
+  const nickname = searchParams.get("nickname");
 
   useEffect(() => {
-    try {
-      fetch("/api/viewuserpost", {
-        method: "post",
+    if (nickname) {
+      const encodedNickname = encodeURIComponent(nickname);
+      const url = `/api/viewuserpost?nickname=${encodedNickname}`;
+      fetch(url, {
+        method: "GET", 
         headers: {
           "Content-Type": "application/json; charset=utf-8",
         },
-        body: param,
       })
         .then((response) => {
           if (response.ok) {
@@ -50,10 +51,8 @@ export default () => {
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
-    } catch (error) {
-      console.error("Error fetching data:", error);
     }
-  }, []);
+  }, [nickname]); // nickname 변화에 따라 useEffect 다시 실행
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
