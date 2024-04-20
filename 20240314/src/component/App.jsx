@@ -33,9 +33,9 @@ import UserModify from "./UserModify";
 import Requestlist from "../pages/Requestlist";
 import Requestdetail from "../pages/Requestdetail";
 import Calender from "../pages/Calender";
+import ViewUserpost from "../pages/ViewUserpost";
 
 export default () => {
-
   return (
     <UserProvider>
       <Routes>
@@ -70,6 +70,7 @@ export default () => {
           <Route path="/requestlist/:id" element={<Requestdetail />} />
           <Route path="/vote" element={<CreateVote />} />
           <Route path="/calender" element={<Calender />} />
+          <Route path="/view/:nickname" element={<ViewUserpost />} />
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
         <Route path="/deleteloading" element={<Loading />} />

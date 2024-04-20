@@ -11,7 +11,7 @@ import {
   MenuList,
   Stack,
   Text,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
@@ -198,7 +198,9 @@ export default () => {
                   ) : (
                     <MenuItem onClick={onOpen}>신고하기</MenuItem>
                   )}
-                  <MenuItem>작성글 보기</MenuItem>
+                  <MenuItem onClick={() => nav(`/view/${baDetails.nickname}`)}>
+                    작성글 보기
+                  </MenuItem>
                 </MenuList>
               </Menu>
               <BlackModal
