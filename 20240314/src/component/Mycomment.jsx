@@ -86,7 +86,7 @@ export default () => {
   return (
     <>
       <Text fontWeight={'bold'}>내 댓글</Text>
-      <Flex justifyContent="center" flexDir={'column'} padding="10px 50px 10px" boxShadow='base' border="1px solid #e6e6ea" borderRadius="10px" width="640px" height={'250px'}>
+      <Flex justifyContent="center" bg='#fff' flexDir={'column'} padding="10px 50px 10px" boxShadow='base' border="1px solid #e6e6ea" borderRadius="10px" width="640px" height={'250px'}>
         <Box height={"100%"}>
           {/* <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 댓글</Box> */}
           <List >

@@ -83,46 +83,48 @@ export default()=>{
           "0"
         )}-${String(date.getDate()).padStart(2, "0")}`;
       };
-    return <>
-        <Center>
-            <Stack gap={6}>
-                <Heading>오늘의 O_O 작성</Heading>
-                    <Box>카테고리</Box>
+    return <Box bg='#f7f7f8'>
+        <Center >
+            <Stack gap={6} bg='white' width={'40%'} my='10' borderRadius={'10px'} shadow={'base'}>
+                <Heading mt='3' textAlign={'center'}>오늘의 O_O 작성</Heading>
+                <Stack margin={'auto'} textAlign={'center'}>
+                    <Box fontWeight={'bold'} borderBottom={'1px solid #dedee3'} >카테고리</Box>
                     <Box>{requestData.category}</Box>
-                    <Box>주제</Box>
+                    <Box fontWeight={'bold'} borderBottom={'1px solid #dedee3'}>주제</Box>
                     <Box>{requestData.title}</Box>
-                    <Box>닉네임</Box>
+                    <Box fontWeight={'bold'} borderBottom={'1px solid #dedee3'}>닉네임</Box>
                     <Box>{requestData.user}</Box>
-                    <Box>날짜</Box>
+                    <Box fontWeight={'bold'} borderBottom={'1px solid #dedee3'}>날짜</Box>
                     <Box>{formatDate(requestData.date)}</Box>
+                    </Stack>
                 <Flex gap={4} justifyContent={"space-between"} alignItems={"center"}>
-                    <Stack gap={4}>
-                            <Box>왼쪽 제목</Box>
+                    <Stack gap={4} w='50%' textAlign={'center'}>
+                            <Box fontWeight={'bold'} >왼쪽 제목</Box>
                             <Box>{requestleftData.title}</Box>
-                            <Box>왼쪽 내용</Box>
+                            <Box fontWeight={'bold'} >왼쪽 내용</Box>
                             <Box>{requestleftData.content}</Box>
-                            <Box>왼쪽 이미지</Box>
+                            <Box fontWeight={'bold'} >왼쪽 이미지</Box>
                             <Box>{requestleftData.images}</Box>
                     </Stack>
                     <Divider borderColor={"#eaeaea"} borderWidth={"1px"} orientation="vertical" h={"240px"} />
-                    <Stack gap={4}>
-                            <Box>오른쪽 제목</Box>
-                            <Box>{requestrightData.title}</Box>
-                            <Box>오른쪽 내용</Box>
+                    <Stack gap={4} w='50%' textAlign={'center'}>
+                            <Box fontWeight={'bold'} > 오른쪽 제목</Box>
+                            <Box >{requestrightData.title}</Box>
+                            <Box  fontWeight={'bold'} > 오른쪽 내용</Box>
                             <Box>{requestrightData.content}</Box>
-                            <Box>오른쪽 이미지</Box>
+                            <Box fontWeight={'bold'} >오른쪽 이미지</Box>
                             <Box>{requestrightData.images}</Box>
                     </Stack>
                 </Flex>
-                <Grid templateColumns={"1fr 1fr"}>
-                    <Button onClick={()=>{
+                <Grid templateColumns={"1fr 1fr"} mb='5'>
+                    <Button color='crimson'onClick={()=>{
                         submit(requestData._id, "reject")
                     }}>요청반려</Button>
-                    <Button onClick={()=>{
+                    <Button color='darkblue'onClick={()=>{
                         submit(requestData._id, "approval")
                     }}>요청승인</Button>
                 </Grid>
             </Stack>
         </Center>
-    </>
+    </Box>
 }

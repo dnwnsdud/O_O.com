@@ -164,7 +164,7 @@ export default () => {
     return <div>Loading...</div>;
   }
   return (
-    <>
+    <Box  bg={"#f7f7f8"}>
       <Stack
         w={"35%"}
         m={"auto"}
@@ -179,6 +179,7 @@ export default () => {
           bg={"white"}
           boxShadow={"md"}
           p={10}
+          my='10'
         >
           <Box display="none">{baDetails.tap}</Box>
           <Flex justifyContent={"space-between"}>
@@ -312,6 +313,6 @@ export default () => {
           <Coment user={user} />
         </Stack>
       </Stack>
-    </>
+    </Box>
   );
 };

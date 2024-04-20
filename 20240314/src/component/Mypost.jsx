@@ -85,8 +85,8 @@ export default () => {
   return (
     <>
       <Text fontWeight={'bold'}>내 게시글</Text>
-      <Flex justifyContent="center" flexDir={'column'} padding="10px 50px 10px" border="1px solid #e6e6ea" boxShadow='base' borderRadius="10px" width="640px" height={'250px'}>
-        <Box height={"100%"}>
+      <Flex justifyContent="center" bg='#fff' flexDir={'column'} padding="10px 50px 10px" border="1px solid #e6e6ea" boxShadow='base' borderRadius="10px" width="640px" height={'250px'}>
+        <Box height={"100%"} >
           {/* <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 게시글</Box> */}
           <List >
             <Grid templateColumns=" 3fr 2fr 1fr 1fr 2fr" borderBottom="1px solid #adadb8" textAlign="center" padding={"8px 0"}>

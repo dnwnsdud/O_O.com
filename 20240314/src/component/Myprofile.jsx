@@ -42,7 +42,8 @@ export default () => {
 
 
 
-    return <Grid
+    return <Box bg='#f7f7f8'>
+    <Grid
         width={'65%'} margin={'auto'}
         templateRows='repeat(2, 1fr)'
 
@@ -50,7 +51,7 @@ export default () => {
     >
 
         <GridItem rowSpan={2} colSpan={1}>
-            <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #e6e6ea" boxShadow='base' borderRadius="10px" width="500px">
+            <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #e6e6ea" boxShadow='base' borderRadius="10px" width="500px" bg='#fff'>
                 <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 정보</Box>
                 <Grid templateColumns="1fr 1fr" width="70%" margin="auto">
                     <Box borderRadius="50%" width="50px" height="50px" margin="auto" overflow="hidden" ><Image
@@ -96,4 +97,5 @@ export default () => {
         </GridItem>
 
     </Grid >
+    </Box>
 }; 

@@ -58,19 +58,20 @@ export default () => {
   }, []);
 
   return (
-    <Box maxW="1300px" margin="auto">
+    <Box bg='#f7f7f8'>
+    <Box maxW="1300px" margin="auto" >
       <Box padding="30px" fontSize="2rem" fontWeight="bold" textAlign="center">요청내역</Box>
       <Grid templateColumns={"1fr 1fr"} templateRows={"1fr 1fr"} gap="50px" paddingBottom="30px">
-        <Box bg="#f6f6f6" borderRadius="0.5rem">
+        <Box bg="#fff" borderRadius="0.5rem">
           <Requestbaseball baseballData={baseballData} BaseballPosts={BaseballPosts} />
         </Box>
-        <Box bg="#f6f6f6" borderRadius="0.5rem">
+        <Box bg="#fff" borderRadius="0.5rem">
           <Requestlol lolData={lolData} lolPosts={lolPosts} />
         </Box>
-        <Box bg="#f6f6f6" borderRadius="0.5rem">
+        <Box bg="#fff" borderRadius="0.5rem">
           <Requestsoccer soccerData={soccerData} soccerPosts={soccerPosts} />
         </Box>
-        <Box bg="#f6f6f6" borderRadius="0.5rem">
+        <Box bg="#fff" borderRadius="0.5rem">
           <Requestsociety societyData={societyData} societyPosts={societyPosts}/>
         </Box>
       </Grid>
@@ -86,6 +87,7 @@ export default () => {
           요청
         </Button>
       </Flex>
+    </Box>
     </Box>
   );
 };
