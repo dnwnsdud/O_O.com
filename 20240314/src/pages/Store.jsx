@@ -247,7 +247,7 @@ export default () => {
                       {
                         user.role === "admin" ?
                           <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
-                            onClick={(e) => deleteSubmit(e, store.price)}
+                            onClick={(e) => deleteSubmit(e, store._id)}
                           >삭제</Button>
                           :
                           <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
@@ -295,7 +295,7 @@ export default () => {
                       {
                         user.role === "admin" ?
                           <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
-                            onClick={(e) => deleteSubmit(e, store.price)}
+                            onClick={(e) => deleteSubmit(e, store._id)}
                           >삭제</Button>
                           :
                           <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
@@ -330,7 +330,7 @@ export default () => {
                   {
                     user.role === "admin" ?
                       <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
-                        onClick={(e) => deleteSubmit(e, store.price)}
+                        onClick={(e) => deleteSubmit(e, store._id)}
                       >삭제</Button>
                       :
                       <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
