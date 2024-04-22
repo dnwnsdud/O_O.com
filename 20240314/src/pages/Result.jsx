@@ -1,27 +1,34 @@
-import { Box, Flex, Grid } from "@chakra-ui/react";
+import { Box, Flex, Grid, Heading } from "@chakra-ui/react";
 import React, { useEffect, useState, useContext } from "react";
 import Calender from "./Calender";
-import moment from "moment";
 import { useUserContext } from "../hook/User";
-moment.locale("ko");
 
 export default () => {
   const { day, setDay } = useUserContext();
+  const [result, setResult] = useState({});
 
   useEffect(() => {
-    fetch("/api/result", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        date: day,
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
+    const fetchData = async () => {
+      setResult({});
+      const response = await fetch("/api/result", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          date: day,
+        }),
       });
+      const data = await response.json();
+      setResult(data.data);
+      console.log(data.data, "data.data");
+    };
+    // .then((res) => res.json())
+    // .then((res) => {
+    //   console.log(res.data, "res.data");
+    //   setResult(res.data);
+    // });
+    fetchData();
   }, [day]);
 
   return (
@@ -37,9 +44,15 @@ export default () => {
               )
             }
             onChange={(date) => {
-              setDay(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`)
-              console.log(day,"day");
-              console.log(date,"date");
+              setDay(
+                `${date.getFullYear()}-${
+                  date.getMonth() + 1 >= 10
+                    ? date.getMonth() + 1
+                    : `0${date.getMonth() + 1}`
+                }-${
+                  date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`
+                }`
+              );
             }}
           />
         </Box>
@@ -57,7 +70,7 @@ export default () => {
               fontWeight="bold"
               fontSize="1.5 rem"
             >
-              결과
+              <Heading>O_O</Heading>
             </Box>
             <Flex gap="10px" padding="10px">
               <Box
@@ -66,7 +79,7 @@ export default () => {
                 h="150px"
                 textAlign="center"
               >
-                야구
+                <Heading size={"m"}>야구</Heading>
               </Box>
               <Box
                 border="1px solid black"
@@ -74,7 +87,7 @@ export default () => {
                 h="150px"
                 textAlign="center"
               >
-                LOL
+                <Heading size={"m"}>LOL</Heading>
               </Box>
               <Box
                 border="1px solid black"
@@ -82,7 +95,7 @@ export default () => {
                 h="150px"
                 textAlign="center"
               >
-                축구
+                <Heading size={"m"}>축구</Heading>
               </Box>
               <Box
                 border="1px solid black"
@@ -90,7 +103,7 @@ export default () => {
                 h="150px"
                 textAlign="center"
               >
-                사회
+                <Heading size={"m"}>사회</Heading>
               </Box>
             </Flex>
           </Box>
