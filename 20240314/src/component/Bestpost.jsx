@@ -85,7 +85,7 @@ export default () => {
                 <Box
                   key={`title_${posts._id}`}
                   _hover={{ textDecoration: "underline" }}
-                  maxW={"285px"}
+                  maxW={"250px"}
                   whiteSpace={"nowrap"}
                   overflow={"hidden"}
                   textOverflow={"ellipsis"}
