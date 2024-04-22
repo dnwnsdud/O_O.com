@@ -31,7 +31,7 @@ export default () => {
   const [rightcontent, setRightcontent] = useState("");
   const [rightimage, setRightimage] = useState("");
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   let nav = useNavigate();
 
@@ -147,12 +147,19 @@ export default () => {
 
   return (
     <>
-      <Center>
-        <Stack gap={6}>
-          <Heading>오늘의 O_O 작성</Heading>
+      <Stack bg={"#f7f7f8"}>
+        <Stack
+          width={"45%"}
+          margin={"20px auto"}
+          spacing={8}
+          h={"80vh"}
+          bg={"#ffffff"}
+          borderRadius={"0.5rem"}
+        >
+          <Heading textAlign={"center"} padding="20px 10px 0 10px">오늘의 O_O 작성</Heading>
           <FormControl isRequired>
-            <FormLabel>카테고리</FormLabel>
-            <Select defaultValue={id} onChange={onCategoryHandler}>
+            <FormLabel paddingLeft={"20px"}>카테고리</FormLabel>
+            <Select marginLeft={"20px"} w="200px" defaultValue={id} onChange={onCategoryHandler}>
               <option value="baseball">야구</option>
               <option value="lol">LoL</option>
               <option value="soccer">축구</option>
@@ -160,10 +167,10 @@ export default () => {
             </Select>
           </FormControl>
           <FormControl isRequired>
-            <FormLabel>주제</FormLabel>
-            <Input type="text" onChange={onTopicHandler} />
+            <FormLabel paddingLeft={"20px"}>주제</FormLabel>
+            <Input marginLeft={"20px"} w="95%" type="text" onChange={onTopicHandler} />
           </FormControl>
-          <Flex gap={4} justifyContent={"space-between"} alignItems={"center"}>
+          <Flex padding={"0 20px"} gap={4} justifyContent={"space-between"} alignItems={"center"}>
             <Stack gap={4}>
               <FormControl isRequired>
                 <FormLabel>왼쪽 제목</FormLabel>
@@ -191,9 +198,16 @@ export default () => {
               <Input type="file" onChange={righthandleImagesChange} />
             </Stack>
           </Flex>
-          <Button onClick={onSubmitHandler}>작성</Button>
+          <Flex justifyContent={"end"} paddingRight="30px" gap={"10px"}>
+            <Button color={"#ffffff"} backgroundColor="#53535f !important" padding={"10px"} w="80px" h="40px" onClick={onSubmitHandler}>작성</Button>
+            <Button color={"#ffffff"} backgroundColor="#53535f !important" padding={"10px"} w="80px" h="40px" onClick={() => {
+              window.history.back();
+            }}>
+              이전으로
+            </Button>
+          </Flex>
         </Stack>
-      </Center>
+      </Stack>
     </>
   );
 };

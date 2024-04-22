@@ -2,18 +2,11 @@ import React from "react";
 import {
   Box,
   Button,
-  ButtonGroup,
   Flex,
   Grid,
-  HStack,
-  VStack,
-  Center,
-  styled,
   Stack,
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
@@ -61,17 +54,19 @@ export default ({ user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPosts, setTotalPosts] = useState(10);
   const [postsPerPage] = useState(10);
-  const [currentTab, setCurrentTab] = useState("야구");
+  const currentTab = "야구";
   const [sortOrder, setSortOrder] = useState("최신순");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedTeam, setSelectedTeam] = useState("모든 팀");
+
+  const [selectedTeam, setSelectedTeam] = useState("전체");
+
+
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const url = `/api/boards?tap=${encodeURIComponent(
           currentTab
-        )}&sortOrder=${sortOrder}`;
+        )}&team=${selectedTeam}&sortOrder=${sortOrder}`;
         const response = await fetch(url);
         const contentType = response.headers.get("Content-type");
 
@@ -92,7 +87,6 @@ export default ({ user }) => {
             default:
               break;
           }
-
           setPosts(data.posts);
           setTotalPosts(data.totalCount);
         } else {
@@ -103,7 +97,7 @@ export default ({ user }) => {
       }
     };
     fetchPosts();
-  }, [sortOrder]);
+  }, [sortOrder, selectedTeam]);
 
   // 페이지네이션 버튼
 
@@ -154,18 +148,10 @@ export default ({ user }) => {
   return (
     <>
       <Stack >
-        <Box
-        // position={'relative'}
-        >
+        <Box>
           <Grid
             templateColumns="repeat(11 , 1fr)"
             gap={2}
-            // bg='#f7f7f8'
-            // borderRadius={10}
-            // position={'fixed'}
-            // width={'7%'}
-            // top={400}
-            
           >
             <Button
               sx={{
@@ -173,7 +159,7 @@ export default ({ user }) => {
                 color: "#ffffff",
               }}
               size="xs"
-              onClick={() => setSelectedTeam("모든 팀")}
+              onClick={() => setSelectedTeam("전체")}
             >
               전체
             </Button>
@@ -366,7 +352,7 @@ export default ({ user }) => {
           </Grid>
           {currentPosts
             .filter(
-              (post) => selectedTeam === "모든 팀" || post.team === selectedTeam
+              (post) => selectedTeam === "전체" || post.team === selectedTeam
             )
             .map((post, i) => (
               <Grid
@@ -387,16 +373,18 @@ export default ({ user }) => {
                 >
                   {post.team}
                 </Box>
-                <Flex
-                  whiteSpace="nowrap"
-                  overflow="hidden"
-                  textOverflow="ellipsis"
-                  padding="0 20px 0 20px"
-                  justifyContent="center"
-                >
-                  <Link to={`/b/id=${post._id}`}>{post.title}</Link>
-                  <Box color="#5181e3">[{post.comment.length}]</Box>
-                </Flex>
+                <Link to={`/b/id=${post._id}`}>
+                  <Flex
+                    padding="0 20px 0 20px"
+                    justifyContent="center"
+                  >
+                    <Box whiteSpace="nowrap"
+                      isTruncated
+                      maxW={"300px"}>
+                      {post.title}</Box>
+                    <Box color="#5181e3">[{post.comment.length}]</Box>
+                  </Flex>
+                </Link>
                 <Box
                   whiteSpace="nowrap"
                   overflow="hidden"

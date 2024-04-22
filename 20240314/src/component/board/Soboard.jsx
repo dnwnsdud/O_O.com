@@ -1,19 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
-  ButtonGroup,
   Flex,
   Grid,
-  HStack,
-  VStack,
-  Center,
-  Stack,
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ko";
@@ -60,49 +52,49 @@ export default ({ user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPosts, setTotalPosts] = useState(10);
   const [postsPerPage] = useState(10);
-  const [currentTab, setCurrentTab] = useState("축구");
+  const currentTab = "축구";
   const [sortOrder, setSortOrder] = useState("최신순");
-  const [searchTerm, setSearchTerm] = useState("");
   const [selectedTeam, setSelectedTeam] = useState("전체");
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const url = `/api/boards?tap=${encodeURIComponent(
-          currentTab
-        )}&sortOrder=${sortOrder}`;
-        const response = await fetch(url);
-        const contentType = response.headers.get("Content-type");
+  useEffect
+    (() => {
+      const fetchPosts = async () => {
+        try {
+          const url = `/api/boards?tap=${encodeURIComponent(
+            currentTab
+          )}&team=${selectedTeam}&sortOrder=${sortOrder}`;
+          const response = await fetch(url);
+          const contentType = response.headers.get("Content-type");
 
-        if (contentType && contentType.includes("application/json")) {
-          let data = await response.json();
-          switch (sortOrder) {
-            case "최신순":
-              data.posts.sort((a, b) =>
-                moment(b.createdAt).diff(moment(a.createdAt))
-              );
-              break;
-            case "조회순":
-              data.posts.sort((a, b) => b.count - a.count);
-              break;
-            case "추천순":
-              data.posts.sort((a, b) => b.like - a.like);
-              break;
-            default:
-              break;
+          if (contentType && contentType.includes("application/json")) {
+            let data = await response.json();
+            switch (sortOrder) {
+              case "최신순":
+                data.posts.sort((a, b) =>
+                  moment(b.createdAt).diff(moment(a.createdAt))
+                );
+                break;
+              case "조회순":
+                data.posts.sort((a, b) => b.count - a.count);
+                break;
+              case "추천순":
+                data.posts.sort((a, b) => b.like - a.like);
+                break;
+              default:
+                break;
+            }
+
+            setPosts(data.posts);
+            setTotalPosts(data.totalCount);
+          } else {
+            throw new Error();
           }
-
-          setPosts(data.posts);
-          setTotalPosts(data.totalCount);
-        } else {
-          throw new Error();
+        } catch (error) {
+          console.error("데이터를 가져오는 중 오류 발생:", error);
         }
-      } catch (error) {
-        console.error("데이터를 가져오는 중 오류 발생:", error);
-      }
-    };
-    fetchPosts();
-  }, [sortOrder]);
+      };
+      fetchPosts();
+    }, [sortOrder, selectedTeam]);
 
   // 페이지네이션 버튼
 
@@ -327,16 +319,18 @@ export default ({ user }) => {
                 >
                   {post.team}
                 </Box>
-                <Flex
-                  whiteSpace="nowrap"
-                  overflow="hidden"
-                  textOverflow="ellipsis"
-                  padding="0 20px 0 20px"
-                  justifyContent="center"
-                >
-                  <Link to={`/b/id=${post._id}`}>{post.title}</Link>
-                  <Box color="#5181e3">[{post.comment.length}]</Box>
-                </Flex>
+                <Link to={`/b/id=${post._id}`}>
+                  <Flex
+                    padding="0 20px 0 20px"
+                    justifyContent="center"
+                  >
+                    <Box whiteSpace="nowrap"
+                      isTruncated
+                      maxW={"300px"}>
+                      {post.title}</Box>
+                    <Box color="#5181e3">[{post.comment.length}]</Box>
+                  </Flex>
+                </Link>
                 <Box
                   whiteSpace="nowrap"
                   overflow="hidden"

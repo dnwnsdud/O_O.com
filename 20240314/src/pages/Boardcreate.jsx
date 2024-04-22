@@ -28,11 +28,23 @@ export default () => {
   const [tap, setTap] = useState("");
   const [teamsOptions, setTeamsOptions] = useState([]);
 
-  const handleInputChange = (e) => setTitle(e.target.value);
+  const handleInputChange = (e) => {
+    const newTitle = e.target.value;
+    if (newTitle.length <= 20) {
+      setTitle(newTitle);
+    } else {
+      alert("제목은 최대 20자까지 입력 가능합니다.");
+      setTitle(newTitle.slice(0, 20));
+    }
+  };
   const handleInputChange2 = (e) => setContent(e.target.value);
   const handleInputChange3 = (e) => setTeam(e.target.value);
   const handleInputChange4 = (e) => setTap(e.target.value);
   const [itemImageError, setItemImageError] = useState(false);
+
+  const [uploadedImageName, setUploadedImageName] = useState("");
+  const [uploadedVideoName, setUploadedVideoName] = useState("");
+
 
   const isError = title === "";
   const isError2 = content === "";
@@ -100,6 +112,7 @@ export default () => {
     if (file) {
       const formData = new FormData();
       formData.append("images", file);
+      setUploadedImageName(file.name);
 
       fetch("/api/upload/images", {
         method: "POST",
@@ -108,17 +121,17 @@ export default () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log("이미지 업로드 성공");
             const imagePath = data.mediapath;
-            console.log(data);
-            console.log("이미지경로: " + imagePath);
             setImage(imagePath);
+            alert("이미지 업로드 성공!!")
           } else {
             console.error("이미지 업로드 실패:", data.error);
+            setUploadedImageName("");
           }
         })
         .catch((error) => {
           console.error("이미지 업로드 오류:", error);
+          setUploadedImageName("");
         });
     }
   };
@@ -128,6 +141,7 @@ export default () => {
     if (file) {
       const formData = new FormData();
       formData.append("videos", file);
+      setUploadedVideoName(file.name);
 
       fetch("/api/upload/videos", {
         method: "POST",
@@ -136,17 +150,17 @@ export default () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log("동영상 업로드 성공");
             const videoPath = data.mediapath;
-            console.log(data);
-            console.log("동영상경로: " + videoPath);
             setVideo(videoPath);
+            alert("동영상 업로드 성공!!")
           } else {
             console.error("동영상 업로드 실패:", data.error);
+            setUploadedVideoName("");
           }
         })
         .catch((error) => {
           console.error("동영상 업로드 오류:", error);
+          setUploadedVideoName("");
         });
     }
   };
@@ -213,155 +227,192 @@ export default () => {
         break;
     }
   };
+  const clearImage = () => {
+    setUploadedImageName("");
+    setImage("");
+  };
 
-  return (
-    <Stack w={"35%"} m={"auto"} direction={"column"} justifyContent={"center"}>
-      <Stack
-        height={"80%"}
-        direction={"column"}
-        justifyContent={"space-around"}
-        borderRadius={"10px"}
-        bg={"white"}
-        boxShadow={"md"}
-        p={10}
-      >
-        <Center>
-          <Text fontSize={"4xl"} color={"#0b0b0d"} fontWeight={"bold"}>
-            게시글 작성
-          </Text>
-        </Center>
-        <Box>
-          <FormControl isInvalid={isError3} isRequired>
-            <FormLabel>카테고리</FormLabel>
-            <Select
-              placeholder="카테고리 선택"
-              value={tap}
-              onChange={handleCategoryChange}
-            >
-              <option>야구</option>
-              <option>축구</option>
-              <option>LOL</option>
-              <option>사회</option>
-            </Select>
-            {!isError3 ? (
-              <FormHelperText color={"#3182ce"}>
-                선택한 카테고리로 저장됩니다
-              </FormHelperText>
-            ) : (
-              <FormErrorMessage>카테고리를 꼭 선택해주세요!</FormErrorMessage>
-            )}
-          </FormControl>
-          {teamsOptions.length > 0 && (
-            <FormControl marginBottom="20px">
-              <FormLabel>응원팀</FormLabel>
-              <Select
-                placeholder="응원팀 선택"
-                value={team}
-                onChange={(e) => setTeam(e.target.value)}
-                disabled={!teamsOptions.length}
-              >
-                {teamsOptions.map((team) => (
-                  <option key={team} value={team}>
-                    {team}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
-          )}
-          <Divider
-            orientation="horizontal"
-            borderBottomWidth={"2px"}
-            borderColor={"#0b0b0d"}
-            marginTop={"5px"}
-            marginBottom={"5px"}
-          />
-          <FormControl isInvalid={isError} isRequired>
-            <FormLabel>제목</FormLabel>
-            <Input type="text" value={title} onChange={handleInputChange} />
-            {!isError ? (
-              <FormHelperText color={"#3182ce"}>
-                입력하신 내용으로 요청이 됩니다.
-              </FormHelperText>
-            ) : (
-              <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
-            )}
-          </FormControl>
-          <Divider
-            orientation="horizontal"
-            borderBottomWidth={"2px"}
-            borderColor={"#0b0b0d"}
-            marginTop={"5px"}
-            marginBottom={"5px"}
-          />
-          <FormControl isInvalid={isError2} isRequired>
-            <FormLabel>내용</FormLabel>
-            <Textarea
-              value={content}
-              onChange={handleInputChange2}
-              size={"lg"}
-              resize={"none"}
-              h={"200px"}
-            />
-            {!isError2 ? (
-              <FormHelperText color={"#3182ce"}>
-                입력하신 내용으로 요청이 됩니다.
-              </FormHelperText>
-            ) : (
-              <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
-            )}
-          </FormControl>
-          <Divider
-            orientation="horizontal"
-            borderBottomWidth={"2px"}
-            borderColor={"#0b0b0d"}
-            marginTop={"5px"}
-            marginBottom={"5px"}
-          />
-          <FormControl marginTop="20px">
-            <Input
-              value={"nickname"}
-              placeholder={user.nickname}
-              readOnly
-              hidden
-            />
-          </FormControl>
-          <FormControl isInvalid={itemImageError} mt="5">
-            <FormLabel>이미지 업로드</FormLabel>
-            <Input type="file" name="images" onChange={handleImagesChange} />
-            {!itemImageError ? (
-              <FormHelperText color={"darkblue"}>
-                이미지가 올라갑니다.
-              </FormHelperText>
-            ) : (
-              <FormErrorMessage>이미지를 넣어주세요.</FormErrorMessage>
-            )}
-          </FormControl>
-          <FormControl isInvalid={itemImageError} mt="5">
-            <FormLabel>동영상 업로드</FormLabel>
-            <Input type="file" name="videos" onChange={handleVideosChange} />
-            {!itemImageError ? (
-              <FormHelperText color={"darkblue"}>
-                동영상이 올라갑니다.
-              </FormHelperText>
-            ) : (
-              <FormErrorMessage>동영상를 넣어주세요.</FormErrorMessage>
-            )}
-          </FormControl>
-        </Box>
-        <Flex justifyContent={"end"} gap={3}>
-          <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"} onClick={()=>{
-            window.history.back();
-          }}>
+  const clearVideo = () => {
+    setUploadedVideoName("");
+    setVideo("");
+  };
+
+  const CustomFileInput = ({ onChange, label, helperText, isInvalid, errorMessage, fileType, fileName, onClear }) => {
+    return (
+      <FormControl isInvalid={isInvalid} mt="5">
+        <FormLabel fontWeight={"bold"}>{label}</FormLabel>
+        <Input type="file" name={fileType} onChange={onChange} hidden />
+        <Button padding={"10px 20px 10px 20px"} onClick={() => document.getElementsByName(fileType)[0].click()} variant="outline">
+          파일 선택
+        </Button>
+        {fileName && (
+          <Button padding={"10px 20px 10px 20px"} onClick={onClear} variant="outline" w={"30px"} h="30px" color={"#ffffff"} bg="#53535f !important" marginLeft={"20px"}>
             취소
           </Button>
-          <Button
-            border={"2px solid"}
-            borderColor={"rgba(11,11,13,.6)"}
-            onClick={onSubmitHandler}
-          >
-            작성
-          </Button>
-        </Flex>
+        )}
+        {!isInvalid ? (
+          fileName ? (
+            <FormHelperText color={"#E7141A"}>업로드된 파일: {fileName}</FormHelperText>
+          ) : (
+            <FormHelperText color={"darkblue"}>{helperText}</FormHelperText>
+          )
+        ) : (
+          <FormErrorMessage>{errorMessage}</FormErrorMessage>
+        )}
+      </FormControl>
+    );
+  };
+
+  return (
+    <Stack bg={"#f7f7f8"}>
+      <Stack w={"35%"} margin="30px auto" direction={"column"} justifyContent={"center"}>
+        <Stack
+          height={"80%"}
+          direction={"column"}
+          justifyContent={"space-around"}
+          borderRadius={"10px"}
+          bg={"white"}
+          boxShadow={"md"}
+          p={10}
+        >
+          <Center>
+            <Text fontSize={"4xl"} color={"#0b0b0d"} fontWeight={"bold"}>
+              게시글 작성
+            </Text>
+          </Center>
+          <Box>
+            <FormControl isInvalid={isError3} isRequired>
+              <FormLabel>카테고리</FormLabel>
+              <Select
+                placeholder="카테고리 선택"
+                value={tap}
+                onChange={handleCategoryChange}
+              >
+                <option>야구</option>
+                <option>축구</option>
+                <option>LOL</option>
+                <option>사회</option>
+              </Select>
+              {!isError3 ? (
+                <FormHelperText color={"#3182ce"}>
+                  선택한 카테고리로 저장됩니다
+                </FormHelperText>
+              ) : (
+                <FormErrorMessage>카테고리를 꼭 선택해주세요!</FormErrorMessage>
+              )}
+            </FormControl>
+            {teamsOptions.length > 0 && (
+              <FormControl marginBottom="20px">
+                <FormLabel>응원팀</FormLabel>
+                <Select
+                  placeholder="응원팀 선택"
+                  value={team}
+                  onChange={(e) => setTeam(e.target.value)}
+                  disabled={!teamsOptions.length}
+                >
+                  {teamsOptions.map((team) => (
+                    <option key={team} value={team}>
+                      {team}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+            <Divider
+              orientation="horizontal"
+              borderBottomWidth={"1px"}
+              borderColor={"#e6e6ea"}
+              marginTop={"5px"}
+              marginBottom={"5px"}
+            />
+            <FormControl isInvalid={isError} isRequired>
+              <FormLabel>제목</FormLabel>
+              <Input type="text" value={title} onChange={handleInputChange} maxLength="20" />
+              {!isError ? (
+                <FormHelperText color={"#3182ce"}>
+                  입력하신 내용으로 요청이 됩니다.
+                </FormHelperText>
+              ) : (
+                <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
+              )}
+            </FormControl>
+            <Divider
+              orientation="horizontal"
+              borderBottomWidth={"1px"}
+              borderColor={"#e6e6ea"}
+              marginTop={"5px"}
+              marginBottom={"5px"}
+            />
+            <FormControl isInvalid={isError2} isRequired>
+              <FormLabel>내용</FormLabel>
+              <Textarea
+                value={content}
+                onChange={handleInputChange2}
+                size={"lg"}
+                resize={"none"}
+                h={"200px"}
+              />
+              {!isError2 ? (
+                <FormHelperText color={"#3182ce"}>
+                  입력하신 내용으로 요청이 됩니다.
+                </FormHelperText>
+              ) : (
+                <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
+              )}
+            </FormControl>
+            <Divider
+              orientation="horizontal"
+              borderBottomWidth={"1px"}
+              borderColor={"#e6e6ea"}
+              marginTop={"5px"}
+              marginBottom={"5px"}
+            />
+            <FormControl marginTop="20px">
+              <Input
+                value={"nickname"}
+                placeholder={user.nickname}
+                readOnly
+                hidden
+              />
+            </FormControl>
+            <Flex padding={"0 20px 20px 20px"}>
+              <CustomFileInput
+                onChange={handleImagesChange}
+                label="이미지 업로드"
+                helperText="이미지가 올라갑니다."
+                isInvalid={itemImageError}
+                errorMessage="이미지를 넣어주세요."
+                fileType="images"
+                fileName={uploadedImageName}
+                onClear={clearImage}
+              />
+              <CustomFileInput
+                onChange={handleVideosChange}
+                label="동영상 업로드"
+                helperText="동영상이 올라갑니다."
+                isInvalid={itemImageError}
+                errorMessage="동영상를 넣어주세요."
+                fileType="videos"
+                fileName={uploadedVideoName}
+                onClear={clearVideo}
+              />
+            </Flex>
+          </Box>
+          <Flex justifyContent={"end"} gap={3}>
+            <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"} onClick={() => {
+              window.history.back();
+            }}>
+              취소
+            </Button>
+            <Button
+              border={"2px solid"}
+              borderColor={"rgba(11,11,13,.6)"}
+              onClick={onSubmitHandler}
+            >
+              작성
+            </Button>
+          </Flex>
+        </Stack>
       </Stack>
     </Stack>
   );

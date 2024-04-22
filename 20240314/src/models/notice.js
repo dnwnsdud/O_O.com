@@ -15,6 +15,9 @@ export default mongoose.Schema(
     email: {
       type: String,
     },
+    nickname: {
+      type: String,
+    },
   },
   {
     timestamps: true,

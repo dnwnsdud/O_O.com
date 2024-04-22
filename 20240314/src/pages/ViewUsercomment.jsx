@@ -74,7 +74,7 @@ export default () => {
   return (
     <>
       <Box padding={"20px 20px 0 20px"} fontWeight={"bold"}>
-        유저 게시글
+        "{nickname}" 님의 댓글
       </Box>
       <Flex
         justifyContent="center"
@@ -84,7 +84,7 @@ export default () => {
         boxShadow="base"
         borderRadius="10px"
         width="100%"
-        height={"250px"}
+        height={"350px"}
       >
         <Box height={"100%"}>
           <List>
@@ -93,6 +93,7 @@ export default () => {
               borderBottom="1px solid #adadb8"
               textAlign="center"
               padding={"8px 0"}
+              fontWeight="bold"
             >
               <Box>카테고리</Box>
               <Box>내용</Box>
@@ -106,9 +107,10 @@ export default () => {
                     borderBottom="1px solid #e6e6ea"
                     textAlign="center"
                     fontSize={"13px"}
+                    padding="10px 0"
                   >
                     <Box>{user.tap}</Box>
-                    <Box>{user.content}</Box>
+                    <Box isTruncated paddingRight={"20px"}>{user.content}</Box>
                     <Box>{formatDate(user.createdAt)}</Box>
                   </Grid>
                 </Link>

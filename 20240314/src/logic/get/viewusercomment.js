@@ -3,7 +3,6 @@ dotenv.config({ path: "./.env" });
 export default async (req, res, next) => {
   try {
     const nickname = req.query.nickname;
-    console.log(nickname);
     const mycomments = await req.mongo.board
       .aggregate([
         { $match: { "comment.nickname": nickname } },
@@ -22,7 +21,6 @@ export default async (req, res, next) => {
         }, // comment 필드만 유지
       ])
       .sort({ _id: -1 });
-    console.log(mycomments, "asdasdasdasdas");
     const commentCount = mycomments.length;
     res.status(200).json({ mycomments, commentCount });
   } catch (err) {

@@ -2,12 +2,19 @@
 export default async (req, res, next) => {
   try {
     const tap = req.query.tap;
+    const team = req.query.team;
     let query = {};
 
-    if (tap && tap !== "전체") {
-      query.tap = tap;
+    if (team == "전체") {
+      if (tap && tap !== "전체") {
+        query.tap = tap;
+      }
+    } else {
+      if (tap && tap !== "전체") {
+        query.tap = tap;
+        query.team = team;
+      }
     }
-
     const posts = await req.mongo.board.find(query);
     const totalCount = await req.mongo.board.countDocuments(query);
     res.json({ posts, totalCount });
