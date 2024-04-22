@@ -165,7 +165,7 @@ export default () => {
     return <div>Loading...</div>;
   }
   return (
-    <Box bg={"#f7f7f8"}>
+    <Box>
       <Stack
         w={"35%"}
         m={"auto"}
@@ -202,7 +202,7 @@ export default () => {
             </Link>
           </Box>
           <Flex justifyContent={"space-between"}>
-            <Text fontWeight={"bold"} fontSize={"xl"} maxW={"400px"}>
+            <Text fontWeight={"bold"} fontSize={"xl"} maxW={"350px"}>
               {baDetails.title}
             </Text>
             <Flex fontSize={"xs"} alignItems={"end"} gap="10px">
@@ -227,7 +227,7 @@ export default () => {
                       )
                     }
                   >
-                    작성글 보기
+                    유저정보 보기
                   </MenuItem>
                 </MenuList>
               </Menu>

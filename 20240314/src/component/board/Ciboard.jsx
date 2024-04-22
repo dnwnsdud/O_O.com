@@ -2,16 +2,10 @@ import React from "react";
 import {
   Box,
   Button,
-  ButtonGroup,
   Flex,
-  Grid,
-  HStack,
-  VStack,
-  Center,
+  Grid
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
@@ -59,9 +53,8 @@ export default ({ user }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPosts, setTotalPosts] = useState(10);
   const [postsPerPage] = useState(10);
-  const [currentTab, setCurrentTab] = useState("사회");
+  const currentTab = "사회";
   const [sortOrder, setSortOrder] = useState("최신순");
-  const [searchTerm, setSearchTerm] = useState("");
   const [selectedtab, setSelectedTab] = useState("전체");
 
   useEffect(() => {
@@ -69,7 +62,7 @@ export default ({ user }) => {
       try {
         const url = `/api/boards?tap=${encodeURIComponent(
           currentTab
-        )}&sortOrder=${sortOrder}`;
+        )}&team=${selectedtab}&sortOrder=${sortOrder}`;
         const response = await fetch(url);
         const contentType = response.headers.get("Content-type");
 
@@ -101,7 +94,7 @@ export default ({ user }) => {
       }
     };
     fetchPosts();
-  }, [sortOrder]);
+  }, [sortOrder, selectedtab]);
 
   // 페이지네이션 버튼
 
@@ -137,7 +130,7 @@ export default ({ user }) => {
   const pageNumbers = getPageNumbers();
 
   const tabStyles = {
-    잡담: { color: "#ffffff", bg: "#E61E2B" },
+    잡담: { color: "#ffffff", bg: "#C30452" },
     정치: { color: "#ffffff", bg: "#004EA1" },
     연예: { color: "#ffffff", bg: "#fff100" },
     여행: { color: "#ffffff", bg: "#007c36" },
@@ -338,16 +331,18 @@ export default ({ user }) => {
                 >
                   {post.team}
                 </Box>
-                <Flex
-                  whiteSpace="nowrap"
-                  overflow="hidden"
-                  textOverflow="ellipsis"
-                  padding="0 20px 0 20px"
-                  justifyContent="center"
-                >
-                  <Link to={`/b/id=${post._id}`}>{post.title}</Link>
-                  <Box color="#5181e3">[{post.comment.length}]</Box>
-                </Flex>
+                <Link to={`/b/id=${post._id}`}>
+                  <Flex
+                    padding="0 20px 0 20px"
+                    justifyContent="center"
+                  >
+                    <Box whiteSpace="nowrap"
+                      isTruncated
+                      maxW={"300px"}>
+                      {post.title}</Box>
+                    <Box color="#5181e3">[{post.comment.length}]</Box>
+                  </Flex>
+                </Link>
                 <Box
                   whiteSpace="nowrap"
                   overflow="hidden"
