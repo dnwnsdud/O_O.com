@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { SmallAddIcon } from '@chakra-ui/icons'
+import { SmallAddIcon } from "@chakra-ui/icons";
 export default () => {
   const [noticepost, setnoticepost] = useState([]);
   useEffect(() => {
@@ -37,6 +37,7 @@ export default () => {
       "0"
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
+  
   return (
     <List
       bg={"white"}
@@ -48,17 +49,22 @@ export default () => {
       paddingBottom={3}
       boxShadow={"base"}
     >
-      <Flex fontSize={"xl"} fontWeight={"bold"} paddingBottom={"10px"} justifyContent={'space-between'}>
+      <Flex
+        fontSize={"xl"}
+        fontWeight={"bold"}
+        paddingBottom={"10px"}
+        justifyContent={"space-between"}
+      >
         <Link to="/n" fontSize={"xl"} fontWeight={"bold"}>
           공지사항
         </Link>
-        <Box justifyItems={'end'}>
-        <Link to="/n" fontSize={"xl"} fontWeight={"bold"} >
-        <SmallAddIcon/>
-        </Link>
+        <Box justifyItems={"end"}>
+          <Link to="/n" fontSize={"xl"} fontWeight={"bold"}>
+            <SmallAddIcon />
+          </Link>
         </Box>
       </Flex>
-      
+
       <Divider orientation="horizontal" />
       {noticepost.map((posts) => {
         return (
