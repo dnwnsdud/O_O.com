@@ -44,7 +44,7 @@ export default () => {
   }, []);
   let nav = useNavigate();
   return (
-    <div>
+    <Box>
       <Box bg={"#f7f7f8"}>
         <Stack
           bg={"#f7f7f8"}
@@ -143,6 +143,6 @@ export default () => {
           </Box>
         </Stack>
       </Box>
-    </div>
+    </Box>
   );
 };

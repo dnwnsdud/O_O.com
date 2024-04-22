@@ -79,7 +79,6 @@ export default () => {
     const date = new Date(dateString);
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
   };
-  console.log(userData, "이게 왜 안되는거야 형????? 이거 형문제잖아");
 
   const [isListHover, setIsListHover] = useState(false);
 
