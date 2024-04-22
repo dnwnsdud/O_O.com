@@ -22,6 +22,7 @@ export default () => {
   let nav = useNavigate();
   const [name, setName] = useState("");
   const [nickname, setnickname] = useState("");
+  const [state, setState] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef()
 
@@ -85,7 +86,11 @@ export default () => {
       .then((data) => {
         if (data == "reject") {
           nav("/");
-        } 
+        }
+        else if(data == "check"){
+          setState(data)
+          onOpen();
+        }
       })
       .catch((error) => {});
   },[])
@@ -140,7 +145,35 @@ export default () => {
           </Button>
         </Grid>
       </Stack>
-      <AlertDialog
+
+      {state === "check" ? <AlertDialog
+          isOpen={isOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
+                회원가입정보 확인
+              </AlertDialogHeader>
+              <AlertDialogBody>
+                이미 가입된 회원입니다.
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button  sx={{
+                backgroundColor: "red !important",
+                color: "#ffffff",
+              }} onClick={()=>{
+                onClose() 
+                nav("/")
+            }} ml={3}>
+                  돌아가기
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
+      :<AlertDialog
           isOpen={isOpen}
           leastDestructiveRef={cancelRef}
           onClose={onClose}
@@ -164,7 +197,7 @@ export default () => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialogOverlay>
-        </AlertDialog>
+        </AlertDialog>}
     </Center>
   );
 };
