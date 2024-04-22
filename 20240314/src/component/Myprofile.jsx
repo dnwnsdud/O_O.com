@@ -7,6 +7,7 @@ import { UserContext } from '../hook/User';
 import Mypost from './Mypost';
 import Mycomment from './Mycomment';
 import MyStore from '../pages/MyStore';
+import { IoPeopleCircleSharp } from 'react-icons/io5';
 
 
 export default () => {
@@ -54,16 +55,16 @@ export default () => {
             <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #e6e6ea" boxShadow='base' borderRadius="10px" width="500px" bg='#fff'>
                 <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 정보</Box>
                 <Grid templateColumns="1fr 1fr" width="70%" margin="auto">
-                    <Box borderRadius="50%" width="50px" height="50px" margin="auto" overflow="hidden" ><Image
+                {userData.images === "0" ? <IoPeopleCircleSharp size={100} /> : <Box borderRadius="50%" width="50px" height="50px" margin="auto" overflow="hidden" >:<Image
                         src={userData.images}
                         boxSize='100%'
                         objectFit='cover'
                         alt="유저 이미지"
                         m='auto'
-                    /></Box>
-                    <Box>
-                        <Box textAlign="center" borderBottom="1px solid #e6e6ea" marginBottom="5px" h={"25px"} color="black" >{userData.name}</Box>
-                        <Box textAlign="center" borderBottom="1px solid #e6e6ea" marginBottom="5px" h={"25px"} color="black">{userData.nickname}</Box>
+                    /></Box>}
+                    <Box margin={'auto'}>
+                        <Box textAlign="center" borderBottom="1px solid #e6e6ea" marginBottom="5px" h={"25px"} color="black" w={"150px"}>{userData.name}</Box>
+                        <Box textAlign="center" borderBottom="1px solid #e6e6ea" marginBottom="5px" h={"25px"} color="black" w={"150px"}>{userData.nickname}</Box>
                     </Box>
                 </Grid>
                 <Grid templateRows="1fr 1fr 1fr 1fr" gap="20px" margin="30px 0" >

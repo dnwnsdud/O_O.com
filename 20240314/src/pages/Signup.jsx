@@ -23,10 +23,10 @@ export default () => {
 
         emailjs
             .send(
-                'service_9a86cta', // 서비스 ID
-                'template_gy8pi7r', // 템플릿 ID
+                'service_qv4lsho', // 서비스 ID
+                'template_5e82pqg', // 템플릿 ID
                 templateParams,
-                'jYpWycEr-Mhf19OyE', // public-key
+                'fZOCwLMoKiRXbyBVQ', // public-key
             )
             .then((response) => {
                 console.log('이메일이 성공적으로 보내졌습니다:', response);

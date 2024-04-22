@@ -3,7 +3,6 @@ export default mongoose.Schema({
   name: {
     type: String,
     required: true,
-    maxlength: 5,
   },
   email: {
     type: String,
@@ -14,7 +13,6 @@ export default mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    maxlength: 7,
   },
   role: {
     type: String,
@@ -26,8 +24,7 @@ export default mongoose.Schema({
   },
   images: {
     type: String,
-    default:
-      "static\\images\\2024\\4\\9\\6riw67O47J2066+47KeALnBuZ3dlamlmamszODI5MkBAZ2plaS.png",
+    default: 0,
   },
   point: {
     type: Number,
