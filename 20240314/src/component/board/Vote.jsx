@@ -34,6 +34,7 @@ export default ({ todayVote, main }) => {
       />
     </svg>
   );
+  console.log(todayVote);
 
   const agree = (choice, user) => {
     fetch("/api/takeVote", {
@@ -77,7 +78,7 @@ export default ({ todayVote, main }) => {
   };
   return (
     <>
-    
+
       <Flex
         h={"100%"}
         maxH={"255px"}
@@ -87,10 +88,10 @@ export default ({ todayVote, main }) => {
         borderRadius={"0.5rem"}
         marginBottom={"20px"}
         bg={
-          todayVote&&todayVote.category=="main"?"":"#f5f5f5"
+          todayVote && todayVote.category == "main" ? "" : "#f5f5f5"
         }
       >
-        
+
         <Text fontSize={"3xl"} textAlign={"center"}>
           {todayVote && todayVote == "비었음"
             ? "현재 투표가 진행중이지 않습니다."
@@ -130,7 +131,7 @@ export default ({ todayVote, main }) => {
               onClose();
               setChoice("");
               document.body.style.overflow = "auto";
-              window.removeEventListener("keydown", (e) => {});
+              window.removeEventListener("keydown", (e) => { });
             }
           })}
           {(document.body.style.overflow = "hidden")}
@@ -226,6 +227,7 @@ export default ({ todayVote, main }) => {
                       )}
                       {todayVote &&
                         todayVote != "비었음" &&
+                        todayVote.leftSide &&
                         todayVote.leftSide.images && (
                           <Image
                             w={"100%"}
@@ -239,7 +241,8 @@ export default ({ todayVote, main }) => {
                         <Heading size="md">
                           {todayVote == "비었음"
                             ? "현재 투표가 진행중이지 않습니다."
-                            : todayVote.leftSide.title}
+                            : todayVote.leftSide.title
+                          }
                         </Heading>
                         <Text>
                           {todayVote == "비었음"
@@ -280,6 +283,7 @@ export default ({ todayVote, main }) => {
                       )}
                       {todayVote &&
                         todayVote != "비었음" &&
+                        todayVote.rightSide &&
                         todayVote.rightSide.images && (
                           <Image
                             w={"100%"}
@@ -288,7 +292,7 @@ export default ({ todayVote, main }) => {
                             alt="X"
                             borderRadius="lg"
                           />
-                        )}
+                        ) || ""}
                       <Stack mt="6" spacing="3">
                         <Heading size="md">
                           {todayVote && todayVote == "비었음"

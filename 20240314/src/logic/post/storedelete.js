@@ -3,7 +3,6 @@ import { ObjectId } from 'mongodb';
 
 
 export default async (req, res, next) => {
-
     try {
         const { _id } = req.body; // 요청 본문에서 _id를 가져옴
         console.log('아이디에오' + _id);

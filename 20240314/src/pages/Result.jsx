@@ -38,6 +38,8 @@ export default () => {
             }
             onChange={(date) => {
               setDay(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`)
+              console.log(day,"day");
+              console.log(date,"date");
             }}
           />
         </Box>

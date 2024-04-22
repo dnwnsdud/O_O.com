@@ -11,8 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
-import { FaTrashCan } from "react-icons/fa6";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export default () => {
   const [userData, setUserData] = useState([]);
@@ -26,13 +25,8 @@ export default () => {
   useEffect(() => {
     if (nickname) {
       const encodedNickname = encodeURIComponent(nickname);
-      const url = `/api/viewuserpost?nickname=${encodedNickname}`;
-      fetch(url, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-      })
+      const url = `/api/viewusercomment?nickname=${encodedNickname}`;
+      fetch(url)
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -42,11 +36,9 @@ export default () => {
         })
         .then((data) => {
           if (data) {
-            const sortedData = data.data.sort(
-              (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-            );
-            setUserData(sortedData);
-            setTotalPosts(data.totalCount);
+            console.log(data);
+            setUserData(data.mycomments);
+            setTotalPosts(data.commentCount);
           } else {
             throw new Error("Data is empty");
           }
@@ -97,29 +89,27 @@ export default () => {
         <Box height={"100%"}>
           <List>
             <Grid
-              templateColumns=" 3fr 2fr 1fr 1fr"
+              templateColumns=" 2fr 4fr 1fr "
               borderBottom="1px solid #adadb8"
               textAlign="center"
               padding={"8px 0"}
             >
-              <Box>제목</Box>
+              <Box>카테고리</Box>
+              <Box>내용</Box>
               <Box>날짜</Box>
-              <Box>조회</Box>
-              <Box>추천</Box>
             </Grid>
             {currentPosts.map((user) => (
               <ListItem key={user._id}>
                 <Link to={`/b/id=${user._id}`}>
                   <Grid
-                    templateColumns="3fr 2fr 1fr 1fr"
+                    templateColumns="2fr 4fr 1fr "
                     borderBottom="1px solid #e6e6ea"
                     textAlign="center"
                     fontSize={"13px"}
                   >
-                    <Box>{user.title}</Box>
+                    <Box>{user.tap}</Box>
+                    <Box>{user.content}</Box>
                     <Box>{formatDate(user.createdAt)}</Box>
-                    <Box>{user.count}</Box>
-                    <Box>{user.like}</Box>
                   </Grid>
                 </Link>
               </ListItem>
