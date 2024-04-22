@@ -165,7 +165,7 @@ export default () => {
     return <div>Loading...</div>;
   }
   return (
-    <Box  bg={"#f7f7f8"}>
+    <Box bg={"#f7f7f8"}>
       <Stack
         w={"35%"}
         m={"auto"}
@@ -180,9 +180,13 @@ export default () => {
           bg={"white"}
           boxShadow={"md"}
           p={10}
-          my='10'
+          my="10"
         >
-          <Box><Link color={"darkblue"} fontWeight={"bold"} onClick={() => {
+          <Box>
+            <Link
+              color={"darkblue"}
+              fontWeight={"bold"}
+              onClick={() => {
                 if (baDetails.tap === "야구") {
                   nav("/b");
                 } else if (baDetails.tap === "축구") {
@@ -192,7 +196,11 @@ export default () => {
                 } else if (baDetails.tap === "사회") {
                   nav("/c");
                 }
-              }}>{baDetails.tap}</Link></Box>
+              }}
+            >
+              {baDetails.tap}
+            </Link>
+          </Box>
           <Flex justifyContent={"space-between"}>
             <Text fontWeight={"bold"} fontSize={"xl"} maxW={"400px"}>
               {baDetails.title}
@@ -210,7 +218,15 @@ export default () => {
                   ) : (
                     <MenuItem onClick={onOpen}>신고하기</MenuItem>
                   )}
-                  <MenuItem onClick={() => nav(`/view/${baDetails.nickname}`)}>
+                  <MenuItem
+                    onClick={() =>
+                      nav(
+                        `/view?nickname=${encodeURIComponent(
+                          baDetails.nickname
+                        )}`
+                      )
+                    }
+                  >
                     작성글 보기
                   </MenuItem>
                 </MenuList>
