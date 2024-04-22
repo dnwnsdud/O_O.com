@@ -59,7 +59,7 @@ export default () => {
   const deleteSubmit = (e, id) => {
     e.preventDefault();
     console.log('삭제');
-    console.log('내 아이디다' + id);
+    // console.log('내 아이디다' + id);
     alert('삭제하시겠습니까?');
     fetch('/api/storedelete', {
       method: 'POST',
