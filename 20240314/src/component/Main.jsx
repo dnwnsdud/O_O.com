@@ -3,28 +3,24 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Divider,
   Flex,
   Grid,
   Heading,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { CiBaseball } from "react-icons/ci";
+import { IoGameControllerOutline, IoNewspaperOutline } from "react-icons/io5";
+import { PiSoccerBallFill } from "react-icons/pi";
 import { useLocation, useNavigate } from "react-router-dom";
 import MainStore from "../pages/MainStore";
 import Noticepost from "../pages/Noticepost";
 import Bestpost from "./Bestpost";
 import Vote from "./board/Vote";
-import { PiSoccerBallFill } from "react-icons/pi";
-import { IoGameControllerOutline, IoNewspaperOutline } from "react-icons/io5";
-import { CiBaseball } from "react-icons/ci";
-moment.locale("ko");
+
 export default () => {
   const location = useLocation();
-  let date = new Date();
-  let today = moment(date).format("YYYY-MM-DD");
   const category = location.pathname;
   let [todayVote, setTodayVote] = useState([]);
   let [topic, setTopic] = useState([]);
@@ -56,7 +52,7 @@ export default () => {
           spacing={8}
           h={"190vh"}
           justifyContent={"space-evenly"}
-          pb='8'
+          pb="8"
         >
           <Flex
             flexDirection={"column"}
@@ -76,7 +72,6 @@ export default () => {
             </Text>
             <Vote todayVote={todayVote} main={category} />
           </Flex>
-          <Divider orientation="horizontal" />
           <Noticepost />
           <Bestpost />
           <Grid
@@ -108,19 +103,31 @@ export default () => {
                   >
                     <CardHeader>
                       <Heading size="md">
-                        {index === 0
-                          ? <Flex gap={1}>야구<CiBaseball /></Flex>
-                          : index === 1
-                            ? <Flex gap={1}>LoL<IoGameControllerOutline /></Flex>
-                            : index === 2
-                              ? <Flex gap={1}>축구 < PiSoccerBallFill /></Flex>
-                              : index === 3
-                                ? <Flex gap={1}>사회 <IoNewspaperOutline /></Flex>
-                                : "오류"}
+                        {index === 0 ? (
+                          <Flex gap={1}>
+                            야구
+                            <CiBaseball />
+                          </Flex>
+                        ) : index === 1 ? (
+                          <Flex gap={1}>
+                            LoL
+                            <IoGameControllerOutline />
+                          </Flex>
+                        ) : index === 2 ? (
+                          <Flex gap={1}>
+                            축구 <PiSoccerBallFill />
+                          </Flex>
+                        ) : index === 3 ? (
+                          <Flex gap={1}>
+                            사회 <IoNewspaperOutline />
+                          </Flex>
+                        ) : (
+                          "오류"
+                        )}
                       </Heading>
                     </CardHeader>
                     <CardBody>
-                      <Text textAlign={'center'}>{item}</Text>
+                      <Text textAlign={"center"}>{item}</Text>
                     </CardBody>
                   </Card>
                 );
