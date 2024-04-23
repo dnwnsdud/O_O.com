@@ -73,7 +73,7 @@ export default () => {
   }, []);
   console.log("항상 찍는 자리", user);
   return (
-    <Box>
+    <Box w='100%' position={"fixed"} bg='#fff' zIndex={'9999999999'} top='0'>
       <Grid maxWidth="55%" margin="auto" templateColumns="1fr 3fr 2fr">
         <Flex
           w="60px"
@@ -200,15 +200,6 @@ export default () => {
                     width="150px"
                   >
                     내 프로필
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => {
-                      nav("/write");
-                    }}
-                    fontSize="xs"
-                    width="150px"
-                  >
-                    내 게시글
                   </MenuItem>
                   <MenuItem
                     onClick={() => {

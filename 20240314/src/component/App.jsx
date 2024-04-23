@@ -26,7 +26,6 @@ import Main from "./Main";
 import Mypage_Admin from "./Mypage_Admin";
 import Myprofile from "./Myprofile";
 import Myrequest from "./Myrequest";
-import Mywrite from "./Mywrite";
 import UserModify from "./UserModify";
 import Requestlist from "../pages/Requestlist";
 import Requestdetail from "../pages/Requestdetail";

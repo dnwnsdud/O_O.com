@@ -70,7 +70,7 @@ export default ({ user }) => {
           alert(`댓글을 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   useEffect(() => {
@@ -96,7 +96,7 @@ export default ({ user }) => {
           alert(`댓글을 가져오는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }, []);
 
   const toggleModify = (commentId) => {
@@ -174,7 +174,7 @@ export default ({ user }) => {
           alert(`댓글을 수정하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
   };
 
   return (
@@ -188,7 +188,7 @@ export default ({ user }) => {
       />
       <Stack>
         <Text fontSize={"xl"} color={"#0b0b0d"} fontWeight={"bold"}>
-          댓글 작성
+          댓글
         </Text>
       </Stack>
       <Box>
@@ -317,16 +317,10 @@ export default ({ user }) => {
       </Box>
       {user == "logout" ? (
         <Flex justifyContent={"end"} gap={3}>
+
           <Button
-            border={"2px solid"}
-            borderColor={"rgba(11,11,13,.6)"}
-            isDisabled={true}
-          >
-            취소
-          </Button>
-          <Button
-            border={"2px solid"}
-            borderColor={"rgba(11,11,13,.6)"}
+            backgroundColor="#53535f !important"
+            color={"#ffffff"}
             isDisabled={true}
             onClick={() => {
               onSubmitHandler();
@@ -337,12 +331,10 @@ export default ({ user }) => {
         </Flex>
       ) : (
         <Flex justifyContent={"end"} gap={3}>
-          <Button border={"2px solid"} borderColor={"rgba(11,11,13,.6)"}>
-            취소
-          </Button>
+
           <Button
-            border={"2px solid"}
-            borderColor={"rgba(11,11,13,.6)"}
+            backgroundColor="#53535f !important"
+            color={"#ffffff"}
             onClick={() => {
               onSubmitHandler();
             }}

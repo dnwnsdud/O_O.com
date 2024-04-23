@@ -71,7 +71,7 @@ export default ({ isOpen, onClose, postId, userEmail }) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent mt='200'>
           <ModalHeader textAlign={"center"}>신고하기</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

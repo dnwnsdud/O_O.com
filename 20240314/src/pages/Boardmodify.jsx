@@ -22,24 +22,26 @@ export default () => {
 
   const [title, settitle] = useState("");
   const [content, setcontent] = useState("");
+  const [images, setImage] = useState("");
+  const [videos, setVideo] = useState("");
 
   const handleInputChange = (e) => settitle(e.target.value);
   const handleInputChange2 = (e) => setcontent(e.target.value);
 
+  const [uploadedImageName, setUploadedImageName] = useState();
+  const [uploadedVideoName, setUploadedVideoName] = useState();
+  const [itemImageError, setItemImageError] = useState(false);
+
   const isError = title === "";
   const isError2 = content === "";
 
-  const onNamedHandler = (e) => {
-    settitle(e.target.value);
-  };
-  const onNicknameHandler = (e) => {
-    setcontent(e.target.value);
-  };
   useEffect((e) => {
     let body = {
       id: id,
       content: content,
       title: title,
+      images: images,
+      videos: videos,
     };
     fetch(`/api/boardLoad`, {
       body: JSON.stringify(body),
@@ -47,8 +49,6 @@ export default () => {
     })
       .then((res) => {
         if (res) {
-          console.log(body);
-          console.log("성공하였습니다.");
           return res.json();
         } else {
           throw new Error(e);
@@ -56,10 +56,11 @@ export default () => {
       })
       .then((data) => {
         if (data) {
-          console.log(data);
+          console.log(data, "확인해바 이자식아");
           settitle(data.title);
           setcontent(data.content);
-          console.log(data);
+          setImage(data.images);
+          setVideo(data.videos);
         } else {
           alert(`사용자 정보를 불러오는 오류:${data.error}`);
         }
@@ -77,6 +78,8 @@ export default () => {
       id: id,
       title: title,
       content: content,
+      images: images,
+      videos: videos,
     };
 
     // 수정
@@ -95,7 +98,103 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => {});
+      .catch((error) => { });
+  };
+
+  const clearImage = () => {
+    setUploadedImageName("");
+    setImage("");
+  };
+
+  const clearVideo = () => {
+    setUploadedVideoName("");
+    setVideo("");
+  };
+
+  const handleImagesChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("images", file);
+      setImage(file.name);
+      setUploadedImageName(file.name);
+
+      fetch("/api/upload/images", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            const imagePath = data.mediapath;
+            setImage(imagePath);
+            console.log();
+            alert("이미지 업로드 성공!!")
+          } else {
+            console.error("이미지 업로드 실패:", data.error);
+            setUploadedImageName("");
+          }
+        })
+        .catch((error) => {
+          console.error("이미지 업로드 오류:", error);
+          setUploadedImageName("");
+        });
+    }
+  };
+
+  const handleVideosChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("videos", file);
+      setUploadedVideoName(file.name);
+
+      fetch("/api/upload/videos", {
+        method: "POST",
+        body: formData,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            const videoPath = data.mediapath;
+            setVideo(videoPath);
+            alert("동영상 업로드 성공!!")
+          } else {
+            console.error("동영상 업로드 실패:", data.error);
+            setUploadedVideoName("");
+          }
+        })
+        .catch((error) => {
+          console.error("동영상 업로드 오류:", error);
+          setUploadedVideoName("");
+        });
+    }
+  };
+
+  const CustomFileInput = ({ onChange, label, helperText, isInvalid, errorMessage, fileType, fileName, onClear }) => {
+    return (
+      <FormControl isInvalid={isInvalid} mt="5">
+        <FormLabel fontWeight={"bold"}>{label}</FormLabel>
+        <Input type="file" name={fileType} onChange={onChange} hidden />
+        <Button padding={"10px 20px 10px 20px"} onClick={() => document.getElementsByName(fileType)[0].click()} variant="outline">
+          파일 선택
+        </Button>
+        {fileName && (
+          <Button padding={"10px 20px 10px 20px"} onClick={onClear} variant="outline" w={"30px"} h="30px" color={"#ffffff"} bg="#53535f !important" marginLeft={"20px"}>
+            취소
+          </Button>
+        )}
+        {!isInvalid ? (
+          fileName ? (
+            <FormHelperText color={"#E7141A"}>업로드된 파일: {fileName}</FormHelperText>
+          ) : (
+            <FormHelperText color={"darkblue"}>{helperText}</FormHelperText>
+          )
+        ) : (
+          <FormErrorMessage>{errorMessage}</FormErrorMessage>
+        )}
+      </FormControl>
+    );
   };
 
   return (
@@ -156,6 +255,28 @@ export default () => {
               <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
             )}
           </FormControl>
+          <Flex padding={"0 20px 20px 20px"}>
+            <CustomFileInput
+              onChange={handleImagesChange}
+              label="이미지 업로드"
+              helperText="이미지가 올라갑니다."
+              isInvalid={itemImageError}
+              errorMessage="이미지를 넣어주세요."
+              fileType="images"
+              fileName={uploadedImageName}
+              onClear={clearImage}
+            />
+            <CustomFileInput
+              onChange={handleVideosChange}
+              label="동영상 업로드"
+              helperText="동영상이 올라갑니다."
+              isInvalid={itemImageError}
+              errorMessage="동영상를 넣어주세요."
+              fileType="videos"
+              fileName={uploadedVideoName}
+              onClear={clearVideo}
+            />
+          </Flex>
         </Box>
         <Flex justifyContent={"end"} gap={3}>
           <Button
