@@ -342,7 +342,7 @@ export default () => {
             })}
           </List>
         </Box>
-        <Box>블랙리스트관리</Box>
+        {/* <Box>블랙리스트관리</Box>
         <Box border="1px solid #e6e6ea">
           <Grid
             templateColumns="1fr 1fr 1fr"
@@ -383,7 +383,7 @@ export default () => {
               );
             })}
           </List>
-        </Box>
+        </Box> */}
         <Box>사용량</Box>
         <Grid templateColumns="1fr 1fr 1fr" textAlign="center" gap="15px">
           <Box width="382px" height="200px" border="1px solid #e6e6ea">

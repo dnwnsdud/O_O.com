@@ -3,19 +3,31 @@ export default async (req, res, next) => {
 
   try {
     const report = JSON.parse(req.body);
-    if (req.body.state == "reject") {
+    if (report.state == "reject") {
       await req.mongo.blacklist.deleteOne({ _id: report.id });
+      const reload = await req.mongo.blacklist.find({}).sort({ _id: -1 });
+      res.status(200).json({ reload });
     }
-    else if (req.body.state == "approval") {
-      await req.mongo.board.deleteOne({ _id: report.postId })
+    else if (report.state == "approval") {
+      const test = await req.mongo.board.findOne({ _id: report.postId })
+      console.log(test,"살려주시면 감사하겠슴다");
+      if(test !== null){
+        test.deleteOne({})
+      }
       const user = await req.mongo.user.findOne({ email: report.userEmail });
-      user.penalty += 1
-      await user.save();
+      if(user !== null){
+        user.penalty += 1
+        await user.save();
+      }
       await req.mongo.blacklist.deleteOne({ _id: report.id });
+      const reload = await req.mongo.blacklist.find({}).sort({ _id: -1 });
+      res.status(200).json({ reload });
+    }else if(report.state == "open"){
+      const open = await req.mongo.blacklist.findOne({ _id: report.id })
+      const reload = await req.mongo.blacklist.find({}).sort({ _id: -1 });
+      res.status(200).json({ reload,open });
     }
-    const open = await req.mongo.blacklist.findOne({ _id: report.id })
-    const reload = await req.mongo.blacklist.find({}).sort({ _id: -1 });
-    res.status(200).json({ reload, open });
+    
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

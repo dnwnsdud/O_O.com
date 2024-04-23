@@ -103,8 +103,9 @@ export default () => {
         .then((data) => {
           if (data) {
             setUserData(data.reload);
-            setOpenData(data.open.blackdetail);
-            console.log("신고 내역삭제");
+            if(data.open){
+              setOpenData(data.open.blackdetail);
+            }
           } else {
             alert("신고 내역 삭제에 실패하였습니다.");
           }
