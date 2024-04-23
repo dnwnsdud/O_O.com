@@ -56,7 +56,6 @@ export default () => {
           <Route path="/success" element={<Success />} />
           <Route path="/profile" element={<Myprofile />} />
           <Route path="/request" element={<Myrequest />} />
-          <Route path="/write" element={<Mywrite />} />
           <Route path="/modify" element={<UserModify />} />
           <Route path="/admin" element={<Mypage_Admin />} />
           <Route path="/admin/report" element={<Report />} />
