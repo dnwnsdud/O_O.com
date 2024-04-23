@@ -165,7 +165,7 @@ export default () => {
     return <div>Loading...</div>;
   }
   return (
-    <Box>
+    <Box bg='#f7f7f8'>
       <Stack
         w={"35%"}
         m={"auto"}
@@ -178,7 +178,7 @@ export default () => {
           justifyContent={"space-around"}
           borderRadius={"10px"}
           bg={"white"}
-          boxShadow={"md"}
+          boxShadow={"base"}
           p={10}
           my="10"
         >
@@ -205,18 +205,18 @@ export default () => {
             <Text fontWeight={"bold"} fontSize={"xl"} maxW={"350px"}>
               {baDetails.title}
             </Text>
-            <Flex fontSize={"xs"} alignItems={"end"} gap="10px">
+            <Flex fontSize={"xs"} alignItems={"end"} gap="10px" >
               <Menu>
                 <MenuButton color={"#46a3d2"} fontWeight="bold">
                   {baDetails.nickname}
                 </MenuButton>
-                <MenuList>
+                <MenuList minWidth='120px'>
                   {user === "logout" ? (
-                    <MenuItem disabled opacity={"0.5"}>
+                    <MenuItem disabled opacity={"0.5"} >
                       신고하기
                     </MenuItem>
                   ) : (
-                    <MenuItem onClick={onOpen}>신고하기</MenuItem>
+                    <MenuItem onClick={onOpen} >신고하기</MenuItem>
                   )}
                   <MenuItem
                     onClick={() =>
@@ -275,13 +275,15 @@ export default () => {
                 onClick={(e) => {
                   like(e);
                 }}
+                pr='1'
               >
                 <FaRegThumbsUp />
               </Button>
-              <Box alignContent="center" fontWeight={"bold"}>
+              <Box alignContent="center" fontWeight={"bold"} >
                 {likeCount}
               </Box>
-              <Button onClick={(e) => dislike(e)}>
+              <Button onClick={(e) => dislike(e)}
+                pr='1'>
                 <FaRegThumbsDown />
               </Button>
               <Box alignContent="center" fontWeight={"bold"}>

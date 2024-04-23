@@ -17,6 +17,9 @@ import MainStore from "../pages/MainStore";
 import Noticepost from "../pages/Noticepost";
 import Bestpost from "./Bestpost";
 import Vote from "./board/Vote";
+import { PiSoccerBallFill } from "react-icons/pi";
+import { IoGameControllerOutline, IoNewspaperOutline } from "react-icons/io5";
+import { CiBaseball } from "react-icons/ci";
 moment.locale("ko");
 export default () => {
   const location = useLocation();
@@ -44,14 +47,16 @@ export default () => {
   }, []);
   let nav = useNavigate();
   return (
-    <Box>
+    <Box bg={"#f7f7f8"}>
       <Box bg={"#f7f7f8"}>
         <Stack
           bg={"#f7f7f8"}
           width={"45%"}
           margin={"auto"}
           spacing={8}
-          h={"230vh"}
+          h={"190vh"}
+          justifyContent={"space-evenly"}
+          pb='8'
         >
           <Flex
             flexDirection={"column"}
@@ -104,18 +109,18 @@ export default () => {
                     <CardHeader>
                       <Heading size="md">
                         {index === 0
-                          ? "야구"
+                          ? <Flex gap={1}>야구<CiBaseball /></Flex>
                           : index === 1
-                            ? "LoL"
+                            ? <Flex gap={1}>LoL<IoGameControllerOutline /></Flex>
                             : index === 2
-                              ? "축구"
+                              ? <Flex gap={1}>축구 < PiSoccerBallFill /></Flex>
                               : index === 3
-                                ? "사회"
+                                ? <Flex gap={1}>사회 <IoNewspaperOutline /></Flex>
                                 : "오류"}
                       </Heading>
                     </CardHeader>
                     <CardBody>
-                      <Text>{item}</Text>
+                      <Text textAlign={'center'}>{item}</Text>
                     </CardBody>
                   </Card>
                 );
@@ -131,7 +136,6 @@ export default () => {
             <Text
               ml="10"
               fontWeight={"bold"}
-              mb="7"
               mt="5"
               onClick={() => {
                 nav("/st");

@@ -8,6 +8,7 @@ import {
   ListItem,
   Text,
   Stack,
+  Center,
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
@@ -52,6 +53,7 @@ export default () => {
 
   return (
     <>
+      <Center fontWeight={'bold'} fontSize='30px'>{nickname}님의 정보</Center>
       <Box padding={"20px 20px 0 20px"} fontWeight={"bold"}>
         "{nickname}" 님의 점수
       </Box>

@@ -122,7 +122,7 @@ export default () => {
                 >
                     {stores.map((store, index) => (
                         <SwiperSlide key={index}>
-                            <Box height='60%' width='60%' my={10} >
+                            <Box height='60%' width='60%' >
                                 {/* <Box>{store.images}</Box> */}
 
                                 <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'} onClick={() => {
@@ -166,8 +166,7 @@ export default () => {
                 >
                     {usestores.map((store, index) => (
                         <SwiperSlide key={index}>
-                            <Box height='60%' width='60%' my={10} >
-                                {/* <Box>{store.images}</Box> */}
+                            <Box height='60%' width='60%' >
 
                                 <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'} onClick={() => {
                                     nav("/st");
