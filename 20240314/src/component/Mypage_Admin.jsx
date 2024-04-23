@@ -404,7 +404,9 @@ export default () => {
               width="300px"
             >
               <Box>일별 아이템 판매량</Box>
-              <Button border="1px solid #e6e6ea">전체보기</Button>
+              <Button border="1px solid #e6e6ea" onClick={()=>{
+                nav("/itemsalse");
+              }}>전체보기</Button>
             </Flex>
             <Box height="200px">그래프</Box>
           </Box>

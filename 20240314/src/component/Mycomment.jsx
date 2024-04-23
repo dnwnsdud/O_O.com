@@ -119,10 +119,8 @@ export default () => {
                   </Link>
                   <Button size={"xs"} border="none" color='crimson' borderRadius="10px" margin="auto" onClick={() => {
                     Admincommentdelete(user._id, user.postId)
-                  }}
-                    onMouseOver={() => setIsListHover(true)}
-                    onMouseOut={() => setIsListHover(false)}>
-                    {isListHover ? <FaTrashCan /> : '댓글삭제'}
+                  }}>
+                    댓글삭제
                   </Button>
 
                 </Grid>

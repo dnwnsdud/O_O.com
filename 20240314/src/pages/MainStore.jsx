@@ -114,8 +114,8 @@ export default () => {
             onSlideChange={() => console.log('slide change')}
         >
             {stores.map((store, index) => (
-                <SwiperSlide key={index}>
-                    <Box height='10rem' width='100%' >
+                <SwiperSlide key={index} >
+                    <Box height='7rem' width='100%'  >
                         {/* <Box>{store.images}</Box> */}
 
                         <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'} onClick={() => {

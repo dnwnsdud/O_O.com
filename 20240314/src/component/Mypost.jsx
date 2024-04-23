@@ -118,11 +118,8 @@ export default () => {
                   </Link>
                   <Button size={"xs"} border="none" color='crimson' borderRadius="10px" margin="auto" onClick={() => {
                     Adminwritedelete(user._id, user.email)
-                  }}
-
-                    onMouseOver={() => setIsListHover(true)}
-                    onMouseOut={() => setIsListHover(false)}>
-                    {isListHover ? <FaTrashCan /> : '게시글삭제'}</Button>
+                  }}>
+                  게시글삭제</Button>
                 </Grid>
               </ListItem>
             ))}

@@ -34,6 +34,7 @@ import Requestlist from "../pages/Requestlist";
 import Requestdetail from "../pages/Requestdetail";
 import Calender from "../pages/Calender";
 import ViewUser from "../pages/ViewUser";
+import ItemSales from "../pages/ItemSales";
 
 export default () => {
   return (
@@ -56,6 +57,7 @@ export default () => {
           <Route path="/b/:id/modify" element={<Boardmodify />} />
           <Route path="/stsubmit" element={<SubmitProduct />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/itemsalse" element={<ItemSales/>} />
           <Route path="/mypage" element={<Mypage />}>
             <Route path="" element={<Myprofile />} />
             <Route path="request" element={<Myrequest />} />
