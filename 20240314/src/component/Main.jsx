@@ -56,7 +56,7 @@ export default () => {
           <Flex
             flexDirection={"column"}
             bg={"white"}
-            h={"20%"}
+            h={"17%"}
             borderRadius={"10px"}
             boxShadow={"md"}
             mt="5"
@@ -106,12 +106,12 @@ export default () => {
                         {index === 0
                           ? "야구"
                           : index === 1
-                          ? "LoL"
-                          : index === 2
-                          ? "축구"
-                          : index === 3
-                          ? "사회"
-                          : "오류"}
+                            ? "LoL"
+                            : index === 2
+                              ? "축구"
+                              : index === 3
+                                ? "사회"
+                                : "오류"}
                       </Heading>
                     </CardHeader>
                     <CardBody>
