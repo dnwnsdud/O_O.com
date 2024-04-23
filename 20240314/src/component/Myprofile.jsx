@@ -177,7 +177,7 @@ export default () => {
                 boxShadow="base"
                 borderRadius="10px"
                 onClick={() => {
-                  nav("/mypage/modify");
+                  nav("/modify");
                 }}
               >
                 정보수정

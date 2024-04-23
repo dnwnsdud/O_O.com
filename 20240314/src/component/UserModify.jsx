@@ -47,7 +47,6 @@ export default () => {
         })
         .then((data) => {
           if (data) {
-            console.log("이게 먼저오는거면 나는 어쩌라는건데 진짜 다 죽자");
             setUserData(data);
           } else {
             alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
@@ -122,7 +121,7 @@ export default () => {
         console.log(data, 12341234);
         if (data.success) {
           setUser(data.userdata);
-          nav("/mypage");
+          nav("/profile");
         } else {
           console.log(data.error);
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
@@ -281,7 +280,7 @@ export default () => {
             border="1px solid #e6e6ea"
             borderRadius="10px"
             onClick={() => {
-              nav("/mypage/");
+              nav("/profile");
             }}
           >
             취소

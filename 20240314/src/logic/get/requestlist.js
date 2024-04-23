@@ -9,7 +9,7 @@ export default async (req, res, next) => {
     const soccer = await req.mongo.request.find({category:"soccer"});
     const soccerCount = await req.mongo.request.countDocuments({category:"soccer"});
     const society = await req.mongo.request.find({category:"society"});        
-    const societyCount = await req.mongo.request.countDocuments({category:"society"});        
+    const societyCount = await req.mongo.request.countDocuments({category:"society"});
     
     res.status(201).json({baseball, lol, soccer, society, baseballCount, lolCount, soccerCount, societyCount});
     }
