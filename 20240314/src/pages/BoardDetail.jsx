@@ -293,28 +293,19 @@ export default () => {
                 ""
               ) : user.role === "admin" ? (
                 ""
-              ) : !Check ? (
-                <Button
-                  onClick={() => {
-                    nav(`/b/${id}/modify`);
-                  }}
-                >
-                  수정
-                </Button>
-              ) : (
-                ""
-              )}
-              {user === "logout" ? (
-                ""
-              ) : user.role === "admin" ? (
-                <Button
-                  onClick={(e) =>
-                    deleteSubmit(e, baDetails._id, baDetails.email, id)
-                  }
-                >
-                  삭제
-                </Button>
-              ) : !Check ? (
+              ) : user.email !== baDetails.email ? ("") :
+                !Check ? (
+                  <Button
+                    onClick={() => {
+                      nav(`/b/${id}/modify`);
+                    }}
+                  >
+                    수정
+                  </Button>
+                ) : (
+                  ""
+                )}
+              {user !== "logout" && (user.email === baDetails.email || user.role === "admin") && (
                 <Button
                   onClick={(e) =>
                     deleteSubmit(e, baDetails._id, baDetails.email, id)
@@ -322,8 +313,6 @@ export default () => {
                 >
                   삭제
                 </Button>
-              ) : (
-                ""
               )}
             </Flex>
             <Button

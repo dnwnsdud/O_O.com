@@ -36,6 +36,7 @@ export default () => {
         })
         .then((data) => {
           if (data) {
+            console.log(data, "확인점여");
             const sortedData = data.data.sort(
               (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
             );
@@ -120,7 +121,7 @@ export default () => {
                 <ListItem key={user._id}>
                   <Link to={`/n/id=${user._id}`}>
                     <Grid
-                      templateColumns=" 1fr 5fr 1fr "
+                      templateColumns=" 1fr 5fr 2fr 1fr"
                       textAlign="center"
                       padding={"8px 0"}
                       fontSize={"13px"}
@@ -142,6 +143,9 @@ export default () => {
                       >
                         {user.title}
                       </Box>
+                      <Box color={"#004EA1"} fontWeight="bold">
+                        {user.nickname}
+                      </Box>
                       <Box
                         overflow={"hidden"}
                         textOverflow={"ellipsis"}
@@ -157,6 +161,7 @@ export default () => {
           </Box>
           <Flex justifyContent="center" marginTop={"30px"}>
             <Button
+              size={"xs"}
               disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
               onClick={handlePrevPage}
             >

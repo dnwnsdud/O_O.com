@@ -34,6 +34,7 @@ export default () => {
   let body = {
     title: title,
     content: content,
+    nickname: user.nickname
   };
 
   const onSubmitHandler = (e) => {
