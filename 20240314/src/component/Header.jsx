@@ -203,15 +203,6 @@ export default () => {
                   </MenuItem>
                   <MenuItem
                     onClick={() => {
-                      nav("/write");
-                    }}
-                    fontSize="xs"
-                    width="150px"
-                  >
-                    내 게시글
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => {
                       nav("/grade");
                     }}
                     fontSize="xs"
