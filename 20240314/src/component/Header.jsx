@@ -194,7 +194,7 @@ export default () => {
                 <MenuList minW={0}>
                   <MenuItem
                     onClick={() => {
-                      nav("/mypage/");
+                      nav("/profile");
                     }}
                     fontSize="xs"
                     width="150px"
@@ -203,7 +203,7 @@ export default () => {
                   </MenuItem>
                   <MenuItem
                     onClick={() => {
-                      nav("/mypage/write");
+                      nav("/write");
                     }}
                     fontSize="xs"
                     width="150px"
@@ -212,7 +212,7 @@ export default () => {
                   </MenuItem>
                   <MenuItem
                     onClick={() => {
-                      nav("/mypage/grade");
+                      nav("/grade");
                     }}
                     fontSize="xs"
                     width="150px"
@@ -221,7 +221,7 @@ export default () => {
                   </MenuItem>
                   <MenuItem
                     onClick={() => {
-                      nav("/mypage/request");
+                      nav("/request");
                     }}
                     fontSize="xs"
                     width="150px"

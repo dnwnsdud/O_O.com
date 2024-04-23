@@ -1,4 +1,10 @@
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Box,
   Button,
   Card,
@@ -13,7 +19,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../hook/User";
 
@@ -22,6 +28,9 @@ export default ({ todayVote, main }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   let nav = useNavigate();
   let [choice, setChoice] = useState("");
+  const cancelRef = React.useRef()
+  
+
   let check = (
     <svg
       style={{ width: "15%" }}
@@ -34,7 +43,6 @@ export default ({ todayVote, main }) => {
       />
     </svg>
   );
-  console.log(todayVote);
 
   const agree = (choice, user) => {
     fetch("/api/takeVote", {
@@ -48,7 +56,7 @@ export default ({ todayVote, main }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success === true) {
-          alert("참여완료");
+          onOpen();
         } else {
           alert(data.success);
         }
@@ -389,6 +397,33 @@ export default ({ todayVote, main }) => {
           </Flex>
         </>
       )}
+      <AlertDialog
+          isOpen={isOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
+                회원가입정보 확인
+              </AlertDialogHeader>
+              <AlertDialogBody>
+                이미 가입된 회원입니다.
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button  sx={{
+                backgroundColor: "red !important",
+                color: "#ffffff",
+              }} onClick={()=>{
+                onClose() 
+                nav("/")
+            }} ml={3}>
+                  돌아가기
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
     </>
   );
 };

@@ -1,9 +1,36 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Box, Button, ButtonGroup, Center, Flex, Grid, HStack, Input, Stack, VStack, Image, List } from '@chakra-ui/react';
-import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { UserContext } from "../hook/User";
 
 export default () => {
+    const { user } = useContext(UserContext);
 
+    let body={
+        user:user
+    };
+    useEffect(()=>{
+        fetch("/api/myrequest", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body:JSON.stringify(body)
+          })
+            .then((res) => {
+              if (res) {
+                return res.json();
+              } else {
+                throw new Error(e);
+              }
+            })
+            .then((data) => {
+              if (data) {
+              
+              } else {
+            
+              }
+            });
+    },[])
     return <Center>
         <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #0B0B0D" borderRadius="10px" width="1280px">
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 요청목록</Box>

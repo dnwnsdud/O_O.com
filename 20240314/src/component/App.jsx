@@ -9,7 +9,6 @@ import CreateVote from "../pages/CreateVote";
 import Layout from "../pages/Layout";
 import LoL from "../pages/LoL";
 import Loading from "../pages/Loading";
-import Mypage from "../pages/Mypage";
 import Notice from "../pages/Notice";
 import NoticeDetail from "../pages/NoticeDetail";
 import NoticeModify from "../pages/NoticeModify";
@@ -57,14 +56,11 @@ export default () => {
           <Route path="/b/:id/modify" element={<Boardmodify />} />
           <Route path="/stsubmit" element={<SubmitProduct />} />
           <Route path="/success" element={<Success />} />
-          <Route path="/itemsalse" element={<ItemSales/>} />
-          <Route path="/mypage" element={<Mypage />}>
-            <Route path="" element={<Myprofile />} />
-            <Route path="request" element={<Myrequest />} />
-            <Route path="write" element={<Mywrite />} />
-            <Route path="grade" element={<Mygrade />} />
-            <Route path="modify" element={<UserModify />} />
-          </Route>
+          <Route path="/profile" element={<Myprofile />} />
+          <Route path="/request" element={<Myrequest />} />
+          <Route path="/write" element={<Mywrite />} />
+          <Route path="/grade" element={<Mygrade />} />
+          <Route path="/modify" element={<UserModify />} />
           <Route path="/admin" element={<Mypage_Admin />} />
           <Route path="/admin/report" element={<Report />} />
           <Route path="/topicrequest/:category" element={<TopicRequest />} />
