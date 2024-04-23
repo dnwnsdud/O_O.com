@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
   Box, Flex, Badge, Text, HStack, Button, border,
-  Image, Tabs, TabList, Tab, TabIndicator, TabPanel, TabPanels, Grid, GridItem, SimpleGrid, Card, CardHeader, Heading, CardBody, CardFooter
+  Image, Tabs, TabList, Tab, TabIndicator, TabPanel, TabPanels, Grid, GridItem, SimpleGrid, Card, CardHeader, Heading, CardBody, CardFooter, Img
 } from '@chakra-ui/react';
 import { Swiper, SwiperSlide, } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y, Controller } from 'swiper/modules';
@@ -137,8 +137,13 @@ export default () => {
 
 
   return <Box width={'45%'} margin={'auto'}>
-    <Box border={'1px solid black'} h='8rem'>
-      광고
+    <Box overflow="hidden" h={"12rem"} margin="20px 0">
+      <Img
+        objectFit="cover"
+        w="100%"
+        h="150%"
+        src="/static/img/광고2.jpg"
+      ></Img>
     </Box>
     {
       user.role === "admin" ?
