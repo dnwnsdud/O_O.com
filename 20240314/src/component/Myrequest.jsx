@@ -1,20 +1,14 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Button, ButtonGroup, Center, Flex, Grid, HStack, Input, Stack, VStack, Image, List } from '@chakra-ui/react';
 import { UserContext } from "../hook/User";
 
 export default () => {
     const { user } = useContext(UserContext);
+    const [request,setRequest] = useState([]);
 
-    let body={
-        user:user
-    };
     useEffect(()=>{
         fetch("/api/myrequest", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body:JSON.stringify(body)
+            method: "post",
           })
             .then((res) => {
               if (res) {
@@ -25,9 +19,9 @@ export default () => {
             })
             .then((data) => {
               if (data) {
-              
+                setRequest(data.myrequest)
               } else {
-            
+                console.log("데이터를 불러오는데 실패하였습니다.");
               }
             });
     },[])
@@ -40,13 +34,15 @@ export default () => {
                 <Box>승인여부</Box>
             </Grid>
             <List height="500px">
-                <Box>1</Box>
-                <Box>1</Box>
-                <Box>1</Box>
-                <Box>1</Box>
-                <Box>1</Box>
-                <Box>1</Box>
-                <Box>1</Box>
+            {request.map((req)=>{ 
+              return (
+                <Grid key={req._id} templateColumns="1fr 3fr 1fr" borderBottom="1px solid black" textAlign="center">
+                  <Box>{req.category == "baseball"? "야구" : req.category == "lol" ? "lol" : req.category == "soccer" ? "축구" : req.category == "society" ? "사회" : "오류가 발생했습니다." }</Box>
+                  <Box>{req.title}</Box>
+                  <Box>{req.state}</Box>
+                </Grid>)
+            }
+            )}
             </List>
         </Stack>
     </Center>

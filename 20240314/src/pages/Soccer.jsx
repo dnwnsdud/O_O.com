@@ -27,6 +27,7 @@ export default () => {
   const currentPath = location.pathname;
   let [todayVote, setTodayVote] = useState([]);
   const category = currentPath;
+  let tab = "soccer"
   useEffect(() => {
     const room = currentPath.split("/")[1];
     const chatEvent = room + "_chat";
@@ -90,7 +91,7 @@ export default () => {
       </Box>
       <Grid templateColumns="4fr 1.5fr" gap="20px">
         <Box marginBottom="4rem">
-          <Vote todayVote={todayVote} />
+          <Vote todayVote={todayVote} location={tab} />
           <Soboard user={user} />
         </Box>
         <Flex

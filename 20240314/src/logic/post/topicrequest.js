@@ -3,12 +3,19 @@
 export default async (req, res, next) => {
   try {
     let create = new req.mongo.request(req.body);
-    if((req.body.leftSide.images != "" && req.body.rightSide.images == "")||(req.body.leftSide.images  == "" && req.body.rightSide.images != "")){
+    let save = new req.mongo.saverequest(req.body);
+    let update = await req.mongo.saverequest.findOneAndUpdate(
+      {_id:save._id},
+      {$set:{"requestId":""}}
+      )
+    update.save({requestId:create._id})
+        if((req.body.leftSide.images != "" && req.body.rightSide.images == "")||(req.body.leftSide.images  == "" && req.body.rightSide.images != "")){
         res.status(201).json({success: false});
 
     }
     else{
         await create.save();
+        await save.save();
         res.status(201).json({success: true});
     }
     
