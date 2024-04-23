@@ -51,7 +51,7 @@ export default () => {
               alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
             }
           })
-          .catch((error) => { });
+          .catch((error) => {});
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -87,64 +87,66 @@ export default () => {
     } catch (error) {
       console.log(error);
     }
-    useEffect((e) => {
-      try {
-        fetch('/api/admin')
-          .then(response => {
-            if (response) {
-              return response.json();
-            }
-            else {
-              throw new Error(e);
-            }
-          })
-          .then(data => {
-            if (data) {
-              setUserData(data.userdata);
-              setwriteData(data.writedata);
-              setcommentData(data.comments);
-              if (user.role == 'user' || user == 'logout') {
-                nav('/')
+    useEffect(
+      (e) => {
+        try {
+          fetch("/api/admin")
+            .then((response) => {
+              if (response) {
+                return response.json();
+              } else {
+                throw new Error(e);
               }
-              console.log(data.userdata, '유저입니당');
-
-
-            } else {
-              alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
-            }
-          })
-          .catch(error => {
-          });
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }, [user]);
+            })
+            .then((data) => {
+              if (data) {
+                setUserData(data.userdata);
+                setwriteData(data.writedata);
+                setcommentData(data.comments);
+                if (user.role == "user" || user == "logout") {
+                  nav("/");
+                }
+                console.log(data.userdata, "유저입니당");
+              } else {
+                alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
+              }
+            })
+            .catch((error) => {});
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      },
+      [user]
+    );
     const Adminuserdelete = (userId, userEmail) => {
       let body = {
         id: userId,
-        email: userEmail
-      }
+        email: userEmail,
+      };
       try {
-        fetch('/api/adminuserdelete', { method: "post", body: JSON.stringify(body) })
-          .then(res => {
+        fetch("/api/adminuserdelete", {
+          method: "post",
+          body: JSON.stringify(body),
+        })
+          .then((res) => {
             if (res) {
               return res.json();
             } else {
-              throw new Error()
+              throw new Error();
             }
           })
-          .then(data => {
+          .then((data) => {
             if (data) {
               setUserData(data);
-              console.log('유저를 삭제하였습니다.');
+              console.log("유저를 삭제하였습니다.");
             } else {
-              alert('유저정보 삭제에 실패하였습니다.')
+              alert("유저정보 삭제에 실패하였습니다.");
             }
-          })
+          });
       } catch (error) {
         console.log(error);
       }
-    }
+    };
   };
   const Admincommentdelete = (writeId, writePostId) => {
     let body = {
@@ -183,7 +185,7 @@ export default () => {
         border="1px solid #e6e6ea"
         borderRadius="10px"
         width="1280px"
-        bg='white'
+        bg="white"
       >
         <Box
           fontSize="30px"
@@ -196,24 +198,40 @@ export default () => {
         </Box>
         <Flex w="100%" justifyContent="right">
           <Grid templateColumns="1fr 1fr 1fr 1fr" w="350px" gap="10px">
-            <Button onClick={() => {
-              nav("/requestlist")
-            }} border="1px solid #e6e6ea" borderRadius="10px">
+            <Button
+              onClick={() => {
+                nav("/requestlist");
+              }}
+              border="1px solid #e6e6ea"
+              borderRadius="10px"
+            >
               토픽요청
             </Button>
-            <Button onClick={() => {
-              nav("/n")
-            }} border="1px solid #e6e6ea" borderRadius="10px">
+            <Button
+              onClick={() => {
+                nav("/n");
+              }}
+              border="1px solid #e6e6ea"
+              borderRadius="10px"
+            >
               공지작성
             </Button>
-            <Button onClick={() => {
-              nav("/")
-            }} border="1px solid #e6e6ea" borderRadius="10px">
+            <Button
+              onClick={() => {
+                nav("/");
+              }}
+              border="1px solid #e6e6ea"
+              borderRadius="10px"
+            >
               서버관리
             </Button>
-            <Button onClick={() => {
-              nav("/admin/report")
-            }} border="1px solid #e6e6ea" borderRadius="10px">
+            <Button
+              onClick={() => {
+                nav("/admin/report");
+              }}
+              border="1px solid #e6e6ea"
+              borderRadius="10px"
+            >
               신고관리
             </Button>
           </Grid>
@@ -221,26 +239,30 @@ export default () => {
         <Box>유저관리</Box>
         <Box border="1px solid #e6e6ea">
           <Grid
-            templateColumns="1fr 1fr 1fr"
+            templateColumns="1fr 1fr 1fr 1fr 1fr"
             borderBottom="1px solid #e6e6ea"
             textAlign="center"
           >
-            <Box>아이디</Box>
-            <Box>닉네임</Box>
-            <Box>유저관리</Box>
+            <Box paddingRight={"10px"}>아이디</Box>
+            <Box paddingRight={"10px"}>닉네임</Box>
+            <Box paddingRight={"12px"}>벌점</Box>
+            <Box paddingRight={"17px"}>role</Box>
+            <Box paddingRight={"30px"}>유저관리</Box>
           </Grid>
           <List height="100px" overflowX="auto">
             {userData.map((user) => {
               return (
                 <ListItem key={user._id} borderBottom="1px solid #e6e6ea">
                   <Grid
-                    templateColumns="1fr 1fr 1fr"
+                    templateColumns="1fr 1fr 1fr 1fr 1fr"
                     textAlign="center"
                     alignItems="center"
                     padding="5px 0"
                   >
                     <Box>{user.email}</Box>
                     <Box>{user.nickname}</Box>
+                    <Box>{user.penalty}</Box>
+                    <Box>{user.role}</Box>
                     <Button
                       w="100px"
                       border="1px solid #e6e6ea"
@@ -266,8 +288,8 @@ export default () => {
             textAlign="center"
           >
             <Box>아이디</Box>
-            <Box>게시글제목</Box>
-            <Box>게시글관리</Box>
+            <Box paddingRight={"15px"}>게시글제목</Box>
+            <Box paddingRight={"30px"}>게시글관리</Box>
           </Grid>
           <List height="100px" overflowX="auto">
             {writeData.map((write) => {
@@ -308,8 +330,8 @@ export default () => {
             textAlign="center"
           >
             <Box>아이디</Box>
-            <Box>댓글내용</Box>
-            <Box>댓글관리</Box>
+            <Box paddingRight={"15px"}>댓글내용</Box>
+            <Box paddingRight={"30px"}>댓글관리</Box>
           </Grid>
           <List height="100px" overflowX="auto">
             {commentData.map((write) => {

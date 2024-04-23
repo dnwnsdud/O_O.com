@@ -23,8 +23,8 @@ export default () => {
   const [name, setName] = useState("");
   const [nickname, setnickname] = useState("");
   const [state, setState] = useState("");
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef()
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -41,11 +41,11 @@ export default () => {
     name: name,
     email: paramValue,
     nickname: nickname,
+    role: "admin",
   };
   const onSubmitHandler = (e) => {
     //새로고침 방지
     e.preventDefault();
-
 
     fetch("/api/signup", {
       method: "post",
@@ -63,13 +63,11 @@ export default () => {
       .then((data) => {
         if (data.success === true) {
           nav("/");
-        } 
-        else
-        onOpen();
+        } else onOpen();
       })
       .catch((error) => {});
   };
-  useEffect(()=>{
+  useEffect(() => {
     fetch("/api/signup", {
       method: "post",
       headers: {
@@ -86,14 +84,13 @@ export default () => {
       .then((data) => {
         if (data == "reject") {
           nav("/");
-        }
-        else if(data == "check"){
-          setState(data)
+        } else if (data == "check") {
+          setState(data);
           onOpen();
         }
       })
       .catch((error) => {});
-  },[])
+  }, []);
 
   return (
     <Center>
@@ -114,7 +111,7 @@ export default () => {
         </Box>
         <FormControl>
           <FormLabel>이름</FormLabel>
-          <Input type="text" onChange={onNamedHandler}  maxLength={5}/>
+          <Input type="text" onChange={onNamedHandler} maxLength={5} />
         </FormControl>
         <FormControl>
           <FormLabel>이메일</FormLabel>
@@ -122,7 +119,7 @@ export default () => {
         </FormControl>
         <FormControl>
           <FormLabel>닉네임</FormLabel>
-          <Input type="text" onChange={onNicknameHandler} maxLength={10}/>
+          <Input type="text" onChange={onNicknameHandler} maxLength={10} />
         </FormControl>
 
         <Grid templateColumns="1fr 1fr" gap="5px" marginTop="20px">
@@ -146,58 +143,67 @@ export default () => {
         </Grid>
       </Stack>
 
-      {state === "check" ? <AlertDialog
+      {state === "check" ? (
+        <AlertDialog
           isOpen={isOpen}
           leastDestructiveRef={cancelRef}
           onClose={onClose}
         >
           <AlertDialogOverlay>
             <AlertDialogContent>
-              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
+              <AlertDialogHeader fillontSize="lg" fontWeight="bold">
                 회원가입정보 확인
               </AlertDialogHeader>
-              <AlertDialogBody>
-                이미 가입된 회원입니다.
-              </AlertDialogBody>
+              <AlertDialogBody>이미 가입된 회원입니다.</AlertDialogBody>
               <AlertDialogFooter>
-                <Button  sx={{
-                backgroundColor: "red !important",
-                color: "#ffffff",
-              }} onClick={()=>{
-                onClose() 
-                nav("/")
-            }} ml={3}>
+                <Button
+                  sx={{
+                    backgroundColor: "red !important",
+                    color: "#ffffff",
+                  }}
+                  onClick={() => {
+                    onClose();
+                    nav("/");
+                  }}
+                  ml={3}
+                >
                   돌아가기
                 </Button>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialogOverlay>
         </AlertDialog>
-      :<AlertDialog
+      ) : (
+        <AlertDialog
           isOpen={isOpen}
           leastDestructiveRef={cancelRef}
           onClose={onClose}
         >
           <AlertDialogOverlay>
             <AlertDialogContent>
-              <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+              <AlertDialogHeader fontSize="lg" fontWeight="bold">
                 기입정보 확인
               </AlertDialogHeader>
               <AlertDialogBody>
                 회원가입 정보를 정확히 기입해주세요
               </AlertDialogBody>
-  
+
               <AlertDialogFooter>
-                <Button  sx={{
-                backgroundColor: "red !important",
-                color: "#ffffff",
-              }} onClick={onClose} ml={3}>
+                <Button
+                  sx={{
+                    backgroundColor: "red !important",
+                    color: "#ffffff",
+                  }}
+                  onClick={onClose}
+                  ml={3}
+                >
                   돌아가기
                 </Button>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialogOverlay>
-        </AlertDialog>}
+        </AlertDialog>
+      )}
     </Center>
   );
 };
