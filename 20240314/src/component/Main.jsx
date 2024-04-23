@@ -8,6 +8,7 @@ import {
   Heading,
   Stack,
   Text,
+  Spinner
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { CiBaseball } from "react-icons/ci";
@@ -19,9 +20,31 @@ import Noticepost from "../pages/Noticepost";
 import Bestpost from "./Bestpost";
 import Vote from "./board/Vote";
 
+
+
+const Loading = () => {
+  return (
+    <Flex alignItems={"center"} justifyItems={"center"} width={"200%"}>
+      <Spinner
+        m={"auto"}
+        w={"80px"} h={"80px"}
+        thickness='10px'
+        speed='0.65s'
+        emptyColor='gray.200'
+        color='blue.500'
+        size='xl'
+      />
+    </Flex>
+
+  )
+
+}
+
+
 export default () => {
   const location = useLocation();
   const category = location.pathname;
+  let [isLoading, setIsLoading] = useState(true);
   let [todayVote, setTodayVote] = useState([]);
   let [topic, setTopic] = useState([]);
   useEffect(() => {
@@ -35,10 +58,12 @@ export default () => {
       .then((data) => {
         setTodayVote(data.result);
         setTopic(data.result2.title);
+        setIsLoading(false);
       })
       .catch((e) => {
         setTodayVote("비었음");
         setTopic("비었음");
+        setIsLoading(true)
       });
   }, []);
   let nav = useNavigate();
@@ -81,7 +106,8 @@ export default () => {
             templateColumns={"1fr 1fr"}
             justifyContent={"space-between"}
           >
-            {topic !== "비었음" &&
+            {isLoading && <Loading />}
+            {!isLoading && topic !== "비었음" &&
               topic.map((item, index) => {
                 console.log(topic);
                 return (

@@ -134,26 +134,26 @@ export default ({ todayVote, main, location }) => {
               onClose();
               setChoice("");
               document.body.style.overflow = "auto";
-              window.removeEventListener("keydown", (e) => {});
+              window.removeEventListener("keydown", (e) => { });
             }
           })}
-          {(document.body.style.overflow = "hidden")}
-          <Box
-            zIndex={10}
-            bg={"black"}
-            opacity={0.5}
-            w={"100%"}
-            position={"fixed"}
-            left={0}
-            top={0}
-            h={"100%"}
-            color={"black"}
-            onClick={() => {
-              onClose();
-              document.body.style.overflow = "auto";
-              setChoice("");
-            }}
-          ></Box>
+          {document.body.style.overflow = "hidden" &&
+            < Box
+              zIndex={10}
+              bg={"black"}
+              opacity={0.5}
+              w={"100%"}
+              position={"fixed"}
+              left={0}
+              top={0}
+              h={"100%"}
+              color={"black"}
+              onClick={() => {
+                onClose();
+                document.body.style.overflow = "auto";
+                setChoice("");
+              }}
+            ></Box>}
           <Flex
             borderRadius={"15px"}
             p={4}
@@ -391,7 +391,9 @@ export default ({ todayVote, main, location }) => {
             </Flex>
           </Flex>
         </>
-      )}
+      )
+      }
+
       {/* <AlertDialog
           isOpen={isOpen}
           leastDestructiveRef={cancelRef}
