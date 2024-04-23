@@ -166,7 +166,9 @@ export default () => {
                 width="50%"
                 margin="auto"
               >
-                전체승률
+                {userData.rating && userData.rating.win + userData.rating.lose > 0
+                  ? ((userData.rating.win) / (userData.rating.win + userData.rating.lose) * 100).toFixed(1) + "%"
+               : "승률 정보 없음"}
               </Box>
             </Grid>
             <Grid justifyContent="center" gap="10px">

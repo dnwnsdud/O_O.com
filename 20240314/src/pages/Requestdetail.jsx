@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Box, Button, Center, Divider, Flex, Grid, Heading, Stack } from "@chakra-ui/react"
 import { useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "../hook/User";
+
 
 export default()=>{
     const location = useLocation();
     let id = location.pathname.slice(location.pathname.indexOf("=") + 1);
     let nav = useNavigate();
-
+    const { user } = useContext(UserContext);
     const [requestData, setRequestData] = useState([]);
     const [requestleftData, setRequestleftData] = useState([]);
     const [requestrightData, setRequestrightData] = useState([]);
@@ -36,8 +38,11 @@ export default()=>{
                 }
             })
             .then((data)=>{
-                if(data.success == true){
+                if(data.success === true){
                     nav("/requestlist")
+                }
+                else if(data.success === false){
+                    nav("/request")
                 }else{
                     throw new Error("Data is empty")
                 }
@@ -116,7 +121,7 @@ export default()=>{
                             <Box>{requestrightData.images}</Box>
                     </Stack>
                 </Flex>
-                <Grid templateColumns={"1fr 1fr"} mb='5'>
+                {user.role == "admin" ? <Grid templateColumns={"1fr 1fr"} mb='5'>
                     <Button color='crimson'onClick={()=>{
                         submit(requestData._id, "reject")
                     }}>요청반려</Button>
@@ -124,6 +129,15 @@ export default()=>{
                         submit(requestData._id, "approval")
                     }}>요청승인</Button>
                 </Grid>
+                :
+                <Grid templateColumns={"1fr 1fr"} mb='5'>
+                    <Button color='black'onClick={()=>{
+                        nav("/request")
+                    }}>취소</Button>
+                    <Button color='black'onClick={()=>{
+                        submit(requestData._id, "delete")
+                    }}>삭제</Button>
+                </Grid>}
             </Stack>
         </Center>
     </Box>
