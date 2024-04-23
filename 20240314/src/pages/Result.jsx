@@ -13,6 +13,7 @@ import {
   PopoverTrigger,
   Text,
   Button,
+  Stack,
   ButtonGroup,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useRef, useState } from "react";
@@ -50,7 +51,7 @@ export default () => {
   }, [day]);
 
   console.log(main, "main");
-  const WalkthroughPopover = ({ props }) => {
+  const WalkthroughPopover = ({ props, index }) => {
     const initialFocusRef = useRef();
     return (
       <Popover
@@ -61,37 +62,37 @@ export default () => {
         <PopoverTrigger>
           <Button
             onClick={() => {
-              console.log(props);
+              console.log(props.leftSide);
             }}
           >
-            {props.title}
+            {index + 1}회 차
           </Button>
         </PopoverTrigger>
         <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
-          <PopoverHeader pt={4} fontWeight="bold" border="0">
-            Manage Your Channels
-          </PopoverHeader>
           <PopoverArrow bg="blue.800" />
           <PopoverCloseButton />
+          <PopoverHeader fontWeight="bold">{props.title}</PopoverHeader>
           <PopoverBody>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore.
+            <Box>
+              {props.leftSide.participants.length >
+              props.rightSide.participants.length
+                ? "left win"
+                : props.leftSide.participants.length <
+                  props.rightSide.participants.length
+                ? "right win"
+                : "draw"}
+            </Box>
+            <Flex>
+              <Box>
+                {props.leftSide.title}
+                {props.leftSide.content}
+              </Box>
+              <Box>
+                {props.rightSide.title}
+                {props.rightSide.content}
+              </Box>
+            </Flex>
           </PopoverBody>
-          <PopoverFooter
-            border="0"
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-            pb={4}
-          >
-            <Box fontSize="sm">Step 2 of 4</Box>
-            <ButtonGroup size="sm">
-              <Button colorScheme="green">Setup Email</Button>
-              <Button colorScheme="blue" ref={initialFocusRef}>
-                Next
-              </Button>
-            </ButtonGroup>
-          </PopoverFooter>
         </PopoverContent>
       </Popover>
     );
@@ -197,27 +198,6 @@ export default () => {
                 <Heading size={"m"}>야구</Heading>
                 {baseball.length == 0 ? (
                   <Heading size={"m"}>경기 결과가 없습니다</Heading>
-                ) : baseball.length > 0 && baseball.length == 1 ? (
-                  <Box>
-                    <Heading size={"m"}>{baseball[0].title}</Heading>
-                    <Box>
-                      {baseball[0].leftSide.participants.length >
-                      baseball[0].rightSide.participants.length ? (
-                        <Box>
-                          <Text>왼쪽 진영 승</Text>
-                          <Text>{baseball[0].leftSide.title}</Text>
-                        </Box>
-                      ) : baseball[0].rightSide.participants.length >
-                        baseball[0].leftSide.participants.length ? (
-                        <Box>
-                          <Text>오른쪽 진영 승</Text>
-                          <Text>{baseball[0].rightSide.title}</Text>
-                        </Box>
-                      ) : (
-                        "무승부"
-                      )}
-                    </Box>
-                  </Box>
                 ) : (
                   baseball.map((item, index) => {
                     return (
@@ -227,24 +207,9 @@ export default () => {
                         w="100%"
                         h="50px"
                       >
-                        <Heading size={"m"}>{item.title}</Heading>
-                        <Box>
-                          {item.leftSide.participants.length >
-                          item.rightSide.participants.length ? (
-                            <Box>
-                              <Text>왼쪽 진영 승</Text>
-                              <Text>{item.leftSide.title}</Text>
-                            </Box>
-                          ) : item.rightSide.participants.length >
-                            item.leftSide.participants.length ? (
-                            <Box>
-                              <Text>오른쪽 진영 승</Text>
-                              <Text>{item.rightSide.title}</Text>
-                            </Box>
-                          ) : (
-                            "무승부"
-                          )}
-                        </Box>
+                        <Heading size={"m"}>
+                          <WalkthroughPopover props={item} index={index} />
+                        </Heading>
                       </Box>
                     );
                   })
@@ -259,27 +224,6 @@ export default () => {
                 <Heading size={"m"}>LOL</Heading>
                 {lol.length == 0 ? (
                   <Heading size={"m"}>경기 결과가 없습니다</Heading>
-                ) : lol.length > 0 && lol.length == 1 ? (
-                  <Box>
-                    <Heading size={"m"}>{lol[0].title}</Heading>
-                    <Box>
-                      {lol[0].leftSide.participants.length >
-                      lol[0].rightSide.participants.length ? (
-                        <Box>
-                          <Text>왼쪽 진영 승</Text>
-                          <Text>{lol[0].leftSide.title}</Text>
-                        </Box>
-                      ) : lol[0].rightSide.participants.length >
-                        lol[0].leftSide.participants.length ? (
-                        <Box>
-                          <Text>오른쪽 진영 승</Text>
-                          <Text>{lol[0].rightSide.title}</Text>
-                        </Box>
-                      ) : (
-                        "무승부"
-                      )}
-                    </Box>
-                  </Box>
                 ) : (
                   lol.map((item, index) => {
                     return (
@@ -289,24 +233,7 @@ export default () => {
                         w="100%"
                         h="50px"
                       >
-                        <Heading size={"m"}>{item.title}</Heading>
-                        <Box>
-                          {item.leftSide.participants.length >
-                          item.rightSide.participants.length ? (
-                            <Box>
-                              <Text>왼쪽 진영 승</Text>
-                              <Text>{item.leftSide.title}</Text>
-                            </Box>
-                          ) : item.rightSide.participants.length >
-                            item.leftSide.participants.length ? (
-                            <Box>
-                              <Text>오른쪽 진영 승</Text>
-                              <Text>{item.rightSide.title}</Text>
-                            </Box>
-                          ) : (
-                            "무승부"
-                          )}
-                        </Box>
+                        <WalkthroughPopover props={item} index={index} />
                       </Box>
                     );
                   })
@@ -321,27 +248,6 @@ export default () => {
                 <Heading size={"m"}>축구</Heading>
                 {soccer.length == 0 ? (
                   <Heading size={"m"}>경기 결과가 없습니다</Heading>
-                ) : soccer.length > 0 && soccer.length == 1 ? (
-                  <Box>
-                    <Heading size={"m"}>{soccer[0].title}</Heading>
-                    <Box>
-                      {soccer[0].leftSide.participants.length >
-                      soccer[0].rightSide.participants.length ? (
-                        <Box>
-                          <Text>왼쪽 진영 승</Text>
-                          <Text>{soccer[0].leftSide.title}</Text>
-                        </Box>
-                      ) : soccer[0].rightSide.participants.length >
-                        soccer[0].leftSide.participants.length ? (
-                        <Box>
-                          <Text>오른쪽 진영 승</Text>
-                          <Text>{soccer[0].rightSide.title}</Text>
-                        </Box>
-                      ) : (
-                        "무승부"
-                      )}
-                    </Box>
-                  </Box>
                 ) : (
                   soccer.map((item, index) => {
                     return (
@@ -351,24 +257,9 @@ export default () => {
                         w="100%"
                         h="50px"
                       >
-                        <Heading size={"m"}>{item.title}</Heading>
-                        <Box>
-                          {item.leftSide.participants.length >
-                          item.rightSide.participants.length ? (
-                            <Box>
-                              <Text>왼쪽 진영 승</Text>
-                              <Text>{item.leftSide.title}</Text>
-                            </Box>
-                          ) : item.rightSide.participants.length >
-                            item.leftSide.participants.length ? (
-                            <Box>
-                              <Text>오른쪽 진영 승</Text>
-                              <Text>{item.rightSide.title}</Text>
-                            </Box>
-                          ) : (
-                            "무승부"
-                          )}
-                        </Box>
+                        <Heading size={"m"}>
+                          <WalkthroughPopover props={item} index={index} />
+                        </Heading>
                       </Box>
                     );
                   })
@@ -383,12 +274,6 @@ export default () => {
                 <Heading size={"m"}>사회</Heading>
                 {society.length == 0 ? (
                   <Heading size={"m"}>경기 결과가 없습니다</Heading>
-                ) : society.length > 0 && society.length == 1 ? (
-                  <Box>
-                    <Heading size={"m"}>
-                      <WalkthroughPopover props={society[0]} />
-                    </Heading>
-                  </Box>
                 ) : (
                   society.map((item, index) => {
                     return (
@@ -398,24 +283,7 @@ export default () => {
                         w="100%"
                         h="50px"
                       >
-                        <Heading size={"m"}>{item.title}</Heading>
-                        <Box>
-                          {item.leftSide.participants.length >
-                          item.rightSide.participants.length ? (
-                            <Box>
-                              <Text>왼쪽 진영 승</Text>
-                              <Text>{item.leftSide.title}</Text>
-                            </Box>
-                          ) : item.rightSide.participants.length >
-                            item.leftSide.participants.length ? (
-                            <Box>
-                              <Text>오른쪽 진영 승</Text>
-                              <Text>{item.rightSide.title}</Text>
-                            </Box>
-                          ) : (
-                            "무승부"
-                          )}
-                        </Box>
+                        <WalkthroughPopover props={item} index={index} />
                       </Box>
                     );
                   })
