@@ -3,8 +3,14 @@ export default async (req, res, next) => {
 
     try {
       if (req.body.state == "reject") {
-        console.log(req.body);
+        console.log(req.body,"이건 뭘까요?");
         await req.mongo.request.deleteOne({ _id: req.body.requestId });
+        let dog = await req.mongo.saverequest.findOneAndUpdate(
+          {requestId:req.body.requestId},
+          {$set:{"state":"반려"}},
+          {new:true}
+          )
+          res.status(200).json({ success:true });
       }
       else if (req.body.state == "approval") {
         const request = await req.mongo.request.findOne({_id: req.body.requestId})
@@ -24,13 +30,25 @@ export default async (req, res, next) => {
                 content: right.content,
             }
         }
-        console.log(body, "이 형식이면 어때?");
+        await req.mongo.saverequest.findOneAndUpdate(
+          {requestId:req.body.requestId},
+          {$set:{"state":"승인"}},
+          {new:true}
+          )
         const test =  new req.mongo.vote(body)
         await test.save()
-        console.log(test,"이거 나와주면 진짜 고맙겠는데 어떻게 생각해");
         await req.mongo.request.deleteOne({ _id: req.body.requestId });
+        res.status(200).json({ success:true });
+
+      }else if(req.body.state == "delete"){
+        await req.mongo.request.deleteOne({ _id: req.body.requestId });
+        await req.mongo.saverequest.findOneAndUpdate(
+          {requestId:req.body.requestId},
+          {$set:{"state":"삭제"}},
+          {new:true}
+          )
+          res.status(200).json({ success:false });
       }
-      res.status(200).json({ success:true });
     } catch (err) {
       res.status(500).json({ error: err.message });
     }

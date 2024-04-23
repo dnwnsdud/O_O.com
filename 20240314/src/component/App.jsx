@@ -23,7 +23,6 @@ import SubmitProduct from "../pages/SubmitProduct";
 import Success from "../pages/Success";
 import TopicRequest from "../pages/TopicRequest";
 import Main from "./Main";
-import Mygrade from "./Mygrade";
 import Mypage_Admin from "./Mypage_Admin";
 import Myprofile from "./Myprofile";
 import Myrequest from "./Myrequest";
@@ -57,7 +56,7 @@ export default () => {
           <Route path="/success" element={<Success />} />
           <Route path="/profile" element={<Myprofile />} />
           <Route path="/request" element={<Myrequest />} />
-          <Route path="/grade" element={<Mygrade />} />
+          <Route path="/write" element={<Mywrite />} />
           <Route path="/modify" element={<UserModify />} />
           <Route path="/admin" element={<Mypage_Admin />} />
           <Route path="/admin/report" element={<Report />} />

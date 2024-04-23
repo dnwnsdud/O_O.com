@@ -235,7 +235,6 @@ export default () => {
             textAlign="center"
             border={'none'}
             borderBottom="1px solid #e6e6ea"
-            // borderRadius="15px"
             margin="auto"
             width="70%"
             h={"25px"}
@@ -245,10 +244,11 @@ export default () => {
           />
           <Input
             textAlign="center"
-            border="1px solid #e6e6ea"
-            borderRadius="15px"
+            border={'none'}
+            borderBottom="1px solid #e6e6ea"
             margin="auto"
             width="70%"
+            h={"25px"}
             placeholder={userData.team}
             defaultValue={userData.team}
             onChange={onTeamHandler}
@@ -257,11 +257,15 @@ export default () => {
             textAlign="center"
             border={'none'}
             borderBottom="1px solid #e6e6ea"
-            // borderRadius="15px"
             margin="auto"
             width="70%"
-            placeholder="내 승률"
-            defaultValue="내 승률"
+            h={"25px"}
+            placeholder={userData.rating && userData.rating.win + userData.rating.lose > 0
+              ? ((userData.rating.win) / (userData.rating.win + userData.rating.lose) * 100).toFixed(1) + "%"
+           : "승률 정보 없음"}
+            defaultValue={userData.rating && userData.rating.win + userData.rating.lose > 0
+              ? ((userData.rating.win) / (userData.rating.win + userData.rating.lose) * 100).toFixed(1) + "%"
+           : "승률 정보 없음"}
             readOnly
           />
         </Grid>
