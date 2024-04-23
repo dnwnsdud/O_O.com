@@ -239,7 +239,7 @@ export default () => {
 
   const CustomFileInput = ({ onChange, label, helperText, isInvalid, errorMessage, fileType, fileName, onClear }) => {
     return (
-      <FormControl isInvalid={isInvalid} mt="5">
+      <FormControl isInvalid={isInvalid} mt="5" >
         <FormLabel fontWeight={"bold"}>{label}</FormLabel>
         <Input type="file" name={fileType} onChange={onChange} hidden />
         <Button padding={"10px 20px 10px 20px"} onClick={() => document.getElementsByName(fileType)[0].click()} variant="outline">
@@ -264,7 +264,7 @@ export default () => {
   };
 
   return (
-    <Stack bg={"#f7f7f8"}>
+    <Stack bg={"#f7f7f8"} >
       <Stack w={"35%"} margin="30px auto" direction={"column"} justifyContent={"center"}>
         <Stack
           height={"80%"}
@@ -272,7 +272,8 @@ export default () => {
           justifyContent={"space-around"}
           borderRadius={"10px"}
           bg={"white"}
-          boxShadow={"md"}
+          boxShadow={"base"}
+          // shadow={"base"}
           p={10}
         >
           <Center>

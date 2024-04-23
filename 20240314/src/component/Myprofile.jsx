@@ -46,7 +46,7 @@ export default () => {
             alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
           }
         })
-        .catch((error) => {});
+        .catch((error) => { });
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -90,7 +90,6 @@ export default () => {
                   margin="auto"
                   overflow="hidden"
                 >
-                  :
                   <Image
                     src={userData.images}
                     boxSize="100%"
