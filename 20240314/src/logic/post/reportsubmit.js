@@ -6,11 +6,11 @@ export default async (req, res, next) => {
     if (report.state == "reject") {
       await req.mongo.blacklist.deleteOne({ _id: report.id });
       const reload = await req.mongo.blacklist.find({}).sort({ _id: -1 });
+      
       res.status(200).json({ reload });
     }
     else if (report.state == "approval") {
       const test = await req.mongo.board.findOne({ _id: report.postId })
-      console.log(test,"살려주시면 감사하겠슴다");
       if(test !== null){
         test.deleteOne({})
       }

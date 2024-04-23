@@ -26,6 +26,7 @@ export default () => {
   const [inputValue, setInputValue] = useState("");
   const location = useLocation();
   const currentPath = location.pathname;
+  let tab = "lol"
   let [todayVote, setTodayVote] = useState([]);
   const category = currentPath;
   useEffect(() => {
@@ -92,7 +93,7 @@ export default () => {
         </Box>
         <Grid templateColumns="4fr 1.5fr" gap="20px">
           <Box marginBottom="4rem">
-            <Vote todayVote={todayVote} />
+            <Vote todayVote={todayVote} location={tab} />
             <Lolboard user={user} />
           </Box>
           <Flex

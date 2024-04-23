@@ -81,6 +81,7 @@ export default () => {
         });
     }
   };
+  console.log(id);
   const righthandleImagesChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -112,6 +113,7 @@ export default () => {
     category: category,
     title: topic,
     user: user.nickname,
+    email:user.email,
     leftSide: {
       images: leftimage,
       title: lefttitle,
@@ -199,12 +201,12 @@ export default () => {
             </Stack>
           </Flex>
           <Flex justifyContent={"end"} paddingRight="30px" gap={"10px"}>
-            <Button color={"#ffffff"} backgroundColor="#53535f !important" padding={"10px"} w="80px" h="40px" onClick={onSubmitHandler}>작성</Button>
             <Button color={"#ffffff"} backgroundColor="#53535f !important" padding={"10px"} w="80px" h="40px" onClick={() => {
               window.history.back();
             }}>
               이전으로
             </Button>
+            <Button color={"#ffffff"} backgroundColor="#53535f !important" padding={"10px"} w="80px" h="40px" onClick={onSubmitHandler}>작성</Button>
           </Flex>
         </Stack>
       </Stack>

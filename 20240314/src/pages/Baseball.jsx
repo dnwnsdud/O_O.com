@@ -35,6 +35,7 @@ export default () => {
   const currentPath = location.pathname;
   let [todayVote, setTodayVote] = useState([]);
   const category = currentPath;
+  let tab = "baseball"
   useEffect(() => {
     const room = currentPath.split("/")[1];
     const chatEvent = room + "_chat";
@@ -43,6 +44,7 @@ export default () => {
       console.log(data);
     };
 
+    console.log(category,"qweqweqewqwe");
     socket.emit("join_room", room);
     socket.on(chatEvent, (data) => {
       setChatList((prevChatList) => [data, ...prevChatList]);
@@ -99,7 +101,7 @@ export default () => {
         </Box>
         <Grid templateColumns="4fr 1.5fr" gap="20px">
           <Box borderRadius={"10px"} marginBottom="4rem">
-            <Vote todayVote={todayVote}xcjkdlEo4iu98 />
+            <Vote todayVote={todayVote} location={tab}/>
             <BaBoard user={user} />
           </Box>
           <Flex

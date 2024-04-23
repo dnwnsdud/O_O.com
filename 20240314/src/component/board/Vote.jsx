@@ -23,7 +23,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../hook/User";
 
-export default ({ todayVote, main }) => {
+export default ({ todayVote, main, location }) => {
   const { user } = useContext(UserContext);
   const { isOpen, onOpen, onClose } = useDisclosure();
   let nav = useNavigate();
@@ -56,7 +56,7 @@ export default ({ todayVote, main }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success === true) {
-          onOpen();
+          alert("수정전")
         } else {
           alert(data.success);
         }
@@ -371,7 +371,7 @@ export default ({ todayVote, main }) => {
                     onClick={() => {
                       if (user === "logout")
                         return alert("로그인이 필요합니다.");
-                      nav(`/topicrequest/category=${todayVote.category}`);
+                      nav(`/topicrequest/category=${location}`);
                       onClose();
                     }}
                   >
@@ -397,7 +397,7 @@ export default ({ todayVote, main }) => {
           </Flex>
         </>
       )}
-      <AlertDialog
+      {/* <AlertDialog
           isOpen={isOpen}
           leastDestructiveRef={cancelRef}
           onClose={onClose}
@@ -423,7 +423,7 @@ export default ({ todayVote, main }) => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialogOverlay>
-        </AlertDialog>
+        </AlertDialog> */}
     </>
   );
 };
