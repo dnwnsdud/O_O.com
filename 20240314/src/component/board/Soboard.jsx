@@ -140,7 +140,7 @@ export default ({ user }) => {
 
   return (
     <>
-      <Box maxW="1300px" minH={1200} margin="auto">
+      <Box >
         <Box
         // position={'relative'}
         >
