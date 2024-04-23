@@ -1,23 +1,12 @@
 import {
   Box,
   Button,
-  Center,
   Divider,
   Flex,
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-  Input,
   Stack,
   Text,
-  Textarea,
-  Image,
-  AspectRatio,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
+  Grid,
+  Center
 } from "@chakra-ui/react";
 import React, { useState, useContext, useEffect } from "react";
 import { UserContext } from "../hook/User";
@@ -93,15 +82,19 @@ export default () => {
           borderRadius={"10px"}
           bg={"white"}
           boxShadow={"md"}
-          p={10}
+          padding="20px"
         >
+          <Center fontWeight={"bold"} fontSize="30px" paddingBottom={"20px"}>공지사항</Center>
           <Flex justifyContent={"space-between"}>
-            <Text fontWeight={"bold"} fontSize={"xl"}>
+            <Text fontWeight={"bold"} fontSize={"xl"} maxW="400px">
               {baDetails.title}
             </Text>
-            <Text fontWeight={"bold"} fontSize={"xl"}>
-              {formatDate(baDetails.createdAt)}
-            </Text>
+            <Grid templateRows={"1fr 1fr 1fr"} gap="1px">
+              <Box textAlign={"center"} color={"#004EA1"} fontWeight="bold" fontSize={"13px"}>{baDetails.nickname}</Box>
+              <Box textAlign={"center"} fontWeight={"bold"} fontSize={"13px"}>
+                {formatDate(baDetails.createdAt)}
+              </Box>
+            </Grid>
           </Flex>
           <Divider />
           <Box
@@ -126,6 +119,6 @@ export default () => {
           </Flex>
         </Stack>
       </Stack>
-    </Box>
+    </Box >
   );
 };

@@ -43,6 +43,9 @@ export default () => {
       images: images,
       videos: videos,
     };
+    const file = e.target.files[0];
+    console.log(file);
+
     fetch(`/api/boardLoad`, {
       body: JSON.stringify(body),
       method: "post",

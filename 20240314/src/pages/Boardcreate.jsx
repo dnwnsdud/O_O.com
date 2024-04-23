@@ -142,6 +142,7 @@ export default () => {
       const formData = new FormData();
       formData.append("videos", file);
       setUploadedVideoName(file.name);
+      console.log(file);
 
       fetch("/api/upload/videos", {
         method: "POST",
