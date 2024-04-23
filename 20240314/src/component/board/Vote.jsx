@@ -28,8 +28,7 @@ export default ({ todayVote, main, location }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   let nav = useNavigate();
   let [choice, setChoice] = useState("");
-  const cancelRef = React.useRef()
-  
+  const cancelRef = React.useRef();
 
   let check = (
     <svg
@@ -56,7 +55,7 @@ export default ({ todayVote, main, location }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success === true) {
-          alert("수정전")
+          alert("수정전");
         } else {
           alert(data.success);
         }
@@ -86,7 +85,6 @@ export default ({ todayVote, main, location }) => {
   };
   return (
     <>
-
       <Flex
         h={"100%"}
         maxH={"255px"}
@@ -95,11 +93,8 @@ export default ({ todayVote, main, location }) => {
         backgroundColor="white"
         borderRadius={"0.5rem"}
         marginBottom={"20px"}
-        bg={
-          todayVote && todayVote.category == "main" ? "" : "#f5f5f5"
-        }
+        bg={todayVote && todayVote.category == "main" ? "" : "#f5f5f5"}
       >
-
         <Text fontSize={"3xl"} textAlign={"center"}>
           {todayVote && todayVote == "비었음"
             ? "현재 투표가 진행중이지 않습니다."
@@ -139,7 +134,7 @@ export default ({ todayVote, main, location }) => {
               onClose();
               setChoice("");
               document.body.style.overflow = "auto";
-              window.removeEventListener("keydown", (e) => { });
+              window.removeEventListener("keydown", (e) => {});
             }
           })}
           {(document.body.style.overflow = "hidden")}
@@ -249,8 +244,7 @@ export default ({ todayVote, main, location }) => {
                         <Heading size="md">
                           {todayVote == "비었음"
                             ? "현재 투표가 진행중이지 않습니다."
-                            : todayVote.leftSide.title
-                          }
+                            : todayVote.leftSide.title}
                         </Heading>
                         <Text>
                           {todayVote == "비었음"
@@ -289,7 +283,7 @@ export default ({ todayVote, main, location }) => {
                       ) : (
                         ""
                       )}
-                      {todayVote &&
+                      {(todayVote &&
                         todayVote != "비었음" &&
                         todayVote.rightSide &&
                         todayVote.rightSide.images && (
@@ -300,7 +294,8 @@ export default ({ todayVote, main, location }) => {
                             alt="X"
                             borderRadius="lg"
                           />
-                        ) || ""}
+                        )) ||
+                        ""}
                       <Stack mt="6" spacing="3">
                         <Heading size="md">
                           {todayVote && todayVote == "비었음"
