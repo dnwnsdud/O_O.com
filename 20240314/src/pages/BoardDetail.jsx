@@ -242,7 +242,7 @@ export default () => {
           </Flex>
           <Divider />
           <Box minH={"250px"} style={{ whiteSpace: "pre-wrap" }}>
-            {baDetails.content}
+            {baDetails.content}<br /><br />
             {baDetails.images && (
               <Box width="400px" height="auto" margin="auto">
                 <Image
@@ -256,6 +256,7 @@ export default () => {
                 />
               </Box>
             )}
+            <br />
             {baDetails.videos && (
               <AspectRatio maxW="560px" ratio={1}>
                 <iframe
