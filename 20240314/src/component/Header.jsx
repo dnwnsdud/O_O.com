@@ -203,15 +203,6 @@ export default () => {
                   </MenuItem>
                   <MenuItem
                     onClick={() => {
-                      nav("/grade");
-                    }}
-                    fontSize="xs"
-                    width="150px"
-                  >
-                    내 승률
-                  </MenuItem>
-                  <MenuItem
-                    onClick={() => {
                       nav("/request");
                     }}
                     fontSize="xs"
