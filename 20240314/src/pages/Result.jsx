@@ -33,11 +33,6 @@ export default () => {
       setSociety(data.data.society);
       console.log(data.data, "data.data");
     };
-    // .then((res) => res.json())
-    // .then((res) => {
-    //   console.log(res.data, "res.data");
-    //   setResult(res.data);
-    // });
     fetchData();
   }, [day]);
 
