@@ -13,7 +13,6 @@ import React from "react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import Vote from "../component/board/Vote";
 import BaBoard from "../component/board/Baboard";
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { UserContext } from "../hook/User";

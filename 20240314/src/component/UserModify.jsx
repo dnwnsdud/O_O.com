@@ -16,6 +16,13 @@ import {
   FormErrorMessage,
   FormControl,
   Tooltip,
+  useDisclosure,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
 } from "@chakra-ui/react";
 import { IoPeopleCircleSharp } from "react-icons/io5";
 import { PiCameraPlus } from "react-icons/pi";
@@ -31,6 +38,8 @@ export default () => {
   const [image, setImage] = useState(userData.images);
   const [itemImageError, setItemImageError] = useState(false);
   const { user, setUser } = useContext(UserContext);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
 
 
   let nav = useNavigate();
@@ -148,8 +157,8 @@ export default () => {
         .then((data) => {
           if (data.success === true) {
             setUser("logout");
+            onOpen();
             nav("/deleteloading");
-            alert("삭제되었습니다.");
           } else {
             alert(`사용자를 삭제하는 동안 오류 발생:${data.error}`);
           }
@@ -316,6 +325,33 @@ export default () => {
           </Button>
         </Flex>
       </Stack>
+      <AlertDialog
+          isOpen={isOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+          isCentered
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
+                회원탈퇴 완료
+              </AlertDialogHeader>
+              <AlertDialogBody>
+                회원탈퇴 되었습니다.
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button  sx={{
+                backgroundColor: "red !important",
+                color: "#ffffff",
+              }} onClick={()=>{
+                onClose() 
+            }} ml={3}>
+                  돌아가기
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
     </Center >
   );
 };

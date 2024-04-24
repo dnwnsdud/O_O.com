@@ -1,10 +1,17 @@
 import React from "react";
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Box,
   Button,
   Flex,
   Grid,
   Stack,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
@@ -46,7 +53,7 @@ export default ({ user }) => {
     if (user !== "logout") {
       nav("/create");
     } else {
-      alert("로그인이 필요합니다!");
+      onOpen()
     }
   };
 
@@ -56,8 +63,9 @@ export default ({ user }) => {
   const [postsPerPage] = useState(10);
   const currentTab = "야구";
   const [sortOrder, setSortOrder] = useState("최신순");
-
   const [selectedTeam, setSelectedTeam] = useState("전체");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
 
 
 
@@ -438,6 +446,33 @@ export default ({ user }) => {
           </Button>
         </Flex>
       </Stack>
+      <AlertDialog
+          isOpen={isOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+          isCentered
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
+                로그인 오류발생
+              </AlertDialogHeader>
+              <AlertDialogBody>
+                로그인이 필요합니다.
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button  sx={{
+                backgroundColor: "red !important",
+                color: "#ffffff",
+              }} onClick={()=>{
+                onClose() 
+            }} ml={3}>
+                  돌아가기
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
     </>
   );
 };

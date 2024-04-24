@@ -13,6 +13,13 @@ import {
   Text,
   Textarea,
   Select,
+  useDisclosure,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
 } from "@chakra-ui/react";
 import React, { useState, useContext } from "react";
 import { UserContext } from "../hook/User";
@@ -27,14 +34,17 @@ export default () => {
   const [videos, setVideo] = useState("");
   const [tap, setTap] = useState("");
   const [teamsOptions, setTeamsOptions] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
+
 
   const handleInputChange = (e) => {
     const newTitle = e.target.value;
-    if (newTitle.length <= 20) {
+    if (newTitle.length < 20) {
       setTitle(newTitle);
     } else {
-      alert("제목은 최대 20자까지 입력 가능합니다.");
       setTitle(newTitle.slice(0, 20));
+      onOpen();
     }
   };
   const handleInputChange2 = (e) => setContent(e.target.value);
@@ -416,6 +426,33 @@ export default () => {
           </Flex>
         </Stack>
       </Stack>
+      <AlertDialog
+          isOpen={isOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+          isCentered
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
+                글자 수 제한
+              </AlertDialogHeader>
+              <AlertDialogBody>
+              제목은 최대 20자까지 입력 가능합니다.
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button  sx={{
+                backgroundColor: "red !important",
+                color: "#ffffff",
+              }} onClick={()=>{
+                onClose() 
+            }} ml={3}>
+                  돌아가기
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
     </Stack>
   );
 };

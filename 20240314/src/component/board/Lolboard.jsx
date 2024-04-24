@@ -1,9 +1,16 @@
 import React from "react";
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Box,
   Button,
   Flex,
   Grid,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
@@ -45,7 +52,7 @@ export default ({ user }) => {
     if (user !== "logout") {
       nav("/create");
     } else {
-      alert("로그인이 필요합니다!");
+      onOpen()
     }
   };
 
@@ -56,6 +63,8 @@ export default ({ user }) => {
   const currentTab = "LOL";
   const [sortOrder, setSortOrder] = useState("최신순");
   const [selectedTeam, setSelectedTeam] = useState("전체");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -428,27 +437,34 @@ export default ({ user }) => {
             <ArrowRightIcon />
           </Button>
         </Flex>
-        {/* 
-        <Flex h={50} padding="10px" justify="center">
-          <InputGroup w={400}>
-            <Input
-              pr="4.5rem"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <InputRightElement>
-              <Button
-                size="xs"
-                padding="22px 17px"
-                backgroundColor="#5181e3 !important"
-                onClick={() => fetchPosts()}
-              >
-                <SearchIcon w="20px" h="20px" color="#fff" />
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-        </Flex> */}
       </Box>
+      <AlertDialog
+          isOpen={isOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+          isCentered
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
+                로그인 오류발생
+              </AlertDialogHeader>
+              <AlertDialogBody>
+                로그인이 필요합니다.
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button  sx={{
+                backgroundColor: "red !important",
+                color: "#ffffff",
+              }} onClick={()=>{
+                onClose() 
+            }} ml={3}>
+                  돌아가기
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
     </>
   );
 };

@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Flex, Grid, List, ListItem, Text } from '@chakra-ui/react';
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Box, Button, Flex, Grid, List, ListItem, Text, useDisclosure } from '@chakra-ui/react';
 import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
-import { FaTrashCan } from "react-icons/fa6";
 
 export default () => {
   const [userData, setUserData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
   const [totalPosts, setTotalPosts] = useState(6);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
+  const [alert, setAlert] = useState("");
 
   useEffect(() => {
     try {
@@ -70,9 +72,11 @@ export default () => {
         .then(data => {
           if (data) {
             setUserData(data);
-            console.log('게시글을 삭제하였습니다.');
+            setAlert("success")
+            onOpen()
           } else {
-            alert('게시글 삭제에 실패하였습니다.')
+            setAlert("fail")
+            onOpen()
           }
         })
     } catch (error) {
@@ -152,6 +156,36 @@ export default () => {
           </Button>
         </Flex>
       </Flex>
+      <AlertDialog
+          isOpen={isOpen}
+          leastDestructiveRef={cancelRef}
+          onClose={onClose}
+          isCentered
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
+                {alert == "success" ? "삭제 완료" : "삭제 실패"}
+              </AlertDialogHeader>
+              <AlertDialogBody>
+                {alert == "success" ? "삭제에 성공하였습니다." : "삭제에 실패하였습니다."}              
+                </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button  sx={alert == "success" ? {
+                backgroundColor: "blue   !important",
+                color: "#ffffff",
+              }:{
+                backgroundColor: "red !important",
+                color: "#ffffff",
+              }} onClick={()=>{
+                onClose() 
+            }} ml={3}>
+                  돌아가기
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
     </>
   );
 };

@@ -12,7 +12,7 @@ export default async (req, res, next) => {
             return;
         }
         if (vote.leftSide.participants.includes(user) || vote.rightSide.participants.includes(user)) {
-            res.json({ success: "이미 참여하셨습니다" });
+            res.json({ success: "이미 참여하였습니다" });
             return;
         }
         let participantsArray = [];
