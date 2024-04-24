@@ -140,7 +140,6 @@ export default ({ user }) => {
       console.log(error);
     }
   };
-
   const submitModify = (commentId) => {
     const modifiedContent = modifyContent[commentId] || "";
     const body = {
@@ -260,16 +259,12 @@ export default ({ user }) => {
                   )
                 ) : (
                   <Flex justifyContent="flex-end">
-                    <Button size="xs" onClick={() => toggleModify(detail._id)}>
-                      {cmtmodify[detail._id] ? "취소" : "수정"}
-                    </Button>
+                    {cmtmodify[detail._id] ?
+                      "" : <Button size="xs" onClick={() => toggleModify(detail._id)}>
+                        수정
+                      </Button>}
                     {cmtmodify[detail._id] ? (
-                      <Button
-                        size="xs"
-                        onClick={() => submitModify(detail._id)}
-                      >
-                        확인
-                      </Button>
+                      ""
                     ) : (
                       <Button
                         size="xs"
@@ -301,7 +296,28 @@ export default ({ user }) => {
                       </FormHelperText>
                     ) : (
                       <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
+
                     )}
+                    <Flex justifyContent="flex-end">
+                      <Button size="xs" onClick={() => toggleModify(detail._id)}>
+                        {cmtmodify[detail._id] ? "취소" : "수정"}
+                      </Button>
+                      {cmtmodify[detail._id] ? (
+                        <Button
+                          size="xs"
+                          onClick={() => submitModify(detail._id)}
+                        >
+                          확인
+                        </Button>
+                      ) : (
+                        <Button
+                          size="xs"
+                          onClick={() => deleteComment(detail._id)}
+                        >
+                          삭제
+                        </Button>
+                      )}
+                    </Flex>
                   </FormControl>
                 )
               }
