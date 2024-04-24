@@ -28,8 +28,12 @@ export default ({ todayVote, main, location }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   let nav = useNavigate();
   let [choice, setChoice] = useState("");
-  const cancelRef = React.useRef();
-
+  const disableScroll = () => {
+    document.body.style.overflow = "hidden";
+  };
+  const enableScroll = () => {
+    document.body.style.overflow = "auto";
+  };
   let check = (
     <svg
       style={{ width: "15%" }}
@@ -120,6 +124,7 @@ export default ({ todayVote, main, location }) => {
             color={"#ffffff"}
             onClick={() => {
               onOpen();
+              disableScroll();
             }}
           >
             참여하기
@@ -133,33 +138,32 @@ export default ({ todayVote, main, location }) => {
             if (e.key === "Escape") {
               onClose();
               setChoice("");
-              document.body.style.overflow = "auto";
-              window.removeEventListener("keydown", (e) => { });
+              enableScroll();
+              window.removeEventListener("keydown", (e) => {});
             }
           })}
-          {document.body.style.overflow = "hidden" &&
-            < Box
-              zIndex={10}
-              bg={"black"}
-              opacity={0.5}
-              w={"100%"}
-              position={"fixed"}
-              left={0}
-              top={0}
-              h={"100%"}
-              color={"black"}
-              onClick={() => {
-                onClose();
-                document.body.style.overflow = "auto";
-                setChoice("");
-              }}
-            ></Box>}
+          <Box
+            zIndex={99999}
+            bg={"black"}
+            opacity={0.5}
+            w={"100%"}
+            position={"fixed"}
+            left={0}
+            top={0}
+            h={"100%"}
+            color={"black"}
+            onClick={() => {
+              onClose();
+              enableScroll();
+              setChoice("");
+            }}
+          ></Box>
           <Flex
             borderRadius={"15px"}
             p={4}
             pt={2}
             pb={2}
-            zIndex={11}
+            zIndex={999999}
             bg={"white"}
             direction={"column"}
             isOpen={isOpen}
@@ -173,7 +177,7 @@ export default ({ todayVote, main, location }) => {
             onKeyDown={(e) => {
               if (e.key === "esc") {
                 onClose();
-                document.body.style.overflow = "auto";
+                enableScroll();
               }
             }}
           >
@@ -188,7 +192,7 @@ export default ({ todayVote, main, location }) => {
                   _hover={{ bg: "gray.100" }}
                   onClick={() => {
                     onClose();
-                    document.body.style.overflow = "auto";
+                    enableScroll();
                     setChoice("");
                   }}
                 />
@@ -334,7 +338,7 @@ export default ({ todayVote, main, location }) => {
                         if (user.role !== "admin")
                           return alert("관리자만 가능합니다.");
                         onClose();
-                        document.body.style.overflow = "auto";
+                        enableScroll();
                         setChoice("");
                         endVote();
                       }}
@@ -352,7 +356,7 @@ export default ({ todayVote, main, location }) => {
                         return alert("로그인이 필요합니다.");
                       if (choice === "") return alert("선택해주세요.");
                       onClose();
-                      document.body.style.overflow = "auto";
+                      enableScroll();
                       setChoice("");
                       agree(choice, user.email);
                     }}
@@ -379,7 +383,7 @@ export default ({ todayVote, main, location }) => {
                         return alert("로그인이 필요합니다.");
                       if (choice === "") return alert("선택해주세요.");
                       onClose();
-                      document.body.style.overflow = "auto";
+                      enableScroll();
                       setChoice("");
                       agree(choice, user.email);
                     }}
@@ -391,8 +395,7 @@ export default ({ todayVote, main, location }) => {
             </Flex>
           </Flex>
         </>
-      )
-      }
+      )}
 
       {/* <AlertDialog
           isOpen={isOpen}
