@@ -254,8 +254,12 @@ export default () => {
                     alignItems="center"
                     padding="5px 0"
                   >
-                    <Box>{user.email}</Box>
-                    <Box>{user.nickname}</Box>
+                    <Box onClick={()=>{
+                      nav(`/view?nickname=${encodeURIComponent(user.nickname)}`)
+                    }} cursor={"pointer"}>{user.email}</Box>
+                    <Box onClick={()=>{
+                      nav(`/view?nickname=${encodeURIComponent(user.nickname)}`)
+                    }} cursor={"pointer"}>{user.nickname}</Box>
                     <Box>{user.penalty}</Box>
                     <Box>{user.role}</Box>
                     <Button

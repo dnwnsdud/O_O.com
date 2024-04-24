@@ -97,10 +97,15 @@ export default () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
+    const newName = name === "" ? userData.name : name;
+    const newNickname = nickname === "" ? userData.nickname : nickname;
+    const newTeam = team === "" ? userData.team : team;
+  
+    // 업데이트할 데이터 객체 생성
     let body = {
-      name: name,
-      nickname: nickname,
-      team: team,
+      name: newName,
+      nickname: newNickname,
+      team: newTeam,
       images: image,
     };
     console.log(body);
@@ -218,6 +223,9 @@ export default () => {
               placeholder={userData.name}
               defaultValue={userData.name}
               onChange={onNamedHandler}
+              required
+              maxLength={5}
+              minLength={1}
             />
             <Input
               textAlign="center"
@@ -227,6 +235,9 @@ export default () => {
               placeholder={userData.nickname}
               defaultValue={userData.nickname}
               onChange={onNicknameHandler}
+              required
+              maxLength={10}
+              minLength={1}
             />
           </Box>
         </Grid>
@@ -241,6 +252,7 @@ export default () => {
             placeholder={userData.email}
             defaultValue={userData.email}
             readOnly
+            disabled
           />
           <Input
             textAlign="center"
@@ -267,6 +279,7 @@ export default () => {
               ? ((userData.rating.win) / (userData.rating.win + userData.rating.lose) * 100).toFixed(1) + "%"
            : "승률 정보 없음"}
             readOnly
+            disabled
           />
         </Grid>
         <Grid templateRows="1fr 1fr" justifyContent="center" gap="10px">
