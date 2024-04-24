@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
   Img,
+  Spinner
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import React from "react";
@@ -20,6 +21,22 @@ import { useContext } from "react";
 import { UserContext } from "../hook/User";
 import { useLocation } from "react-router";
 const socket = io("http://192.168.6.3:9999", { cors: { origin: "*" } });
+const Loading = (align, justify, width, height) => {
+  return (
+    <Flex alignItems={align || "center"} justifyItems={justify || "center"} width={width || "200%"} height={height || ""}>
+      <Spinner
+        m={"auto"}
+        w={"80px"}
+        h={"80px"}
+        thickness="10px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
+      />
+    </Flex>
+  );
+};
 
 export default () => {
   const { user } = useContext(UserContext);
@@ -30,6 +47,7 @@ export default () => {
   let [todayVote, setTodayVote] = useState([]);
   const category = currentPath;
   let tab = "society"
+  let [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const room = currentPath.split("/")[1];
     const chatEvent = room + "_chat";
@@ -52,9 +70,11 @@ export default () => {
       .then((data) => {
         console.log(data, "data");
         setTodayVote(data);
+        setIsLoading(false);
       })
       .catch((e) => {
         setTodayVote("비었음");
+        setIsLoading(true);
       });
 
     return () => {
@@ -95,7 +115,8 @@ export default () => {
         </Box>
         <Grid templateColumns="4fr 1.5fr" gap="20px">
           <Box marginBottom="4rem">
-            <Vote todayVote={todayVote} location={tab} />
+            {isLoading && Loading("center", "center", "100%", "20%")}
+            {!isLoading && <Vote todayVote={todayVote} location={tab} />}
             <Ciboard user={user} />
           </Box>
           <Flex

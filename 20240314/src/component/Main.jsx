@@ -21,9 +21,9 @@ import Noticepost from "../pages/Noticepost";
 import Bestpost from "./Bestpost";
 import Vote from "./board/Vote";
 
-const Loading = () => {
+const Loading = (align, justify, width, height) => {
   return (
-    <Flex alignItems={"center"} justifyItems={"center"} width={"200%"}>
+    <Flex alignItems={align || "center"} justifyItems={justify || "center"} width={width || "200%"} height={height || ""}>
       <Spinner
         m={"auto"}
         w={"80px"}
@@ -107,7 +107,8 @@ export default () => {
             >
               오늘의 O_O
             </Text>
-            <Vote todayVote={todayVote} main={category} />
+            {isLoading && Loading("center", "center", "100%", "100%")}
+            {!isLoading && <Vote todayVote={todayVote} main={category} />}
           </Flex>
           <Noticepost />
           <Bestpost />
@@ -197,7 +198,7 @@ export default () => {
         <TriangleUpIcon
           cursor={"pointer"}
           boxSize={10}
-          border={"1px solid"}
+          border={"2px solid"}
           borderColor={"gray.300"}
           p={"7px"}
           w={"40px"}

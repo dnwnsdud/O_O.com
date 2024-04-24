@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Select, useDisclosure } from "@chakra-ui/react";
+import { Select, color, useDisclosure } from "@chakra-ui/react";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -18,8 +18,8 @@ export default ({
     2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019,
     2020, 2021, 2022, 2023, 2024,
   ],
-  colors,
-  onChange = (date) => {},
+  color,
+  onChange = (date) => { },
   ...props
 }) => {
   const [date, dateChanger] = useState(defaultDate);
@@ -145,7 +145,7 @@ export default ({
           trigger={
             <div className="text-2xl text-center relative flex items-center font-bold">
               {select + 1 == defaultDate.getDate() &&
-              date.getMonth() == defaultDate.getMonth() ? (
+                date.getMonth() == defaultDate.getMonth() ? (
                 <span className="text-xs border-2 border-gray-200 rounded-full py-1 px-4 mr-9 text-gray-200">
                   이전 결과
                 </span>
@@ -283,7 +283,13 @@ export default ({
             >
               {i == select ? (
                 <div
-                  className={`text-center text-xs font-bold text-${colors}-500`}
+                  className={
+                    color == "red" ?
+                      "text-center text-xs font-bold text-red-500" :
+                      color == "blue" ?
+                        "text-center text-xs font-bold text-blue-500" :
+                        "text-center text-xs font-bold text-gray-500"
+                  }
                 >
                   {dateToName(v)}
                 </div>
@@ -292,7 +298,13 @@ export default ({
               )}
               {i == select ? (
                 <div
-                  className={`text-center text-m font-bold text-${colors}-500`}
+                  className={
+                    color == "red" ?
+                      "text-center text-m font-bold text-red-500" :
+                      color == "blue" ?
+                        "text-center text-m font-bold text-blue-500" :
+                        "text-center text-m font-bold text-gray-500"
+                  }
                 >
                   {v}
                 </div>
@@ -301,7 +313,13 @@ export default ({
               )}
               {i == select ? (
                 <div
-                  className={`w-1/2 h-[0.4rem] bg-${colors}-500 mt-[0.9rem] mx-auto`}
+                  className={
+                    color == "red" ?
+                      "w-1/2 h-[0.4rem] bg-red-500 mt-[0.9rem] mx-auto" :
+                      color == "blue" ?
+                        "w-1/2 h-[0.4rem] bg-blue-500 mt-[0.9rem] mx-auto" :
+                        "w-1/2 h-[0.4rem] bg-gray-500 mt-[0.9rem] mx-auto"
+                  }
                 />
               ) : (
                 <div className="w-full h-[0.1rem] bg-gray-100 mt-[1.2rem]" />
@@ -348,12 +366,12 @@ export default ({
             onClick={() => {
               const target =
                 swiper.current.swiper.snapIndex + pageChanger >
-                new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+                  new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
                   ? new Date(
-                      date.getFullYear(),
-                      date.getMonth() + 1,
-                      0
-                    ).getDate()
+                    date.getFullYear(),
+                    date.getMonth() + 1,
+                    0
+                  ).getDate()
                   : swiper.current.swiper.snapIndex + pageChanger;
               swiper.current.swiper.slideTo(target);
             }}

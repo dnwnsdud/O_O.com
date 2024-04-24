@@ -16,11 +16,27 @@ import {
   Stack,
   ButtonGroup,
   Divider,
+  Spinner
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../hook/User";
 import Calender from "./Calender";
-
+const Loading = (align, justify, width, height) => {
+  return (
+    <Flex alignItems={align || "center"} justifyItems={justify || "center"} width={width || "200%"} height={height || ""}>
+      <Spinner
+        m={"auto"}
+        w={"80px"}
+        h={"80px"}
+        thickness="10px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
+      />
+    </Flex>
+  );
+};
 export default () => {
   const { day, setDay } = useContext(UserContext);
   const [main, setMain] = useState([]);
@@ -28,26 +44,32 @@ export default () => {
   const [lol, setLol] = useState([]);
   const [soccer, setSoccer] = useState([]);
   const [society, setSociety] = useState([]);
+  let [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("/api/result", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          date: day,
-        }),
-      });
-      const data = await response.json();
-      setMain(data.data.main);
-      setBaseball(data.data.baseball);
-      setLol(data.data.lol);
-      setSoccer(data.data.soccer);
-      setSociety(data.data.society);
-      console.log(data.data, "data.data");
-    };
+      setIsLoading(true);
+      try {
+        const response = await fetch("/api/result", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            date: day,
+          }),
+        });
+        const data = await response.json();
+        setMain(data.data.main);
+        setBaseball(data.data.baseball);
+        setLol(data.data.lol);
+        setSoccer(data.data.soccer);
+        setSociety(data.data.society);
+        setIsLoading(false);
+      } catch (err) {
+        console.log(err);
+      }
+    }
     fetchData();
   }, [day]);
 
@@ -101,12 +123,12 @@ export default () => {
           <PopoverBody minH={"8rem"}>
             <Box>
               {props.leftSide.participants.length >
-              props.rightSide.participants.length
+                props.rightSide.participants.length
                 ? "left win"
                 : props.leftSide.participants.length <
                   props.rightSide.participants.length
-                ? "right win"
-                : "draw"}
+                  ? "right win"
+                  : "draw"}
             </Box>
             <Flex fontWeight={"normal"} h="8rem" gap="1">
               <Box
@@ -131,17 +153,18 @@ export default () => {
 
   return (
     <Box bg="#f7f7f8">
-      <Box maxW="1280px" margin="auto" bg="#f7f7f8" py="10">
+      {isLoading && Loading("center", "center", "100%", "100%")}
+      {!isLoading && <Box maxW="1280px" margin="auto" bg="#f7f7f8" py="10">
         <Box maxW="800px" margin="auto">
           <Calender
-            colors={main.map((item) => {
+            color={main.map((item) => {
               return item.leftSide.participants.length >
                 item.rightSide.participants.length
                 ? "red"
                 : item.leftSide.participants.length <
                   item.rightSide.participants.length
-                ? "blue"
-                : "#f5f7f8";
+                  ? "blue"
+                  : "#f5f7f8";
             })}
             defaultDate={
               new Date(
@@ -152,12 +175,10 @@ export default () => {
             }
             onChange={(date) => {
               setDay(
-                `${date.getFullYear()}-${
-                  date.getMonth() + 1 >= 10
-                    ? date.getMonth() + 1
-                    : `0${date.getMonth() + 1}`
-                }-${
-                  date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`
+                `${date.getFullYear()}-${date.getMonth() + 1 >= 10
+                  ? date.getMonth() + 1
+                  : `0${date.getMonth() + 1}`
+                }-${date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`
                 }`
               );
             }}
@@ -197,12 +218,12 @@ export default () => {
                       h="100%"
                       bg={
                         item.leftSide.participants.length >
-                        item.rightSide.participants.length
+                          item.rightSide.participants.length
                           ? "crimson"
                           : item.leftSide.participants.length <
                             item.rightSide.participants.length
-                          ? "#3b82f6d9"
-                          : "#f5f7f8"
+                            ? "#3b82f6d9"
+                            : "#f5f7f8"
                       }
                       borderTop={"1px solid #E2E8F0"}
                       p={4}
@@ -219,12 +240,12 @@ export default () => {
                             position={"relative"}
                           >
                             {item.leftSide.participants.length >
-                            item.rightSide.participants.length
+                              item.rightSide.participants.length
                               ? win("#f5bf42")
                               : item.leftSide.participants.length <
                                 item.rightSide.participants.length
-                              ? lose("#676d78")
-                              : "draw"}
+                                ? lose("#676d78")
+                                : "draw"}
                             <Heading size={"md"}>{item.leftSide.title}</Heading>
                             <Text>{item.leftSide.content}</Text>
                           </Flex>
@@ -241,12 +262,12 @@ export default () => {
                             position={"relative"}
                           >
                             {item.leftSide.participants.length <
-                            item.rightSide.participants.length
+                              item.rightSide.participants.length
                               ? win("#f5bf42")
                               : item.leftSide.participants.length >
                                 item.rightSide.participants.length
-                              ? lose("#676d78")
-                              : "draw"}
+                                ? lose("#676d78")
+                                : "draw"}
                             <Heading size={"md"}>
                               {item.rightSide.title}
                             </Heading>
@@ -378,7 +399,7 @@ export default () => {
             광고
           </Box>
         </Grid>
-      </Box>
+      </Box>}
     </Box>
   );
 };

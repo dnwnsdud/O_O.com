@@ -15,6 +15,7 @@ import {
   Flex,
   Heading,
   Image,
+  Spinner,
   Stack,
   Text,
   useDisclosure,
@@ -22,6 +23,25 @@ import {
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../hook/User";
+
+const Loading = () => {
+  return (
+    <Flex alignItems={"center"} justifyItems={"center"} width={"200%"}>
+      <Spinner
+        m={"auto"}
+        w={"80px"}
+        h={"80px"}
+        thickness="10px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
+      />
+    </Flex>
+  );
+};
+
+
 
 export default ({ todayVote, main, location }) => {
   const { user } = useContext(UserContext);
@@ -89,6 +109,7 @@ export default ({ todayVote, main, location }) => {
   };
   return (
     <>
+      {!todayVote && <Loading />}
       <Flex
         h={"100%"}
         maxH={"255px"}

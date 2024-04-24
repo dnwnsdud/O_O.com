@@ -1,31 +1,39 @@
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Flex,
-  FormControl,
   Grid,
-  Input,
-  Stack,
-  Text,
   Img,
+  Input,
+  Spinner,
+  Text
 } from "@chakra-ui/react";
-import React from "react";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import Vote from "../component/board/Vote";
-import BaBoard from "../component/board/Baboard";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useContext } from "react";
-import { UserContext } from "../hook/User";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { io } from "socket.io-client";
+import BaBoard from "../component/board/Baboard";
+import Vote from "../component/board/Vote";
+import { UserContext } from "../hook/User";
 const socket = io("http://192.168.6.3:9999", { cors: { origin: "*" } });
 
-<script
-  async
-  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2761297661062301"
-  crossorigin="anonymous"
-></script>;
+const Loading = (align, justify, width, height) => {
+  return (
+    <Flex alignItems={align || "center"} justifyItems={justify || "center"} width={width || "200%"} height={height || ""}>
+      <Spinner
+        m={"auto"}
+        w={"80px"}
+        h={"80px"}
+        thickness="10px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
+      />
+    </Flex>
+  );
+};
+
 
 export default () => {
   const { user } = useContext(UserContext);
@@ -35,16 +43,16 @@ export default () => {
   const currentPath = location.pathname;
   let [todayVote, setTodayVote] = useState([]);
   const category = currentPath;
+  let [isLoading, setIsLoading] = useState(true);
   let tab = "baseball";
   useEffect(() => {
     const room = currentPath.split("/")[1];
     const chatEvent = room + "_chat";
     const receiveMessage = (data) => {
       setChatList((prevChatList) => [data, ...prevChatList]);
-      console.log(data);
     };
 
-    console.log(category, "qweqweqewqwe");
+
     socket.emit("join_room", room);
     socket.on(chatEvent, (data) => {
       setChatList((prevChatList) => [data, ...prevChatList]);
@@ -57,11 +65,12 @@ export default () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "data");
         setTodayVote(data);
+        setIsLoading(false);
       })
       .catch((e) => {
         setTodayVote("비었음");
+        setIsLoading(true);
       });
     return () => {
       socket.off(chatEvent, receiveMessage);
@@ -101,13 +110,11 @@ export default () => {
         </Box>
         <Grid templateColumns="4fr 1.5fr" gap="20px">
           <Box borderRadius={"10px"} marginBottom="4rem">
-            <Vote todayVote={todayVote} location={tab} />
+            {isLoading && Loading("center","center","100%","20%")}
+            {!isLoading && <Vote todayVote={todayVote} location={tab} />}
             <BaBoard user={user} />
           </Box>
           <Flex
-            // w={"15%"}
-            // position={'fixed'}
-            // right={"15%"}
             maxW={"350px"}
             w={"100%"}
             direction={"column"}
