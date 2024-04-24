@@ -13,6 +13,10 @@
     display: none;
 }
 
+::-webkit-scrollbar{
+    display:none
+}
+
 .user {
     color: "tomato";
 }

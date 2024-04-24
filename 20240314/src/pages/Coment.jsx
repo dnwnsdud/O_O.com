@@ -298,16 +298,20 @@ export default ({ user }) => {
                       <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
 
                     )}
-                    <Flex justifyContent="flex-end">
-                      <Button size="xs" onClick={() => toggleModify(detail._id)}>
+                    <Flex justifyContent="flex-end" gap={"3px"} paddingBottom={"10px"}>
+                      <Button size="xs" color={"#ffffff"}
+                        backgroundColor="#53535f !important"
+                        onClick={() => toggleModify(detail._id)}>
                         {cmtmodify[detail._id] ? "취소" : "수정"}
                       </Button>
                       {cmtmodify[detail._id] ? (
                         <Button
                           size="xs"
+                          color={"#ffffff"}
+                          backgroundColor="#53535f !important"
                           onClick={() => submitModify(detail._id)}
                         >
-                          확인
+                          수정
                         </Button>
                       ) : (
                         <Button
