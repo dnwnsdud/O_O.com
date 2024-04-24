@@ -18,6 +18,7 @@ export default ({
     2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019,
     2020, 2021, 2022, 2023, 2024,
   ],
+  colors,
   onChange = (date) => {},
   ...props
 }) => {
@@ -281,21 +282,27 @@ export default ({
               }}
             >
               {i == select ? (
-                <div className="text-center text-xs font-bold text-blue-500">
+                <div
+                  className={`text-center text-xs font-bold text-${colors}-500`}
+                >
                   {dateToName(v)}
                 </div>
               ) : (
                 <div className="text-center text-xs">{dateToName(v)}</div>
               )}
               {i == select ? (
-                <div className="text-center text-m font-bold text-blue-500">
+                <div
+                  className={`text-center text-m font-bold text-${colors}-500`}
+                >
                   {v}
                 </div>
               ) : (
                 <div className="text-center text-m">{v}</div>
               )}
               {i == select ? (
-                <div className="w-1/2 h-[0.4rem] bg-blue-500 mt-[0.9rem] mx-auto" />
+                <div
+                  className={`w-1/2 h-[0.4rem] bg-${colors}-500 mt-[0.9rem] mx-auto`}
+                />
               ) : (
                 <div className="w-full h-[0.1rem] bg-gray-100 mt-[1.2rem]" />
               )}
