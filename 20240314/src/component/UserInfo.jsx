@@ -19,7 +19,7 @@ export default () => <>
         p={10}
         my="10"
       >
-        <Heading textAlign={"Center"} paddingBottom="20px">이용약관</Heading>
+        <Heading textAlign={"Center"} paddingBottom="20px">개인정보처리방침</Heading>
         <Box border='1px solid #dedee3' width={"100%"} height={"1500px"} overflow={"auto"} paddingLeft={"10px"} padding="20px">
           <Text fontWeight={"bold"}>1. 개인정보의 수집 항목</Text>
           <Text>원활한 서비스 이용과 고객과의 소통을 위해 수집합니다.
