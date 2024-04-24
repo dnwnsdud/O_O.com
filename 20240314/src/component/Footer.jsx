@@ -14,21 +14,27 @@ export default () => {
                 <Link width={'9rem'} fontSize='sm'>개인정보처리방침</Link>
             </Grid>
             <ButtonGroup variant='ghost' spacing='3' justifyContent='end' alignItems='center'>
-                <Button colorScheme='facebook'>
-                    <HStack>
-                        <FaFacebook size='25px' />
-                    </HStack>
-                </Button>
-                <Button colorScheme='twitter'>
-                    <HStack >
-                        <FaTwitter size='25px' />
-                    </HStack>
-                </Button>
-                <Button colorScheme='pink'>
-                    <HStack>
-                        <FaInstagram size='25px' />
-                    </HStack>
-                </Button>
+                <Link href = "https://m.facebook.com/login/?locale=ko_KR&refsrc=deprecated">
+                    <Button colorScheme='facebook'>
+                        <HStack>
+                            <FaFacebook size='25px' />
+                        </HStack>
+                    </Button>
+                </Link>
+                <Link href = "https://twitter.com/i/flow/login?input_flow_data=%7B%22requested_variant%22%3A%22eyJsYW5nIjoia28ifQ%3D%3D%22%7D">
+                    <Button colorScheme='twitter'>
+                        <HStack >
+                            <FaTwitter size='25px' />
+                        </HStack>
+                    </Button>
+                </Link>
+                <Link href="https://www.instagram.com/accounts/login/">
+                    <Button colorScheme='pink'>
+                        <HStack>
+                            <FaInstagram size='25px' />
+                        </HStack>
+                    </Button>
+                </Link>
             </ButtonGroup>
         </VStack>
     </Box>

@@ -11,14 +11,24 @@ export default async (req, res, next) => {
 
     req.session.user = { email: updatedUserData.email, nickname: updatedUserData.nickname, role: updatedUserData.role };
     const userdata = req.session.user;
-
+    
+    console.log("찾고있습니다.");
     if (userEmail.nickname !== updatedUserData.nickname) {
       // 모든 관련 게시글을 업데이트합니다.
       await req.mongo.board.updateMany(
         { nickname: userEmail.nickname },
         { $set: { nickname: updatedUserData.nickname } }
       );
+      await req.mongo.board.updateMany(
+        { "comment.nickname": userEmail.nickname },
+        { $set: { "comment.$[].nickname": updatedUserData.nickname } }
+      );
+      
     }
+
+
+
+    console.log("수정하고있습니다.");
 
 
 
