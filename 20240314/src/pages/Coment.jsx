@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Center,
   Divider,
   Flex,
   FormControl,
@@ -12,19 +11,24 @@ import {
   Stack,
   Text,
   Textarea,
-  Select,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
   Grid,
+  useDisclosure
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BlackModal from "./Modal";
 
 export default ({ user }) => {
   const [content, setContent] = useState("");
   const [images, setImage] = useState("");
-  const [itemImageError, setItemImageError] = useState(false);
   const [baDetails, setbaDetails] = useState([]);
   const [cmtmodify, setCmtModify] = useState({});
   const [modifyContent, setModifyContent] = useState({});
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleInputChange2 = (e) => setContent(e.target.value);
   const handleModifyInputChange = (e, commentId) => {
@@ -199,14 +203,41 @@ export default ({ user }) => {
           marginTop={"5px"}
           marginBottom={"5px"}
         />
-
         {baDetails.map((detail) => {
           return (
-            <Box borderBottom="1px solid #e0e0e0">
+            <Box key={detail._id} borderBottom="1px solid #e0e0e0">
               <Grid key={detail._id} templateColumns="2fr 5fr">
-                <Box paddingBottom="10px" color={"#46a3d2"} fontWeight={"bold"}>
-                  {detail.nickname}
-                </Box>
+                <Menu>
+                  <MenuButton textAlign="left" color={"#46a3d2"} fontWeight="bold">
+                    {detail.nickname}
+                  </MenuButton>
+                  <MenuList minWidth="120px">
+                    {user === "logout" ? (
+                      <MenuItem disabled opacity={"0.5"}>
+                        신고하기
+                      </MenuItem>
+                    ) : (
+                      <MenuItem onClick={onOpen}>신고하기</MenuItem>
+                    )}
+                    <MenuItem
+                      onClick={() =>
+                        nav(
+                          `/view?nickname=${encodeURIComponent(
+                            detail.nickname
+                          )}`
+                        )
+                      }
+                    >
+                      유저정보 보기
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+                <BlackModal
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  postId={id}
+                  userEmail={baDetails.email}
+                />
                 {user == "logout" ? (
                   ""
                 ) : detail.email !== user.email ? (
@@ -251,27 +282,29 @@ export default ({ user }) => {
                 )}
               </Grid>
 
-              {!cmtmodify[detail._id] ? (
-                <Box>{detail.content}</Box>
-              ) : (
-                <FormControl isInvalid={isError3} isRequired>
-                  <FormLabel>내용</FormLabel>
-                  <Textarea
-                    value={modifyContent[detail._id] || detail.content}
-                    onChange={(e) => handleModifyInputChange(e, detail._id)}
-                    size={"lg"}
-                    resize={"none"}
-                    h={"150px"}
-                  />
-                  {!isError3 ? (
-                    <FormHelperText color={"#3182ce"}>
-                      입력하신 내용으로 요청이 됩니다.
-                    </FormHelperText>
-                  ) : (
-                    <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
-                  )}
-                </FormControl>
-              )}
+              {
+                !cmtmodify[detail._id] ? (
+                  <Box padding={"10px 0"}>{detail.content}</Box>
+                ) : (
+                  <FormControl isInvalid={isError3} isRequired>
+                    <FormLabel>내용</FormLabel>
+                    <Textarea
+                      value={modifyContent[detail._id] || detail.content}
+                      onChange={(e) => handleModifyInputChange(e, detail._id)}
+                      size={"lg"}
+                      resize={"none"}
+                      h={"150px"}
+                    />
+                    {!isError3 ? (
+                      <FormHelperText color={"#3182ce"}>
+                        입력하신 내용으로 요청이 됩니다.
+                      </FormHelperText>
+                    ) : (
+                      <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
+                    )}
+                  </FormControl>
+                )
+              }
             </Box>
           );
         })}
@@ -315,34 +348,36 @@ export default ({ user }) => {
           />
         </FormControl>
       </Box>
-      {user == "logout" ? (
-        <Flex justifyContent={"end"} gap={3}>
+      {
+        user == "logout" ? (
+          <Flex justifyContent={"end"} gap={3}>
 
-          <Button
-            backgroundColor="#53535f !important"
-            color={"#ffffff"}
-            isDisabled={true}
-            onClick={() => {
-              onSubmitHandler();
-            }}
-          >
-            작성
-          </Button>
-        </Flex>
-      ) : (
-        <Flex justifyContent={"end"} gap={3}>
+            <Button
+              backgroundColor="#53535f !important"
+              color={"#ffffff"}
+              isDisabled={true}
+              onClick={() => {
+                onSubmitHandler();
+              }}
+            >
+              작성
+            </Button>
+          </Flex>
+        ) : (
+          <Flex justifyContent={"end"} gap={3}>
 
-          <Button
-            backgroundColor="#53535f !important"
-            color={"#ffffff"}
-            onClick={() => {
-              onSubmitHandler();
-            }}
-          >
-            작성
-          </Button>
-        </Flex>
-      )}
+            <Button
+              backgroundColor="#53535f !important"
+              color={"#ffffff"}
+              onClick={() => {
+                onSubmitHandler();
+              }}
+            >
+              작성
+            </Button>
+          </Flex>
+        )
+      }
     </>
   );
 };

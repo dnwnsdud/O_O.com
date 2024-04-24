@@ -177,7 +177,7 @@ export default ({ todayVote, main, location }) => {
               }
             }}
           >
-            <Flex direction={"column"} w={"100%"} gap={4}>
+            <Flex direction={"column"} w={"100%"} gap={4} padding="30px">
               <Flex
                 justifyContent={"space-between"}
                 gap={2}
