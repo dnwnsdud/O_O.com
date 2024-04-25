@@ -115,13 +115,13 @@ export default () => {
             {index + 1}회 차
           </Button>
         </PopoverTrigger>
-        <PopoverContent color="black" bg="#f5f7f8" borderColor="#f5f7f8">
+        <PopoverContent color="black" bg="#f5f7f8" borderColor="#f5f7f8" >
           <PopoverArrow bg="#f5f7f8" />
           <PopoverCloseButton />
           <PopoverHeader fontWeight="bold" minH="7rem" alignContent={"center"}>
             {props.title}
           </PopoverHeader>
-          <PopoverBody minH={"8rem"}>
+          <PopoverBody minH={"8rem"} >
             <Box>
               {props.leftSide.participants.length >
                 props.rightSide.participants.length
@@ -136,12 +136,13 @@ export default () => {
                 fontSize={"15px"}
                 w="50%"
                 border="1px solid #dedee3"
+                bg='white'
                 alignContent={"center"}
               >
                 <Text>{props.leftSide.title}</Text>
                 <Text>{props.leftSide.content}</Text>
               </Box>
-              <Box w="50%" border="1px solid #dedee3" alignContent={"center"}>
+              <Box w="50%" border="1px solid #dedee3" bg='white' alignContent={"center"}>
                 <Text>{props.rightSide.title}</Text>
                 <Text>{props.rightSide.content}</Text>
               </Box>
