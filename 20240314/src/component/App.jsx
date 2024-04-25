@@ -71,7 +71,6 @@ export default () => {
           <Route path="/userinfo" element={<UserInfo />} />
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
-        <Route path="/deleteloading" element={<Loading />} />
       </Routes>
     </UserProvider>
   );
