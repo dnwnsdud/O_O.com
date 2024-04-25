@@ -28,10 +28,9 @@ const Loading = (align, justify, width, height) => {
         m={"auto"}
         w={"80px"}
         h={"80px"}
-        thickness="10px"
+        thickness="7px"
         speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
+        color="black.500"
         size="xl"
       />
     </Flex>
@@ -176,7 +175,7 @@ export default () => {
           <Box
             cursor={"pointer"}
             bg={"white"}
-            h={"15%"}
+            h={"18%"}
             borderRadius={"10px"}
             boxShadow={"md"}
           >
