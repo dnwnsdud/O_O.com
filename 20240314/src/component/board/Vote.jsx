@@ -420,7 +420,7 @@ export default ({ todayVote, main, location }) => {
                       if (choice === "") return alert("선택해주세요.");
                       closeModal();
                       document.body.style.overflow = "auto";
-                      onClose();
+                      closeModal();
                       enableScroll();
                       setChoice("");
                       agree(choice, user.email);
