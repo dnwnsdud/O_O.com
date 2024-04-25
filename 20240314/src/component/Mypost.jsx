@@ -171,11 +171,8 @@ export default () => {
                 {alert == "success" ? "삭제에 성공하였습니다." : "삭제에 실패하였습니다."}              
                 </AlertDialogBody>
               <AlertDialogFooter>
-                <Button  sx={alert == "success" ? {
-                backgroundColor: "blue   !important",
-                color: "#ffffff",
-              }:{
-                backgroundColor: "red !important",
+                <Button  sx={{
+                backgroundColor: "#53535f !important",
                 color: "#ffffff",
               }} onClick={()=>{
                 onClose() 

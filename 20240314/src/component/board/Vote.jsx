@@ -451,7 +451,7 @@ export default ({ todayVote, main, location }) => {
               </AlertDialogBody>
               <AlertDialogFooter>
                 <Button  sx={{
-                backgroundColor: "blue !important",
+                backgroundColor: "#53535f !important",
                 color: "#ffffff",
               }} onClick={()=>{
                 closeAlert() 
@@ -479,7 +479,7 @@ export default ({ todayVote, main, location }) => {
               </AlertDialogBody>
               <AlertDialogFooter>
                 <Button  sx={{
-                backgroundColor: "red !important",
+                backgroundColor: "#53535f !important",
                 color: "#ffffff",
               }} onClick={()=>{
                 closeAlert2() 

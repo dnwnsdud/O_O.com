@@ -170,7 +170,7 @@ export default () => {
           <AlertDialogFooter>
             {alert == "login" ? <Button
                   sx={{
-                    backgroundColor: "red !important",
+                    backgroundColor: "#53535f !important",
                     color: "#ffffff",
                   }}
                   onClick={onClose}
@@ -179,7 +179,7 @@ export default () => {
                   돌아가기
                 </Button> : <Button
                   sx={{
-                    backgroundColor: "gray !important",
+                    backgroundColor: "#53535f !important",
                     color: "#ffffff",
                   }}
                   onClick={()=>{onClose2(), nav("/")}}

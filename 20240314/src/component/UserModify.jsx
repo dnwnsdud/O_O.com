@@ -341,7 +341,7 @@ export default () => {
               </AlertDialogBody>
               <AlertDialogFooter>
                 <Button  sx={{
-                backgroundColor: "red !important",
+                backgroundColor: "#53535f !important",
                 color: "#ffffff",
               }} onClick={()=>{
                 onClose() 
