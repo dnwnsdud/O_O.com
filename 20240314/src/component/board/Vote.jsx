@@ -134,6 +134,7 @@ export default ({ todayVote, main, location }) => {
           <Button
             backgroundColor="#53535f !important"
             color={"#ffffff"}
+            _hover={{backgroundColor:"gray.800 !important"}}
             onClick={() => {
               nav("/r");
             }}
@@ -147,6 +148,7 @@ export default ({ todayVote, main, location }) => {
               onOpen();
               disableScroll();
             }}
+            _hover={{backgroundColor:"gray.800 !important"}}
           >
             참여하기
           </Button>

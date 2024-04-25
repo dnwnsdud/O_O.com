@@ -391,14 +391,10 @@ export default ({ user }) => {
             ))}
         </Box>
         <Flex fontWeight="bold" justify="end" marginTop="10px">
-          <Button
-            sx={{
-              backgroundColor: "#53535f !important",
-              color: "white",
-              _hover: {
-                bg: "#E03F62",
-              },
-            }}
+        <Button
+            bg={"#53535f !important"}
+            color="white"
+            _hover={{ backgroundColor: "gray.800 !important" }}
             onClick={goToPage}
           >
             글쓰기

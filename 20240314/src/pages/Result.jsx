@@ -155,7 +155,7 @@ export default () => {
 
   return (
     <Box bg="#f7f7f8">
-      {isLoading && Loading("center", "center", "100%", "100%")}
+      {isLoading && Loading("center", "center", "100%", "80vh")}
       {!isLoading && <Box maxW="1280px" margin="auto" bg="#f7f7f8" py="10">
         <Box maxW="800px" margin="auto">
           <Calender
