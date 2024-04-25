@@ -10,9 +10,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import Vote from "../component/board/Vote";
-import BaBoard from "../component/board/Baboard";
 import { useLocation } from "react-router";
 import { io } from "socket.io-client";
 import BaBoard from "../component/board/Baboard";
