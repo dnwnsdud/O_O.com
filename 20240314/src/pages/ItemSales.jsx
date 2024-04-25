@@ -8,6 +8,8 @@ import {
   Grid,
   GridItem,
   Center,
+  Card,
+  CardBody,
 } from "@chakra-ui/react";
 import { UserContext } from "../hook/User";
 import { useNavigate } from "react-router-dom";
@@ -49,7 +51,8 @@ export default () => {
 
   return (
     render && (
-      <Center bg="#f7f7f8" h={"70vh"}>
+      <Center bg="#f7f7f8" minH={"80vh"}>
+      
         <Stack
           bg="#fff"
           margin={"auto"}
@@ -58,18 +61,26 @@ export default () => {
           border="1px solid #e6e6ea"
           borderRadius="10px"
           shadow={"base"}
+          maxH={'60vh'}
+          overflowX="auto"
         >
-          <Box w="90%" m="auto">
+           <Box m='auto'>
             <Text textAlign={"center"} fontWeight="bold" pb="3">
               판매된 아이템 {stores.length}개
             </Text>
+            </Box>
+          <Box w="90%" m="auto">
+           
 
             <Grid templateColumns="repeat(5, 1fr)" gap={19}>
               {stores.map((store, index) => (
                 <GridItem height="10rem" width="100%" key={index}>
+                  <Card>
+                    <CardBody>
+                 
                   <Box
                     w="100%"
-                    h="7rem"
+                    h="5rem"
                     borderRadius={"8px"}
                     overflow={"hidden"}
                   >
@@ -86,12 +97,17 @@ export default () => {
                     textAlign={"center"}
                     fontSize={"10"}
                     fontWeight={"bold"}
+                    minH={'2rem'}
+                    alignContent={'center'}
                   >
                     {store.title}
                   </Text>
                   <Text textAlign={"center"} fontSize={"9"}>
                     {store.price}원
                   </Text>
+                       
+                  </CardBody>
+                  </Card>
                 </GridItem>
               ))}
             </Grid>

@@ -62,7 +62,7 @@ export default () => {
   return (
     render && (
       <Box bg="#f7f7f8">
-        <Box maxW="1300px" margin="auto">
+        <Box maxW="1300px" minH='41rem' margin="auto">
           <Box
             padding="30px"
             fontSize="2rem"
@@ -99,7 +99,7 @@ export default () => {
               />
             </Box>
           </Grid>
-          <Flex justifyContent={"end"} marginBottom={8}>
+          <Flex justifyContent={"end"} pb={10}>
             <Button
               size="sm"
               bgColor="#6c839f !important"

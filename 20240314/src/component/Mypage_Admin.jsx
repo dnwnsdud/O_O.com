@@ -199,6 +199,7 @@ export default () => {
               templateColumns="1fr 1fr 1fr 1fr 1fr"
               borderBottom="1px solid #e6e6ea"
               textAlign="center"
+              bg='#f7f7f8'
             >
               <Box paddingRight={"10px"}>아이디</Box>
               <Box paddingRight={"10px"}>닉네임</Box>
@@ -265,6 +266,7 @@ export default () => {
               templateColumns="1fr 1fr 1fr"
               borderBottom="1px solid #e6e6ea"
               textAlign="center"
+              bg='#f7f7f8'
             >
               <Box>아이디</Box>
               <Box paddingRight={"15px"}>게시글제목</Box>
@@ -307,6 +309,7 @@ export default () => {
               templateColumns="1fr 1fr 1fr"
               borderBottom="1px solid #e6e6ea"
               textAlign="center"
+              bg='#f7f7f8'
             >
               <Box>아이디</Box>
               <Box pr={"15px"}>댓글내용</Box>
