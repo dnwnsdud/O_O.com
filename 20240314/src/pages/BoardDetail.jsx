@@ -319,16 +319,14 @@ export default () => {
               ) : (
                 ""
               )}
-              {user !== "logout" &&
-                (user.email === baDetails.email || user.role === "admin") && (
+             
                   <Button
                     onClick={(e) =>
-                      deleteSubmit(e, baDetails._id, baDetails.email, id)
+                      openAlert()
                     }
                   >
                     삭제
                   </Button>
-                )}
             </Flex>
             <Button
               onClick={() => {
