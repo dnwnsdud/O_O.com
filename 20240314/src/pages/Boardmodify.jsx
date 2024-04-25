@@ -98,7 +98,7 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
 
   const clearImage = () => {
@@ -129,7 +129,7 @@ export default () => {
             const imagePath = data.mediapath;
             setImage(imagePath);
             console.log();
-            alert("이미지 업로드 성공!!")
+            alert("이미지 업로드 성공!!");
           } else {
             console.error("이미지 업로드 실패:", data.error);
             setUploadedImageName("");
@@ -158,7 +158,7 @@ export default () => {
           if (data.success) {
             const videoPath = data.mediapath;
             setVideo(videoPath);
-            alert("동영상 업로드 성공!!")
+            alert("동영상 업로드 성공!!");
           } else {
             console.error("동영상 업로드 실패:", data.error);
             setUploadedVideoName("");
@@ -171,22 +171,46 @@ export default () => {
     }
   };
 
-  const CustomFileInput = ({ onChange, label, helperText, isInvalid, errorMessage, fileType, fileName, onClear }) => {
+  const CustomFileInput = ({
+    onChange,
+    label,
+    helperText,
+    isInvalid,
+    errorMessage,
+    fileType,
+    fileName,
+    onClear,
+  }) => {
     return (
       <FormControl isInvalid={isInvalid} mt="5">
         <FormLabel fontWeight={"bold"}>{label}</FormLabel>
         <Input type="file" name={fileType} onChange={onChange} hidden />
-        <Button padding={"10px 20px 10px 20px"} onClick={() => document.getElementsByName(fileType)[0].click()} variant="outline">
+        <Button
+          padding={"10px 20px 10px 20px"}
+          onClick={() => document.getElementsByName(fileType)[0].click()}
+          variant="outline"
+        >
           파일 선택
         </Button>
         {fileName && (
-          <Button padding={"10px 20px 10px 20px"} onClick={onClear} variant="outline" w={"30px"} h="30px" color={"#ffffff"} bg="#53535f !important" marginLeft={"20px"}>
+          <Button
+            padding={"10px 20px 10px 20px"}
+            onClick={onClear}
+            variant="outline"
+            w={"30px"}
+            h="30px"
+            color={"#ffffff"}
+            bg="#53535f !important"
+            marginLeft={"20px"}
+          >
             취소
           </Button>
         )}
         {!isInvalid ? (
           fileName ? (
-            <FormHelperText color={"#E7141A"}>업로드된 파일: {fileName}</FormHelperText>
+            <FormHelperText color={"#E7141A"}>
+              업로드된 파일: {fileName}
+            </FormHelperText>
           ) : (
             <FormHelperText color={"darkblue"}>{helperText}</FormHelperText>
           )
