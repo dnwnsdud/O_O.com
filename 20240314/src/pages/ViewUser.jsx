@@ -18,7 +18,7 @@ export default () => {
             width={"90%"}
             margin={"20px auto"}
             spacing={8}
-            h={"130vh"}
+            h={"120vh"}
             bg={"#ffffff"}
             borderRadius={"0.5rem"}
           >

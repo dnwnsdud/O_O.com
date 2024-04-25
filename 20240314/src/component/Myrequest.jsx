@@ -44,10 +44,10 @@ export default () => {
   const handleNextPage = () => {
     setCurrentPage((prev) => Math.min(prev + 1, pageCount));
   };
-    return <Center>
-        <Stack margin="100px 0" padding="50px 50px 60px" border="1px solid #0B0B0D" borderRadius="10px" width="1280px">
+    return <Center bg='#f7f7f8'>
+        <Stack bg='#fff' margin="100px 0" padding="50px 50px 60px" gap='0' border="1px solid #f7f7f8" shadow={'base'} borderRadius="10px" width="1280px">
             <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 요청목록</Box>
-            <Grid templateColumns="1fr 3fr 1fr 1fr" borderBottom="1px solid black" textAlign="center">
+            <Grid templateColumns="1fr 3fr 1fr 1fr" borderBottom="1px solid #dedee3" textAlign="center" fontWeight={'bold'}>
                 <Box>게시판</Box>
                 <Box>요청내용</Box>
                 <Box>승인여부</Box>
@@ -56,15 +56,17 @@ export default () => {
             <List height="500px">
             {currentPosts.map((req)=>{ 
               return (
-                <Grid key={req._id} templateColumns="1fr 3fr 1fr 1fr" borderBottom="1px solid black" textAlign="center">
+                <Grid key={req._id} h='2rem' alignItems={'center'} templateColumns="1fr 3fr 1fr 1fr" borderBottom="1px solid #dedee3" textAlign="center">
                   <Box>{req.category == "baseball"? "야구" : req.category == "lol" ? "lol" : req.category == "soccer" ? "축구" : req.category == "society" ? "사회" : "오류가 발생했습니다." }</Box>
                   <Box>{req.title}</Box>
-                  <Box>{req.state}</Box>
-                  <Box>
+                  {req.state=='승인대기' ? <Box color='crimson' fontWeight={'bold'}>{req.state} </Box> : <Box  fontWeight={'bold'} color='darkblue'>{req.state} </Box>} 
+                  
+                  <Flex justifyContent={'center'} alignItems='center'>
                     {req.state == "승인대기" ?  <Button onClick={() => {
                         nav(`/requestlist/id=${req.requestId}`);
-                      }}>보기</Button>:<Button isDisabled>보기</Button>}
-                  </Box>
+                      }}
+                      size='sm'>보기</Button>:<Button isDisabled>보기</Button>}
+                  </Flex>
                  
                 </Grid>)
             }

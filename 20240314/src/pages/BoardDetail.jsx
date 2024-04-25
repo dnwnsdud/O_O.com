@@ -210,13 +210,13 @@ export default () => {
                 <MenuButton color={"#46a3d2"} fontWeight="bold">
                   {baDetails.nickname}
                 </MenuButton>
-                <MenuList minWidth="120px">
+                <MenuList minWidth="120px" fontWeight={'bold'}>
                   {user === "logout" ? (
-                    <MenuItem disabled opacity={"0.5"}>
+                    <MenuItem disabled opacity={"0.5"} color='crimson'>
                       신고하기
                     </MenuItem>
                   ) : (
-                    <MenuItem onClick={onOpen}>신고하기</MenuItem>
+                    <MenuItem onClick={onOpen} color='crimson'>신고하기</MenuItem>
                   )}
                   <MenuItem
                     onClick={() =>

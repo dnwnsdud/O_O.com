@@ -136,8 +136,9 @@ export default () => {
   }
 
 
-  return <Box width={'45%'} margin={'auto'}>
-    <Box overflow="hidden" h={"12rem"} margin="20px 0">
+  return <Box bg='#f7f7f8'>
+  <Box width={'45%'} margin={'auto'} >
+    <Box overflow="hidden" h={"12rem"} pt='10'>
       <Img
         objectFit="cover"
         w="100%"
@@ -155,9 +156,8 @@ export default () => {
         >아이템등록</Button>
         : null
     }
-    {/* 관리자만 버튼 뜨게 */}
 
-    <SimpleGrid spacing={4} templateColumns={'repeat(auto-fill, minmax(30%, 1fr))'} my='2'>
+    <SimpleGrid spacing={4} templateColumns={'repeat(auto-fill, minmax(30%, 1fr))'} my='20'>
       <Card h='10rem'>
         <CardHeader h='3rem'>
           <Heading size={'md'}>5000 포인트</Heading>
@@ -210,7 +210,7 @@ export default () => {
     </SimpleGrid>
 
 
-    <Tabs position="relative" variant="unstyled" my={'5rem'}>
+    <Tabs position="relative" variant="unstyled" mt={'5rem'}>
       <TabList>
         <Tab>슬라이드</Tab>
         <Tab>리스트</Tab>
@@ -234,8 +234,9 @@ export default () => {
             {stores.map((store, index) => (
               index % 2 !== 0 && (
                 <SwiperSlide key={index} >
-                  <Box height='10rem' width='100%'>
-                    {/* <Box>{store.images}</Box> */}
+                  <Card minH={'15rem'}>
+                    <CardBody>
+                  <Box  width='100%'  bg='white'>
 
                     <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'}>
                       <Image
@@ -262,6 +263,8 @@ export default () => {
                       {/* 관리자는 삭제버튼 뜨게 일반 유저는 구매 버튼 뜨게 */}
                     </Flex>
                   </Box>
+                  </CardBody>
+                  </Card>
                 </SwiperSlide>
               )
             ))}
@@ -281,7 +284,9 @@ export default () => {
             {stores.map((store, index) => (
               index % 2 === 0 && (
                 <SwiperSlide key={index} >
-                  <Box height='10rem' width='100%' >
+                  <Card minH={'15rem'}>
+                    <CardBody>
+                  <Box width='100%' bg='white'>
                     {/* <Box>{store.images}</Box> */}
 
                     <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'}>
@@ -309,6 +314,8 @@ export default () => {
                       }
                     </Flex>
                   </Box>
+                  </CardBody>
+                  </Card>
                 </SwiperSlide>
               )
             ))}
@@ -317,9 +324,10 @@ export default () => {
         <TabPanel>
           <Grid templateColumns='repeat(5, 1fr)' gap={19}>
             {stores.map((store, index) => (
-              <GridItem
-                height='10rem' width='90%' key={index}>
+              <GridItem width='90%' key={index}>
                 {/* <Box>{store.images}</Box> */}
+                <Card  bg='white' minH={'15rem'}>
+                  <CardBody >
                 <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'}>
                   <Image
                     src={store.images}
@@ -343,6 +351,8 @@ export default () => {
                       >구매</Button>
                   }
                 </Flex>
+                </CardBody>
+                </Card>
               </GridItem>
             )
             )}
@@ -355,4 +365,5 @@ export default () => {
 
 
   </Box >
+  </Box>
 }
