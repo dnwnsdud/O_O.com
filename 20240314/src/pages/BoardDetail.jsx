@@ -221,11 +221,7 @@ export default () => {
                       신고하기
                     </MenuItem>
                   ) : (
-<<<<<<< HEAD
                     <MenuItem onClick={openModal} >신고하기</MenuItem>
-=======
-                    <MenuItem onClick={onOpen}>신고하기</MenuItem>
->>>>>>> db284db737ccf3974237162e24a37a420d6f22de
                   )}
                   <MenuItem
                     onClick={() =>
@@ -303,7 +299,6 @@ export default () => {
                 ""
               ) : user.role === "admin" ? (
                 ""
-<<<<<<< HEAD
               ) : user.email !== baDetails.email ? ("") :
                 !Check ? (
                   <Button
@@ -313,28 +308,7 @@ export default () => {
                   >
                     수정
                   </Button>
-                ) : (
-                  ""
-                )}
-                <Button
-                  onClick={(e) =>
-                    openAlert()
-                  }
-=======
-              ) : user.email !== baDetails.email ? (
-                ""
-              ) : !Check ? (
-                <Button
-                  onClick={() => {
-                    nav(`/b/${id}/modify`);
-                  }}
->>>>>>> db284db737ccf3974237162e24a37a420d6f22de
-                >
-                  수정
-                </Button>
-<<<<<<< HEAD
-          
-=======
+              
               ) : (
                 ""
               )}
@@ -348,7 +322,6 @@ export default () => {
                     삭제
                   </Button>
                 )}
->>>>>>> db284db737ccf3974237162e24a37a420d6f22de
             </Flex>
             <Button
               onClick={() => {

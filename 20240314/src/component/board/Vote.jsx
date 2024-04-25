@@ -130,7 +130,6 @@ export default ({ todayVote, main, location }) => {
             color={"#ffffff"}
             onClick={() => {
               openModal();
-              onOpen();
               disableScroll();
             }}
           >
@@ -160,7 +159,7 @@ export default ({ todayVote, main, location }) => {
             h={"100%"}
             color={"black"}
             onClick={() => {
-              onClose();
+              closeModal();
               enableScroll();
               setChoice("");
             }}
@@ -185,7 +184,6 @@ export default ({ todayVote, main, location }) => {
               if (e.key === "esc") {
                 closeModal();
                 document.body.style.overflow = "auto";
-                onClose();
                 enableScroll();
               }
             }}
@@ -202,7 +200,6 @@ export default ({ todayVote, main, location }) => {
                   onClick={() => {
                     closeModal();
                     document.body.style.overflow = "auto";
-                    onClose();
                     enableScroll();
                     setChoice("");
                   }}
@@ -346,11 +343,12 @@ export default ({ todayVote, main, location }) => {
                     <Button
                       variant="ghost"
                       onClick={() => {
-                        if (user.role !== "admin")
-                          return alert("관리자만 가능합니다.");
+                        if (user.role !== "admin"){
                           closeModal();
+                          return alert("관리자만 가능합니다.");
+                        }
                         document.body.style.overflow = "auto";
-                        onClose();
+                        closeModal();
                         enableScroll();
                         setChoice("");
                         endVote();
@@ -370,7 +368,7 @@ export default ({ todayVote, main, location }) => {
                       if (choice === "") return alert("선택해주세요.");
                       closeModal();
                       document.body.style.overflow = "auto";
-                      onClose();
+                      closeModal();
                       enableScroll();
                       setChoice("");
                       agree(choice, user.email);
