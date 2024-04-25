@@ -99,8 +99,6 @@ export default () => {
 
   const usemyitem = (e, title, id) => {
     e.preventDefault();
-    alert("아이템을 사용합니다.");
-    // console.log(title);
     fetch("/api/usemyitem", {
       method: "post",
       headers: {
@@ -112,7 +110,8 @@ export default () => {
       .then((data) => {
         console.log(data);
         if (data.success) {
-          nav("/topicrequest/:category");
+          onOpen();
+          //   nav("/topicrequest/:category");
         } else {
           alert("오류가 발생했습니다.");
           console.log("사용 실패");
@@ -278,7 +277,7 @@ export default () => {
                 color={"#ffffff"}
                 onClick={() => {
                   onClose();
-                  nav("/");
+                  nav("/topicrequest/:category");
                 }}
                 ml={3}
               >
