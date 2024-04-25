@@ -271,11 +271,8 @@ a        } else {
                 {error == "success" ? "로그아웃에 성공하였습니다." : "로그아웃 실패하였습니다"}
               </AlertDialogBody>
               <AlertDialogFooter>
-                <Button  sx={error == "success" ? {
-                backgroundColor: "blue !important",
-                color: "#ffffff",
-              }:{
-                backgroundColor: "red !important",
+                <Button  sx={{
+                backgroundColor: "#53535f !important",
                 color: "#ffffff",
               }} onClick={()=>{
                 closeAlert()
