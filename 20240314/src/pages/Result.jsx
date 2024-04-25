@@ -21,6 +21,7 @@ import {
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../hook/User";
 import Calender from "./Calender";
+
 const Loading = (align, justify, width, height) => {
   return (
     <Flex alignItems={align || "center"} justifyItems={justify || "center"} width={width || "200%"} height={height || ""}>
@@ -38,17 +39,17 @@ const Loading = (align, justify, width, height) => {
   );
 };
 export default () => {
-  const { day, setDay } = useContext(UserContext);
+
   const [main, setMain] = useState([]);
   const [baseball, setBaseball] = useState([]);
   const [lol, setLol] = useState([]);
   const [soccer, setSoccer] = useState([]);
   const [society, setSociety] = useState([]);
   let [isLoading, setIsLoading] = useState(true);
+  const { day, setDay } = useContext(UserContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
       try {
         const response = await fetch("/api/result", {
           method: "POST",

@@ -11,8 +11,9 @@ import {
     Stack,
     Textarea
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../hook/User";
 
 export default () => {
     const [category, setCategory] = useState("main");
@@ -23,8 +24,19 @@ export default () => {
     const [righttitle, setRighttitle] = useState("");
     const [rightcontent, setRightcontent] = useState("");
     const [rightimage, setRightimage] = useState("");
-
+    const {user} =useContext(UserContext)
     let nav = useNavigate();
+    useEffect(()=>{
+        console.log(user,'alskjaslkdjf');
+        if(user){
+            console.log(user);
+            // user.role != 'admin'
+            // nav('/')
+        }
+    },[])
+
+
+    
 
     const onCategoryHandler = (e) => {
         setCategory(e.target.value);
