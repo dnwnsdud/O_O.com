@@ -170,7 +170,7 @@ export default () => {
     return <div>Loading...</div>;
   }
   return (
-    <Box bg='#f7f7f8'>
+    <Box bg="#f7f7f8">
       <Stack
         w={"35%"}
         m={"auto"}
@@ -210,18 +210,22 @@ export default () => {
             <Text fontWeight={"bold"} fontSize={"xl"} maxW={"350px"}>
               {baDetails.title}
             </Text>
-            <Flex fontSize={"xs"} alignItems={"end"} gap="10px" >
+            <Flex fontSize={"xs"} alignItems={"end"} gap="10px">
               <Menu>
                 <MenuButton color={"#46a3d2"} fontWeight="bold">
                   {baDetails.nickname}
                 </MenuButton>
-                <MenuList minWidth='120px'>
+                <MenuList minWidth="120px">
                   {user === "logout" ? (
-                    <MenuItem disabled opacity={"0.5"} >
+                    <MenuItem disabled opacity={"0.5"}>
                       신고하기
                     </MenuItem>
                   ) : (
+<<<<<<< HEAD
                     <MenuItem onClick={openModal} >신고하기</MenuItem>
+=======
+                    <MenuItem onClick={onOpen}>신고하기</MenuItem>
+>>>>>>> db284db737ccf3974237162e24a37a420d6f22de
                   )}
                   <MenuItem
                     onClick={() =>
@@ -240,14 +244,16 @@ export default () => {
                 isOpen={isModal}
                 onClose={closeModal}
                 postId={id}
-                userEmail={user.email}
+                userEmail={baDetails.email}
               />
               <Text>{getDayMinuteCounter(baDetails.createdAt)}</Text>
             </Flex>
           </Flex>
           <Divider />
           <Box minH={"250px"} style={{ whiteSpace: "pre-wrap" }}>
-            {baDetails.content}<br /><br />
+            {baDetails.content}
+            <br />
+            <br />
             {baDetails.images && (
               <Box width="400px" height="auto" margin="auto">
                 <Image
@@ -280,15 +286,14 @@ export default () => {
                 onClick={(e) => {
                   like(e);
                 }}
-                pr='1'
+                pr="1"
               >
                 <FaRegThumbsUp />
               </Button>
-              <Box alignContent="center" fontWeight={"bold"} >
+              <Box alignContent="center" fontWeight={"bold"}>
                 {likeCount}
               </Box>
-              <Button onClick={(e) => dislike(e)}
-                pr='1'>
+              <Button onClick={(e) => dislike(e)} pr="1">
                 <FaRegThumbsDown />
               </Button>
               <Box alignContent="center" fontWeight={"bold"}>
@@ -298,6 +303,7 @@ export default () => {
                 ""
               ) : user.role === "admin" ? (
                 ""
+<<<<<<< HEAD
               ) : user.email !== baDetails.email ? ("") :
                 !Check ? (
                   <Button
@@ -314,10 +320,35 @@ export default () => {
                   onClick={(e) =>
                     openAlert()
                   }
+=======
+              ) : user.email !== baDetails.email ? (
+                ""
+              ) : !Check ? (
+                <Button
+                  onClick={() => {
+                    nav(`/b/${id}/modify`);
+                  }}
+>>>>>>> db284db737ccf3974237162e24a37a420d6f22de
                 >
-                  삭제
+                  수정
                 </Button>
+<<<<<<< HEAD
           
+=======
+              ) : (
+                ""
+              )}
+              {user !== "logout" &&
+                (user.email === baDetails.email || user.role === "admin") && (
+                  <Button
+                    onClick={(e) =>
+                      deleteSubmit(e, baDetails._id, baDetails.email, id)
+                    }
+                  >
+                    삭제
+                  </Button>
+                )}
+>>>>>>> db284db737ccf3974237162e24a37a420d6f22de
             </Flex>
             <Button
               onClick={() => {

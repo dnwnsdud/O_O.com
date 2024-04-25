@@ -33,6 +33,12 @@ export default ({ todayVote, main, location }) => {
   const cancelRef = React.useRef();
   let [error, setError] = useState("");
 
+  const disableScroll = () => {
+    document.body.style.overflow = "hidden";
+  };
+  const enableScroll = () => {
+    document.body.style.overflow = "auto";
+  };
   let check = (
     <svg
       style={{ width: "15%" }}
@@ -123,7 +129,12 @@ export default ({ todayVote, main, location }) => {
             backgroundColor="#53535f !important"
             color={"#ffffff"}
             onClick={() => {
+<<<<<<< HEAD
               openModal();
+=======
+              onOpen();
+              disableScroll();
+>>>>>>> db284db737ccf3974237162e24a37a420d6f22de
             }}
           >
             참여하기
@@ -137,10 +148,11 @@ export default ({ todayVote, main, location }) => {
             if (e.key === "Escape") {
               closeModal();
               setChoice("");
-              document.body.style.overflow = "auto";
-              window.removeEventListener("keydown", (e) => { });
+              enableScroll();
+              window.removeEventListener("keydown", (e) => {});
             }
           })}
+<<<<<<< HEAD
           {document.body.style.overflow = "hidden" &&
             < Box
               zIndex={10}
@@ -158,12 +170,30 @@ export default ({ todayVote, main, location }) => {
                 setChoice("");
               }}
             ></Box>}
+=======
+          <Box
+            zIndex={99999}
+            bg={"black"}
+            opacity={0.5}
+            w={"100%"}
+            position={"fixed"}
+            left={0}
+            top={0}
+            h={"100%"}
+            color={"black"}
+            onClick={() => {
+              onClose();
+              enableScroll();
+              setChoice("");
+            }}
+          ></Box>
+>>>>>>> db284db737ccf3974237162e24a37a420d6f22de
           <Flex
             borderRadius={"15px"}
             p={4}
             pt={2}
             pb={2}
-            zIndex={11}
+            zIndex={999999}
             bg={"white"}
             direction={"column"}
             isOpen={isModal}
@@ -176,12 +206,17 @@ export default ({ todayVote, main, location }) => {
             transform={"translate(-50%, -50%)"}
             onKeyDown={(e) => {
               if (e.key === "esc") {
+<<<<<<< HEAD
                 closeModal();
                 document.body.style.overflow = "auto";
+=======
+                onClose();
+                enableScroll();
+>>>>>>> db284db737ccf3974237162e24a37a420d6f22de
               }
             }}
           >
-            <Flex direction={"column"} w={"100%"} gap={4}>
+            <Flex direction={"column"} w={"100%"} gap={4} padding="30px">
               <Flex
                 justifyContent={"space-between"}
                 gap={2}
@@ -191,8 +226,13 @@ export default ({ todayVote, main, location }) => {
                 <CloseButton
                   _hover={{ bg: "gray.100" }}
                   onClick={() => {
+<<<<<<< HEAD
                     closeModal();
                     document.body.style.overflow = "auto";
+=======
+                    onClose();
+                    enableScroll();
+>>>>>>> db284db737ccf3974237162e24a37a420d6f22de
                     setChoice("");
                   }}
                 />
@@ -337,8 +377,13 @@ export default ({ todayVote, main, location }) => {
                       onClick={() => {
                         if (user.role !== "admin")
                           return alert("관리자만 가능합니다.");
+<<<<<<< HEAD
                           closeModal();
                         document.body.style.overflow = "auto";
+=======
+                        onClose();
+                        enableScroll();
+>>>>>>> db284db737ccf3974237162e24a37a420d6f22de
                         setChoice("");
                         endVote();
                       }}
@@ -355,8 +400,13 @@ export default ({ todayVote, main, location }) => {
                       if (user === "logout")
                         return alert("로그인이 필요합니다.");
                       if (choice === "") return alert("선택해주세요.");
+<<<<<<< HEAD
                       closeModal();
                       document.body.style.overflow = "auto";
+=======
+                      onClose();
+                      enableScroll();
+>>>>>>> db284db737ccf3974237162e24a37a420d6f22de
                       setChoice("");
                       agree(choice, user.email);
                     }}
@@ -382,8 +432,13 @@ export default ({ todayVote, main, location }) => {
                       if (user === "logout")
                         return alert("로그인이 필요합니다.");
                       if (choice === "") return alert("선택해주세요.");
+<<<<<<< HEAD
                       closeModal();
                       document.body.style.overflow = "auto";
+=======
+                      onClose();
+                      enableScroll();
+>>>>>>> db284db737ccf3974237162e24a37a420d6f22de
                       setChoice("");
                       agree(choice, user.email);
                     }}
@@ -395,8 +450,7 @@ export default ({ todayVote, main, location }) => {
             </Flex>
           </Flex>
         </>
-      )
-      }
+      )}
 
       <AlertDialog
           isOpen={isAlert}

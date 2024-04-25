@@ -43,8 +43,6 @@ export default () => {
       images: images,
       videos: videos,
     };
-    const file = e.target.files[0];
-    console.log(file);
 
     fetch(`/api/boardLoad`, {
       body: JSON.stringify(body),
@@ -59,7 +57,6 @@ export default () => {
       })
       .then((data) => {
         if (data) {
-          console.log(data, "확인해바 이자식아");
           settitle(data.title);
           setcontent(data.content);
           setImage(data.images);

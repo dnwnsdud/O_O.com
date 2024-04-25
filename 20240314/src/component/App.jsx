@@ -65,6 +65,7 @@ export default () => {
           <Route path="/vote" element={<CreateVote />} />
           <Route path="/calender" element={<Calender />} />
           <Route path="/view" element={<ViewUser />} />
+          <Route path="/itemsalse" element={<ItemSales/>}/>
         </Route>
         <Route path="/signupform/:email?" element={<Signupform />} />
         <Route path="/deleteloading" element={<Loading />} />

@@ -33,19 +33,19 @@ export default () => {
         }
       }, []);
     
-    return<Center bg='#f7f7f8'>
+    return<Center bg='#f7f7f8' h={'70vh'}>
         <Stack bg='#fff' margin={'auto'} marginTop='10' marginBottom={'10'}
         border="1px solid #e6e6ea"
         borderRadius="10px"
         shadow={'base'}
         >
-        <Box >
-        <Text textAlign={'center'} fontWeight='bold' pb='3'>판매된 아이템</Text>
+        <Box w='90%' m='auto'>
+        <Text textAlign={'center'} fontWeight='bold' pb='3'>판매된 아이템 {stores.length}개</Text>
+
         <Grid templateColumns='repeat(5, 1fr)' gap={19}>
             {stores.map((store, index) => (
               <GridItem
-                height='10rem' width='100%' key={index}>
-                {/* <Box>{store.images}</Box> */}
+                height='10rem' width='100%' key={index} >
                 <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'}>
                   <Image
                     src={store.images}
@@ -56,8 +56,8 @@ export default () => {
                   />
                 </Box>
                 
-                <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}>{store.title}</Text>
-                <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
+                <Text textAlign={'center'} fontSize={'10'} fontWeight={'bold'}>{store.title}</Text>
+                <Text textAlign={'center'} fontSize={'9'}>{store.price}원</Text>
              
               </GridItem>
             )

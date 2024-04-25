@@ -1,3 +1,4 @@
+import { TriangleUpIcon } from "@chakra-ui/icons";
 import {
   Box,
   Card,
@@ -6,9 +7,9 @@ import {
   Flex,
   Grid,
   Heading,
+  Spinner,
   Stack,
   Text,
-  Spinner
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { CiBaseball } from "react-icons/ci";
@@ -20,33 +21,40 @@ import Noticepost from "../pages/Noticepost";
 import Bestpost from "./Bestpost";
 import Vote from "./board/Vote";
 
-
-
 const Loading = () => {
   return (
     <Flex alignItems={"center"} justifyItems={"center"} width={"200%"}>
       <Spinner
         m={"auto"}
-        w={"80px"} h={"80px"}
-        thickness='10px'
-        speed='0.65s'
-        emptyColor='gray.200'
-        color='blue.500'
-        size='xl'
+        w={"80px"}
+        h={"80px"}
+        thickness="10px"
+        speed="0.65s"
+        emptyColor="gray.200"
+        color="blue.500"
+        size="xl"
       />
     </Flex>
-
-  )
-
-}
-
+  );
+};
 
 export default () => {
+  const handleScroll = () => {
+    if (window.scrollY > 500) setIsHalf(true);
+    else if (window.scrollY < 500) setIsHalf(false);
+    else return;
+  };
   const location = useLocation();
   const category = location.pathname;
   let [isLoading, setIsLoading] = useState(true);
   let [todayVote, setTodayVote] = useState([]);
   let [topic, setTopic] = useState([]);
+  let [isHalf, setIsHalf] = useState(false);
+  const toTop = () => {
+    window.scrollTo(0, 0);
+    setIsHalf(false);
+    return null;
+  };
   useEffect(() => {
     fetch("/api/vote", {
       method: "POST",
@@ -63,8 +71,12 @@ export default () => {
       .catch((e) => {
         setTodayVote("비었음");
         setTopic("비었음");
-        setIsLoading(true)
+        setIsLoading(true);
       });
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
   let nav = useNavigate();
   return (
@@ -107,7 +119,8 @@ export default () => {
             justifyContent={"space-between"}
           >
             {isLoading && <Loading />}
-            {!isLoading && topic !== "비었음" &&
+            {!isLoading &&
+              topic !== "비었음" &&
               topic.map((item, index) => {
                 console.log(topic);
                 return (
@@ -180,6 +193,23 @@ export default () => {
           </Box>
         </Stack>
       </Box>
+      {isHalf && (
+        <TriangleUpIcon
+          cursor={"pointer"}
+          boxSize={10}
+          border={"1px solid"}
+          borderColor={"gray.300"}
+          p={"7px"}
+          w={"40px"}
+          h={"40px"}
+          position={"fixed"}
+          right={"23%"}
+          top={"75%"}
+          borderRadius={"50%"}
+          onClick={toTop}
+          _hover={{ bg: "black", color: "white", borderColor: "gray.100" }}
+        />
+      )}
     </Box>
   );
 };

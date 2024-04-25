@@ -68,40 +68,41 @@ export default () => {
             {index + 1}회 차
           </Button>
         </PopoverTrigger>
-        <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
-          <PopoverArrow bg="blue.800" />
+        <PopoverContent color="black" bg="#f5f7f8" borderColor="#f5f7f8">
+          <PopoverArrow bg="#f5f7f8" />
           <PopoverCloseButton />
-          <PopoverHeader fontWeight="bold">{props.title}</PopoverHeader>
-          <PopoverBody>
+          <PopoverHeader fontWeight="bold" minH='7rem' alignContent={'center'}>{props.title}</PopoverHeader>
+          <PopoverBody minH={'8rem'}>
             <Box>
               {props.leftSide.participants.length >
-              props.rightSide.participants.length
+                props.rightSide.participants.length
                 ? "left win"
                 : props.leftSide.participants.length <
                   props.rightSide.participants.length
-                ? "right win"
-                : "draw"}
+                  ? "right win"
+                  : "draw"}
             </Box>
-            <Flex>
-              <Box>
-                {props.leftSide.title}
-                {props.leftSide.content}
+            <Flex fontWeight={'normal'} h='8rem' gap='1'>
+              <Box fontSize={'15px'} w='50%' border='1px solid #dedee3'
+                alignContent={'center'}>
+                <Text>{props.leftSide.title}</Text>
+                <Text>{props.leftSide.content}</Text>
               </Box>
-              <Box>
-                {props.rightSide.title}
-                {props.rightSide.content}
+              <Box w='50%' border='1px solid #dedee3' alignContent={'center'}>
+                <Text>{props.rightSide.title}</Text>
+                <Text>{props.rightSide.content}</Text>
               </Box>
             </Flex>
           </PopoverBody>
         </PopoverContent>
-      </Popover>
+      </Popover >
     );
   };
 
   return (
-    <>
-      <Box maxW="1280px" margin="auto">
-        <Box maxW="800px" margin="20px auto">
+    <Box bg='#f7f7f8'>
+      <Box maxW="1280px" margin="auto" bg='#f7f7f8' py='10' >
+        <Box maxW="800px" margin="auto" >
           <Calender
             defaultDate={
               new Date(
@@ -112,12 +113,10 @@ export default () => {
             }
             onChange={(date) => {
               setDay(
-                `${date.getFullYear()}-${
-                  date.getMonth() + 1 >= 10
-                    ? date.getMonth() + 1
-                    : `0${date.getMonth() + 1}`
-                }-${
-                  date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`
+                `${date.getFullYear()}-${date.getMonth() + 1 >= 10
+                  ? date.getMonth() + 1
+                  : `0${date.getMonth() + 1}`
+                }-${date.getDate() >= 10 ? date.getDate() : `0${date.getDate()}`
                 }`
               );
             }}
@@ -129,13 +128,16 @@ export default () => {
           </Box>
           <Box margin="20px 0" w="100%">
             <Box
-              border="1px solid black"
+              border="1px solid #dedee3"
+              borderRadius={'10px'}
+              shadow={'base'}
               w="100%"
               h="200px"
               marginBottom="10px"
               textAlign="center"
               fontWeight="bold"
               fontSize="1.5 rem"
+              bg='#fff'
             >
               <Heading>O_O</Heading>
               {main.length == 0 ? (
@@ -145,7 +147,7 @@ export default () => {
                   <Heading size={"m"}>{main[0].title}</Heading>
                   <Box>
                     {main[0].leftSide.participants.length >
-                    main[0].rightSide.participants.length ? (
+                      main[0].rightSide.participants.length ? (
                       <Box>
                         <Text>왼쪽 진영 승</Text>
                         <Text>{main[0].leftSide.title}</Text>
@@ -168,7 +170,7 @@ export default () => {
                       <Heading size={"m"}>{item.title}</Heading>
                       <Box>
                         {item.leftSide.participants.length >
-                        item.rightSide.participants.length ? (
+                          item.rightSide.participants.length ? (
                           <Box>
                             <Text>왼쪽 진영 승</Text>
                             <Text>{item.leftSide.title}</Text>
@@ -188,12 +190,15 @@ export default () => {
                 })
               )}
             </Box>
-            <Flex gap="10px" padding="10px">
+            <Flex gap="10px" padding="10px" >
               <Box
-                border="1px solid black"
+                border="1px solid #dedee3"
+                borderRadius={'10px'}
                 w="100%"
                 h="150px"
                 textAlign="center"
+
+                bg='#fff'
               >
                 <Heading size={"m"}>야구</Heading>
                 {baseball.length == 0 ? (
@@ -203,9 +208,10 @@ export default () => {
                     return (
                       <Box
                         key={index}
-                        border="1px solid black"
-                        w="100%"
-                        h="50px"
+                        border="1px solid #dedee3"
+                        w="80%"
+                        h="40px"
+                        margin={'auto'}
                       >
                         <Heading size={"m"}>
                           <WalkthroughPopover props={item} index={index} />
@@ -216,10 +222,13 @@ export default () => {
                 )}
               </Box>
               <Box
-                border="1px solid black"
+                border="1px solid #dedee3"
+                borderRadius={'10px'}
                 w="100%"
                 h="150px"
                 textAlign="center"
+
+                bg='#fff'
               >
                 <Heading size={"m"}>LOL</Heading>
                 {lol.length == 0 ? (
@@ -229,9 +238,10 @@ export default () => {
                     return (
                       <Box
                         key={index}
-                        border="1px solid black"
-                        w="100%"
-                        h="50px"
+                        border="1px solid #dedee3"
+                        w="80%"
+                        h="40px"
+                        margin={'auto'}
                       >
                         <WalkthroughPopover props={item} index={index} />
                       </Box>
@@ -240,10 +250,13 @@ export default () => {
                 )}
               </Box>
               <Box
-                border="1px solid black"
+                border="1px solid #dedee3"
+                borderRadius={'10px'}
                 w="100%"
                 h="150px"
                 textAlign="center"
+
+                bg='#fff'
               >
                 <Heading size={"m"}>축구</Heading>
                 {soccer.length == 0 ? (
@@ -253,9 +266,10 @@ export default () => {
                     return (
                       <Box
                         key={index}
-                        border="1px solid black"
-                        w="100%"
-                        h="50px"
+                        border="1px solid #dedee3"
+                        w="80%"
+                        h="40px"
+                        m='auto'
                       >
                         <Heading size={"m"}>
                           <WalkthroughPopover props={item} index={index} />
@@ -266,10 +280,13 @@ export default () => {
                 )}
               </Box>
               <Box
-                border="1px solid black"
+                border="1px solid #dedee3"
+                borderRadius={'10px'}
                 w="100%"
                 h="150px"
                 textAlign="center"
+
+                bg='#fff'
               >
                 <Heading size={"m"}>사회</Heading>
                 {society.length == 0 ? (
@@ -279,9 +296,10 @@ export default () => {
                     return (
                       <Box
                         key={index}
-                        border="1px solid black"
-                        w="100%"
-                        h="50px"
+                        border="1px solid #dedee3"
+                        w="80%"
+                        h="40px"
+                        m='auto'
                       >
                         <WalkthroughPopover props={item} index={index} />
                       </Box>
@@ -296,6 +314,6 @@ export default () => {
           </Box>
         </Grid>
       </Box>
-    </>
+    </Box>
   );
 };
