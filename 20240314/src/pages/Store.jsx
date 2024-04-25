@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
   Box, Flex, Badge, Text, HStack, Button, border,
-  Image, Tabs, TabList, Tab, TabIndicator, TabPanel, TabPanels, Grid, GridItem, SimpleGrid, Card, CardHeader, Heading, CardBody, CardFooter, Img
+  Image, Tabs, TabList, Tab, TabIndicator, TabPanel, TabPanels, Grid, GridItem, SimpleGrid, Card, CardHeader, Heading, CardBody, CardFooter, Img, useDisclosure, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogBody
 } from '@chakra-ui/react';
 import { Swiper, SwiperSlide, } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y, Controller } from 'swiper/modules';
@@ -19,6 +19,10 @@ export default () => {
   const [secondSwiper, setSecondSwiper] = useState(null);
   const { user } = useContext(UserContext);
   let nav = useNavigate();
+  const { isOpen:isOpen, onOpen:onOpen, onClose:onClose } = useDisclosure()
+  const { isOpen:isOpen2, onOpen:onOpen2, onClose:onClose2 } = useDisclosure()
+  const [alert,setAlert] = useState("");
+  const cancelRef = React.useRef()
 
   const [stores, setStores] = useState([]);
 
@@ -87,7 +91,8 @@ export default () => {
 
   const buyStore = (e, price, title, images) => {
     if (user == "logout") {
-      alert("로그인이 필요합니다!");
+      setAlert("login")
+      onOpen()
     } else {
       console.log('구매 가격' + price);
       console.log(title);
@@ -100,7 +105,6 @@ export default () => {
         email: user.email
       }
       console.log("body:", body);
-      alert('구매하시겠습니까?');
       fetch(
         "/api/storebuy",
         {
@@ -119,18 +123,20 @@ export default () => {
               throw new Error(`Server responded with status ${response.status}`);
             });
           }
-          alert("구매가 완료되었습니다.");
           return response.json();
         })
         .then((data) => {
-          if (data.success) {
-            nav("/");
+          if (data.success && data.message) {
+            setAlert(data.message)
+            onOpen2()
             // 나중에 경로 생각좀
-          } else {
-            console.log(data.error);
-            alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
-          }
-        })
+        } 
+        
+        else if(!data.success && data.message) {
+            setAlert(data.message)
+            onOpen2()
+        }
+    })
         .catch((error) => { });
     }
   }
@@ -365,5 +371,43 @@ export default () => {
 
 
   </Box >
+  <AlertDialog
+        motionPreset='slideInBottom'
+        leastDestructiveRef={cancelRef}
+        onClose={alert == "login" ? onClose : onClose2}
+        isOpen={alert == "login" ? isOpen : isOpen2}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>{alert == "login" ? "로그인 오류" : "구매확인"}</AlertDialogHeader>
+          <AlertDialogBody>
+            {alert == "login" ? "로그인이 필요합니다!" : alert}
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            {alert == "login" ? <Button
+                  sx={{
+                    backgroundColor: "red !important",
+                    color: "#ffffff",
+                  }}
+                  onClick={onClose}
+                  ml={3}
+                >
+                  돌아가기
+                </Button> : <Button
+                  sx={{
+                    backgroundColor: "gray !important",
+                    color: "#ffffff",
+                  }}
+                  onClick={()=>{onClose2(), nav("/")}}
+                  ml={3}
+                >
+                  확인
+                </Button>}
+            
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
   </Box>
 }
