@@ -11,11 +11,24 @@ import {
   Textarea,
   Select,
   Box,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 export default ({ isOpen, onClose, postId, userEmail }) => {
   const [reportContent, setReportContent] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
+  const {
+    isOpen: isOpen1,
+    onOpen: onOpen1,
+    onClose: onClose1,
+    cancelRef,
+  } = useDisclosure();
 
   const handleSelectChange = (e) => {
     setSelectedOption(e.target.value);
@@ -46,9 +59,9 @@ export default ({ isOpen, onClose, postId, userEmail }) => {
       .then((data) => {
         if (data) {
           console.log(data);
-          alert("신고 접수가 완료되었습니다.");
           setReportContent("");
           setSelectedOption("");
+          onOpen1();
         } else {
           console.log(data.error);
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
@@ -71,11 +84,11 @@ export default ({ isOpen, onClose, postId, userEmail }) => {
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent mt='200'>
+        <ModalContent mt="200">
           <ModalHeader textAlign={"center"}>신고하기</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Box>{userEmail}</Box>
+            <Box paddingBottom={"10px"}>'{userEmail}'님을 신고합니다!</Box>
             <Select
               value={selectedOption}
               onChange={handleSelectChange}
@@ -98,16 +111,53 @@ export default ({ isOpen, onClose, postId, userEmail }) => {
               />
             )}
           </ModalBody>
-          <ModalFooter>
-            <Button mr={3} onClick={submitReport}>
-              신고 제출
-            </Button>
-            <Button variant="ghost" onClick={onClose}>
+          <ModalFooter display={"flex"} gap={"10px"}>
+            <Button
+              bg={"#53535f !important"}
+              color={"#ffffff"}
+              onClick={onClose}
+            >
               취소
+            </Button>
+            <Button
+              mr={3}
+              onClick={submitReport}
+              bg={"#53535f !important"}
+              color={"#ffffff"}
+            >
+              제출
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
+
+      <AlertDialog
+        isOpen={isOpen1}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose1}
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fillontSize="lg" fontWeight="bold">
+              신고접수 확인
+            </AlertDialogHeader>
+            <AlertDialogBody>신고 접수가 완료되었습니다.</AlertDialogBody>
+            <AlertDialogFooter>
+              <Button
+                bg={"#53535f !important"}
+                color={"#ffffff"}
+                onClick={() => {
+                  onClose1();
+                  nav("/");
+                }}
+                ml={3}
+              >
+                확인
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </>
   );
 };
