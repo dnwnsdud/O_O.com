@@ -72,7 +72,7 @@ export default () => {
       })
       .catch((e) => {
         setTodayVote("비었음");
-        setIsLoading(true);
+        setIsLoading(false);
       });
     return () => {
       socket.off(chatEvent, receiveMessage);

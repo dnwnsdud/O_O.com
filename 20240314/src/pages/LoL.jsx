@@ -68,8 +68,8 @@ export default () => {
         setIsLoading(false);
       })
       .catch((e) => {
-        setIsLoading(true);
         setTodayVote("비었음");
+        setIsLoading(false);
       });
     return () => {
       socket.off(chatEvent, receiveMessage);

@@ -71,7 +71,7 @@ export default () => {
       .catch((e) => {
         setTodayVote("비었음");
         setTopic("비었음");
-        setIsLoading(true);
+        setIsLoading(false);
       });
     window.addEventListener("scroll", handleScroll);
     return () => {
