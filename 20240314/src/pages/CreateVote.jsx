@@ -35,7 +35,7 @@ export default () => {
     } else {
       setRender(true);
     }
-  }, [user]);
+  }, []);
 
   const onCategoryHandler = (e) => {
     setCategory(e.target.value);

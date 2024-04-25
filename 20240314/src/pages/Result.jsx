@@ -111,6 +111,7 @@ export default () => {
       >
         <PopoverTrigger>
           <Button
+            _hover={{ bg: "gray.800 !important", color: "white" }}
             w={"100%"}
             display={"inline-block"}
             border="1px solid #dedee3"

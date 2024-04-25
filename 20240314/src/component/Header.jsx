@@ -29,12 +29,19 @@ export default () => {
   const [cl, clChange] = useState(true);
   let nav = useNavigate();
   const [isRotated, setIsRotated] = useState(false);
-  const { isOpen:isModal, onOpen:openModal, onClose:closeModal } = useDisclosure();
-  const { isOpen:isAlert, onOpen:openAlert, onClose:closeAlert } = useDisclosure();
+  const {
+    isOpen: isModal,
+    onOpen: openModal,
+    onClose: closeModal,
+  } = useDisclosure();
+  const {
+    isOpen: isAlert,
+    onOpen: openAlert,
+    onClose: closeAlert,
+  } = useDisclosure();
   const cancelRef = React.useRef();
 
   let [error, setError] = useState("");
-
 
   const handleMenuClick = () => {
     setIsRotated(!isRotated);
@@ -57,10 +64,11 @@ export default () => {
       .then((data) => {
         if (data) {
           setError("success");
-          openAlert()
-a        } else {
+          openAlert();
+          a;
+        } else {
           setError("fail");
-          openAlert()
+          openAlert();
         }
       });
   };
@@ -85,7 +93,7 @@ a        } else {
   }, []);
   console.log("항상 찍는 자리", user);
   return (
-    <Box w='100%' position={"fixed"} bg='#fff' zIndex={'9999'} top='0'>
+    <Box w="100%" position={"fixed"} bg="#fff" zIndex={"9999"} top="0">
       <Grid maxWidth="55%" margin="auto" templateColumns="1fr 3fr 2fr">
         <Flex
           w="60px"
@@ -257,34 +265,39 @@ a        } else {
       </Grid>
       <UserModal isOpen={isModal} onClose={closeModal} />
       <AlertDialog
-          isOpen={isAlert}
-          leastDestructiveRef={cancelRef}
-          onClose={closeAlert}
-          isCentered
-        >
-          <AlertDialogOverlay>
-            <AlertDialogContent>
-              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
-                {error == "success" ? "로그아웃 성공" : "로그아웃 실패"}
-              </AlertDialogHeader>
-              <AlertDialogBody>
-                {error == "success" ? "로그아웃에 성공하였습니다." : "로그아웃 실패하였습니다"}
-              </AlertDialogBody>
-              <AlertDialogFooter>
-                <Button  sx={{
-                backgroundColor: "#53535f !important",
-                color: "#ffffff",
-              }} onClick={()=>{
-                closeAlert()
-                nav("/")
-            }} ml={3}>
-                  돌아가기
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </AlertDialog>
+        isOpen={isAlert}
+        leastDestructiveRef={cancelRef}
+        onClose={closeAlert}
+        isCentered
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fillontSize="lg" fontWeight="bold">
+              {error == "success" ? "로그아웃 성공" : "로그아웃 실패"}
+            </AlertDialogHeader>
+            <AlertDialogBody>
+              {error == "success"
+                ? "로그아웃에 성공하였습니다."
+                : "로그아웃 실패하였습니다"}
+            </AlertDialogBody>
+            <AlertDialogFooter>
+              <Button
+                sx={{
+                  backgroundColor: "#53535f !important",
+                  color: "#ffffff",
+                }}
+                onClick={() => {
+                  closeAlert();
+                  nav("/");
+                }}
+                ml={3}
+              >
+                돌아가기
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </Box>
-    
   );
 };

@@ -65,9 +65,8 @@ export default () => {
           <Route path="/requestlist" element={<Requestlist />} />
           <Route path="/requestlist/:id" element={<Requestdetail />} />
           <Route path="/vote" element={<CreateVote />} />
-          <Route path="/calender" element={<Calender />} />
           <Route path="/view" element={<ViewUser />} />
-          <Route path="/itemsalse" element={<ItemSales />} />
+          <Route path="/itemsales" element={<ItemSales />} />
           <Route path="/terms" element={<Loginterms />} />
           <Route path="/userinfo" element={<UserInfo />} />
         </Route>

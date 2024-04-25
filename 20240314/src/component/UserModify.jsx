@@ -38,12 +38,17 @@ export default () => {
   const [image, setImage] = useState(userData.images);
   const [itemImageError, setItemImageError] = useState(false);
   const { user, setUser } = useContext(UserContext);
+  const [render, setRender] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
 
-
   let nav = useNavigate();
   useEffect((e) => {
+    if (user === null || user === "logout") {
+      nav("/");
+    } else {
+      setRender(true);
+    }
     try {
       fetch("/api/mypage")
         .then((response) => {
@@ -61,7 +66,7 @@ export default () => {
             alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
           }
         })
-        .catch((error) => { });
+        .catch((error) => {});
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -109,7 +114,7 @@ export default () => {
     const newName = name === "" ? userData.name : name;
     const newNickname = nickname === "" ? userData.nickname : nickname;
     const newTeam = team === "" ? userData.team : team;
-  
+
     // 업데이트할 데이터 객체 생성
     let body = {
       name: newName,
@@ -141,7 +146,7 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
   const deleteUser = () => {
     try {
@@ -163,7 +168,7 @@ export default () => {
             alert(`사용자를 삭제하는 동안 오류 발생:${data.error}`);
           }
         })
-        .catch((error) => { });
+        .catch((error) => {});
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -171,161 +176,176 @@ export default () => {
 
   const [isListHover, setIsListHover] = useState(false);
   return (
-    <Center>
-      <Stack
-        margin="100px 0"
-        padding="50px 50px 60px"
-        border="1px solid #e6e6ea"
-        boxShadow='base'
-        borderRadius="10px"
-        width="500px"
-      >
-        <Box
-          fontSize="30px"
-          padding="0 30px"
-          textAlign="center"
-          fontWeight="bold"
-          marginBottom="20px"
+    render && (
+      <Center>
+        <Stack
+          margin="100px 0"
+          padding="50px 50px 60px"
+          border="1px solid #e6e6ea"
+          boxShadow="base"
+          borderRadius="10px"
+          width="500px"
         >
-          정보수정
-        </Box>
-        <Grid
-          templateColumns="1fr 1fr"
-          width="70%"
-          margin="auto"
-          alignItems={"center"}
-          gap={2}
-        >
-          <FormControl isInvalid={itemImageError}>
-            <Tooltip hasArrow label='프로필 이미지 수정' fontSize='md'
-            >
-              <FormLabel fontSize={"sm"}
-                onMouseOver={() => setIsListHover(true)}
-                onMouseOut={() => setIsListHover(false)}
-              >
-                {/* <IoPeopleCircleSharp size={100} /> */}
-                {isListHover ? <PiCameraPlus size={100} /> : <IoPeopleCircleSharp size={100} />}
-              </FormLabel>
-
-            </Tooltip>
-            <Input
-              type="file"
-              name="images"
-              onChange={handleImagesChange}
-              hidden
-            />
-            {!itemImageError ? (
-              <FormHelperText>
-                {/* 사진을 넣어주세요 */}
-              </FormHelperText>
-            ) : (
-              <FormErrorMessage>아이템 사진을 넣어주세요.</FormErrorMessage>
-            )}
-          </FormControl>
-          <Box>
-            <Input
-              textAlign="center"
-              border="1px solid #e6e6ea"
-              borderRadius="15px"
-              marginBottom="5px"
-              h={"25px"}
-              placeholder={userData.name}
-              defaultValue={userData.name}
-              onChange={onNamedHandler}
-              required
-              maxLength={5}
-              minLength={1}
-            />
-            <Input
-              textAlign="center"
-              border="1px solid #e6e6ea"
-              borderRadius="15px"
-              h={"25px"}
-              placeholder={userData.nickname}
-              defaultValue={userData.nickname}
-              onChange={onNicknameHandler}
-              required
-              maxLength={10}
-              minLength={1}
-            />
-          </Box>
-        </Grid>
-        <Grid templateRows="1fr 1fr 1fr" gap="20px" margin="30px 0">
-          <Input
+          <Box
+            fontSize="30px"
+            padding="0 30px"
             textAlign="center"
-            border={'none'}
-            borderBottom="1px solid #e6e6ea"
-            margin="auto"
-            width="70%"
-            h={"25px"}
-            placeholder={userData.email}
-            defaultValue={userData.email}
-            readOnly
-            disabled
-          />
-          <Input
-            textAlign="center"
-            border={'none'}
-            borderBottom="1px solid #e6e6ea"
-            margin="auto"
-            width="70%"
-            h={"25px"}
-            placeholder={userData.team}
-            defaultValue={userData.team}
-            onChange={onTeamHandler}
-          />
-          <Input
-            textAlign="center"
-            border={'none'}
-            borderBottom="1px solid #e6e6ea"
-            margin="auto"
-            width="70%"
-            h={"25px"}
-            placeholder={userData.rating && userData.rating.win + userData.rating.lose > 0
-              ? ((userData.rating.win) / (userData.rating.win + userData.rating.lose) * 100).toFixed(1) + "%"
-           : "승률 정보 없음"}
-            defaultValue={userData.rating && userData.rating.win + userData.rating.lose > 0
-              ? ((userData.rating.win) / (userData.rating.win + userData.rating.lose) * 100).toFixed(1) + "%"
-           : "승률 정보 없음"}
-            readOnly
-            disabled
-          />
-        </Grid>
-        <Grid templateRows="1fr 1fr" justifyContent="center" gap="10px">
-          <Button
-            width="100px"
-            border="1px solid #e6e6ea"
-            borderRadius="10px"
-            onClick={(e) => {
-              onSubmitHandler(e);
-            }}
+            fontWeight="bold"
+            marginBottom="20px"
           >
             정보수정
-          </Button>
-          <Button
-            border="1px solid #e6e6ea"
-            borderRadius="10px"
-            onClick={() => {
-              nav("/profile");
-            }}
+          </Box>
+          <Grid
+            templateColumns="1fr 1fr"
+            width="70%"
+            margin="auto"
+            alignItems={"center"}
+            gap={2}
           >
-            취소
-          </Button>
-
-        </Grid>
-        <Flex justify={"end"}>
-          <Button
-            width="50px"
-            fontSize={"10px"}
-            border="none"
-            color={"crimson"}
-            onClick={deleteUser}
-          >
-            회원탈퇴
-          </Button>
-        </Flex>
-      </Stack>
-      <AlertDialog
+            <FormControl isInvalid={itemImageError}>
+              <Tooltip hasArrow label="프로필 이미지 수정" fontSize="md">
+                <FormLabel
+                  fontSize={"sm"}
+                  onMouseOver={() => setIsListHover(true)}
+                  onMouseOut={() => setIsListHover(false)}
+                >
+                  {/* <IoPeopleCircleSharp size={100} /> */}
+                  {isListHover ? (
+                    <PiCameraPlus size={100} />
+                  ) : (
+                    <IoPeopleCircleSharp size={100} />
+                  )}
+                </FormLabel>
+              </Tooltip>
+              <Input
+                type="file"
+                name="images"
+                onChange={handleImagesChange}
+                hidden
+              />
+              {!itemImageError ? (
+                <FormHelperText>{/* 사진을 넣어주세요 */}</FormHelperText>
+              ) : (
+                <FormErrorMessage>아이템 사진을 넣어주세요.</FormErrorMessage>
+              )}
+            </FormControl>
+            <Box>
+              <Input
+                textAlign="center"
+                border="1px solid #e6e6ea"
+                borderRadius="15px"
+                marginBottom="5px"
+                h={"25px"}
+                placeholder={userData.name}
+                defaultValue={userData.name}
+                onChange={onNamedHandler}
+                required
+                maxLength={5}
+                minLength={1}
+              />
+              <Input
+                textAlign="center"
+                border="1px solid #e6e6ea"
+                borderRadius="15px"
+                h={"25px"}
+                placeholder={userData.nickname}
+                defaultValue={userData.nickname}
+                onChange={onNicknameHandler}
+                required
+                maxLength={10}
+                minLength={1}
+              />
+            </Box>
+          </Grid>
+          <Grid templateRows="1fr 1fr 1fr" gap="20px" margin="30px 0">
+            <Input
+              textAlign="center"
+              border={"none"}
+              borderBottom="1px solid #e6e6ea"
+              margin="auto"
+              width="70%"
+              h={"25px"}
+              placeholder={userData.email}
+              defaultValue={userData.email}
+              readOnly
+              disabled
+            />
+            <Input
+              textAlign="center"
+              border={"none"}
+              borderBottom="1px solid #e6e6ea"
+              margin="auto"
+              width="70%"
+              h={"25px"}
+              placeholder={userData.team}
+              defaultValue={userData.team}
+              onChange={onTeamHandler}
+            />
+            <Input
+              textAlign="center"
+              border={"none"}
+              borderBottom="1px solid #e6e6ea"
+              margin="auto"
+              width="70%"
+              h={"25px"}
+              placeholder={
+                userData.rating &&
+                userData.rating.win + userData.rating.lose > 0
+                  ? (
+                      (userData.rating.win /
+                        (userData.rating.win + userData.rating.lose)) *
+                      100
+                    ).toFixed(1) + "%"
+                  : "승률 정보 없음"
+              }
+              defaultValue={
+                userData.rating &&
+                userData.rating.win + userData.rating.lose > 0
+                  ? (
+                      (userData.rating.win /
+                        (userData.rating.win + userData.rating.lose)) *
+                      100
+                    ).toFixed(1) + "%"
+                  : "승률 정보 없음"
+              }
+              readOnly
+              disabled
+            />
+          </Grid>
+          <Grid templateRows="1fr 1fr" justifyContent="center" gap="10px">
+            <Button
+              width="100px"
+              border="1px solid #e6e6ea"
+              borderRadius="10px"
+              onClick={(e) => {
+                onSubmitHandler(e);
+              }}
+            >
+              정보수정
+            </Button>
+            <Button
+              border="1px solid #e6e6ea"
+              borderRadius="10px"
+              onClick={() => {
+                nav("/profile");
+              }}
+            >
+              취소
+            </Button>
+          </Grid>
+          <Flex justify={"end"}>
+            <Button
+              width="50px"
+              fontSize={"10px"}
+              border="none"
+              color={"crimson"}
+              onClick={deleteUser}
+            >
+              회원탈퇴
+            </Button>
+          </Flex>
+        </Stack>
+        <AlertDialog
           isOpen={isOpen}
           leastDestructiveRef={cancelRef}
           onClose={onClose}
@@ -333,25 +353,28 @@ export default () => {
         >
           <AlertDialogOverlay>
             <AlertDialogContent>
-              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
+              <AlertDialogHeader fillontSize="lg" fontWeight="bold">
                 회원탈퇴 완료
               </AlertDialogHeader>
-              <AlertDialogBody>
-                회원탈퇴 되었습니다.
-              </AlertDialogBody>
+              <AlertDialogBody>회원탈퇴 되었습니다.</AlertDialogBody>
               <AlertDialogFooter>
-                <Button  sx={{
-                backgroundColor: "#53535f !important",
-                color: "#ffffff",
-              }} onClick={()=>{
-                onClose() 
-            }} ml={3}>
+                <Button
+                  sx={{
+                    backgroundColor: "#53535f !important",
+                    color: "#ffffff",
+                  }}
+                  onClick={() => {
+                    onClose();
+                  }}
+                  ml={3}
+                >
                   돌아가기
                 </Button>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialogOverlay>
         </AlertDialog>
-    </Center >
+      </Center>
+    )
   );
 };

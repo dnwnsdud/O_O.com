@@ -3,15 +3,15 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default () => {
-    let nav = useNavigate();
-    console.log("hello");
+  let nav = useNavigate();
 
-    useEffect(() => {
-        nav('/')
-    }, [])
+  useEffect(() => {
+    nav("/");
+  }, []);
 
-    return <>
-
-        <Box>Loading....</Box>
+  return (
+    <>
+      <Box>Loading....</Box>
     </>
-}
+  );
+};

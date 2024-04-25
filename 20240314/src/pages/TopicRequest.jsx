@@ -22,6 +22,7 @@ export default () => {
   const location = useLocation();
   let id = location.pathname.slice(location.pathname.indexOf("=") + 1);
   const { user } = useContext(UserContext);
+  const [render, setRender] = useState(false);
   const [category, setCategory] = useState(id);
   const [topic, setTopic] = useState("");
   const [lefttitle, setLefttitle] = useState("");
@@ -31,7 +32,13 @@ export default () => {
   const [rightcontent, setRightcontent] = useState("");
   const [rightimage, setRightimage] = useState("");
 
-  useEffect(() => { }, []);
+  useEffect(() => {
+    if (user === null || user === "logout" || user.role === "user") {
+      nav("/");
+    } else {
+      setRender(true);
+    }
+  }, []);
 
   let nav = useNavigate();
 
@@ -113,7 +120,7 @@ export default () => {
     category: category,
     title: topic,
     user: user.nickname,
-    email:user.email,
+    email: user.email,
     leftSide: {
       images: leftimage,
       title: lefttitle,
@@ -148,68 +155,103 @@ export default () => {
   };
 
   return (
-    <>
-      <Stack bg={"#f7f7f8"}>
-        <Stack
-          width={"45%"}
-          margin={"20px auto"}
-          spacing={8}
-          h={"80vh"}
-          bg={"#ffffff"}
-          borderRadius={"0.5rem"}
-        >
-          <Heading textAlign={"center"} padding="20px 10px 0 10px">오늘의 O_O 작성</Heading>
-          <FormControl isRequired>
-            <FormLabel paddingLeft={"20px"}>카테고리</FormLabel>
-            <Select marginLeft={"20px"} w="200px" defaultValue={id} onChange={onCategoryHandler}>
-              <option value="baseball">야구</option>
-              <option value="lol">LoL</option>
-              <option value="soccer">축구</option>
-              <option value="society">사회</option>
-            </Select>
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel paddingLeft={"20px"}>주제</FormLabel>
-            <Input marginLeft={"20px"} w="95%" type="text" onChange={onTopicHandler} />
-          </FormControl>
-          <Flex padding={"0 20px"} gap={4} justifyContent={"space-between"} alignItems={"center"}>
-            <Stack gap={4}>
-              <FormControl isRequired>
-                <FormLabel>왼쪽 제목</FormLabel>
-                <Input type="text" onChange={onLefttitleHandler} />
-                <FormLabel>왼쪽 내용</FormLabel>
-                <Textarea resize={"none"} onChange={onLeftcontentHandler} />
-              </FormControl>
-              <FormLabel>왼쪽 이미지</FormLabel>
-              <Input type="file" onChange={lefthandleImagesChange} />
-            </Stack>
-            <Divider
-              borderColor={"#eaeaea"}
-              borderWidth={"1px"}
-              orientation="vertical"
-              h={"240px"}
-            />
-            <Stack gap={4}>
-              <FormControl isRequired>
-                <FormLabel>오른쪽 제목</FormLabel>
-                <Input type="text" onChange={onRighttitleHandler} />
-                <FormLabel>오른쪽 내용</FormLabel>
-                <Textarea resize={"none"} onChange={onRightcontentHandler} />
-              </FormControl>
-              <FormLabel>오른쪽 이미지</FormLabel>
-              <Input type="file" onChange={righthandleImagesChange} />
-            </Stack>
-          </Flex>
-          <Flex justifyContent={"end"} paddingRight="30px" gap={"10px"}>
-            <Button color={"#ffffff"} backgroundColor="#53535f !important" padding={"10px"} w="80px" h="40px" onClick={() => {
-              window.history.back();
-            }}>
-              이전으로
-            </Button>
-            <Button color={"#ffffff"} backgroundColor="#53535f !important" padding={"10px"} w="80px" h="40px" onClick={onSubmitHandler}>작성</Button>
-          </Flex>
+    render && (
+      <>
+        <Stack bg={"#f7f7f8"}>
+          <Stack
+            width={"45%"}
+            margin={"20px auto"}
+            spacing={8}
+            h={"80vh"}
+            bg={"#ffffff"}
+            borderRadius={"0.5rem"}
+          >
+            <Heading textAlign={"center"} padding="20px 10px 0 10px">
+              오늘의 O_O 작성
+            </Heading>
+            <FormControl isRequired>
+              <FormLabel paddingLeft={"20px"}>카테고리</FormLabel>
+              <Select
+                marginLeft={"20px"}
+                w="200px"
+                defaultValue={id}
+                onChange={onCategoryHandler}
+              >
+                <option value="baseball">야구</option>
+                <option value="lol">LoL</option>
+                <option value="soccer">축구</option>
+                <option value="society">사회</option>
+              </Select>
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel paddingLeft={"20px"}>주제</FormLabel>
+              <Input
+                marginLeft={"20px"}
+                w="95%"
+                type="text"
+                onChange={onTopicHandler}
+              />
+            </FormControl>
+            <Flex
+              padding={"0 20px"}
+              gap={4}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+            >
+              <Stack gap={4}>
+                <FormControl isRequired>
+                  <FormLabel>왼쪽 제목</FormLabel>
+                  <Input type="text" onChange={onLefttitleHandler} />
+                  <FormLabel>왼쪽 내용</FormLabel>
+                  <Textarea resize={"none"} onChange={onLeftcontentHandler} />
+                </FormControl>
+                <FormLabel>왼쪽 이미지</FormLabel>
+                <Input type="file" onChange={lefthandleImagesChange} />
+              </Stack>
+              <Divider
+                borderColor={"#eaeaea"}
+                borderWidth={"1px"}
+                orientation="vertical"
+                h={"240px"}
+              />
+              <Stack gap={4}>
+                <FormControl isRequired>
+                  <FormLabel>오른쪽 제목</FormLabel>
+                  <Input type="text" onChange={onRighttitleHandler} />
+                  <FormLabel>오른쪽 내용</FormLabel>
+                  <Textarea resize={"none"} onChange={onRightcontentHandler} />
+                </FormControl>
+                <FormLabel>오른쪽 이미지</FormLabel>
+                <Input type="file" onChange={righthandleImagesChange} />
+              </Stack>
+            </Flex>
+            <Flex justifyContent={"end"} paddingRight="30px" gap={"10px"}>
+              <Button
+                color={"#ffffff"}
+                backgroundColor="#53535f !important"
+                padding={"10px"}
+                w="80px"
+                h="40px"
+                onClick={() => {
+                  window.history.back();
+                }}
+              >
+                이전으로
+              </Button>
+              <Button
+                color={"#ffffff"}
+                backgroundColor="#53535f !important"
+                padding={"10px"}
+                w="80px"
+                h="40px"
+                onClick={onSubmitHandler}
+              >
+                작성
+              </Button>
+            </Flex>
+          </Stack>
         </Stack>
-      </Stack>
-    </>
+      </>
+    )
   );
 };

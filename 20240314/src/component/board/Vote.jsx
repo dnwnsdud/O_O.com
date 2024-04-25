@@ -41,13 +41,23 @@ const Loading = () => {
   );
 };
 
-
-
 export default ({ todayVote, main, location }) => {
   const { user } = useContext(UserContext);
-  const { isOpen:isModal, onOpen:openModal, onClose:closeModal } = useDisclosure();
-  const { isOpen:isAlert, onOpen:openAlert, onClose:closeAlert } = useDisclosure();
-  const { isOpen:isAlert2, onOpen:openAlert2, onClose:closeAlert2 } = useDisclosure();
+  const {
+    isOpen: isModal,
+    onOpen: openModal,
+    onClose: closeModal,
+  } = useDisclosure();
+  const {
+    isOpen: isAlert,
+    onOpen: openAlert,
+    onClose: closeAlert,
+  } = useDisclosure();
+  const {
+    isOpen: isAlert2,
+    onOpen: openAlert2,
+    onClose: closeAlert2,
+  } = useDisclosure();
   let nav = useNavigate();
   let [choice, setChoice] = useState("");
   const cancelRef = React.useRef();
@@ -140,7 +150,7 @@ export default ({ todayVote, main, location }) => {
           <Button
             backgroundColor="#53535f !important"
             color={"#ffffff"}
-            _hover={{backgroundColor:"gray.800 !important"}}
+            _hover={{ backgroundColor: "gray.800 !important" }}
             onClick={() => {
               nav("/r");
             }}
@@ -154,7 +164,7 @@ export default ({ todayVote, main, location }) => {
               openModal();
               disableScroll();
             }}
-            _hover={{backgroundColor:"gray.800 !important"}}
+            _hover={{ backgroundColor: "gray.800 !important" }}
           >
             참여하기
           </Button>
@@ -366,7 +376,7 @@ export default ({ todayVote, main, location }) => {
                     <Button
                       variant="ghost"
                       onClick={() => {
-                        if (user.role !== "admin"){
+                        if (user.role !== "admin") {
                           closeModal();
                           return alert("관리자만 가능합니다.");
                         }
@@ -420,7 +430,7 @@ export default ({ todayVote, main, location }) => {
                       if (choice === "") return alert("선택해주세요.");
                       closeModal();
                       document.body.style.overflow = "auto";
-                      onClose();
+                      closeAlert();
                       enableScroll();
                       setChoice("");
                       agree(choice, user.email);
@@ -436,60 +446,63 @@ export default ({ todayVote, main, location }) => {
       )}
 
       <AlertDialog
-          isOpen={isAlert}
-          leastDestructiveRef={cancelRef}
-          onClose={closeAlert}
-          isCentered
-          >
-          <AlertDialogOverlay>
-            <AlertDialogContent >
-              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
-                투표참여 완료
-              </AlertDialogHeader>
-              <AlertDialogBody>
-                투표 참여가 완료되었습니다.
-              </AlertDialogBody>
-              <AlertDialogFooter>
-                <Button  sx={{
-                backgroundColor: "#53535f !important",
-                color: "#ffffff",
-              }} onClick={()=>{
-                closeAlert() 
-                nav("/")
-            }} ml={3}>
-                  돌아가기
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </AlertDialog>
+        isOpen={isAlert}
+        leastDestructiveRef={cancelRef}
+        onClose={closeAlert}
+        isCentered
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fillontSize="lg" fontWeight="bold">
+              투표참여 완료
+            </AlertDialogHeader>
+            <AlertDialogBody>투표 참여가 완료되었습니다.</AlertDialogBody>
+            <AlertDialogFooter>
+              <Button
+                sx={{
+                  backgroundColor: "#53535f !important",
+                  color: "#ffffff",
+                }}
+                onClick={() => {
+                  closeAlert();
+                }}
+                ml={3}
+              >
+                돌아가기
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
       <AlertDialog
-          isOpen={isAlert2}
-          leastDestructiveRef={cancelRef}
-          onClose={closeAlert2}
-          isCentered
-        >
-          <AlertDialogOverlay>
-            <AlertDialogContent>
-              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
-                투표참여 오류발생
-              </AlertDialogHeader>
-              <AlertDialogBody>
-                {error}
-              </AlertDialogBody>
-              <AlertDialogFooter>
-                <Button  sx={{
-                backgroundColor: "#53535f !important",
-                color: "#ffffff",
-              }} onClick={()=>{
-                closeAlert2() 
-            }} ml={3}>
-                  돌아가기
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </AlertDialog>
+        isOpen={isAlert2}
+        leastDestructiveRef={cancelRef}
+        onClose={closeAlert2}
+        isCentered
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fillontSize="lg" fontWeight="bold">
+              투표참여 오류발생
+            </AlertDialogHeader>
+            <AlertDialogBody>{error}</AlertDialogBody>
+            <AlertDialogFooter>
+              <Button
+                sx={{
+                  backgroundColor: "#53535f !important",
+                  color: "#ffffff",
+                }}
+                onClick={() => {
+                  closeAlert2();
+                }}
+                ml={3}
+              >
+                돌아가기
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </>
   );
 };
