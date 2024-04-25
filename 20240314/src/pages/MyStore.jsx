@@ -52,7 +52,6 @@ export default () => {
       fetch("/api/showitems", { method: "get" })
         .then((response) => {
           if (response) {
-            console.log(response);
             return response.json();
           } else {
             throw new Error(e);
@@ -61,7 +60,6 @@ export default () => {
         .then((data) => {
           if (data) {
             setStores(data);
-            console.log("data", data);
           } else {
             alert(`상품을 출력하는 동안 오류 발생:${data.error}`);
           }
@@ -77,7 +75,6 @@ export default () => {
       fetch("/api/showuseitems", { method: "get" })
         .then((response) => {
           if (response) {
-            console.log(response);
             return response.json();
           } else {
             throw new Error(e);
@@ -86,7 +83,6 @@ export default () => {
         .then((data) => {
           if (data) {
             setuseStores(data);
-            console.log("data", data);
           } else {
             alert(`상품을 출력하는 동안 오류 발생:${data.error}`);
           }
@@ -99,8 +95,6 @@ export default () => {
 
   const usemyitem = (e, title, id) => {
     e.preventDefault();
-    alert("아이템을 사용합니다.");
-    // console.log(title);
     fetch("/api/usemyitem", {
       method: "post",
       headers: {
@@ -110,9 +104,8 @@ export default () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
-          nav("/topicrequest/:category");
+          onOpen();
         } else {
           alert("오류가 발생했습니다.");
           console.log("사용 실패");
@@ -277,7 +270,7 @@ export default () => {
                 color={"#ffffff"}
                 onClick={() => {
                   onClose();
-                  nav("/");
+                  nav("/topicrequest/:category");
                 }}
                 ml={3}
               >
