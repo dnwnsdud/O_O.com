@@ -9,7 +9,8 @@ import {
     Input,
     Select,
     Stack,
-    Textarea
+    Textarea,
+    Box
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -24,19 +25,19 @@ export default () => {
     const [righttitle, setRighttitle] = useState("");
     const [rightcontent, setRightcontent] = useState("");
     const [rightimage, setRightimage] = useState("");
-    const {user} =useContext(UserContext)
+    const { user } = useContext(UserContext)
     let nav = useNavigate();
-    useEffect(()=>{
-        console.log(user,'alskjaslkdjf');
-        if(user){
+    useEffect(() => {
+        console.log(user, 'alskjaslkdjf');
+        if (user) {
             console.log(user);
             // user.role != 'admin'
             // nav('/')
         }
-    },[])
+    }, [])
 
 
-    
+
 
     const onCategoryHandler = (e) => {
         setCategory(e.target.value);
@@ -149,48 +150,50 @@ export default () => {
     }
 
     return <>
-        <Center>
-            <Stack gap={6}>
-                <Heading>오늘의 O_O 작성</Heading>
-                <FormControl>
-                    <FormLabel>카테고리</FormLabel>
-                    <Select defaultValue={"main"} onChange={onCategoryHandler}>
-                        <option value='main'>메인</option>
-                        <option value='baseball'>야구</option>
-                        <option value='lol'>LoL</option>
-                        <option value='soccer'>축구</option>
-                        <option value='society'>사회</option>
-                    </Select>
-                </FormControl>
-                <FormControl isRequired>
-                    <FormLabel>주제</FormLabel>
-                    <Input type='text' onChange={onTopicHandler} />
-                </FormControl>
-                <Flex gap={4} justifyContent={"space-between"} alignItems={"center"}>
-                    <Stack gap={4}>
-                        <FormControl isRequired>
-                            <FormLabel>왼쪽 제목</FormLabel>
-                            <Input type='text' onChange={onLefttitleHandler} />
-                            <FormLabel>왼쪽 내용</FormLabel>
-                            <Textarea resize={"none"} onChange={onLeftcontentHandler} />
-                        </FormControl>
-                        <FormLabel>왼쪽 이미지</FormLabel>
-                        <Input type='file' onChange={lefthandleImagesChange} />
-                    </Stack>
-                    <Divider borderColor={"#eaeaea"} borderWidth={"1px"} orientation="vertical" h={"240px"} />
-                    <Stack gap={4}>
-                        <FormControl isRequired>
-                            <FormLabel>오른쪽 제목</FormLabel>
-                            <Input type='text' onChange={onRighttitleHandler} />
-                            <FormLabel>오른쪽 내용</FormLabel>
-                            <Textarea resize={"none"} onChange={onRightcontentHandler} />
-                        </FormControl>
-                        <FormLabel>오른쪽 이미지</FormLabel>
-                        <Input type='file' onChange={righthandleImagesChange} />
-                    </Stack>
-                </Flex>
-                <Button onClick={onSubmitHandler}>작성</Button>
-            </Stack>
+        <Center bg='#f7f7f8'>
+            <Box my='10' bg='#fff' w={'35%'} borderRadius={'10px'} border={'1px solid #f7f7f8'} shadow={'base'}>
+                <Stack gap={6} w='80%' margin='auto' py='10'>
+                    <Heading textAlign={'center'}>오늘의 O_O 작성</Heading>
+                    <FormControl>
+                        <FormLabel>카테고리</FormLabel>
+                        <Select defaultValue={"main"} onChange={onCategoryHandler}>
+                            <option value='main'>메인</option>
+                            <option value='baseball'>야구</option>
+                            <option value='lol'>LoL</option>
+                            <option value='soccer'>축구</option>
+                            <option value='society'>사회</option>
+                        </Select>
+                    </FormControl>
+                    <FormControl isRequired>
+                        <FormLabel>주제</FormLabel>
+                        <Input type='text' onChange={onTopicHandler} />
+                    </FormControl>
+                    <Flex gap={4} justifyContent={"space-between"} alignItems={"center"}>
+                        <Stack gap={4}>
+                            <FormControl isRequired>
+                                <FormLabel>왼쪽 제목</FormLabel>
+                                <Input type='text' onChange={onLefttitleHandler} />
+                                <FormLabel>왼쪽 내용</FormLabel>
+                                <Textarea resize={"none"} onChange={onLeftcontentHandler} />
+                            </FormControl>
+                            <FormLabel>왼쪽 이미지</FormLabel>
+                            <Input type='file' onChange={lefthandleImagesChange} />
+                        </Stack>
+                        <Divider borderColor={"#eaeaea"} borderWidth={"1px"} orientation="vertical" h={"240px"} />
+                        <Stack gap={4}>
+                            <FormControl isRequired>
+                                <FormLabel>오른쪽 제목</FormLabel>
+                                <Input type='text' onChange={onRighttitleHandler} />
+                                <FormLabel>오른쪽 내용</FormLabel>
+                                <Textarea resize={"none"} onChange={onRightcontentHandler} />
+                            </FormControl>
+                            <FormLabel>오른쪽 이미지</FormLabel>
+                            <Input type='file' onChange={righthandleImagesChange} />
+                        </Stack>
+                    </Flex>
+                    <Button onClick={onSubmitHandler}>작성</Button>
+                </Stack>
+            </Box>
         </Center>
     </>
 }

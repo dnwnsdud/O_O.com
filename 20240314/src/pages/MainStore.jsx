@@ -16,16 +16,16 @@ export default () => {
 
     let nav = useNavigate();
     const { user } = useContext(UserContext);
-    const { isOpen:isOpen, onOpen:onOpen, onClose:onClose } = useDisclosure()
-    const { isOpen:isOpen2, onOpen:onOpen2, onClose:onClose2 } = useDisclosure()
-    const { isOpen:isOpen3, onOpen:onOpen3, onClose:onClose3 } = useDisclosure()
-    const [alert,setAlert] = useState("");
+    const { isOpen: isOpen, onOpen: onOpen, onClose: onClose } = useDisclosure()
+    const { isOpen: isOpen2, onOpen: onOpen2, onClose: onClose2 } = useDisclosure()
+    const { isOpen: isOpen3, onOpen: onOpen3, onClose: onClose3 } = useDisclosure()
+    const [alert, setAlert] = useState("");
     const cancelRef = React.useRef()
 
     const swiperStyle = {
         position: "relative",
         width: "90%",
-        height: "200px",
+        height: "300px",
         margin: "auto",
     };
 
@@ -73,7 +73,7 @@ export default () => {
                 email: user.email
             }
             console.log("body:", body);
-            
+
             fetch(
                 "/api/storebuy",
                 {
@@ -115,8 +115,8 @@ export default () => {
         <Swiper
             style={swiperStyle}
             modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
-            spaceBetween={20}
-            slidesPerView={4}
+            spaceBetween={10}
+            slidesPerView={5}
             navigation
             pagination={{ clickable: true }}
             // scrollbar={{ draggable: true }}
@@ -124,74 +124,79 @@ export default () => {
         >
             {stores.map((store, index) => (
                 <SwiperSlide key={index} >
-                    <Box height='7rem' width='100%'  >
-                        {/* <Box>{store.images}</Box> */}
+                    <Card maxH={'20rem'}>
+                        <CardBody>
 
-                        <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'} onClick={() => {
-                            nav("/st");
-                        }}>
-                            <Image
-                                src={store.images}
-                                boxSize='100%'
-                                objectFit='cover'
-                                alt="아이템 이미지"
-                                m='auto'
-                            />
-                        </Box>
-                        <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}>{store.title}</Text>
-                        <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
-                        <Flex justifyContent={'right'}>
-                            {
-                                user.role === "admin" ?
-                                    ''
-                                    :
-                                    <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
-                                        onClick={(e) => buyStore(e, store.price, store.title, store.images)}
-                                    >구매</Button>
-                            }
-                        </Flex>
-                    </Box>
+                            <Box>
+                                <Box borderRadius={'8px'} overflow={'hidden'} onClick={() => {
+                                    nav("/st");
+                                }}>
+                                    <Image
+                                        src={store.images}
+                                        boxSize='100%'
+                                        objectFit='cover'
+                                        alt="아이템 이미지"
+                                        m='auto'
+                                    />
+                                </Box>
+                                <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'}
+                                    minH={'3rem'} alignContent={'center'}>{store.title}</Text>
+                                <Text textAlign={'center'} fontSize={'13'}>{store.price}원</Text>
+                                <Flex justifyContent={'right'}>
+                                    {
+                                        user.role === "admin" ?
+                                            ''
+                                            :
+                                            <Button fontSize={10} w='100%' h='5' border='1px solid #ddd'
+                                                onClick={(e) => buyStore(e, store.price, store.title, store.images)}
+                                            >구매</Button>
+                                    }
+                                </Flex>
+                            </Box>
+
+                        </CardBody>
+                    </Card>
                 </SwiperSlide>
             )
             )}
         </Swiper >
         <AlertDialog
-        motionPreset='slideInBottom'
-        leastDestructiveRef={cancelRef}
-        onClose={alert == "login" ? onClose : alert == "buy" ? onClose2 : "" }
-        isOpen={alert == "login" ? isOpen : alert == "buy" ? isOpen2 : "" }
-        isCentered
-      >
-        <AlertDialogOverlay />
+            motionPreset='slideInBottom'
+            leastDestructiveRef={cancelRef}
+            onClose={alert == "login" ? onClose : alert == "buy" ? onClose2 : ""}
+            isOpen={alert == "login" ? isOpen : alert == "buy" ? isOpen2 : ""}
+            isCentered
+        >
+            <AlertDialogOverlay />
 
-        <AlertDialogContent>
-          <AlertDialogHeader>{alert == "login" ? "로그인 오류" : "구매확인"}</AlertDialogHeader>
-          <AlertDialogBody>
-            {alert == "login" ? "로그인이 필요합니다!" : "구매가 완료되었습니다."}
-          </AlertDialogBody>
-          <AlertDialogFooter>
-            {alert == "login" ? <Button
-                  sx={{
-                    backgroundColor: "red !important",
-                    color: "#ffffff",
-                  }}
-                  onClick={onClose}
-                  ml={3}
-                >
-                  돌아가기
-                </Button> : <Button
-                  sx={{
-                    backgroundColor: "blue !important",
-                    color: "#ffffff",
-                  }}
-                  onClick={onClose2}
-                  ml={3}
-                >
-                  확인
-                </Button>}
-            
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+            <AlertDialogContent>
+                <AlertDialogHeader>{alert == "login" ? "로그인 오류" : "구매확인"}</AlertDialogHeader>
+                <AlertDialogBody>
+                    {alert == "login" ? "로그인이 필요합니다!" : "구매가 완료되었습니다."}
+                </AlertDialogBody>
+                <AlertDialogFooter>
+                    {alert == "login" ? <Button
+                        sx={{
+                            backgroundColor: "red !important",
+                            color: "#ffffff",
+                        }}
+                        onClick={onClose}
+                        ml={3}
+                    >
+                        돌아가기
+                    </Button> : <Button
+                        sx={{
+                            backgroundColor: "blue !important",
+                            color: "#ffffff",
+                        }}
+                        onClick={onClose2}
+                        ml={3}
+                    >
+                        확인
+                    </Button>}
+
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
     </>
 }
