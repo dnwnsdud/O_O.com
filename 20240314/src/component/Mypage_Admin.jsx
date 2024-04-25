@@ -19,6 +19,10 @@ export default () => {
   const [writeData, setwriteData] = useState([]);
   const [commentData, setcommentData] = useState([]);
   const [render, setRender] = useState(false);
+  const [baseballData, setBaseballData] = useState([]);
+  const [lolData, setLolData] = useState([]);
+  const [soccerData, setSoccerData] = useState([]);
+  const [societyData, setSocietyData] = useState([]);
   let nav = useNavigate();
 
   useEffect(
@@ -50,7 +54,29 @@ export default () => {
               alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
             }
           })
-          .catch((error) => {});
+          .catch((error) => { });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+      try {
+        fetch("/api/requestlist")
+          .then((res) => {
+            if (res) {
+              return res.json();
+            } else {
+              throw new Error("Network response was not ok");
+            }
+          })
+          .then((data) => {
+            if (data) {
+              setBaseballData(data.baseball);
+              setLolData(data.lol);
+              setSoccerData(data.soccer);
+              setSocietyData(data.society);
+            } else {
+              throw new Error("Data is empty");
+            }
+          });
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -155,15 +181,6 @@ export default () => {
                 borderRadius="10px"
               >
                 공지작성
-              </Button>
-              <Button
-                onClick={() => {
-                  nav("/");
-                }}
-                border="1px solid #e6e6ea"
-                borderRadius="10px"
-              >
-                서버관리
               </Button>
               <Button
                 onClick={() => {
@@ -292,8 +309,8 @@ export default () => {
               textAlign="center"
             >
               <Box>아이디</Box>
-              <Box paddingRight={"15px"}>댓글내용</Box>
-              <Box paddingRight={"30px"}>댓글관리</Box>
+              <Box pr={"15px"}>댓글내용</Box>
+              <Box pr={"30px"}>댓글관리</Box>
             </Grid>
             <List height="100px" overflowX="auto">
               {commentData.map((write) => {
@@ -326,10 +343,23 @@ export default () => {
               })}
             </List>
           </Box>
-          <Box>사용량</Box>
-          <Grid templateColumns="1fr 1fr 1fr" textAlign="center" gap="15px">
-            <Box width="382px" height="200px" border="1px solid #e6e6ea">
-              토픽 요청 수
+          <Box>대기중인 토픽 요청</Box>
+          <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign="center" gap="15px">
+            <Box border={"1px solid #e6e6ea"}>
+              야구
+              <Flex alignItems={"center"} justifyContent={"center"} minH={"50px"} borderTop={"1px solid #e6e6ea"}>{baseballData.length}건</Flex>
+            </Box>
+            <Box border={"1px solid #e6e6ea"}>
+              LoL
+              <Flex alignItems={"center"} justifyContent={"center"} minH={"50px"} borderTop={"1px solid #e6e6ea"}>{lolData.length}건</Flex>
+            </Box>
+            <Box border={"1px solid #e6e6ea"}>
+              축구
+              <Flex alignItems={"center"} justifyContent={"center"} minH={"50px"} borderTop={"1px solid #e6e6ea"}>{soccerData.length}건</Flex>
+            </Box>
+            <Box border={"1px solid #e6e6ea"}>
+              사회
+              <Flex alignItems={"center"} justifyContent={"center"} minH={"50px"} borderTop={"1px solid #e6e6ea"}>{societyData.length}건</Flex>
             </Box>
           </Grid>
           <Flex border="1px solid #e6e6ea" height="300px">

@@ -17,6 +17,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Spinner,
   Stack,
   Text,
   useDisclosure,
@@ -34,6 +35,7 @@ export default () => {
   const [dislikeCount, setDislikeCount] = useState(0);
   const [Check, setCheck] = useState();
   const { user } = useContext(UserContext);
+  let [isLoading, setIsLoading] = useState(true);
   const {
     isOpen: isModal,
     onOpen: openModal,
@@ -56,7 +58,22 @@ export default () => {
     dislike: "",
     email: user.email,
   };
-
+  const Loading = (align, justify, width, height) => {
+    return (
+      <Flex alignItems={align || "center"} justifyItems={justify || "center"} width={width || "200%"} height={height || ""}>
+        <Spinner
+          m={"auto"}
+          w={"80px"}
+          h={"80px"}
+          thickness="7px"
+          speed="0.65s"
+          color="black.500"
+          size="xl"
+        />
+      </Flex>
+    );
+  };
+  
   // 게시글 나오게 하는 곳
   useEffect(
     (e) => {
@@ -76,14 +93,15 @@ export default () => {
           // console.log(Check);
           if (data.success) {
             setCheck(false);
-            console.log("ㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㅇㅁㄴ");
+            setIsLoading(false);
           } else if (!data.success) {
             setCheck(true);
-            console.log("ASDasdasdasdasdas");
+            setIsLoading(false);
           }
           setbaDetails(data.updatedDocument);
           setLikeCount(data.updatedDocument.like);
           setDislikeCount(data.updatedDocument.dislike);
+          setIsLoading(false);
         });
     },
     [user.email, id]
@@ -106,9 +124,9 @@ export default () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data, "확인");
         alert(data.message);
         setLikeCount(data.updatedDocument.like);
+        setIsLoading(false);
       });
   };
 
@@ -130,9 +148,9 @@ export default () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data, "확인");
         alert(data.message);
         setDislikeCount(data.updatedDocument.dislike);
+        setIsLoading(false);
       });
   };
 
@@ -171,8 +189,8 @@ export default () => {
   };
   console.log(user);
 
-  if (!baDetails) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return Loading("center", "center", "100%", "100vh")
   }
   return (
     <Box bg="#f7f7f8">

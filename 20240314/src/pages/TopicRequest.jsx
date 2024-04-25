@@ -33,7 +33,7 @@ export default () => {
   const [rightimage, setRightimage] = useState("");
 
   useEffect(() => {
-    if (user === null || user === "logout" || user.role === "user") {
+    if (user === null || user === "logout") {
       nav("/");
     } else {
       setRender(true);
