@@ -41,7 +41,6 @@ export default () => {
     name: name,
     email: paramValue,
     nickname: nickname,
-    role: "admin",
   };
   const onSubmitHandler = (e) => {
     //새로고침 방지

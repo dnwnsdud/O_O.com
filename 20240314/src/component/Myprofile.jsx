@@ -15,8 +15,7 @@ import {
   Text,
   Spinner,
 } from "@chakra-ui/react";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../hook/User";
 
 import Mypost from "./Mypost";
@@ -42,7 +41,6 @@ const Loading = (align, justify, width, height) => {
 
 export default () => {
   const [userData, setUserData] = useState([]);
-  const { setUser } = useContext(UserContext);
   let [isLoading, setIsLoading] = useState(true);
 
   let nav = useNavigate();
