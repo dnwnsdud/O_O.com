@@ -20,7 +20,7 @@ export default () => {
         position: "relative",
         width: "90%",
         height: "100%",
-        margin: "auto",
+        margin: "20px auto",
     };
     const [stores, setStores] = useState([]);
     const [usestores, setuseStores] = useState([]);
@@ -108,13 +108,13 @@ export default () => {
 
 
     return (
-        <Box bg='#fff'>
+        <Box bg='#fff' minH={'30rem'} alignContent='center'>
             {stores.length > 0 ? (
                 <Swiper
                     style={swiperStyle}
                     modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
-                    spaceBetween={3}
-                    slidesPerView={4}
+                    spaceBetween={10}
+                    slidesPerView={7}
                     // navigation
                     pagination={{ clickable: true }}
                     // scrollbar={{ draggable: true }}
@@ -122,8 +122,7 @@ export default () => {
                 >
                     {stores.map((store, index) => (
                         <SwiperSlide key={index}>
-                            <Box height='60%' width='60%' >
-                                {/* <Box>{store.images}</Box> */}
+                            <Box bg='#fff' border={'1px solid #f7f7f8'} minH='13rem' alignContent={'center'} borderRadius={'10px'} shadow={'base'}>
 
                                 <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'} onClick={() => {
                                     nav("/st");
@@ -136,10 +135,9 @@ export default () => {
                                         m='auto'
                                     />
                                 </Box>
-                                <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'} name='title'>{store.title}</Text>
+                                <Text h='10' alignContent={'center'} textAlign={'center'} fontSize={'14'} fontWeight={'bold'} name='title'>{store.title}</Text>
                                 <Button
                                     size='sm'
-                                    margin={'auto'}
                                     w='100%'
                                     border='1px solid #e6e6ea'
                                     onClick={(e) => usemyitem(e, store.title, store._id, store.images, store.price)}
@@ -151,55 +149,57 @@ export default () => {
                 </Swiper >
             ) : (
                 <div>상품이 없습니다.</div>
-            )}
+            )
+            }
 
-            {usestores.length > 0 ? (
-                <Swiper
-                    style={swiperStyle}
-                    modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
-                    spaceBetween={3}
-                    slidesPerView={4}
-                    // navigation
-                    pagination={{ clickable: true }}
-                    // scrollbar={{ draggable: true }}
-                    onSlideChange={() => console.log('slide change')}
-                >
-                    {usestores.map((store, index) => (
-                        <SwiperSlide key={index}>
-                            <Box height='60%' width='60%' >
+            {
+                usestores.length > 0 ? (
+                    <Swiper
+                        style={swiperStyle}
+                        modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
+                        spaceBetween={10}
+                        slidesPerView={7}
+                        // navigation
+                        pagination={{ clickable: true }}
+                        // scrollbar={{ draggable: true }}
+                        onSlideChange={() => console.log('slide change')}
+                    >
+                        {usestores.map((store, index) => (
+                            <SwiperSlide key={index}>
+                                <Box bg='#fff' border={'1px solid #f7f7f8'} minH='13rem' alignContent={'center'} borderRadius={'10px'} shadow={'base'}>
 
-                                <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'} onClick={() => {
-                                    nav("/st");
-                                }}>
-                                    <Image
-                                        src={store.images}
-                                        boxSize='100%'
-                                        objectFit='cover'
-                                        alt="아이템 이미지"
-                                        m='auto'
-                                    />
+                                    <Box w='100%' h='7rem' borderRadius={'8px'} overflow={'hidden'} onClick={() => {
+                                        nav("/st");
+                                    }}>
+                                        <Image
+                                            src={store.images}
+                                            boxSize='100%'
+                                            objectFit='cover'
+                                            alt="아이템 이미지"
+                                            m='auto'
+                                        />
+                                    </Box>
+                                    <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'} name='title'>{store.title}</Text>
+                                    <Button
+                                        size='sm'
+                                        w='100%'
+                                        border='1px solid #e6e6ea'
+                                        onClick={() => {
+                                            nav('/topicrequest/:category')
+                                        }
+                                        }
+                                        color='darkblue'
+                                    >사용중</Button>
+
                                 </Box>
-                                <Text textAlign={'center'} fontSize={'14'} fontWeight={'bold'} name='title'>{store.title}</Text>
-                                <Button
-                                    size='sm'
-                                    margin={'auto'}
-                                    w='100%'
-                                    border='1px solid #e6e6ea'
-                                    onClick={() => {
-                                        nav('/topicrequest/:category')
-                                    }
-                                    }
-                                    color='darkblue'
-                                >사용중</Button>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper >
+                ) : (
+                    ""
+                )
+            }
 
-                            </Box>
-                        </SwiperSlide>
-                    ))}
-                </Swiper >
-            ) : (
-                ""
-            )}
-
-        </Box>
+        </Box >
     );
 }    
