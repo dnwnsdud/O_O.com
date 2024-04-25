@@ -26,7 +26,12 @@ import { IoPeopleCircleSharp } from "react-icons/io5";
 
 const Loading = (align, justify, width, height) => {
   return (
-    <Flex alignItems={align || "center"} justifyItems={justify || "center"} width={width || "200%"} height={height || ""}>
+    <Flex
+      alignItems={align || "center"}
+      justifyItems={justify || "center"}
+      width={width || "200%"}
+      height={height || ""}
+    >
       <Spinner
         m={"auto"}
         w={"80px"}
@@ -65,7 +70,7 @@ export default () => {
             alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
           }
         })
-        .catch((error) => { });
+        .catch((error) => {});
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -74,7 +79,7 @@ export default () => {
   return (
     <Box bg="#f7f7f8">
       {isLoading && Loading("center", "center", "100%", "80vh")}
-      {!isLoading &&
+      {!isLoading && (
         <Grid
           width={"65%"}
           margin={"auto"}
@@ -150,7 +155,7 @@ export default () => {
                   marginBottom="5px"
                   h={"25px"}
                   color="black"
-                  width="50%"
+                  width="80%"
                   margin="auto"
                 >
                   {userData.email}
@@ -161,7 +166,7 @@ export default () => {
                   marginBottom="5px"
                   h={"25px"}
                   color="black"
-                  width="50%"
+                  width="80%"
                   margin="auto"
                 >
                   {userData.team}
@@ -172,7 +177,7 @@ export default () => {
                   marginBottom="5px"
                   h={"25px"}
                   color="black"
-                  width="50%"
+                  width="80%"
                   margin="auto"
                 >
                   포인트 {userData.point}
@@ -183,11 +188,16 @@ export default () => {
                   marginBottom="5px"
                   h={"25px"}
                   color="black"
-                  width="50%"
+                  width="80%"
                   margin="auto"
                 >
-                  {userData.rating && userData.rating.win + userData.rating.lose > 0
-                    ? ((userData.rating.win) / (userData.rating.win + userData.rating.lose) * 100).toFixed(1) + "%"
+                  {userData.rating &&
+                  userData.rating.win + userData.rating.lose > 0
+                    ? (
+                        (userData.rating.win /
+                          (userData.rating.win + userData.rating.lose)) *
+                        100
+                      ).toFixed(1) + "%"
                     : "승률 정보 없음"}
                 </Box>
               </Grid>
@@ -226,7 +236,7 @@ export default () => {
             <MyStore />
           </GridItem>
         </Grid>
-      }
+      )}
     </Box>
   );
 };
