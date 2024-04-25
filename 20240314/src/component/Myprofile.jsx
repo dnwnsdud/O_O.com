@@ -15,8 +15,7 @@ import {
   Text,
   Spinner,
 } from "@chakra-ui/react";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../hook/User";
 
 import Mypost from "./Mypost";

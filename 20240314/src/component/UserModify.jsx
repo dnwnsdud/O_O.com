@@ -163,7 +163,8 @@ export default () => {
           if (data.success === true) {
             setUser("logout");
             onOpen();
-            nav("/deleteloading");
+            nav("/");
+            window.location.reload()
           } else {
             alert(`사용자를 삭제하는 동안 오류 발생:${data.error}`);
           }
