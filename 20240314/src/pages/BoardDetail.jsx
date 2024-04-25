@@ -1,4 +1,11 @@
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   AspectRatio,
   Box,
   Button,
@@ -27,7 +34,17 @@ export default () => {
   const [dislikeCount, setDislikeCount] = useState(0);
   const [Check, setCheck] = useState();
   const { user } = useContext(UserContext);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isModal,
+    onOpen: openModal,
+    onClose: closeModal,
+  } = useDisclosure();
+  const {
+    isOpen: isAlert,
+    onOpen: openAlert,
+    onClose: closeAlert,
+  } = useDisclosure();
+  const cancelRef = React.useRef();
 
   const location = useLocation();
   const nav = useNavigate();
@@ -124,31 +141,24 @@ export default () => {
     e.preventDefault();
     console.log("삭제");
     console.log("내 아이디다" + userid);
-    if (confirm("이 게시글을 삭제하시겠습니까?")) {
-      fetch("/api/boarddelete", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-        body: JSON.stringify({ id: userid, email: useremail, postid: postId }),
+    fetch("/api/boarddelete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: JSON.stringify({ id: userid, email: useremail, postid: postId }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          nav("/b");
+        } else {
+        }
       })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.success) {
-            alert("삭제되었습니다.");
-            nav("/b");
-          } else {
-            alert("작성자만 삭제할 수 있습니다");
-            console.log("삭제 실패얌");
-          }
-        })
-        .catch((error) => {
-          console.error("아이템 삭제 실패 : ", error);
-        });
-    } else {
-      console.log("삭제 취소됨");
-    }
+      .catch((error) => {
+        console.error("아이템 삭제 실패 : ", error);
+      });
   };
 
   // 시간 함수
@@ -210,13 +220,15 @@ export default () => {
                 <MenuButton color={"#46a3d2"} fontWeight="bold">
                   {baDetails.nickname}
                 </MenuButton>
-                <MenuList minWidth="120px" fontWeight={'bold'}>
+                <MenuList minWidth="120px" fontWeight={"bold"}>
                   {user === "logout" ? (
-                    <MenuItem disabled opacity={"0.5"} color='crimson'>
+                    <MenuItem disabled opacity={"0.5"} color="crimson">
                       신고하기
                     </MenuItem>
                   ) : (
-                    <MenuItem onClick={onOpen} color='crimson'>신고하기</MenuItem>
+                    <MenuItem color={"crimson"} onClick={openModal}>
+                      신고하기
+                    </MenuItem>
                   )}
                   <MenuItem
                     onClick={() =>
@@ -232,8 +244,8 @@ export default () => {
                 </MenuList>
               </Menu>
               <BlackModal
-                isOpen={isOpen}
-                onClose={onClose}
+                isOpen={isModal}
+                onClose={closeModal}
                 postId={id}
                 userEmail={baDetails.email}
               />
@@ -337,6 +349,40 @@ export default () => {
           <Coment user={user} />
         </Stack>
       </Stack>
+      <AlertDialog
+        motionPreset="slideInBottom"
+        leastDestructiveRef={cancelRef}
+        onClose={closeAlert}
+        isOpen={isAlert}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>이 게시글을 삭제하시겠습니까?</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>작성자만 삭제할 수 있습니다.</AlertDialogBody>
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={closeAlert}>
+              취소
+            </Button>
+            {user !== "logout" &&
+              (user.email === baDetails.email || user.role === "admin") && (
+                <Button
+                  sx={{
+                    backgroundColor: "red !important",
+                    color: "#ffffff",
+                  }}
+                  onClick={(e) =>
+                    deleteSubmit(e, baDetails._id, baDetails.email, id)
+                  }
+                >
+                  삭제
+                </Button>
+              )}
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Box>
   );
 };

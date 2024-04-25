@@ -7,9 +7,12 @@ import {
   Img,
   Input,
   Spinner,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import Vote from "../component/board/Vote";
+import BaBoard from "../component/board/Baboard";
 import { useLocation } from "react-router";
 import { io } from "socket.io-client";
 import BaBoard from "../component/board/Baboard";
@@ -19,7 +22,12 @@ const socket = io("http://192.168.6.3:9999", { cors: { origin: "*" } });
 
 const Loading = (align, justify, width, height) => {
   return (
-    <Flex alignItems={align || "center"} justifyItems={justify || "center"} width={width || "200%"} height={height || ""}>
+    <Flex
+      alignItems={align || "center"}
+      justifyItems={justify || "center"}
+      width={width || "200%"}
+      height={height || ""}
+    >
       <Spinner
         m={"auto"}
         w={"80px"}
@@ -33,7 +41,6 @@ const Loading = (align, justify, width, height) => {
     </Flex>
   );
 };
-
 
 export default () => {
   const { user } = useContext(UserContext);
@@ -51,7 +58,6 @@ export default () => {
     const receiveMessage = (data) => {
       setChatList((prevChatList) => [data, ...prevChatList]);
     };
-
 
     socket.emit("join_room", room);
     socket.on(chatEvent, (data) => {
@@ -110,7 +116,7 @@ export default () => {
         </Box>
         <Grid templateColumns="4fr 1.5fr" gap="20px">
           <Box borderRadius={"10px"} marginBottom="4rem">
-            {isLoading && Loading("center","center","100%","20%")}
+            {isLoading && Loading("center", "center", "100%", "20%")}
             {!isLoading && <Vote todayVote={todayVote} location={tab} />}
             <BaBoard user={user} />
           </Box>

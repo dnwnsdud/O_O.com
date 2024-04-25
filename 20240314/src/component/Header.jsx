@@ -1,5 +1,11 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Box,
   Button,
   Flex,
@@ -19,11 +25,17 @@ import UserModal from "./UserModal";
 
 export default () => {
   const { user, setUser } = useContext(UserContext);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [fill, fillChange] = useState("#0B0B0D");
   const [cl, clChange] = useState(true);
   let nav = useNavigate();
   const [isRotated, setIsRotated] = useState(false);
+  const { isOpen:isModal, onOpen:openModal, onClose:closeModal } = useDisclosure();
+  const { isOpen:isAlert, onOpen:openAlert, onClose:closeAlert } = useDisclosure();
+  const cancelRef = React.useRef();
+
+  let [error, setError] = useState("");
+
+
   const handleMenuClick = () => {
     setIsRotated(!isRotated);
   };
@@ -44,11 +56,11 @@ export default () => {
       })
       .then((data) => {
         if (data) {
-          alert("로그아웃되었습니다.");
-          nav("/");
-        } else {
-          alert("로그아웃에 실패했습니다.");
-          nav("/");
+          setError("success");
+          openAlert()
+a        } else {
+          setError("fail");
+          openAlert()
         }
       });
   };
@@ -237,13 +249,45 @@ export default () => {
               로그아웃
             </Button>
           ) : (
-            <Button size="xs" onClick={onOpen}>
+            <Button size="xs" onClick={openModal}>
               로그인
             </Button>
           )}
         </Stack>
       </Grid>
-      <UserModal isOpen={isOpen} onClose={onClose} />
+      <UserModal isOpen={isModal} onClose={closeModal} />
+      <AlertDialog
+          isOpen={isAlert}
+          leastDestructiveRef={cancelRef}
+          onClose={closeAlert}
+          isCentered
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
+                {error == "success" ? "로그아웃 성공" : "로그아웃 실패"}
+              </AlertDialogHeader>
+              <AlertDialogBody>
+                {error == "success" ? "로그아웃에 성공하였습니다." : "로그아웃 실패하였습니다"}
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button  sx={error == "success" ? {
+                backgroundColor: "blue !important",
+                color: "#ffffff",
+              }:{
+                backgroundColor: "red !important",
+                color: "#ffffff",
+              }} onClick={()=>{
+                closeAlert()
+                nav("/")
+            }} ml={3}>
+                  돌아가기
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
     </Box>
+    
   );
 };

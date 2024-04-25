@@ -45,9 +45,14 @@ const Loading = () => {
 
 export default ({ todayVote, main, location }) => {
   const { user } = useContext(UserContext);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen:isModal, onOpen:openModal, onClose:closeModal } = useDisclosure();
+  const { isOpen:isAlert, onOpen:openAlert, onClose:closeAlert } = useDisclosure();
+  const { isOpen:isAlert2, onOpen:openAlert2, onClose:closeAlert2 } = useDisclosure();
   let nav = useNavigate();
   let [choice, setChoice] = useState("");
+  const cancelRef = React.useRef();
+  let [error, setError] = useState("");
+
   const disableScroll = () => {
     document.body.style.overflow = "hidden";
   };
@@ -79,9 +84,10 @@ export default ({ todayVote, main, location }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success === true) {
-          alert("수정전");
+          openAlert();
         } else {
-          alert(data.success);
+          openAlert2();
+          setError(data.success);
         }
       });
   };
@@ -145,7 +151,7 @@ export default ({ todayVote, main, location }) => {
             backgroundColor="#53535f !important"
             color={"#ffffff"}
             onClick={() => {
-              onOpen();
+              openModal();
               disableScroll();
             }}
             _hover={{backgroundColor:"gray.800 !important"}}
@@ -155,11 +161,11 @@ export default ({ todayVote, main, location }) => {
         </Flex>
       </Flex>
 
-      {isOpen && (
+      {isModal && (
         <>
           {window.addEventListener("keydown", (e) => {
             if (e.key === "Escape") {
-              onClose();
+              closeModal();
               setChoice("");
               enableScroll();
               window.removeEventListener("keydown", (e) => {});
@@ -176,7 +182,7 @@ export default ({ todayVote, main, location }) => {
             h={"100%"}
             color={"black"}
             onClick={() => {
-              onClose();
+              closeModal();
               enableScroll();
               setChoice("");
             }}
@@ -189,8 +195,8 @@ export default ({ todayVote, main, location }) => {
             zIndex={999999}
             bg={"white"}
             direction={"column"}
-            isOpen={isOpen}
-            onClose={onClose}
+            isOpen={isModal}
+            onClose={closeModal}
             w={"60%"}
             maxW={"800px"}
             position={"fixed"}
@@ -199,7 +205,8 @@ export default ({ todayVote, main, location }) => {
             transform={"translate(-50%, -50%)"}
             onKeyDown={(e) => {
               if (e.key === "esc") {
-                onClose();
+                closeModal();
+                document.body.style.overflow = "auto";
                 enableScroll();
               }
             }}
@@ -214,7 +221,8 @@ export default ({ todayVote, main, location }) => {
                 <CloseButton
                   _hover={{ bg: "gray.100" }}
                   onClick={() => {
-                    onClose();
+                    closeModal();
+                    document.body.style.overflow = "auto";
                     enableScroll();
                     setChoice("");
                   }}
@@ -358,9 +366,12 @@ export default ({ todayVote, main, location }) => {
                     <Button
                       variant="ghost"
                       onClick={() => {
-                        if (user.role !== "admin")
+                        if (user.role !== "admin"){
+                          closeModal();
                           return alert("관리자만 가능합니다.");
-                        onClose();
+                        }
+                        document.body.style.overflow = "auto";
+                        closeModal();
                         enableScroll();
                         setChoice("");
                         endVote();
@@ -378,7 +389,9 @@ export default ({ todayVote, main, location }) => {
                       if (user === "logout")
                         return alert("로그인이 필요합니다.");
                       if (choice === "") return alert("선택해주세요.");
-                      onClose();
+                      closeModal();
+                      document.body.style.overflow = "auto";
+                      closeModal();
                       enableScroll();
                       setChoice("");
                       agree(choice, user.email);
@@ -394,7 +407,7 @@ export default ({ todayVote, main, location }) => {
                       if (user === "logout")
                         return alert("로그인이 필요합니다.");
                       nav(`/topicrequest/category=${location}`);
-                      onClose();
+                      closeModal();
                     }}
                   >
                     요청하기
@@ -405,6 +418,8 @@ export default ({ todayVote, main, location }) => {
                       if (user === "logout")
                         return alert("로그인이 필요합니다.");
                       if (choice === "") return alert("선택해주세요.");
+                      closeModal();
+                      document.body.style.overflow = "auto";
                       onClose();
                       enableScroll();
                       setChoice("");
@@ -420,25 +435,26 @@ export default ({ todayVote, main, location }) => {
         </>
       )}
 
-      {/* <AlertDialog
-          isOpen={isOpen}
+      <AlertDialog
+          isOpen={isAlert}
           leastDestructiveRef={cancelRef}
-          onClose={onClose}
-        >
+          onClose={closeAlert}
+          isCentered
+          >
           <AlertDialogOverlay>
-            <AlertDialogContent>
+            <AlertDialogContent >
               <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
-                회원가입정보 확인
+                투표참여 완료
               </AlertDialogHeader>
               <AlertDialogBody>
-                이미 가입된 회원입니다.
+                투표 참여가 완료되었습니다.
               </AlertDialogBody>
               <AlertDialogFooter>
                 <Button  sx={{
-                backgroundColor: "red !important",
+                backgroundColor: "blue !important",
                 color: "#ffffff",
               }} onClick={()=>{
-                onClose() 
+                closeAlert() 
                 nav("/")
             }} ml={3}>
                   돌아가기
@@ -446,7 +462,34 @@ export default ({ todayVote, main, location }) => {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialogOverlay>
-        </AlertDialog> */}
+        </AlertDialog>
+      <AlertDialog
+          isOpen={isAlert2}
+          leastDestructiveRef={cancelRef}
+          onClose={closeAlert2}
+          isCentered
+        >
+          <AlertDialogOverlay>
+            <AlertDialogContent>
+              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
+                투표참여 오류발생
+              </AlertDialogHeader>
+              <AlertDialogBody>
+                {error}
+              </AlertDialogBody>
+              <AlertDialogFooter>
+                <Button  sx={{
+                backgroundColor: "red !important",
+                color: "#ffffff",
+              }} onClick={()=>{
+                closeAlert2() 
+            }} ml={3}>
+                  돌아가기
+                </Button>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialogOverlay>
+        </AlertDialog>
     </>
   );
 };

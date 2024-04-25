@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
     Box, Flex, Badge, Text, HStack, Button, border,
-    Image, Tabs, TabList, Tab, TabIndicator, TabPanel, TabPanels, Grid, GridItem, SimpleGrid, Card, CardHeader, Heading, CardBody, CardFooter
+    Image, Tabs, TabList, Tab, TabIndicator, TabPanel, TabPanels, Grid, GridItem, SimpleGrid, Card, CardHeader, Heading, CardBody, CardFooter, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogCloseButton, AlertDialogBody, AlertDialogFooter, useDisclosure
 } from '@chakra-ui/react';
 import { Swiper, SwiperSlide, } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y, Controller } from 'swiper/modules';
@@ -16,6 +16,12 @@ export default () => {
 
     let nav = useNavigate();
     const { user } = useContext(UserContext);
+    const { isOpen:isOpen, onOpen:onOpen, onClose:onClose } = useDisclosure()
+    const { isOpen:isOpen2, onOpen:onOpen2, onClose:onClose2 } = useDisclosure()
+    const { isOpen:isOpen3, onOpen:onOpen3, onClose:onClose3 } = useDisclosure()
+    const [alert,setAlert] = useState("");
+    const cancelRef = React.useRef()
+
     const swiperStyle = {
         position: "relative",
         width: "90%",
@@ -53,7 +59,8 @@ export default () => {
 
     const buyStore = (e, price, title, images) => {
         if (user == "logout") {
-            alert("로그인이 필요합니다!");
+            setAlert("login")
+            onOpen()
         } else {
             console.log('구매 가격' + price);
             console.log(title);
@@ -66,7 +73,7 @@ export default () => {
                 email: user.email
             }
             console.log("body:", body);
-            alert('구매하시겠습니까?');
+            
             fetch(
                 "/api/storebuy",
                 {
@@ -85,7 +92,9 @@ export default () => {
                             throw new Error(`Server responded with status ${response.status}`);
                         });
                     }
-                    alert("구매가 완료되었습니다.");
+                    setAlert("buy")
+                    onOpen2()
+
                     return response.json();
                 })
                 .then((data) => {
@@ -146,5 +155,43 @@ export default () => {
             )
             )}
         </Swiper >
+        <AlertDialog
+        motionPreset='slideInBottom'
+        leastDestructiveRef={cancelRef}
+        onClose={alert == "login" ? onClose : alert == "buy" ? onClose2 : "" }
+        isOpen={alert == "login" ? isOpen : alert == "buy" ? isOpen2 : "" }
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>{alert == "login" ? "로그인 오류" : "구매확인"}</AlertDialogHeader>
+          <AlertDialogBody>
+            {alert == "login" ? "로그인이 필요합니다!" : "구매가 완료되었습니다."}
+          </AlertDialogBody>
+          <AlertDialogFooter>
+            {alert == "login" ? <Button
+                  sx={{
+                    backgroundColor: "red !important",
+                    color: "#ffffff",
+                  }}
+                  onClick={onClose}
+                  ml={3}
+                >
+                  돌아가기
+                </Button> : <Button
+                  sx={{
+                    backgroundColor: "blue !important",
+                    color: "#ffffff",
+                  }}
+                  onClick={onClose2}
+                  ml={3}
+                >
+                  확인
+                </Button>}
+            
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
 }
