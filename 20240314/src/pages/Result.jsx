@@ -8,7 +8,6 @@ import {
   PopoverBody,
   PopoverCloseButton,
   PopoverContent,
-  PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
   Text,
@@ -16,7 +15,8 @@ import {
   Stack,
   ButtonGroup,
   Divider,
-  Spinner
+  Spinner,
+  Img
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../hook/User";
@@ -104,7 +104,7 @@ export default () => {
       <Popover
         initialFocusRef={initialFocusRef}
         placement="bottom"
-        closeOnBlur={false}
+        closeOnBlur={true}
       >
         <PopoverTrigger>
           <Button
@@ -115,7 +115,7 @@ export default () => {
             {index + 1}회 차
           </Button>
         </PopoverTrigger>
-        <PopoverContent color="black" bg="#f5f7f8" borderColor="#f5f7f8" >
+        <PopoverContent color="black" bg="#f7f7f8" borderColor="#f5f7f8">
           <PopoverArrow bg="#f5f7f8" />
           <PopoverCloseButton />
           <PopoverHeader fontWeight="bold" minH="7rem" alignContent={"center"}>
@@ -187,8 +187,14 @@ export default () => {
           />
         </Box>
         <Grid templateColumns="1fr 4fr 1fr" gap="20px" w="100%">
-          <Box marginTop="100px" border="1px solid black" h="450px" w="100%">
-            광고
+          <Box marginTop="100px" h="450px" w="100%" position={"relative"}>
+            <Img
+              objectFit="cover"
+              w="100%"
+              h="100%"
+              src="/static/img/세로.jpg"
+            ></Img>
+            <Box position={"absolute"} fontSize="3rem" color="#ffffff" fontWeight={"bold"} top="50%" left={"50%"} transform="translate(-50%, -50%)" >광고</Box>
           </Box>
           <Box margin="20px 0" w="100%">
             <Box
@@ -397,8 +403,14 @@ export default () => {
               </Box>
             </Flex>
           </Box>
-          <Box marginTop="100px" border="1px solid black" h="450px" w="100%">
-            광고
+          <Box marginTop="100px" h="450px" w="100%" position={"relative"}>
+            <Img
+              objectFit="cover"
+              w="100%"
+              h="100%"
+              src="/static/img/세로2.jpg"
+            ></Img>
+            <Box position={"absolute"} fontSize="3rem" color="#ffffff" fontWeight={"bold"} top="50%" left={"50%"} transform="translate(-50%, -50%)" >광고</Box>
           </Box>
         </Grid>
       </Box>}

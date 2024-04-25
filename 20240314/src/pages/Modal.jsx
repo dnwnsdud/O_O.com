@@ -94,6 +94,7 @@ export default ({ isOpen, onClose, postId, userEmail }) => {
                 value={reportContent}
                 onChange={handleTextareaChange}
                 mt={4}
+                resize={"none"}
               />
             )}
           </ModalBody>
