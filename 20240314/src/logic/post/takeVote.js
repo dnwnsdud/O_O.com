@@ -12,6 +12,7 @@ export default async (req, res, next) => {
             return;
         }
         if (vote.leftSide.participants.includes(user) || vote.rightSide.participants.includes(user)) {
+            console.log("이미참여");
             res.json({ success: "이미 참여하였습니다" });
             return;
         }

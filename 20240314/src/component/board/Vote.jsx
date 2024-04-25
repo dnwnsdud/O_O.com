@@ -62,6 +62,8 @@ export default ({ todayVote, main, location }) => {
   let [choice, setChoice] = useState("");
   const cancelRef = React.useRef();
   let [error, setError] = useState("");
+  let [state, setState] = useState("");
+
 
   const disableScroll = () => {
     document.body.style.overflow = "hidden";
@@ -94,10 +96,11 @@ export default ({ todayVote, main, location }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success === true) {
-          openAlert();
+          setState("success")
+          openAlert()
         } else {
-          openAlert2();
-          setError(data.success);
+          setState("fail")
+          openAlert()
         }
       });
   };
@@ -430,7 +433,7 @@ export default ({ todayVote, main, location }) => {
                       if (choice === "") return alert("선택해주세요.");
                       closeModal();
                       document.body.style.overflow = "auto";
-                      closeAlert();
+                      closeModal();
                       enableScroll();
                       setChoice("");
                       agree(choice, user.email);
@@ -454,9 +457,9 @@ export default ({ todayVote, main, location }) => {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fillontSize="lg" fontWeight="bold">
-              투표참여 완료
+              투표참여
             </AlertDialogHeader>
-            <AlertDialogBody>투표 참여가 완료되었습니다.</AlertDialogBody>
+            <AlertDialogBody>{state == "success" ? "투표참여가 완료되었습니다.": "이미 참여하였습니다."}</AlertDialogBody>
             <AlertDialogFooter>
               <Button
                 sx={{
@@ -474,7 +477,7 @@ export default ({ todayVote, main, location }) => {
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
-      <AlertDialog
+      {/* <AlertDialog
         isOpen={isAlert2}
         leastDestructiveRef={cancelRef}
         onClose={closeAlert2}
@@ -502,7 +505,7 @@ export default ({ todayVote, main, location }) => {
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialogOverlay>
-      </AlertDialog>
+      </AlertDialog> */}
     </>
   );
 };
