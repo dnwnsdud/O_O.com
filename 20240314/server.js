@@ -294,22 +294,9 @@ app.post(
   },
   async (req, res, next) => {
     try {
-      console.log("ddd");
-      // 이미지 업로드 후에 req.files에 이미지 정보가 담겨 있음
-      console.log("업로드된 이미지:", req.files);
-
-      // 이미지의 경로를 저장
-      const mediapath = req.files.map((file) => file.path).join(";"); // 경로를 구분자로 연결하여 하나의 문자열로 만듦
-      console.log(mediapath);
-      // const { title, price } = req.body;
-
-      // 상품 정보를 데이터베이스에 저장하는 코드
-      // const store = new req.mongo.store({
-
-      //   images: mediapath // 이미지의 경로 저장
-      // });
-      // await store.save();
-      // next();
+      const mediapath = req.files
+        .map((file) => `\\${file.path}`) // 각 경로 앞에 '/' 추가
+        .join(";"); // 구분자로 연결      console.log(mediapath);
       res.status(200).json({
         success: true,
         message: "이미지 및 상품 정보 업로드 완료",
@@ -333,22 +320,7 @@ app.post(
   },
   async (req, res, next) => {
     try {
-      console.log("ddd");
-      // 동영상 업로드 후에 req.files에 동영상 정보가 담겨 있음
-      console.log("업로드된 이미지:", req.files);
-
-      // 이미지의 경로를 저장
       const mediapath = req.files.map((file) => file.path).join(";"); // 경로를 구분자로 연결하여 하나의 문자열로 만듦
-      console.log(mediapath, "이거 확인하고싶어");
-      // const { title, price } = req.body;
-
-      // 상품 정보를 데이터베이스에 저장하는 코드
-      // const store = new req.mongo.store({
-
-      //   images: mediapath // 이미지의 경로 저장
-      // });
-      // await store.save();
-      // next();
       res.status(200).json({
         success: true,
         message: "이미지 및 상품 정보 업로드 완료",
@@ -472,17 +444,13 @@ io.use(
     autoSave: true,
   })
 );
-httpServer.listen(process.env.CHAT, () => {
-  console.log(`Port ${process.env.CHAT} server open!`);
-});
+httpServer.listen(process.env.CHAT, () => {});
 io.on("connection", (socket) => {
   socket.on("join_room", (room) => {
     socket.join(room);
-    console.log(`${socket.id} , ${room}`);
   });
   // 축구
   socket.on("s_chat", (data) => {
-    console.log(data);
     const { room, user, chat } = data;
     if (room && user && chat) {
       io.to(room).emit("s_chat", {
@@ -496,7 +464,6 @@ io.on("connection", (socket) => {
   // 축구
   // 야구
   socket.on("b_chat", (data) => {
-    console.log(data);
     const { room, user, chat } = data;
     if (room && user && chat) {
       io.to(room).emit("b_chat", {
@@ -510,7 +477,6 @@ io.on("connection", (socket) => {
   // 야구
   // 롤
   socket.on("l_chat", (data) => {
-    console.log(data);
     const { room, user, chat } = data;
     if (room && user && chat) {
       io.to(room).emit("l_chat", {
@@ -524,7 +490,6 @@ io.on("connection", (socket) => {
   // 롤
   // 사회
   socket.on("c_chat", (data) => {
-    console.log(data);
     const { room, user, chat } = data;
     if (room && user && chat) {
       io.to(room).emit("c_chat", {
@@ -542,12 +507,6 @@ io.on("connection", (socket) => {
   });
   socket.on("error", (err) => {
     console.error(err);
-  });
-  socket.on("soccer", (v) => {
-    console.log(v);
-    if (v.startsWith("chat:")) {
-      io.emit("soccer", v.slice(5));
-    }
   });
 });
 
