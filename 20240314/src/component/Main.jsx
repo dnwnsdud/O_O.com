@@ -175,7 +175,7 @@ export default () => {
           <Box
             cursor={"pointer"}
             bg={"white"}
-            h={"15%"}
+            h={"18%"}
             borderRadius={"10px"}
             boxShadow={"md"}
           >
