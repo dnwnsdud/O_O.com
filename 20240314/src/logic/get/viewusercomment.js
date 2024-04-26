@@ -18,7 +18,7 @@ export default async (req, res, next) => {
             _id: "$comment._id",
             createdAt: "$comment.createdAt",
           },
-        }, // comment 필드만 유지
+        },
       ])
       .sort({ _id: -1 });
     const commentCount = mycomments.length;

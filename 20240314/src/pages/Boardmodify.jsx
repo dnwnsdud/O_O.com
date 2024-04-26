@@ -13,7 +13,7 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default () => {
@@ -128,7 +128,6 @@ export default () => {
           if (data.success) {
             const imagePath = data.mediapath;
             setImage(imagePath);
-            console.log();
             alert("이미지 업로드 성공!!");
           } else {
             console.error("이미지 업로드 실패:", data.error);

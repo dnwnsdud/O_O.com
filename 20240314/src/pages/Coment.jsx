@@ -7,16 +7,16 @@ import {
   FormErrorMessage,
   FormHelperText,
   FormLabel,
+  Grid,
   Input,
-  Stack,
-  Text,
-  Textarea,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
-  Grid,
-  useDisclosure
+  Stack,
+  Text,
+  Textarea,
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -66,7 +66,6 @@ export default ({ user }) => {
       })
       .then((data) => {
         if (data) {
-          console.log("댓글 성공!");
           setbaDetails(data.comment);
           setContent("");
         } else {
@@ -74,7 +73,7 @@ export default ({ user }) => {
           alert(`댓글을 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
 
   useEffect(() => {
@@ -93,14 +92,13 @@ export default ({ user }) => {
       })
       .then((data) => {
         if (data) {
-          console.log("댓글 성공!");
           setbaDetails(data.comment);
         } else {
           console.log(data.error);
           alert(`댓글을 가져오는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   }, []);
 
   const toggleModify = (commentId) => {
@@ -116,28 +114,30 @@ export default ({ user }) => {
       postId: id,
     };
 
-    try {
-      fetch("/api/commentdelete", {
-        method: "post",
-        body: JSON.stringify(body),
-      })
-        .then((res) => {
-          if (res) {
-            return res.json();
-          } else {
-            throw new Error();
-          }
+    if (confirm("댓글을 삭제하시겠습니까?")) {
+      try {
+        fetch("/api/commentdelete", {
+          method: "post",
+          body: JSON.stringify(body),
         })
-        .then((data) => {
-          if (data) {
-            setbaDetails(data.comment);
-            console.log("댓글을 삭제하였습니다.");
-          } else {
-            alert("댓글 삭제에 실패하였습니다.");
-          }
-        });
-    } catch (error) {
-      console.log(error);
+          .then((res) => {
+            if (res) {
+              return res.json();
+            } else {
+              throw new Error();
+            }
+          })
+          .then((data) => {
+            if (data) {
+              alert("댓글을 삭제합니다.");
+              setbaDetails(data.comment);
+            } else {
+              alert("댓글 삭제에 실패하였습니다.");
+            }
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   const submitModify = (commentId) => {
@@ -147,17 +147,13 @@ export default ({ user }) => {
       postId: id,
       content: modifiedContent,
     };
-    fetch(
-      "/api/commentupdate",
-      {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+    fetch("/api/commentupdate", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
       },
-      console.log("해볼게")
-    )
+      body: JSON.stringify(body),
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("에런데영");
@@ -166,7 +162,6 @@ export default ({ user }) => {
       })
       .then((data) => {
         if (data) {
-          console.log("댓글 수정 성공!");
           setbaDetails(data.comment);
           setCmtModify({
             ...cmtmodify,
@@ -177,7 +172,7 @@ export default ({ user }) => {
           alert(`댓글을 수정하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
 
   return (
@@ -207,7 +202,11 @@ export default ({ user }) => {
             <Box key={detail._id} borderBottom="1px solid #e0e0e0">
               <Grid key={detail._id} templateColumns="2fr 5fr">
                 <Menu>
-                  <MenuButton textAlign="left" color={"#46a3d2"} fontWeight="bold">
+                  <MenuButton
+                    textAlign="left"
+                    color={"#46a3d2"}
+                    fontWeight="bold"
+                  >
                     {detail.nickname}
                   </MenuButton>
                   <MenuList minWidth="120px">
@@ -259,10 +258,16 @@ export default ({ user }) => {
                   )
                 ) : (
                   <Flex justifyContent="flex-end">
-                    {cmtmodify[detail._id] ?
-                      "" : <Button size="xs" onClick={() => toggleModify(detail._id)}>
+                    {cmtmodify[detail._id] ? (
+                      ""
+                    ) : (
+                      <Button
+                        size="xs"
+                        onClick={() => toggleModify(detail._id)}
+                      >
                         수정
-                      </Button>}
+                      </Button>
+                    )}
                     {cmtmodify[detail._id] ? (
                       ""
                     ) : (
@@ -277,54 +282,58 @@ export default ({ user }) => {
                 )}
               </Grid>
 
-              {
-                !cmtmodify[detail._id] ? (
-                  <Box padding={"10px 0"}>{detail.content}</Box>
-                ) : (
-                  <FormControl isInvalid={isError3} isRequired>
-                    <FormLabel>내용</FormLabel>
-                    <Textarea
-                      value={modifyContent[detail._id] || detail.content}
-                      onChange={(e) => handleModifyInputChange(e, detail._id)}
-                      size={"lg"}
-                      resize={"none"}
-                      h={"150px"}
-                    />
-                    {!isError3 ? (
-                      <FormHelperText color={"#3182ce"}>
-                        입력하신 내용으로 요청이 됩니다.
-                      </FormHelperText>
-                    ) : (
-                      <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
-
-                    )}
-                    <Flex justifyContent="flex-end" gap={"3px"} paddingBottom={"10px"}>
-                      <Button size="xs" color={"#ffffff"}
+              {!cmtmodify[detail._id] ? (
+                <Box padding={"10px 0"}>{detail.content}</Box>
+              ) : (
+                <FormControl isInvalid={isError3} isRequired>
+                  <FormLabel>내용</FormLabel>
+                  <Textarea
+                    value={modifyContent[detail._id] || detail.content}
+                    onChange={(e) => handleModifyInputChange(e, detail._id)}
+                    size={"lg"}
+                    resize={"none"}
+                    h={"150px"}
+                  />
+                  {!isError3 ? (
+                    <FormHelperText color={"#3182ce"}>
+                      입력하신 내용으로 요청이 됩니다.
+                    </FormHelperText>
+                  ) : (
+                    <FormErrorMessage>해당 칸을 입력해주세요</FormErrorMessage>
+                  )}
+                  <Flex
+                    justifyContent="flex-end"
+                    gap={"3px"}
+                    paddingBottom={"10px"}
+                  >
+                    <Button
+                      size="xs"
+                      color={"#ffffff"}
+                      backgroundColor="#53535f !important"
+                      onClick={() => toggleModify(detail._id)}
+                    >
+                      {cmtmodify[detail._id] ? "취소" : "수정"}
+                    </Button>
+                    {cmtmodify[detail._id] ? (
+                      <Button
+                        size="xs"
+                        color={"#ffffff"}
                         backgroundColor="#53535f !important"
-                        onClick={() => toggleModify(detail._id)}>
-                        {cmtmodify[detail._id] ? "취소" : "수정"}
+                        onClick={() => submitModify(detail._id)}
+                      >
+                        수정
                       </Button>
-                      {cmtmodify[detail._id] ? (
-                        <Button
-                          size="xs"
-                          color={"#ffffff"}
-                          backgroundColor="#53535f !important"
-                          onClick={() => submitModify(detail._id)}
-                        >
-                          수정
-                        </Button>
-                      ) : (
-                        <Button
-                          size="xs"
-                          onClick={() => deleteComment(detail._id)}
-                        >
-                          삭제
-                        </Button>
-                      )}
-                    </Flex>
-                  </FormControl>
-                )
-              }
+                    ) : (
+                      <Button
+                        size="xs"
+                        onClick={() => deleteComment(detail._id)}
+                      >
+                        삭제
+                      </Button>
+                    )}
+                  </Flex>
+                </FormControl>
+              )}
             </Box>
           );
         })}
@@ -368,36 +377,32 @@ export default ({ user }) => {
           />
         </FormControl>
       </Box>
-      {
-        user == "logout" ? (
-          <Flex justifyContent={"end"} gap={3}>
-
-            <Button
-              backgroundColor="#53535f !important"
-              color={"#ffffff"}
-              isDisabled={true}
-              onClick={() => {
-                onSubmitHandler();
-              }}
-            >
-              작성
-            </Button>
-          </Flex>
-        ) : (
-          <Flex justifyContent={"end"} gap={3}>
-
-            <Button
-              backgroundColor="#53535f !important"
-              color={"#ffffff"}
-              onClick={() => {
-                onSubmitHandler();
-              }}
-            >
-              작성
-            </Button>
-          </Flex>
-        )
-      }
+      {user == "logout" ? (
+        <Flex justifyContent={"end"} gap={3}>
+          <Button
+            backgroundColor="#53535f !important"
+            color={"#ffffff"}
+            isDisabled={true}
+            onClick={() => {
+              onSubmitHandler();
+            }}
+          >
+            작성
+          </Button>
+        </Flex>
+      ) : (
+        <Flex justifyContent={"end"} gap={3}>
+          <Button
+            backgroundColor="#53535f !important"
+            color={"#ffffff"}
+            onClick={() => {
+              onSubmitHandler();
+            }}
+          >
+            작성
+          </Button>
+        </Flex>
+      )}
     </>
   );
 };

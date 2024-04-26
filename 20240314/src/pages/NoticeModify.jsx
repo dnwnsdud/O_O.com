@@ -13,9 +13,9 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import React, { useState, useEffect, useContext } from "react";
-import { UserContext } from "../hook/User";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { UserContext } from "../hook/User";
 
 export default () => {
   const { user } = useContext(UserContext);
@@ -49,8 +49,6 @@ export default () => {
     })
       .then((res) => {
         if (res) {
-          console.log(body);
-          console.log("성공하였습니다.");
           return res.json();
         } else {
           throw new Error(e);
@@ -58,10 +56,8 @@ export default () => {
       })
       .then((data) => {
         if (data) {
-          console.log(data);
           settitle(data.title);
           setcontent(data.content);
-          console.log(data);
         } else {
           alert(`사용자 정보를 불러오는 오류:${data.error}`);
         }
@@ -97,7 +93,7 @@ export default () => {
           alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
         }
       })
-      .catch((error) => { });
+      .catch((error) => {});
   };
 
   return (

@@ -1,17 +1,16 @@
 import {
   Box,
   Button,
+  Center,
   Divider,
   Flex,
+  Grid,
   Stack,
   Text,
-  Grid,
-  Center
 } from "@chakra-ui/react";
-import React, { useState, useContext, useEffect } from "react";
-import { UserContext } from "../hook/User";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Coment from "./Coment";
+import { UserContext } from "../hook/User";
 
 export default () => {
   const [baDetails, setbaDetails] = useState();
@@ -25,7 +24,6 @@ export default () => {
     id: id,
   };
 
-  // 게시글 나오게 하는 곳
   useEffect(
     (e) => {
       fetch(`/api/noticedetail`, {
@@ -46,15 +44,12 @@ export default () => {
           if (data) {
             setbaDetails(data);
           } else if (!data) {
-            console.log("ASDasdasdasdasdas");
           }
-          // setbaDetails(data.updatedDocument);
         });
     },
     [id]
   );
 
-  // 시간 함수
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
@@ -67,11 +62,11 @@ export default () => {
     return <div>Loading...</div>;
   }
   return (
-
     <Box bg={"#f7f7f8"}>
       <Stack
         w={"35%"}
         m={"auto"}
+        minH={"700px"}
         direction={"column"}
         justifyContent={"center"}
       >
@@ -84,13 +79,22 @@ export default () => {
           boxShadow={"md"}
           padding="20px"
         >
-          <Center fontWeight={"bold"} fontSize="30px" paddingBottom={"20px"}>공지사항</Center>
+          <Center fontWeight={"bold"} fontSize="30px" paddingBottom={"20px"}>
+            공지사항
+          </Center>
           <Flex justifyContent={"space-between"}>
             <Text fontWeight={"bold"} fontSize={"xl"} maxW="400px">
               {baDetails.title}
             </Text>
             <Grid templateRows={"1fr 1fr 1fr"} gap="1px">
-              <Box textAlign={"center"} color={"#004EA1"} fontWeight="bold" fontSize={"13px"}>{baDetails.nickname}</Box>
+              <Box
+                textAlign={"center"}
+                color={"#004EA1"}
+                fontWeight="bold"
+                fontSize={"13px"}
+              >
+                {baDetails.nickname}
+              </Box>
               <Box textAlign={"center"} fontWeight={"bold"} fontSize={"13px"}>
                 {formatDate(baDetails.createdAt)}
               </Box>
@@ -119,6 +123,6 @@ export default () => {
           </Flex>
         </Stack>
       </Stack>
-    </Box >
+    </Box>
   );
 };

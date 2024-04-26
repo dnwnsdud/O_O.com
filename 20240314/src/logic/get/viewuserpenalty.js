@@ -4,7 +4,6 @@ export default async (req, res, next) => {
   try {
     const nickname = req.query.nickname;
     const data = await req.mongo.user.find({ nickname: nickname });
-    console.log(data, "dasdasdasdd");
     const totalCount = await req.mongo.user.countDocuments({
       nickname: nickname,
     });

@@ -1,24 +1,24 @@
-import React, { useState } from "react";
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalBody,
-  ModalFooter,
-  Button,
-  Textarea,
-  Select,
-  Box,
   AlertDialog,
   AlertDialogBody,
+  AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogContent,
   AlertDialogOverlay,
+  Box,
+  Button,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Select,
+  Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
+import React, { useState } from "react";
 
 export default ({ isOpen, onClose, postId, userEmail }) => {
   const [reportContent, setReportContent] = useState("");
@@ -58,7 +58,6 @@ export default ({ isOpen, onClose, postId, userEmail }) => {
       })
       .then((data) => {
         if (data) {
-          console.log(data);
           setReportContent("");
           setSelectedOption("");
           onOpen1();

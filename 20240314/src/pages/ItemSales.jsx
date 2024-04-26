@@ -1,18 +1,14 @@
-import React, { useEffect, useState, useContext } from "react";
 import {
-  Box,
-  Container,
-  Stack,
-  Text,
-  Image,
+  Box, Card,
+  CardBody, Center,
   Grid,
-  GridItem,
-  Center,
-  Card,
-  CardBody,
+  GridItem, Image,
+  Stack,
+  Text
 } from "@chakra-ui/react";
-import { UserContext } from "../hook/User";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../hook/User";
 export default () => {
   const { user } = useContext(UserContext);
   const [render, setRender] = useState(false);
@@ -29,7 +25,6 @@ export default () => {
       fetch("/api/itemsalse", { method: "get" })
         .then((response) => {
           if (response) {
-            console.log(response);
             return response.json();
           } else {
             throw new Error(e);
@@ -38,7 +33,6 @@ export default () => {
         .then((data) => {
           if (data) {
             setStores(data);
-            console.log(data);
           } else {
             alert(`판매된 상품을 출력하는 동안 오류 발생:${data.error}`);
           }

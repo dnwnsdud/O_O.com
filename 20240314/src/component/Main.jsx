@@ -23,7 +23,12 @@ import Vote from "./board/Vote";
 
 const Loading = (align, justify, width, height) => {
   return (
-    <Flex alignItems={align || "center"} justifyItems={justify || "center"} width={width || "200%"} height={height || ""}>
+    <Flex
+      alignItems={align || "center"}
+      justifyItems={justify || "center"}
+      width={width || "200%"}
+      height={height || ""}
+    >
       <Spinner
         m={"auto"}
         w={"80px"}
@@ -122,7 +127,6 @@ export default () => {
             {!isLoading &&
               topic !== "비었음" &&
               topic.map((item, index) => {
-                console.log(topic);
                 return (
                   <Card
                     size="md"

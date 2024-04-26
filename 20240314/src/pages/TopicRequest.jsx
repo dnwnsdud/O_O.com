@@ -1,20 +1,16 @@
-import React, { useEffect, useState, useContext } from "react";
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Heading,
-  Center,
-  Flex,
-  Box,
-  Select,
-  Stack,
-  Input,
-  Textarea,
   Button,
   Divider,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  Select,
+  Stack,
+  Textarea,
 } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../hook/User";
 
@@ -75,9 +71,7 @@ export default () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log("이미지 업로드 성공");
             const imagePath = data.mediapath;
-            console.log("이미지경로: " + imagePath);
             setLeftimage(imagePath);
           } else {
             console.error("이미지 업로드 실패:", data.error);
@@ -88,7 +82,6 @@ export default () => {
         });
     }
   };
-  console.log(id);
   const righthandleImagesChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -102,9 +95,7 @@ export default () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log("이미지 업로드 성공");
             const imagePath = data.mediapath;
-            console.log("이미지경로: " + imagePath);
             setRightimage(imagePath);
           } else {
             console.error("이미지 업로드 실패:", data.error);

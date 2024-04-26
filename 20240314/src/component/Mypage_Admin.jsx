@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
   Center,
   Flex,
   Grid,
-  Stack,
   List,
   ListItem,
+  Stack,
 } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext } from "react";
 import { UserContext } from "../hook/User";
 
 export default () => {
@@ -49,12 +48,11 @@ export default () => {
               if (user.role == "user" || user == "logout") {
                 nav("/");
               }
-              console.log(user, "페이지 시작시");
             } else {
               alert(`사용자를 저장하는 동안 오류 발생:${data.error}`);
             }
           })
-          .catch((error) => { });
+          .catch((error) => {});
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -101,10 +99,8 @@ export default () => {
           }
         })
         .then((data) => {
-          console.log(data);
           if (data) {
             setUserData(data);
-            console.log("유저를 삭제하였습니다.");
           } else {
             alert("유저정보 삭제에 실패하였습니다.");
           }
@@ -133,7 +129,6 @@ export default () => {
         .then((data) => {
           if (data) {
             setcommentData(data);
-            console.log("게시글을 삭제하였습니다.");
           } else {
             alert("게시글 삭제에 실패하였습니다.");
           }
@@ -350,19 +345,47 @@ export default () => {
           <Grid templateColumns="1fr 1fr 1fr 1fr" textAlign="center" gap="15px">
             <Box border={"1px solid #e6e6ea"}>
               야구
-              <Flex alignItems={"center"} justifyContent={"center"} minH={"50px"} borderTop={"1px solid #e6e6ea"}>{baseballData.length}건</Flex>
+              <Flex
+                alignItems={"center"}
+                justifyContent={"center"}
+                minH={"50px"}
+                borderTop={"1px solid #e6e6ea"}
+              >
+                {baseballData.length}건
+              </Flex>
             </Box>
             <Box border={"1px solid #e6e6ea"}>
               LoL
-              <Flex alignItems={"center"} justifyContent={"center"} minH={"50px"} borderTop={"1px solid #e6e6ea"}>{lolData.length}건</Flex>
+              <Flex
+                alignItems={"center"}
+                justifyContent={"center"}
+                minH={"50px"}
+                borderTop={"1px solid #e6e6ea"}
+              >
+                {lolData.length}건
+              </Flex>
             </Box>
             <Box border={"1px solid #e6e6ea"}>
               축구
-              <Flex alignItems={"center"} justifyContent={"center"} minH={"50px"} borderTop={"1px solid #e6e6ea"}>{soccerData.length}건</Flex>
+              <Flex
+                alignItems={"center"}
+                justifyContent={"center"}
+                minH={"50px"}
+                borderTop={"1px solid #e6e6ea"}
+              >
+                {soccerData.length}건
+              </Flex>
             </Box>
             <Box border={"1px solid #e6e6ea"}>
               사회
-              <Flex alignItems={"center"} justifyContent={"center"} minH={"50px"} borderTop={"1px solid #e6e6ea"}>{societyData.length}건</Flex>
+              <Flex
+                alignItems={"center"}
+                justifyContent={"center"}
+                minH={"50px"}
+                borderTop={"1px solid #e6e6ea"}
+              >
+                {societyData.length}건
+              </Flex>
             </Box>
           </Grid>
           <Flex border="1px solid #e6e6ea" height="300px">

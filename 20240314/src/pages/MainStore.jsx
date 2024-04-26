@@ -1,49 +1,33 @@
-import React, { useEffect, useState, useContext } from "react";
 import {
-  Box,
-  Flex,
-  Badge,
-  Text,
-  HStack,
-  Button,
-  border,
-  Image,
-  Tabs,
-  TabList,
-  Tab,
-  TabIndicator,
-  TabPanel,
-  TabPanels,
-  Grid,
-  GridItem,
-  SimpleGrid,
-  Card,
-  CardHeader,
-  Heading,
-  CardBody,
-  CardFooter,
   AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogCloseButton,
   AlertDialogBody,
+  AlertDialogContent,
   AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
+  Box,
+  Button,
+  Card,
+  CardBody,
+  Flex,
+  Image,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Controller,
-} from "swiper/modules";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { useNavigate } from "react-router-dom";
+import {
+  A11y,
+  Controller,
+  Navigation,
+  Pagination,
+  Scrollbar,
+} from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { UserContext } from "../hook/User";
 
 export default () => {
@@ -71,7 +55,6 @@ export default () => {
       fetch("/api/showstore", { method: "get" })
         .then((response) => {
           if (response) {
-            console.log(response);
             return response.json();
           } else {
             throw new Error(e);
@@ -95,29 +78,20 @@ export default () => {
       setAlert("login");
       onOpen();
     } else {
-      console.log("구매 가격" + price);
-      console.log(title);
-      console.log(images);
-      console.log(user.email);
       let body = {
         title: title,
         price: price,
         images: images,
         email: user.email,
       };
-      console.log("body:", body);
 
-      fetch(
-        "/api/storebuy",
-        {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
+      fetch("/api/storebuy", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
         },
-        console.log(body)
-      )
+        body: JSON.stringify(body),
+      })
         .then((response) => {
           if (!response.ok) {
             return response.json().then((data) => {
@@ -152,8 +126,6 @@ export default () => {
         slidesPerView={5}
         navigation
         pagination={{ clickable: true }}
-        // scrollbar={{ draggable: true }}
-        onSlideChange={() => console.log("slide change")}
       >
         {stores.map((store, index) => (
           <SwiperSlide key={index}>

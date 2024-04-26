@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Center,
   Divider,
@@ -10,7 +11,6 @@ import {
   Select,
   Stack,
   Textarea,
-  Box,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -70,9 +70,7 @@ export default () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log("이미지 업로드 성공");
             const imagePath = data.mediapath;
-            console.log("이미지경로: " + imagePath);
             setLeftimage(imagePath);
           } else {
             console.error("이미지 업로드 실패:", data.error);
@@ -96,9 +94,7 @@ export default () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log("이미지 업로드 성공");
             const imagePath = data.mediapath;
-            console.log("이미지경로: " + imagePath);
             setRightimage(imagePath);
           } else {
             console.error("이미지 업로드 실패:", data.error);

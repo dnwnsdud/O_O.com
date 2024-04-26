@@ -1,16 +1,7 @@
-import {
-  Divider,
-  ListItem,
-  List,
-  Text,
-  Grid,
-  Box,
-  textDecoration,
-  Flex,
-} from "@chakra-ui/react";
+import { SmallAddIcon } from "@chakra-ui/icons";
+import { Box, Divider, Flex, Grid, List, ListItem } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { SmallAddIcon } from "@chakra-ui/icons";
 export default () => {
   const [noticepost, setnoticepost] = useState([]);
   useEffect(() => {
@@ -37,7 +28,7 @@ export default () => {
       "0"
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
-  
+
   return (
     <List
       bg={"white"}

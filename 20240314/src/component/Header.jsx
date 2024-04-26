@@ -55,7 +55,6 @@ export default () => {
     })
       .then((response) => {
         if (response) {
-          console.log(response);
           return response.json();
         } else {
           throw new Error(e);
@@ -77,7 +76,6 @@ export default () => {
     fetch("/api/logincheck")
       .then((res) => {
         if (res) {
-          console.log("성공하였습니다.");
           return res.json();
         } else {
           throw new Error(e);
@@ -85,13 +83,10 @@ export default () => {
       })
       .then((data) => {
         if (data.role == "user" || data.role == "admin") {
-          console.log("로그인하려고요");
           setUser(data);
-          console.log(data, "심각해요");
         }
       });
   }, []);
-  console.log("항상 찍는 자리", user);
   return (
     <Box w="100%" position={"fixed"} bg="#fff" zIndex={"9999"} top="0">
       <Grid maxWidth="55%" margin="auto" templateColumns="1fr 3fr 2fr">

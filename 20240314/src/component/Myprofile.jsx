@@ -1,27 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   Button,
-  ButtonGroup,
-  Center,
   Flex,
   Grid,
-  HStack,
-  Input,
-  Stack,
-  VStack,
-  Image,
   GridItem,
-  Text,
+  Image,
   Spinner,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../hook/User";
 
-import Mypost from "./Mypost";
-import Mycomment from "./Mycomment";
-import MyStore from "../pages/MyStore";
 import { IoPeopleCircleSharp } from "react-icons/io5";
+import MyStore from "../pages/MyStore";
+import Mycomment from "./Mycomment";
+import Mypost from "./Mypost";
 
 const Loading = (align, justify, width, height) => {
   return (
@@ -61,7 +56,6 @@ export default () => {
       fetch("/api/mypage")
         .then((response) => {
           if (response) {
-            console.log(response);
             return response.json();
           } else {
             throw new Error(e);
@@ -161,7 +155,7 @@ export default () => {
                     marginBottom="5px"
                     h={"25px"}
                     color="black"
-                    width="50%"
+                    width="80%"
                     margin="auto"
                   >
                     {userData.email}
@@ -172,7 +166,7 @@ export default () => {
                     marginBottom="5px"
                     h={"25px"}
                     color="black"
-                    width="50%"
+                    width="80%"
                     margin="auto"
                   >
                     {userData.team}
@@ -183,7 +177,7 @@ export default () => {
                     marginBottom="5px"
                     h={"25px"}
                     color="black"
-                    width="50%"
+                    width="80%"
                     margin="auto"
                   >
                     포인트 {userData.point}
@@ -194,7 +188,7 @@ export default () => {
                     marginBottom="5px"
                     h={"25px"}
                     color="black"
-                    width="50%"
+                    width="80%"
                     margin="auto"
                   >
                     {userData.rating &&
