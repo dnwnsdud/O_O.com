@@ -18,7 +18,7 @@ import {
   Spinner,
   Stack,
   Text,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -43,6 +43,7 @@ const Loading = () => {
 
 export default ({ todayVote, main, location }) => {
   const { user } = useContext(UserContext);
+
   const {
     isOpen: isModal,
     onOpen: openModal,
@@ -58,7 +59,6 @@ export default ({ todayVote, main, location }) => {
   let [choice, setChoice] = useState("");
   const cancelRef = React.useRef();
   let [state, setState] = useState("");
-
 
   const disableScroll = () => {
     document.body.style.overflow = "hidden";
@@ -91,11 +91,11 @@ export default ({ todayVote, main, location }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success === true) {
-          setState("success")
-          openAlert()
+          setState("success");
+          openAlert();
         } else {
-          setState("fail")
-          openAlert()
+          setState("fail");
+          openAlert();
         }
       });
   };
@@ -110,8 +110,8 @@ export default ({ todayVote, main, location }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success === true) {
-          setState("end")
-          openAlert()
+          setState("end");
+          openAlert();
         }
       });
   };
@@ -133,13 +133,14 @@ export default ({ todayVote, main, location }) => {
             ? "현재 투표가 진행중이지 않습니다."
             : todayVote.title}
         </Text>
-        {
-          todayVote && todayVote.category != "main" && <Center>
+        {todayVote && todayVote.category != "main" && (
+          <Center>
             {todayVote && todayVote == "비었음"
               ? "현재 투표가 진행중이지 않습니다."
-              : todayVote.user = undefined || !todayVote.user ? "운영자" : `요청자: ${todayVote.user}`}
+              : (todayVote.user =
+                  undefined || !todayVote.user ? "운영자" : todayVote.user)}
           </Center>
-        }
+        )}
         <Flex
           gap="10px"
           padding="10px"
@@ -177,7 +178,7 @@ export default ({ todayVote, main, location }) => {
               closeModal();
               setChoice("");
               enableScroll();
-              window.removeEventListener("keydown", (e) => { });
+              window.removeEventListener("keydown", (e) => {});
             }
           })}
           <Box
@@ -396,15 +397,15 @@ export default ({ todayVote, main, location }) => {
                     variant="ghost"
                     onClick={() => {
                       if (user === "logout") {
-                        setState("login")
-                        closeModal()
-                        openAlert()
+                        setState("login");
+                        closeModal();
+                        openAlert();
                         return;
                       }
                       if (choice === "") {
-                        setState("notChoice")
-                        openAlert()
-                        closeModal()
+                        setState("notChoice");
+                        openAlert();
+                        closeModal();
                         return;
                       }
 
@@ -424,8 +425,8 @@ export default ({ todayVote, main, location }) => {
                     onClick={() => {
                       if (user === "logout")
                         if (data.success === true) {
-                          setState("end")
-                          openAlert()
+                          setState("end");
+                          openAlert();
                         }
                       nav(`/topicrequest/category=${location}`);
                       closeModal();
@@ -438,8 +439,8 @@ export default ({ todayVote, main, location }) => {
                     onClick={() => {
                       if (user === "logout")
                         if (data.success === true) {
-                          setState("end")
-                          openAlert()
+                          setState("end");
+                          openAlert();
                         }
                       if (choice === "") return alert("선택해주세요.");
                       closeModal();
@@ -471,7 +472,19 @@ export default ({ todayVote, main, location }) => {
             <AlertDialogHeader fillontSize="lg" fontWeight="bold">
               투표참여
             </AlertDialogHeader>
-            <AlertDialogBody>{state == "success" ? "투표참여가 완료되었습니다." : state == "fail" ? "이미 참여하였습니다." : state == "end" ? "투표가 종료되었습니다." : state == "login" ? "로그인이 필요합니다." : state == "notChoice" ? "선택하지 않으면 투표가 불가합니다." : ""}</AlertDialogBody>
+            <AlertDialogBody>
+              {state == "success"
+                ? "투표참여가 완료되었습니다."
+                : state == "fail"
+                ? "이미 참여하였습니다."
+                : state == "end"
+                ? "투표가 종료되었습니다."
+                : state == "login"
+                ? "로그인이 필요합니다."
+                : state == "notChoice"
+                ? "선택하지 않으면 투표가 불가합니다."
+                : ""}
+            </AlertDialogBody>
             <AlertDialogFooter>
               <Button
                 sx={{
@@ -480,8 +493,9 @@ export default ({ todayVote, main, location }) => {
                 }}
                 onClick={() => {
                   closeAlert();
-                  state == "notChoice" ? openModal() : "" && window.location.reload();
-
+                  state == "notChoice"
+                    ? openModal()
+                    : "" && window.location.reload();
                 }}
                 ml={3}
               >
