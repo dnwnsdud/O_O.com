@@ -1,4 +1,11 @@
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogCloseButton,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Box,
   Button,
   Divider,
@@ -24,11 +31,23 @@ import BlackModal from "./Modal";
 
 export default ({ user }) => {
   const [content, setContent] = useState("");
-  const [images, setImage] = useState("");
   const [baDetails, setbaDetails] = useState([]);
   const [cmtmodify, setCmtModify] = useState({});
   const [modifyContent, setModifyContent] = useState({});
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [state, setState] = useState("");
+  let [commentId, setCommentId] = useState(""); 
+  const {
+    isOpen: isModal,
+    onOpen: openModal,
+    onClose: closeModal,
+  } = useDisclosure();
+  const {
+    isOpen: isAlert,
+    onOpen: openAlert,
+    onClose: closeAlert,
+  } = useDisclosure();
+  const cancelRef = React.useRef();
+
 
   const handleInputChange2 = (e) => setContent(e.target.value);
   const handleModifyInputChange = (e, commentId) => {
@@ -114,7 +133,7 @@ export default ({ user }) => {
       postId: id,
     };
 
-    if (confirm("댓글을 삭제하시겠습니까?")) {
+   
       try {
         fetch("/api/commentdelete", {
           method: "post",
@@ -129,16 +148,16 @@ export default ({ user }) => {
           })
           .then((data) => {
             if (data) {
-              alert("댓글을 삭제합니다.");
               setbaDetails(data.comment);
+              setState("success")
             } else {
-              alert("댓글 삭제에 실패하였습니다.");
+              setState("fail")
             }
           });
       } catch (error) {
         console.log(error);
       }
-    }
+    
   };
   const submitModify = (commentId) => {
     const modifiedContent = modifyContent[commentId] || "";
@@ -215,7 +234,7 @@ export default ({ user }) => {
                         신고하기
                       </MenuItem>
                     ) : (
-                      <MenuItem onClick={onOpen}>신고하기</MenuItem>
+                      <MenuItem onClick={openModal}>신고하기</MenuItem>
                     )}
                     <MenuItem
                       onClick={() =>
@@ -231,8 +250,8 @@ export default ({ user }) => {
                   </MenuList>
                 </Menu>
                 <BlackModal
-                  isOpen={isOpen}
-                  onClose={onClose}
+                  isOpen={isModal}
+                  onClose={closeModal}
                   postId={id}
                   userEmail={baDetails.email}
                 />
@@ -248,7 +267,11 @@ export default ({ user }) => {
                       ></Button>
                       <Button
                         size="xs"
-                        onClick={() => deleteComment(detail._id)}
+                        onClick={()=>{
+                          setCommentId(detail._id)
+                          openAlert()
+                        }}
+
                       >
                         삭제
                       </Button>
@@ -273,7 +296,10 @@ export default ({ user }) => {
                     ) : (
                       <Button
                         size="xs"
-                        onClick={() => deleteComment(detail._id)}
+                        onClick={()=>{
+                          setCommentId(detail._id)
+                          openAlert()
+                        }}
                       >
                         삭제
                       </Button>
@@ -326,7 +352,10 @@ export default ({ user }) => {
                     ) : (
                       <Button
                         size="xs"
-                        onClick={() => deleteComment(detail._id)}
+                        onClick={()=>{
+                          setCommentId(detail._id)
+                          openAlert()
+                        }}
                       >
                         삭제
                       </Button>
@@ -403,6 +432,31 @@ export default ({ user }) => {
           </Button>
         </Flex>
       )}
+      <AlertDialog
+        motionPreset="slideInBottom"
+        leastDestructiveRef={cancelRef}
+        onClose={closeAlert}
+        isOpen={isAlert}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent>
+          <AlertDialogHeader>이 댓글을 삭제하시겠습니까?</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>삭제하면 다시 복구할 수 없습니다.</AlertDialogBody>
+          <AlertDialogFooter>
+            <Button ref={cancelRef} onClick={closeAlert}>
+              취소
+            </Button>
+            <Button
+                        onClick={() => {deleteComment(commentId), closeAlert()}}
+                      >
+                        삭제
+                      </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };
