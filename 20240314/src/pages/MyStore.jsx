@@ -123,7 +123,9 @@ export default () => {
   };
 
   return (
-    <Box bg="#fff" minH={"30rem"} alignContent={"center"}>
+    <Box bg="#fff" 
+    // minH={"30rem"}
+     alignContent={"center"}>
       {stores.length > 0 ? (
         <Swiper
           style={swiperStyle}
@@ -192,7 +194,7 @@ export default () => {
           ))}
         </Swiper>
       ) : (
-        <div>상품이 없습니다.</div>
+        <Box>구매하신 상품이 없습니다.</Box>
       )}
 
       {usestores.length > 0 ? (
@@ -264,6 +266,7 @@ export default () => {
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
         onClose={onClose}
+        isCentered
       >
         <AlertDialogOverlay>
           <AlertDialogContent>

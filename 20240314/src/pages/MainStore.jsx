@@ -61,7 +61,7 @@ export default () => {
   const swiperStyle = {
     position: "relative",
     width: "90%",
-    height: "200px",
+    height: "250px",
     margin: "auto",
   };
 
@@ -157,7 +157,7 @@ export default () => {
       >
         {stores.map((store, index) => (
           <SwiperSlide key={index}>
-            <Card maxH={"18rem"}>
+            <Card minH={"20rem"}>
               <CardBody>
                 <Box>
                   <Box
