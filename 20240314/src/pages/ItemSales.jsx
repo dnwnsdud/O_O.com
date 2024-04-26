@@ -69,18 +69,15 @@ export default () => {
               판매된 아이템 {stores.length}개
             </Text>
             </Box>
-          <Box w="90%" m="auto">
-           
-
-            <Grid templateColumns="repeat(5, 1fr)" gap={19}>
+          <Box w="100%" p="0 20px">
+            <Grid templateColumns="repeat(7, 1fr)" gap={'20px'}>
               {stores.map((store, index) => (
-                <GridItem height="10rem" width="100%" key={index}>
+                <GridItem height="15rem"  key={index}>
                   <Card>
                     <CardBody>
-                 
                   <Box
-                    w="100%"
-                    h="5rem"
+                    // w="100%"
+                    h="7rem"
                     borderRadius={"8px"}
                     overflow={"hidden"}
                   >
@@ -105,7 +102,10 @@ export default () => {
                   <Text textAlign={"center"} fontSize={"9"}>
                     {store.price}원
                   </Text>
-                       
+                  <Text textAlign={"center"} fontSize={"9"}>구매이메일</Text>
+                  <Text textAlign={"center"} fontSize={"11"}>
+                   {store.email}
+                  </Text>
                   </CardBody>
                   </Card>
                 </GridItem>
