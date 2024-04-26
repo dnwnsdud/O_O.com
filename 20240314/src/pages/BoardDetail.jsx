@@ -277,7 +277,7 @@ export default () => {
                 <Image
                   maxW={"60%"}
                   aspectRatio={"auto"}
-                  src={`http://localhost:3000/${baDetails.images}`}
+                  src={baDetails.images}
                   boxSize="100%"
                   objectFit="cover"
                   alt="이미지"
@@ -288,11 +288,7 @@ export default () => {
             <br />
             {baDetails.videos && (
               <AspectRatio maxW="560px" ratio={1}>
-                <iframe
-                  title="비디오"
-                  src={`http://localhost:3000/${baDetails.videos}`}
-                  allowFullScreen
-                />
+                <iframe title="비디오" src={baDetails.videos} allowFullScreen />
               </AspectRatio>
             )}
           </Box>
