@@ -1,8 +1,8 @@
 export default async (req, res, next) => {
   try {
     const selectuser = JSON.parse(req.body);
-    const result = await req.mongo.user.deleteOne({ email: selectuser.email });
-    const boarddelete = await req.mongo.board.deleteMany({
+    await req.mongo.user.deleteOne({ email: selectuser.email });
+    await req.mongo.board.deleteMany({
       email: selectuser.email,
     });
     const reload = await req.mongo.user.find({});

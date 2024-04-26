@@ -3,7 +3,7 @@
 export default async (req, res, next) => {
   try {
     const store = new req.mongo.store(req.body);
-    const storeitem = await store.save();
+    await store.save();
     res.status(200).json({ success: true });
   } catch (err) {
     console.error("상품을 저장하는 동안 오류 발생:", err);

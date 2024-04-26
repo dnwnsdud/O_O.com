@@ -79,7 +79,6 @@ export default () => {
   };
 
   const onSubmitHandler = (e) => {
-    //새로고침 방지
     e.preventDefault();
     fetch("/api/boardcreate", {
       method: "post",
@@ -314,7 +313,6 @@ export default () => {
             borderRadius={"10px"}
             bg={"white"}
             boxShadow={"base"}
-            // shadow={"base"}
             p={10}
           >
             <Center>

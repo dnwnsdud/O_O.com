@@ -407,7 +407,6 @@ export default () => {
               <Grid templateColumns="repeat(5, 1fr)" gap={19}>
                 {stores.map((store, index) => (
                   <GridItem width="90%" key={index}>
-                    {/* <Box>{store.images}</Box> */}
                     <Card bg="white" minH={"15rem"}>
                       <CardBody>
                         <Box

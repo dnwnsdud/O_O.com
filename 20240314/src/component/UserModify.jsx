@@ -31,7 +31,7 @@ export default () => {
   const [nickname, setnickname] = useState(userData.nickname);
   const [team, setTeam] = useState(userData.team);
   const [image, setImage] = useState(userData.images);
-  const [itemImageError, setItemImageError] = useState(false);
+  const [itemImageError] = useState(false);
   const { user, setUser } = useContext(UserContext);
   const [render, setRender] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -106,7 +106,6 @@ export default () => {
     const newNickname = nickname === "" ? userData.nickname : nickname;
     const newTeam = team === "" ? userData.team : team;
 
-    // 업데이트할 데이터 객체 생성
     let body = {
       name: newName,
       nickname: newNickname,
@@ -198,7 +197,6 @@ export default () => {
                   onMouseOver={() => setIsListHover(true)}
                   onMouseOut={() => setIsListHover(false)}
                 >
-                  {/* <IoPeopleCircleSharp size={100} /> */}
                   {isListHover ? (
                     <PiCameraPlus size={100} />
                   ) : (
@@ -213,7 +211,7 @@ export default () => {
                 hidden
               />
               {!itemImageError ? (
-                <FormHelperText>{/* 사진을 넣어주세요 */}</FormHelperText>
+                <FormHelperText></FormHelperText>
               ) : (
                 <FormErrorMessage>아이템 사진을 넣어주세요.</FormErrorMessage>
               )}

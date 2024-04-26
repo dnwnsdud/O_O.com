@@ -42,7 +42,7 @@ const Loading = (align, justify, width, height) => {
 export default () => {
   const [userData, setUserData] = useState([]);
   const [render, setRender] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   let [isLoading, setIsLoading] = useState(true);
 
   let nav = useNavigate();
@@ -205,7 +205,6 @@ export default () => {
                   <Button
                     width="100px"
                     border="1px solid #e6e6ea"
-                    // border="1px solid black"
                     boxShadow="base"
                     borderRadius="10px"
                     onClick={() => {

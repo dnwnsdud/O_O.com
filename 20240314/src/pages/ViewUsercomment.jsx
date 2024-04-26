@@ -58,7 +58,6 @@ export default () => {
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
-  const [isListHover, setIsListHover] = useState(false);
   return (
     <>
       <Box padding={"20px 20px 0 20px"} fontWeight={"bold"}>

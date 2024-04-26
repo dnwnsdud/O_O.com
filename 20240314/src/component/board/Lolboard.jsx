@@ -103,8 +103,6 @@ export default ({ user }) => {
     fetchPosts();
   }, [sortOrder, selectedTeam]);
 
-  // 페이지네이션 버튼
-
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -119,7 +117,6 @@ export default ({ user }) => {
     setCurrentPage((prev) => Math.min(prev + 1, pageCount));
   };
 
-  //페이지네이션
   const TOTAL_PAGES = Math.ceil(totalPosts / postsPerPage);
   const getPageNumbers = () => {
     let startPage = Math.max(currentPage - 2, 1);
@@ -152,9 +149,7 @@ export default ({ user }) => {
   return (
     <>
       <Box>
-        <Box
-        // position={'relative'}
-        >
+        <Box>
           <Grid templateColumns="repeat(11 , 1fr)" gap={2}>
             <Button
               sx={{
@@ -409,7 +404,7 @@ export default ({ user }) => {
         </Flex>
         <Flex justifyContent="center">
           <Button
-            disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
+            disabled={currentPage === 1}
             onClick={handlePrevPage}
           >
             <ArrowLeftIcon />

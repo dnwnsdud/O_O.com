@@ -2,7 +2,7 @@
 
 export default async (req, res, next) => {
   try {
-    const { id, email } = req.body;
+    const { email } = req.body;
     const session = req.session.user.email;
     const role = req.session.user.role;
     if (role == "admin") {

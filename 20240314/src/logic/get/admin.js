@@ -6,8 +6,8 @@ export default async (req, res, next) => {
     const writedata = await req.mongo.board.find({}).sort({ _id: -1 });
     const comments = await req.mongo.board
       .aggregate([
-        { $match: {} }, // 사용자의 게시글 필터링
-        { $unwind: "$comment" }, // comment 배열을 각각의 문서로 분리
+        { $match: {} },
+        { $unwind: "$comment" },
         {
           $project: {
             nickname: "$comment.nickname",
@@ -23,7 +23,6 @@ export default async (req, res, next) => {
       .sort({ _id: -1 });
     res.status(200).json({ userdata, writedata, comments });
   } catch (err) {
-    console.log("망했어 실패야");
     res.status(500).json({ message: "fail" });
   }
 };

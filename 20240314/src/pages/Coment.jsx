@@ -34,7 +34,6 @@ export default ({ user }) => {
   const [baDetails, setbaDetails] = useState([]);
   const [cmtmodify, setCmtModify] = useState({});
   const [modifyContent, setModifyContent] = useState({});
-  const [state, setState] = useState("");
   let [commentId, setCommentId] = useState(""); 
   const {
     isOpen: isModal,
@@ -149,10 +148,7 @@ export default ({ user }) => {
           .then((data) => {
             if (data) {
               setbaDetails(data.comment);
-              setState("success")
-            } else {
-              setState("fail")
-            }
+            } 
           });
       } catch (error) {
         console.log(error);
@@ -379,9 +375,9 @@ export default ({ user }) => {
               placeholder="로그인이 필요합니다!!"
               sx={{
                 "::placeholder": {
-                  textAlign: "center", // 플레이스홀더 텍스트를 가운데 정렬합니다.
-                  opacity: 1, // 플레이스홀더 텍스트를 더 잘 보이게 합니다 (선택적).
-                  color: "gray.500", // 플레이스홀더 텍스트 색상 변경 (선택적).
+                  textAlign: "center",
+                  opacity: 1, 
+                  color: "gray.500",
                   lineHeight: "70px",
                 },
                 padding: "0",

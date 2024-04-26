@@ -28,7 +28,6 @@ export default async (req, res, next) => {
     const commentCount = mycomments.length;
     res.status(200).json({ data, totalCount, mycomments, commentCount });
   } catch (err) {
-    console.log("망했어 실패야");
     res.status(500).json({ message: "fail" });
   }
 };

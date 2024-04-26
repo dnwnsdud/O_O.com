@@ -6,7 +6,7 @@ export default async (req, res, next) => {
     if (req.body.content === "") {
       res.status(201).json(create);
     } else {
-      let savedDocument = create.comment.push({
+      create.comment.push({
         nickname: req.body.nickname,
         content: req.body.content,
         email: req.body.email,

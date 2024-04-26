@@ -12,7 +12,7 @@ export default async (req, res, next) => {
       await user.save();
 
       let create = new req.mongo.buyitem(req.body);
-      let savedDocument = await create.save();
+      await create.save();
 
       return res
         .status(201)

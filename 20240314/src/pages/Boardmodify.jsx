@@ -30,7 +30,7 @@ export default () => {
 
   const [uploadedImageName, setUploadedImageName] = useState();
   const [uploadedVideoName, setUploadedVideoName] = useState();
-  const [itemImageError, setItemImageError] = useState(false);
+  const [itemImageError] = useState(false);
 
   const isError = title === "";
   const isError2 = content === "";
@@ -71,7 +71,6 @@ export default () => {
   }, []);
 
   const onSubmitHandler = (e) => {
-    //새로고침 방지
     e.preventDefault();
 
     let body = {

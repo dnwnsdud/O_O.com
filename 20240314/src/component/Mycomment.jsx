@@ -105,8 +105,6 @@ export default () => {
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
-  const [isListHover, setIsListHover] = useState(false);
-
   return (
     <>
       <Text fontWeight={"bold"}>내 댓글</Text>
@@ -122,7 +120,6 @@ export default () => {
         height={"250px"}
       >
         <Box height={"100%"}>
-          {/* <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 댓글</Box> */}
           <List>
             <Grid
               templateColumns=" 1fr 1fr 1fr 1fr"
@@ -141,14 +138,12 @@ export default () => {
                   templateColumns="3fr 1fr"
                   borderBottom="1px solid #e6e6ea"
                   textAlign="center"
-                  // padding={"8px 0"}
                   fontSize={"13px"}
                 >
                   <Link to={`/b/id=${user.postId}`}>
                     <Grid
                       templateColumns=" 1fr 1fr 1fr"
                       textAlign="center"
-                      // padding={"8px 0"}
                       fontSize={"13px"}
                     >
                       <Box
@@ -194,7 +189,7 @@ export default () => {
         <Flex justifyContent="center" marginTop={"30px"}>
           <Button
             size={"xs"}
-            disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
+            disabled={currentPage === 1}
             onClick={handlePrevPage}
           >
             <ArrowLeftIcon />

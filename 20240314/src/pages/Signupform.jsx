@@ -43,7 +43,6 @@ export default () => {
     nickname: nickname,
   };
   const onSubmitHandler = (e) => {
-    //새로고침 방지
     e.preventDefault();
 
     fetch("/api/signup", {

@@ -103,7 +103,7 @@ export default ({ lolData, lolPosts }) => {
         </List>
         <Flex justifyContent="center" marginTop={"30px"} paddingBottom="30px">
           <Button
-            disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
+            disabled={currentPage === 1}
             onClick={handlePrevPage}
             size="xs"
           >

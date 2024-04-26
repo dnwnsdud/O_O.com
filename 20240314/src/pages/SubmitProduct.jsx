@@ -28,9 +28,9 @@ export default () => {
   });
   const { user } = useContext(UserContext);
   const [render, setRender] = useState(false);
-  const [itemNameError, setItemNameError] = useState(false);
-  const [itemPriceError, setItemPriceError] = useState(false);
-  const [itemImageError, setItemImageError] = useState(false);
+  const [itemNameError] = useState(false);
+  const [itemPriceError] = useState(false);
+  const [itemImageError] = useState(false);
 
   const handleValueChange = (e) => {
     setStore({

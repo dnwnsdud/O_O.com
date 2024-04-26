@@ -13,12 +13,10 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { UserContext } from "../hook/User";
 
 export default () => {
-  const { user } = useContext(UserContext);
   const nav = useNavigate();
   const { id } = useParams();
 
@@ -31,12 +29,8 @@ export default () => {
   const isError = title === "";
   const isError2 = content === "";
 
-  const onNamedHandler = (e) => {
-    settitle(e.target.value);
-  };
-  const onNicknameHandler = (e) => {
-    setcontent(e.target.value);
-  };
+  
+
   useEffect((e) => {
     let body = {
       id: id,
@@ -68,7 +62,6 @@ export default () => {
   }, []);
 
   const onSubmitHandler = (e) => {
-    //새로고침 방지
     e.preventDefault();
 
     let body = {

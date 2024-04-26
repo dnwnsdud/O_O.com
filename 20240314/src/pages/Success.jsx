@@ -10,13 +10,11 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
-import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default () => {
   let nav = useNavigate();
-  const location = useLocation();
-  const query = location.search;
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const key = searchParams.get("amount");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();

@@ -6,7 +6,6 @@ import { loadTossPayments } from "@tosspayments/payment-sdk";
 export default ({ price, title, id }) => {
   const PaymentButton = () => {
     const clientKey = "test_ck_DpexMgkW36RYw2vOjOxB3GbR5ozO";
-    const originUrl = "http://localhost:3000";
 
     const payment = () => {
       loadTossPayments(clientKey).then((tossPayments) => {

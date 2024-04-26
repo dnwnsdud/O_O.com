@@ -5,7 +5,6 @@ export default async (req, res, next) => {
     const data = await req.mongo.notice.findOne({ _id: req.body.id });
     res.status(200).json(data);
   } catch (err) {
-    console.log("망했어 실패야");
     res.status(500).json({ message: "fail" });
   }
 };

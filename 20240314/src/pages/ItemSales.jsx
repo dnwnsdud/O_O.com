@@ -70,7 +70,6 @@ export default () => {
                   <Card>
                     <CardBody>
                   <Box
-                    // w="100%"
                     h="7rem"
                     borderRadius={"8px"}
                     overflow={"hidden"}

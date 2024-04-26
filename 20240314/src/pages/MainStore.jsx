@@ -107,7 +107,6 @@ export default () => {
           if (data.success && data.message) {
             setAlert(data.message);
             onOpen2();
-            // 나중에 경로 생각좀
           } else if (!data.success && data.message) {
             setAlert(data.message);
             onOpen2();

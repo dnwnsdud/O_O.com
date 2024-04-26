@@ -142,7 +142,7 @@ export default () => {
           <Flex justifyContent="center" marginTop={"30px"}>
             <Button
               size={"xs"}
-              disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
+              disabled={currentPage === 1} 
               onClick={handlePrevPage}
             >
               <ArrowLeftIcon />

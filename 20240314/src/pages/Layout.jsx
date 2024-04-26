@@ -8,9 +8,9 @@ export default () => {
   return (
     <>
       <Header />
-      <Box pt="20">
-        <Outlet />
-      </Box>
+        <Box pt="20">
+          <Outlet />
+        </Box>
       <Footer />
     </>
   );

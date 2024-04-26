@@ -105,8 +105,6 @@ export default ({ user }) => {
     fetchPosts();
   }, [sortOrder, selectedTeam]);
 
-  // 페이지네이션 버튼
-
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
@@ -121,7 +119,6 @@ export default ({ user }) => {
     setCurrentPage((prev) => Math.min(prev + 1, pageCount));
   };
 
-  //페이지네이션
   const TOTAL_PAGES = Math.ceil(totalPosts / postsPerPage);
   const getPageNumbers = () => {
     let startPage = Math.max(currentPage - 2, 1);
@@ -153,7 +150,7 @@ export default ({ user }) => {
 
   return (
     <>
-      <Stack >
+      <Stack>
         <Box>
           <Grid
             templateColumns="repeat(11 , 1fr)"
@@ -294,8 +291,6 @@ export default ({ user }) => {
             <Button
               size="xs"
               padding="15px 10px"
-              // backgroundColor="#fff !important"
-              // color="black !important"
               backgroundColor={
                 sortOrder === "최신순" ? "#fff !important" : "inherit"
               }
@@ -321,8 +316,6 @@ export default ({ user }) => {
             </Button>
             <Button
               size="xs"
-              // backgroundColor="#dedee3 !important"
-              // color="#3b3b44 !important"
               backgroundColor={
                 sortOrder === "추천순" ? "#fff !important" : "inherit"
               }
@@ -417,7 +410,7 @@ export default ({ user }) => {
         </Flex>
         <Flex h={"40px !important "} justifyContent="center">
           <Button
-            disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
+            disabled={currentPage === 1}
             onClick={handlePrevPage}
           >
             <ArrowLeftIcon />

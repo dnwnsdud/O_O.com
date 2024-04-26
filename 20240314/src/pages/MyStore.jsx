@@ -11,7 +11,7 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -25,11 +25,9 @@ import {
   Scrollbar,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { UserContext } from "../hook/User";
 
 export default () => {
   let nav = useNavigate();
-  const { user } = useContext(UserContext);
 
   const swiperStyle = {
     position: "relative",
@@ -117,7 +115,6 @@ export default () => {
 
   return (
     <Box bg="#fff" 
-    // minH={"30rem"}
      alignContent={"center"}>
       {stores.length > 0 ? (
         <Swiper

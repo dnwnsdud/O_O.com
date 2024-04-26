@@ -6,8 +6,7 @@ export default async (req, res, next) => {
     obj = JSON.parse(obj);
     const userEmail = req.session.user.email;
     const post = await req.mongo.board.findById(obj.id);
-    const a = obj.title;
-    const b = obj.content;
+
     if (!post) {
       return res
         .status(404)
@@ -18,7 +17,7 @@ export default async (req, res, next) => {
         .status(403)
         .json({ success: false, message: "수정 권한이 없습니다." });
     }
-    const updatedPost = await req.mongo.board.findOneAndUpdate(
+    await req.mongo.board.findOneAndUpdate(
       { _id: obj.id },
       { $set: obj },
       { new: true }

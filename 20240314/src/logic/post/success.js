@@ -14,9 +14,9 @@ export default async (req, res, next) => {
       { new: true }
     );
     if (!updatedDocument) {
-      return res.status(404).json({ mesㅈsage: "Document not found" });
+      return res.status(404).json({ message: "Document not found" });
     }
-    res.status(200).json(updatedDocument); // 업데이트된 문서를 응답으로 전송
+    res.status(200).json(updatedDocument);
   } catch (err) {
     next(err);
   }

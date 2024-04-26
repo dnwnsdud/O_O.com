@@ -39,12 +39,10 @@ export default async (req, res, next) => {
     } else if (category == "/l") {
       votes = await req.mongo.vote.find({ category: "lol" });
       result = votes[0];
-      console.log(result);
       return res.json(result);
     } else if (category == "/s") {
       votes = await req.mongo.vote.find({ category: "soccer" });
       result = votes[0];
-      console.log(result);
       return res.json(result);
     } else if (category == "/c") {
       votes = await req.mongo.vote.find({ category: "society" });

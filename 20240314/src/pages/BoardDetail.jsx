@@ -108,6 +108,7 @@ export default () => {
     },
     [user.email, id]
   );
+
   // 좋아요 부분
   const like = (e) => {
     body.like = "like";
@@ -364,7 +365,6 @@ export default () => {
         isCentered
       >
         <AlertDialogOverlay />
-
         <AlertDialogContent>
           <AlertDialogHeader>이 게시글을 삭제하시겠습니까?</AlertDialogHeader>
           <AlertDialogCloseButton />

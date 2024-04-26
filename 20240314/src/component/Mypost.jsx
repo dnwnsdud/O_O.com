@@ -105,7 +105,6 @@ export default () => {
     }
   };
 
-  const [isListHover, setIsListHover] = useState(false);
   return (
     <>
       <Text fontWeight={"bold"}>내 게시글</Text>
@@ -121,7 +120,6 @@ export default () => {
         height={"250px"}
       >
         <Box height={"100%"}>
-          {/* <Box fontSize='30px' padding="0 30px" textAlign="center" fontWeight='bold' marginBottom="20px">내 게시글</Box> */}
           <List>
             <Grid
               templateColumns=" 3fr 2fr 1fr 1fr 2fr"
@@ -141,14 +139,12 @@ export default () => {
                   templateColumns="4fr 1fr"
                   borderBottom="1px solid #e6e6ea"
                   textAlign="center"
-                  // padding={"2px 0"}
                   fontSize={"13px"}
                 >
                   <Link to={`/b/id=${user._id}`}>
                     <Grid
                       templateColumns=" 3fr 2fr 1fr 1fr"
                       textAlign="center"
-                      // padding={"8px 0"}
                       fontSize={"13px"}
                     >
                       <Box>{user.title}</Box>
@@ -177,7 +173,7 @@ export default () => {
         <Flex justifyContent="center" marginTop={"10px"}>
           <Button
             size={"xs"}
-            disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
+            disabled={currentPage === 1}
             onClick={handlePrevPage}
           >
             <ArrowLeftIcon />

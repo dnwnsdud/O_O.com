@@ -14,7 +14,7 @@ export const UserProvider = ({ children }) => {
       )
     ).format("YYYY-MM-DD")
   );
-  const [user, setUser] = useState("logout"); //[{},()=>{}
+  const [user, setUser] = useState("logout");
 
   return (
     <UserContext.Provider
