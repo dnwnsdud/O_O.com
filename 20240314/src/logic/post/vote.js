@@ -15,7 +15,6 @@ export default async (req, res, next) => {
       if (votes.length > 0) result = votes[0];
       else votes.push({ title: "현재 투표가 진행중이지 않습니다." })
       result = votes[0]
-      // else votes.title = "현재 투표가 진행중이지 않습니다.";
       title1 = await req.mongo.vote.find({ category: "baseball" });
       if (title1.length > 0) title1 = title1[0];
       else title1.title = "현재 투표가 진행중이지 않습니다.";
@@ -35,14 +34,17 @@ export default async (req, res, next) => {
     } else if (category == "/b") {
       votes = await req.mongo.vote.find({ category: "baseball" });
       result = votes[0];
+      
       return res.json(result);
     } else if (category == "/l") {
       votes = await req.mongo.vote.find({ category: "lol" });
       result = votes[0];
+      console.log(result);
       return res.json(result);
     } else if (category == "/s") {
       votes = await req.mongo.vote.find({ category: "soccer" });
       result = votes[0];
+      console.log(result);
       return res.json(result);
     } else if (category == "/c") {
       votes = await req.mongo.vote.find({ category: "society" });

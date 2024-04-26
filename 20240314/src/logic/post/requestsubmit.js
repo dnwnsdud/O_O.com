@@ -19,6 +19,7 @@ export default async (req, res, next) => {
         let body = {
             category: request.category,
             title: request.title,
+            user:request.user,
             leftSide: {
                 images: left.images ? left.images : "",
                 title: left.title,

@@ -8,6 +8,9 @@ export default mongoose.Schema({
     type: String,
     required: true,
   },
+  user:{
+    type:String,
+  },
   leftSide: {
     images: {
       type: String,

@@ -144,6 +144,13 @@ export default ({ todayVote, main, location }) => {
             ? "현재 투표가 진행중이지 않습니다."
             : todayVote.title}
         </Text>
+        {
+          todayVote && todayVote.category != "main" && <Center>
+            {todayVote && todayVote == "비었음"
+              ? "현재 투표가 진행중이지 않습니다."
+              : todayVote.user = undefined||!todayVote.user ? "운영자" : `요청자: ${todayVote.user}`}
+          </Center>
+        }
         <Flex
           gap="10px"
           padding="10px"
@@ -181,7 +188,7 @@ export default ({ todayVote, main, location }) => {
               closeModal();
               setChoice("");
               enableScroll();
-              window.removeEventListener("keydown", (e) => {});
+              window.removeEventListener("keydown", (e) => { });
             }
           })}
           <Box
@@ -459,7 +466,7 @@ export default ({ todayVote, main, location }) => {
             <AlertDialogHeader fillontSize="lg" fontWeight="bold">
               투표참여
             </AlertDialogHeader>
-            <AlertDialogBody>{state == "success" ? "투표참여가 완료되었습니다.": "이미 참여하였습니다."}</AlertDialogBody>
+            <AlertDialogBody>{state == "success" ? "투표참여가 완료되었습니다." : "이미 참여하였습니다."}</AlertDialogBody>
             <AlertDialogFooter>
               <Button
                 sx={{
