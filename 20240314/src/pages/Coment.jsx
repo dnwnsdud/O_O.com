@@ -114,27 +114,30 @@ export default ({ user }) => {
       postId: id,
     };
 
-    try {
-      fetch("/api/commentdelete", {
-        method: "post",
-        body: JSON.stringify(body),
-      })
-        .then((res) => {
-          if (res) {
-            return res.json();
-          } else {
-            throw new Error();
-          }
+    if (confirm("댓글을 삭제하시겠습니까?")) {
+      try {
+        fetch("/api/commentdelete", {
+          method: "post",
+          body: JSON.stringify(body),
         })
-        .then((data) => {
-          if (data) {
-            setbaDetails(data.comment);
-          } else {
-            alert("댓글 삭제에 실패하였습니다.");
-          }
-        });
-    } catch (error) {
-      console.log(error);
+          .then((res) => {
+            if (res) {
+              return res.json();
+            } else {
+              throw new Error();
+            }
+          })
+          .then((data) => {
+            if (data) {
+              alert("댓글을 삭제합니다.");
+              setbaDetails(data.comment);
+            } else {
+              alert("댓글 삭제에 실패하였습니다.");
+            }
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
   const submitModify = (commentId) => {
