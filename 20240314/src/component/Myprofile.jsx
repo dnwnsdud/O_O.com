@@ -161,7 +161,7 @@ export default () => {
                     marginBottom="5px"
                     h={"25px"}
                     color="black"
-                    width="50%"
+                    width="80%"
                     margin="auto"
                   >
                     {userData.email}
@@ -172,7 +172,7 @@ export default () => {
                     marginBottom="5px"
                     h={"25px"}
                     color="black"
-                    width="50%"
+                    width="80%"
                     margin="auto"
                   >
                     {userData.team}
@@ -183,7 +183,7 @@ export default () => {
                     marginBottom="5px"
                     h={"25px"}
                     color="black"
-                    width="50%"
+                    width="80%"
                     margin="auto"
                   >
                     포인트 {userData.point}
@@ -194,7 +194,7 @@ export default () => {
                     marginBottom="5px"
                     h={"25px"}
                     color="black"
-                    width="50%"
+                    width="80%"
                     margin="auto"
                   >
                     {userData.rating &&

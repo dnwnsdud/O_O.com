@@ -83,6 +83,7 @@ export default () => {
         m={"auto"}
         direction={"column"}
         justifyContent={"center"}
+        minH={"700px"}
       >
         <Stack
           height={"80%"}
