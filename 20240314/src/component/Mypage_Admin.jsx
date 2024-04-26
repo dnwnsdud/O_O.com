@@ -158,7 +158,7 @@ export default () => {
             관리자페이지
           </Box>
           <Flex w="100%" justifyContent="right">
-            <Grid templateColumns="1fr 1fr 1fr 1fr" w="350px" gap="10px">
+            <Grid templateColumns="1fr 1fr 1fr" w="350px" gap="10px">
               <Button
                 onClick={() => {
                   nav("/requestlist");
