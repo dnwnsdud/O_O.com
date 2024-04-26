@@ -1,6 +1,6 @@
 (await import("dotenv")).default.config({ path: "./.env" });
 import moment from "moment";
-import 'moment-timezone'
+import "moment-timezone";
 export default async (req, res, next) => {
   try {
     let result = {
@@ -13,7 +13,7 @@ export default async (req, res, next) => {
     const dbFind = await req.mongo.result.find({}).sort({ date: 1 });
     let requestedDate = req.body.date;
     dbFind.forEach((element) => {
-      const dbDate = moment(element.date).tz('Asia/Seoul').format('YYYY-MM-DD');
+      const dbDate = moment(element.date).tz("Asia/Seoul").format("YYYY-MM-DD");
       if (dbDate === requestedDate) {
         switch (element.category) {
           case "main":
@@ -42,4 +42,3 @@ export default async (req, res, next) => {
     res.status(500).json({ success: false, error: "Internal server error" });
   }
 };
-

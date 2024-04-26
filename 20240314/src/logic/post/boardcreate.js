@@ -4,8 +4,6 @@ export default async (req, res, next) => {
   try {
     let create = new req.mongo.board(req.body);
     let savedDocument = await create.save();
-    console.log(create.tap);
-
     res.status(201).json({ success: true, create });
   } catch (error) {
     console.error(error);

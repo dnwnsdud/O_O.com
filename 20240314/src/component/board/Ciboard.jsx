@@ -1,4 +1,4 @@
-import React from "react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -10,14 +10,12 @@ import {
   Button,
   Flex,
   Grid,
-  useDisclosure
+  useDisclosure,
 } from "@chakra-ui/react";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/ko";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 moment.locale("ko");
 
@@ -52,7 +50,7 @@ export default ({ user }) => {
     if (user !== "logout") {
       nav("/create");
     } else {
-      onOpen()
+      onOpen();
     }
   };
 
@@ -341,14 +339,10 @@ export default ({ user }) => {
                   {post.team}
                 </Box>
                 <Link to={`/b/id=${post._id}`}>
-                  <Flex
-                    padding="0 20px 0 20px"
-                    justifyContent="center"
-                  >
-                    <Box whiteSpace="nowrap"
-                      isTruncated
-                      maxW={"300px"}>
-                      {post.title}</Box>
+                  <Flex padding="0 20px 0 20px" justifyContent="center">
+                    <Box whiteSpace="nowrap" isTruncated maxW={"300px"}>
+                      {post.title}
+                    </Box>
                     <Box color="#5181e3">[{post.comment.length}]</Box>
                   </Flex>
                 </Link>
@@ -402,32 +396,34 @@ export default ({ user }) => {
         </Flex>
       </Box>
       <AlertDialog
-          isOpen={isOpen}
-          leastDestructiveRef={cancelRef}
-          onClose={onClose}
-          isCentered
-        >
-          <AlertDialogOverlay>
-            <AlertDialogContent>
-              <AlertDialogHeader fillontSize='lg' fontWeight='bold'>
-                로그인 오류발생
-              </AlertDialogHeader>
-              <AlertDialogBody>
-                로그인이 필요합니다.
-              </AlertDialogBody>
-              <AlertDialogFooter>
-                <Button  sx={{
-                backgroundColor: "#53535f !important",
-                color: "#ffffff",
-              }} onClick={()=>{
-                onClose() 
-            }} ml={3}>
-                  돌아가기
-                </Button>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialogOverlay>
-        </AlertDialog>
+        isOpen={isOpen}
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isCentered
+      >
+        <AlertDialogOverlay>
+          <AlertDialogContent>
+            <AlertDialogHeader fillontSize="lg" fontWeight="bold">
+              로그인 오류발생
+            </AlertDialogHeader>
+            <AlertDialogBody>로그인이 필요합니다.</AlertDialogBody>
+            <AlertDialogFooter>
+              <Button
+                sx={{
+                  backgroundColor: "#53535f !important",
+                  color: "#ffffff",
+                }}
+                onClick={() => {
+                  onClose();
+                }}
+                ml={3}
+              >
+                돌아가기
+              </Button>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialogOverlay>
+      </AlertDialog>
     </>
   );
 };

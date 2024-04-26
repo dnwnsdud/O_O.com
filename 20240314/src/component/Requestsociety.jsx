@@ -3,16 +3,16 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   Grid,
   List,
   ListItem,
   Stack,
-  Flex,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default ({societyData, societyPosts }) => {
+export default ({ societyData, societyPosts }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
 
@@ -39,7 +39,6 @@ export default ({societyData, societyPosts }) => {
   };
   let nav = useNavigate();
 
-  
   return (
     <Center>
       <Stack w="100%">
@@ -57,7 +56,7 @@ export default ({societyData, societyPosts }) => {
             bgColor="#ffffff"
             templateColumns={"3fr 2fr 2fr 1fr"}
             padding="10px 0"
-            borderBottom={'1px solid #dedee3'}
+            borderBottom={"1px solid #dedee3"}
           >
             <Box textAlign="center">주제</Box>
             <Box textAlign="center">닉네임</Box>
@@ -66,8 +65,7 @@ export default ({societyData, societyPosts }) => {
           </Grid>
           {currentPosts.map((data) => {
             return (
-              <ListItem key={data._id} 
-              borderBottom={'1px solid #dedee3'}>
+              <ListItem key={data._id} borderBottom={"1px solid #dedee3"}>
                 <Grid templateColumns={"3fr 2fr 2fr 1fr"} padding="10px 10px">
                   <Box
                     textAlign="center"

@@ -1,33 +1,28 @@
-import React, { useContext, useEffect, useState } from "react";
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Box,
   Button,
-  ButtonGroup,
   Center,
   Flex,
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+  FormLabel,
   Grid,
-  HStack,
   Input,
   Stack,
-  VStack,
-  Image,
-  FormLabel,
-  FormHelperText,
-  FormErrorMessage,
-  FormControl,
   Tooltip,
   useDisclosure,
-  AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogBody,
-  AlertDialogFooter,
 } from "@chakra-ui/react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoPeopleCircleSharp } from "react-icons/io5";
 import { PiCameraPlus } from "react-icons/pi";
-import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { UserContext } from "../hook/User";
 
 export default () => {
@@ -53,7 +48,6 @@ export default () => {
       fetch("/api/mypage")
         .then((response) => {
           if (response) {
-            console.log(response);
             return response.json();
           } else {
             throw new Error(e);
@@ -94,10 +88,7 @@ export default () => {
         .then((res) => res.json())
         .then((data) => {
           if (data.success) {
-            console.log("이미지 업로드 성공");
             const imagePath = data.mediapath;
-            console.log(data);
-            console.log("이미지경로: " + imagePath);
             setImage(imagePath);
           } else {
             console.error("이미지 업로드 실패:", data.error);
@@ -122,7 +113,6 @@ export default () => {
       team: newTeam,
       images: image,
     };
-    console.log(body);
     fetch("/api/usermodify", {
       method: "post",
       headers: {
@@ -137,7 +127,6 @@ export default () => {
         throw new Error("Network response was not ok.");
       })
       .then((data) => {
-        console.log(data, 12341234);
         if (data.success) {
           setUser(data.userdata);
           nav("/profile");
@@ -153,7 +142,6 @@ export default () => {
       fetch("/api/deleteuser", { method: "post" })
         .then((response) => {
           if (response) {
-            console.log(response);
             return response.json();
           } else {
             throw new Error(e);
@@ -164,7 +152,7 @@ export default () => {
             setUser("logout");
             onOpen();
             nav("/");
-            window.location.reload()
+            window.location.reload();
           } else {
             alert(`사용자를 삭제하는 동안 오류 발생:${data.error}`);
           }

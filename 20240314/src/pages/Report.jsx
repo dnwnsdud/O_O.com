@@ -1,19 +1,18 @@
-import React, { useEffect, useState, useContext } from "react";
-import { UserContext } from "../hook/User";
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
+  Divider,
   Flex,
   Grid,
   List,
   ListItem,
   Stack,
-  Divider,
   useDisclosure,
 } from "@chakra-ui/react";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../hook/User";
 import RepodeModal from "./RepodeModal";
 
 export default () => {
@@ -239,7 +238,7 @@ export default () => {
             <Flex justifyContent="center" marginTop={"30px"}>
               <Button
                 size="sm"
-                disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
+                disabled={currentPage === 1}
                 onClick={handlePrevPage}
               >
                 <ArrowLeftIcon />

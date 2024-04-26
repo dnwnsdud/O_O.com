@@ -1,18 +1,17 @@
-import React, { useEffect, useState, useContext } from "react";
-import { UserContext } from "../hook/User";
+import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
+  Divider,
   Flex,
   Grid,
   List,
   ListItem,
   Stack,
-  Divider,
 } from "@chakra-ui/react";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../hook/User";
 
 export default () => {
   const [userData, setUserData] = useState([]);
@@ -36,7 +35,6 @@ export default () => {
         })
         .then((data) => {
           if (data) {
-            console.log(data, "확인점여");
             const sortedData = data.data.sort(
               (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
             );
@@ -77,7 +75,12 @@ export default () => {
 
   return (
     <Box bg={"#f7f7f8"}>
-      <Stack w={"50%"} m={"auto"} direction={"column"} justifyContent={"center"} >
+      <Stack
+        w={"50%"}
+        m={"auto"}
+        direction={"column"}
+        justifyContent={"center"}
+      >
         <Stack
           height={"80%"}
           direction={"column"}
@@ -86,7 +89,7 @@ export default () => {
           bg={"white"}
           boxShadow={"base"}
           p={10}
-          my='10'
+          my="10"
         >
           <Box height={"480px"}>
             <Box
@@ -131,7 +134,7 @@ export default () => {
                         overflow={"hidden"}
                         textOverflow={"ellipsis"}
                         whiteSpace={"nowrap"}
-                        color={'darkblue'}
+                        color={"darkblue"}
                         fontWeight={"bold"}
                       >
                         [공지]
@@ -162,7 +165,7 @@ export default () => {
           <Flex justifyContent="center" marginTop={"30px"}>
             <Button
               size={"xs"}
-              disabled={currentPage === 1} // 첫 페이지에서는 이전 버튼 비활성화
+              disabled={currentPage === 1}
               onClick={handlePrevPage}
             >
               <ArrowLeftIcon />
@@ -170,7 +173,7 @@ export default () => {
             {Array.from({ length: pageCount }, (_, idx) => idx + 1).map(
               (number) => (
                 <Button
-                  size={'xs'}
+                  size={"xs"}
                   key={number}
                   onClick={() => paginate(number)}
                   mx="1"
@@ -183,7 +186,10 @@ export default () => {
               )
             )}
             <Button
-              size={'xs'} disabled={currentPage === pageCount} onClick={handleNextPage}>
+              size={"xs"}
+              disabled={currentPage === pageCount}
+              onClick={handleNextPage}
+            >
               <ArrowRightIcon />
             </Button>
           </Flex>

@@ -1,24 +1,13 @@
-import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  List,
-  ListItem,
-  Text,
-  Stack,
-} from "@chakra-ui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
+import { Box, Button, Flex, Grid, List, ListItem } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default () => {
   const [userData, setUserData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
   const [totalPosts, setTotalPosts] = useState(6);
-  //   let param = useLocation().pathname.split("/")[2];
   const [searchParams] = useSearchParams();
   const nickname = searchParams.get("nickname");
 
@@ -36,7 +25,6 @@ export default () => {
         })
         .then((data) => {
           if (data) {
-            console.log(data);
             setUserData(data.mycomments);
             setTotalPosts(data.commentCount);
           } else {
@@ -47,7 +35,7 @@ export default () => {
           console.error("Error fetching data:", error);
         });
     }
-  }, [nickname]); // nickname 변화에 따라 useEffect 다시 실행
+  }, [nickname]);
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -110,7 +98,9 @@ export default () => {
                     padding="10px 0"
                   >
                     <Box>{user.tap}</Box>
-                    <Box isTruncated paddingRight={"20px"}>{user.content}</Box>
+                    <Box isTruncated paddingRight={"20px"}>
+                      {user.content}
+                    </Box>
                     <Box>{formatDate(user.createdAt)}</Box>
                   </Grid>
                 </Link>

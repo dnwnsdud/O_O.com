@@ -9,14 +9,14 @@ export default async (req, res, next) => {
   try {
     if (obj.like === "like") {
       if (post.dislikeuser.includes(email)) {
-        return res
-          .status(400)
-          .json({ message: "이미 비추천을 하셨습니다." });
-      } if (post.likeuser.includes(email)) {
+        return res.status(400).json({ message: "이미 비추천을 하셨습니다." });
+      }
+      if (post.likeuser.includes(email)) {
         const updatedDocument = await req.mongo.board.findOneAndUpdate(
           { _id },
           { $inc: { like: -1 }, $pull: { likeuser: email } },
-          { new: true });
+          { new: true }
+        );
         return res.json({
           message: "추천을 취소하였습니다.",
           updatedDocument,
@@ -40,14 +40,14 @@ export default async (req, res, next) => {
     }
     if (obj.dislike === "dislike") {
       if (post.likeuser.includes(email)) {
-        return res
-          .status(400)
-          .json({ message: "이미 추천을 하셨습니다." });
-      } if (post.dislikeuser.includes(email)) {
+        return res.status(400).json({ message: "이미 추천을 하셨습니다." });
+      }
+      if (post.dislikeuser.includes(email)) {
         const updatedDocument = await req.mongo.board.findOneAndUpdate(
           { _id },
           { $inc: { dislike: -1 }, $pull: { dislikeuser: email } },
-          { new: true });
+          { new: true }
+        );
         return res.json({
           message: "비추천을 취소하였습니다.",
           updatedDocument,

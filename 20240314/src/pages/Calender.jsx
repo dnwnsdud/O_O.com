@@ -1,10 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Select, color, useDisclosure } from "@chakra-ui/react";
 import {
+  CalendarIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  CalendarIcon,
 } from "@chakra-ui/icons";
+import { Select, useDisclosure } from "@chakra-ui/react";
+import React, { useEffect, useRef, useState } from "react";
 import Swiper from "./Swiper";
 import Popover from "./popover";
 
@@ -19,7 +19,7 @@ export default ({
     2020, 2021, 2022, 2023, 2024,
   ],
   color,
-  onChange = (date) => { },
+  onChange = (date) => {},
   ...props
 }) => {
   const [date, dateChanger] = useState(defaultDate);
@@ -145,7 +145,7 @@ export default ({
           trigger={
             <div className="text-2xl text-center relative flex items-center font-bold">
               {select + 1 == defaultDate.getDate() &&
-                date.getMonth() == defaultDate.getMonth() ? (
+              date.getMonth() == defaultDate.getMonth() ? (
                 <span className="text-xs border-2 border-gray-200 rounded-full py-1 px-4 mr-9 text-gray-200">
                   이전 결과
                 </span>
@@ -284,11 +284,11 @@ export default ({
               {i == select ? (
                 <div
                   className={
-                    color == "red" ?
-                      "text-center text-xs font-bold text-red-500" :
-                      color == "blue" ?
-                        "text-center text-xs font-bold text-blue-500" :
-                        "text-center text-xs font-bold text-gray-500"
+                    color == "red"
+                      ? "text-center text-xs font-bold text-red-500"
+                      : color == "blue"
+                      ? "text-center text-xs font-bold text-blue-500"
+                      : "text-center text-xs font-bold text-gray-500"
                   }
                 >
                   {dateToName(v)}
@@ -299,11 +299,11 @@ export default ({
               {i == select ? (
                 <div
                   className={
-                    color == "red" ?
-                      "text-center text-m font-bold text-red-500" :
-                      color == "blue" ?
-                        "text-center text-m font-bold text-blue-500" :
-                        "text-center text-m font-bold text-gray-500"
+                    color == "red"
+                      ? "text-center text-m font-bold text-red-500"
+                      : color == "blue"
+                      ? "text-center text-m font-bold text-blue-500"
+                      : "text-center text-m font-bold text-gray-500"
                   }
                 >
                   {v}
@@ -314,11 +314,11 @@ export default ({
               {i == select ? (
                 <div
                   className={
-                    color == "red" ?
-                      "w-1/2 h-[0.4rem] bg-red-500 mt-[0.9rem] mx-auto" :
-                      color == "blue" ?
-                        "w-1/2 h-[0.4rem] bg-blue-500 mt-[0.9rem] mx-auto" :
-                        "w-1/2 h-[0.4rem] bg-gray-500 mt-[0.9rem] mx-auto"
+                    color == "red"
+                      ? "w-1/2 h-[0.4rem] bg-red-500 mt-[0.9rem] mx-auto"
+                      : color == "blue"
+                      ? "w-1/2 h-[0.4rem] bg-blue-500 mt-[0.9rem] mx-auto"
+                      : "w-1/2 h-[0.4rem] bg-gray-500 mt-[0.9rem] mx-auto"
                   }
                 />
               ) : (
@@ -366,12 +366,12 @@ export default ({
             onClick={() => {
               const target =
                 swiper.current.swiper.snapIndex + pageChanger >
-                  new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
+                new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate()
                   ? new Date(
-                    date.getFullYear(),
-                    date.getMonth() + 1,
-                    0
-                  ).getDate()
+                      date.getFullYear(),
+                      date.getMonth() + 1,
+                      0
+                    ).getDate()
                   : swiper.current.swiper.snapIndex + pageChanger;
               swiper.current.swiper.slideTo(target);
             }}

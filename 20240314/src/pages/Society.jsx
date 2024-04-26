@@ -1,25 +1,20 @@
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Flex,
-  FormControl,
   Grid,
-  Input,
-  Stack,
-  Text,
   Img,
+  Input,
   Spinner,
+  Text,
 } from "@chakra-ui/react";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import React from "react";
-import Vote from "../component/board/Vote";
-import Ciboard from "../component/board/Ciboard";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { io } from "socket.io-client";
-import { useContext } from "react";
-import { UserContext } from "../hook/User";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
+import { io } from "socket.io-client";
+import Ciboard from "../component/board/Ciboard";
+import Vote from "../component/board/Vote";
+import { UserContext } from "../hook/User";
 const socket = io("http://192.168.6.3:9999", { cors: { origin: "*" } });
 const Loading = (align, justify, width, height) => {
   return (
@@ -57,7 +52,6 @@ export default () => {
     const chatEvent = room + "_chat";
     const receiveMessage = (data) => {
       setChatList((prevChatList) => [data, ...prevChatList]);
-      console.log(data);
     };
 
     socket.emit("join_room", room);
@@ -72,7 +66,6 @@ export default () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data, "data");
         setTodayVote(data);
         setIsLoading(false);
       })
@@ -189,7 +182,6 @@ export default () => {
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleSubmit(e);
-                      console.log(chatList);
                     }
                   }}
                 />

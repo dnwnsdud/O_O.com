@@ -1,30 +1,30 @@
-import React, { useEffect, useState, useContext } from "react";
 import {
-  Box,
-  Text,
-  Button,
-  Image,
   AlertDialog,
   AlertDialogBody,
+  AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogContent,
   AlertDialogOverlay,
+  Box,
+  Button,
+  Image,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Controller,
-} from "swiper/modules";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { useNavigate } from "react-router-dom";
+import {
+  A11y,
+  Controller,
+  Navigation,
+  Pagination,
+  Scrollbar,
+} from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { UserContext } from "../hook/User";
 
 export default () => {
@@ -52,7 +52,6 @@ export default () => {
       fetch("/api/showitems", { method: "get" })
         .then((response) => {
           if (response) {
-            console.log(response);
             return response.json();
           } else {
             throw new Error(e);
@@ -61,7 +60,6 @@ export default () => {
         .then((data) => {
           if (data) {
             setStores(data);
-            console.log("data", data);
           } else {
             alert(`상품을 출력하는 동안 오류 발생:${data.error}`);
           }
@@ -77,7 +75,6 @@ export default () => {
       fetch("/api/showuseitems", { method: "get" })
         .then((response) => {
           if (response) {
-            console.log(response);
             return response.json();
           } else {
             throw new Error(e);
@@ -86,7 +83,6 @@ export default () => {
         .then((data) => {
           if (data) {
             setuseStores(data);
-            console.log("data", data);
           } else {
             alert(`상품을 출력하는 동안 오류 발생:${data.error}`);
           }
@@ -108,13 +104,10 @@ export default () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           onOpen();
-          //   nav("/topicrequest/:category");
         } else {
           alert("오류가 발생했습니다.");
-          console.log("사용 실패");
         }
       })
       .catch((error) => {
@@ -130,10 +123,7 @@ export default () => {
           modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
           spaceBetween={10}
           slidesPerView={7}
-          // navigation
           pagination={{ clickable: true }}
-          // scrollbar={{ draggable: true }}
-          onSlideChange={() => console.log("slide change")}
         >
           {stores.map((store, index) => (
             <SwiperSlide key={index}>
@@ -201,10 +191,7 @@ export default () => {
           modules={[Navigation, Pagination, Scrollbar, A11y, Controller]}
           spaceBetween={10}
           slidesPerView={7}
-          // navigation
           pagination={{ clickable: true }}
-          // scrollbar={{ draggable: true }}
-          onSlideChange={() => console.log("slide change")}
         >
           {usestores.map((store, index) => (
             <SwiperSlide key={index}>

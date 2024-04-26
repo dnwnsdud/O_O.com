@@ -6,6 +6,7 @@ import Badetail from "../pages/BoardDetail";
 import Boardcreate from "../pages/Boardcreate";
 import Boardmodify from "../pages/Boardmodify";
 import CreateVote from "../pages/CreateVote";
+import ItemSales from "../pages/ItemSales";
 import Layout from "../pages/Layout";
 import LoL from "../pages/LoL";
 import Notice from "../pages/Notice";
@@ -13,6 +14,8 @@ import NoticeDetail from "../pages/NoticeDetail";
 import NoticeModify from "../pages/NoticeModify";
 import NoticeWrite from "../pages/NoticeWrite";
 import Report from "../pages/Report";
+import Requestdetail from "../pages/Requestdetail";
+import Requestlist from "../pages/Requestlist";
 import Result from "../pages/Result";
 import Signupform from "../pages/Signupform";
 import Soccer from "../pages/Soccer";
@@ -21,17 +24,14 @@ import Store from "../pages/Store";
 import SubmitProduct from "../pages/SubmitProduct";
 import Success from "../pages/Success";
 import TopicRequest from "../pages/TopicRequest";
+import ViewUser from "../pages/ViewUser";
+import Loginterms from "./Loginterms";
 import Main from "./Main";
 import Mypage_Admin from "./Mypage_Admin";
 import Myprofile from "./Myprofile";
 import Myrequest from "./Myrequest";
-import UserModify from "./UserModify";
-import Requestlist from "../pages/Requestlist";
-import Requestdetail from "../pages/Requestdetail";
-import ViewUser from "../pages/ViewUser";
-import ItemSales from "../pages/ItemSales";
-import Loginterms from "./Loginterms";
 import UserInfo from "./UserInfo";
+import UserModify from "./UserModify";
 
 export default () => {
   return (

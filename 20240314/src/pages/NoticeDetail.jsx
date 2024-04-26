@@ -1,17 +1,16 @@
 import {
   Box,
   Button,
+  Center,
   Divider,
   Flex,
+  Grid,
   Stack,
   Text,
-  Grid,
-  Center,
 } from "@chakra-ui/react";
-import React, { useState, useContext, useEffect } from "react";
-import { UserContext } from "../hook/User";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Coment from "./Coment";
+import { UserContext } from "../hook/User";
 
 export default () => {
   const [baDetails, setbaDetails] = useState();
@@ -25,7 +24,6 @@ export default () => {
     id: id,
   };
 
-  // 게시글 나오게 하는 곳
   useEffect(
     (e) => {
       fetch(`/api/noticedetail`, {
@@ -46,15 +44,12 @@ export default () => {
           if (data) {
             setbaDetails(data);
           } else if (!data) {
-            console.log("ASDasdasdasdasdas");
           }
-          // setbaDetails(data.updatedDocument);
         });
     },
     [id]
   );
 
-  // 시간 함수
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(

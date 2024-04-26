@@ -182,7 +182,6 @@ export default () => {
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleSubmit(e);
-                      console.log(chatList);
                     }
                   }}
                 />

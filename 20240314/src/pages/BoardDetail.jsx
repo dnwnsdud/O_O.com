@@ -60,7 +60,12 @@ export default () => {
   };
   const Loading = (align, justify, width, height) => {
     return (
-      <Flex alignItems={align || "center"} justifyItems={justify || "center"} width={width || "200%"} height={height || ""}>
+      <Flex
+        alignItems={align || "center"}
+        justifyItems={justify || "center"}
+        width={width || "200%"}
+        height={height || ""}
+      >
         <Spinner
           m={"auto"}
           w={"80px"}
@@ -73,8 +78,7 @@ export default () => {
       </Flex>
     );
   };
-  
-  // 게시글 나오게 하는 곳
+
   useEffect(
     (e) => {
       fetch(`/api/boarddetail`, {
@@ -89,8 +93,6 @@ export default () => {
           }
         })
         .then((data) => {
-          // setCheck(data.success);
-          // console.log(Check);
           if (data.success) {
             setCheck(false);
             setIsLoading(false);
@@ -154,11 +156,8 @@ export default () => {
       });
   };
 
-  //삭제
   const deleteSubmit = (e, userid, useremail, postId) => {
     e.preventDefault();
-    console.log("삭제");
-    console.log("내 아이디다" + userid);
     fetch("/api/boarddelete", {
       method: "POST",
       headers: {
@@ -168,7 +167,6 @@ export default () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.success) {
           nav("/b");
         } else {
@@ -187,10 +185,9 @@ export default () => {
       "0"
     )}-${String(date.getDate()).padStart(2, "0")}`;
   };
-  console.log(user);
 
   if (isLoading) {
-    return Loading("center", "center", "100%", "100vh")
+    return Loading("center", "center", "100%", "100vh");
   }
   return (
     <Box bg="#f7f7f8">
@@ -337,14 +334,8 @@ export default () => {
               ) : (
                 ""
               )}
-             
-                  <Button
-                    onClick={(e) =>
-                      openAlert()
-                    }
-                  >
-                    삭제
-                  </Button>
+
+              <Button onClick={(e) => openAlert()}>삭제</Button>
             </Flex>
             <Button
               onClick={() => {
@@ -377,7 +368,7 @@ export default () => {
         <AlertDialogContent>
           <AlertDialogHeader>이 게시글을 삭제하시겠습니까?</AlertDialogHeader>
           <AlertDialogCloseButton />
-          <AlertDialogBody>작성자만 삭제할 수 있습니다.</AlertDialogBody>
+          <AlertDialogBody>삭제하면 다시 복구할 수 없습니다.</AlertDialogBody>
           <AlertDialogFooter>
             <Button ref={cancelRef} onClick={closeAlert}>
               취소

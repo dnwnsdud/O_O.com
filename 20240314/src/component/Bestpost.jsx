@@ -1,12 +1,11 @@
 import {
-  Divider,
-  ListItem,
-  List,
-  Text,
-  Grid,
   Box,
-  textDecoration,
+  Divider,
   Flex,
+  Grid,
+  List,
+  ListItem,
+  Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";

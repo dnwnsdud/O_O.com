@@ -1,4 +1,10 @@
 import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogOverlay,
   Box,
   Button,
   Center,
@@ -9,21 +15,15 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  Select,
   Stack,
   Text,
   Textarea,
-  Select,
   useDisclosure,
-  AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogHeader,
-  AlertDialogBody,
-  AlertDialogFooter,
 } from "@chakra-ui/react";
-import React, { useState, useContext, useEffect } from "react";
-import { UserContext } from "../hook/User";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../hook/User";
 
 export default () => {
   const { user } = useContext(UserContext);
@@ -81,17 +81,13 @@ export default () => {
   const onSubmitHandler = (e) => {
     //새로고침 방지
     e.preventDefault();
-    fetch(
-      "/api/boardcreate",
-      {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+    fetch("/api/boardcreate", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
       },
-      console.log(body)
-    )
+      body: JSON.stringify(body),
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Server responded with status ${response.status}`);
@@ -157,7 +153,6 @@ export default () => {
       const formData = new FormData();
       formData.append("videos", file);
       setUploadedVideoName(file.name);
-      console.log(file);
 
       fetch("/api/upload/videos", {
         method: "POST",

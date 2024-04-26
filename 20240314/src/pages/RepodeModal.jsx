@@ -1,14 +1,10 @@
 import {
+  Box,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
   ModalBody,
   ModalCloseButton,
-  Button,
-  Text,
-  useDisclosure,
-  Box,
+  ModalContent,
+  ModalHeader,
 } from "@chakra-ui/react";
 
 export default ({ isOpen, onClose, openData }) => {

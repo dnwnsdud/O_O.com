@@ -1,19 +1,6 @@
+import { Box, Center, Flex, Grid, List, ListItem } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Grid,
-  List,
-  ListItem,
-  Text,
-  Stack,
-  Center,
-} from "@chakra-ui/react";
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
-import { FaTrashCan } from "react-icons/fa6";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export default () => {
   const [userData, setUserData] = useState([]);
@@ -39,7 +26,7 @@ export default () => {
         })
         .then((data) => {
           if (data) {
-            const sortedData = data.data
+            const sortedData = data.data;
             setUserData(sortedData);
           } else {
             throw new Error("Data is empty");
@@ -53,7 +40,9 @@ export default () => {
 
   return (
     <>
-      <Center fontWeight={'bold'} fontSize='30px'>"{nickname}"님의 정보</Center>
+      <Center fontWeight={"bold"} fontSize="30px">
+        "{nickname}"님의 정보
+      </Center>
       <Box padding={"20px 20px 0 20px"} fontWeight={"bold"}>
         "{nickname}" 님의 점수
       </Box>
@@ -83,10 +72,15 @@ export default () => {
               <Box>벌점</Box>
             </Grid>
             {userData.map((user) => {
-              const winRate = user.rating.win + user.rating.lose > 0
-                ? ((user.rating.win / (user.rating.win + user.rating.lose)) * 100).toFixed(2)
-                : 0;
-              const winRateColor = parseFloat(winRate) >= 50 ? "#004EA1" : "#E7141A";
+              const winRate =
+                user.rating.win + user.rating.lose > 0
+                  ? (
+                      (user.rating.win / (user.rating.win + user.rating.lose)) *
+                      100
+                    ).toFixed(2)
+                  : 0;
+              const winRateColor =
+                parseFloat(winRate) >= 50 ? "#004EA1" : "#E7141A";
               return (
                 <ListItem key={user._id}>
                   <Grid
@@ -97,11 +91,13 @@ export default () => {
                   >
                     <Box color={"#004EA1"}>{user.rating.win}</Box>
                     <Box color={"#E7141A"}>{user.rating.lose}</Box>
-                    <Box fontWeight={"bold"} color={winRateColor}>{winRate}</Box>
+                    <Box fontWeight={"bold"} color={winRateColor}>
+                      {winRate}
+                    </Box>
                     <Box fontWeight={"bold"}>{user.penalty}</Box>
                   </Grid>
                 </ListItem>
-              )
+              );
             })}
           </List>
         </Box>

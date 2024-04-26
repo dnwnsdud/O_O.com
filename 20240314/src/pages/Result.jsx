@@ -1,8 +1,11 @@
 import {
   Box,
+  Button,
+  Divider,
   Flex,
   Grid,
   Heading,
+  Img,
   Popover,
   PopoverArrow,
   PopoverBody,
@@ -10,13 +13,8 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
-  Text,
-  Button,
-  Stack,
-  ButtonGroup,
-  Divider,
   Spinner,
-  Img,
+  Text,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserContext } from "../hook/User";

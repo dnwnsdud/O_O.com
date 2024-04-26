@@ -1,15 +1,15 @@
-import React from "react";
 import {
   Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
   PopoverTrigger,
   Portal,
-  PopoverContent,
-  PopoverArrow,
-  PopoverHeader,
-  PopoverCloseButton,
-  PopoverBody,
-  PopoverFooter,
 } from "@chakra-ui/react";
+import React from "react";
 
 export default ({
   header,

@@ -6,9 +6,8 @@ import {
   Grid,
   Img,
   Input,
-  Stack,
-  Text,
   Spinner,
+  Text,
 } from "@chakra-ui/react";
 
 import React, { useContext, useEffect, useState } from "react";
@@ -53,7 +52,6 @@ export default () => {
     const chatEvent = room + "_chat";
     const receiveMessage = (data) => {
       setChatList((prevChatList) => [data, ...prevChatList]);
-      console.log(data);
     };
 
     socket.emit("join_room", room);
@@ -183,7 +181,6 @@ export default () => {
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleSubmit(e);
-                      console.log(chatList);
                     }
                   }}
                 />
