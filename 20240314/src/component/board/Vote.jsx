@@ -115,14 +115,8 @@ export default ({ todayVote, main, location }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success === true) {
-          if (data.success.message) {
-            alert(data.success.message);
-          }
-          alert("투표가 종료되었습니다.");
-          window.location.reload();
-        } else {
-          alert(data.success);
-          window.location.reload();
+          setState("end")
+          openAlert()
         }
       });
   };
@@ -181,7 +175,7 @@ export default ({ todayVote, main, location }) => {
               closeModal();
               setChoice("");
               enableScroll();
-              window.removeEventListener("keydown", (e) => {});
+              window.removeEventListener("keydown", (e) => { });
             }
           })}
           <Box
@@ -399,10 +393,19 @@ export default ({ todayVote, main, location }) => {
                   <Button
                     variant="ghost"
                     onClick={() => {
-                      if (user === "logout")
-                        return alert("로그인이 필요합니다.");
-                      if (choice === "") return alert("선택해주세요.");
-                      closeModal();
+                      if (user === "logout") {
+                        setState("login")
+                        closeModal()
+                        openAlert()
+                        return;
+                      }
+                      if (choice === "") {
+                        setState("notChoice")
+                        openAlert()
+                        closeModal()
+                        return;
+                      }
+
                       document.body.style.overflow = "auto";
                       closeModal();
                       enableScroll();
@@ -418,7 +421,10 @@ export default ({ todayVote, main, location }) => {
                   <Button
                     onClick={() => {
                       if (user === "logout")
-                        return alert("로그인이 필요합니다.");
+                        if (data.success === true) {
+                          setState("end")
+                          openAlert()
+                        }
                       nav(`/topicrequest/category=${location}`);
                       closeModal();
                     }}
@@ -429,7 +435,10 @@ export default ({ todayVote, main, location }) => {
                     variant="ghost"
                     onClick={() => {
                       if (user === "logout")
-                        return alert("로그인이 필요합니다.");
+                        if (data.success === true) {
+                          setState("end")
+                          openAlert()
+                        }
                       if (choice === "") return alert("선택해주세요.");
                       closeModal();
                       document.body.style.overflow = "auto";
@@ -453,13 +462,14 @@ export default ({ todayVote, main, location }) => {
         leastDestructiveRef={cancelRef}
         onClose={closeAlert}
         isCentered
+        z-Index={"999999999"}
       >
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fillontSize="lg" fontWeight="bold">
               투표참여
             </AlertDialogHeader>
-            <AlertDialogBody>{state == "success" ? "투표참여가 완료되었습니다.": "이미 참여하였습니다."}</AlertDialogBody>
+            <AlertDialogBody>{state == "success" ? "투표참여가 완료되었습니다." : state == "fail" ? "이미 참여하였습니다." : state == "end" ? "투표가 종료되었습니다." : state == "login" ? "로그인이 필요합니다." : state == "notChoice" ? "선택하지 않으면 투표가 불가합니다." : ""}</AlertDialogBody>
             <AlertDialogFooter>
               <Button
                 sx={{
@@ -468,10 +478,12 @@ export default ({ todayVote, main, location }) => {
                 }}
                 onClick={() => {
                   closeAlert();
+                  state == "notChoice" ? openModal() : "" && window.location.reload();
+
                 }}
                 ml={3}
               >
-                돌아가기
+                확인
               </Button>
             </AlertDialogFooter>
           </AlertDialogContent>

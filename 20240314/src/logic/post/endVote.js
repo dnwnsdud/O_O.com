@@ -21,7 +21,7 @@ export default async (req, res, next) => {
       await req.mongo.vote.deleteOne({ _id: req.body.voteId });
       return res
         .status(200)
-        .json({ success: true, message: "참여자가 없이 종료되었습니다." });
+        .json({ success: true });
     }
     if (
       result.leftSide.participants.length > result.rightSide.participants.length
