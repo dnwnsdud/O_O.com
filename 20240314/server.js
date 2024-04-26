@@ -1,22 +1,22 @@
-import express from "express";
-import session from "express-session";
-import redis from "redis";
+import compression from "compression";
 import connectRedis from "connect-redis";
-import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
-import passport from "passport";
-import multer from "multer";
-import { Strategy as localS } from "passport-local";
-import { Strategy as kakaoS } from "passport-kakao";
-import { Strategy as googleS } from "passport-google-oauth20";
-import { Strategy as naverS } from "passport-naver-v2";
-import sirv from "sirv";
-import compression from "compression";
+import express from "express";
+import session from "express-session";
+import sharedsession from "express-socket.io-session";
 import fs from "fs";
 import { createServer } from "http";
+import mongoose from "mongoose";
+import multer from "multer";
+import passport from "passport";
+import { Strategy as googleS } from "passport-google-oauth20";
+import { Strategy as kakaoS } from "passport-kakao";
+import { Strategy as localS } from "passport-local";
+import { Strategy as naverS } from "passport-naver-v2";
+import redis from "redis";
+import sirv from "sirv";
 import { Server } from "socket.io";
-import sharedsession from "express-socket.io-session";
 
 dotenv.config({ path: "./.env", encoding: "UTF-8" });
 const app = express({ xPoweredBy: false });
@@ -377,7 +377,7 @@ const ssrManifest =
 const renderBuild =
   process.env.TYPE == "dev"
     ? undefined
-    : (await import("./dist/server/index-server.js")).default;
+    : (await import("./dist/server/index-server.js")).render;
 const vite =
   process.env.TYPE != "dev"
     ? undefined
@@ -398,8 +398,8 @@ const vite =
 if (process.env.TYPE == "dev") {
   app.use(process.env.APP_BASE, vite.middlewares);
 } else {
-  app.use(process.env.APP_BASE, compression());
-  app.use(process.env.APP_BASE, sirv("./dist/client", { extensions: [] }));
+  app.use(compression());
+  app.use(sirv("./dist/client", { extensions: [] }));
 }
 
 app.use(process.env.APP_BASE, async (req, res, next) => {
@@ -417,7 +417,6 @@ app.use(process.env.APP_BASE, async (req, res, next) => {
       process.env.TYPE == "dev"
         ? (await vite.ssrLoadModule("./src/index-server.jsx")).render
         : renderBuild;
-
     res
       .status(200)
       .set({ "Content-Type": "text/html" })
