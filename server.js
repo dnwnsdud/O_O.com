@@ -69,7 +69,7 @@ app.use(process.env.API_BASE, express.urlencoded({ extended: true }));
 
 app.use(
   cors({
-    origin: "*",
+    origin: `https://${process.env.DOMAIN}`,
     methods: ["get", "post", "put", "delete"],
     allowedHeaders: ["Content-Type"],
     exposedHeaders: ["Content-Type"],
